@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'ALO BKB Dashboard')
+@section('title', 'Dashboard')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -12,7 +12,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Dashboard</h1>
+                <h1>Dashboard </h1>
             </div>
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-12 col-sm-12">
