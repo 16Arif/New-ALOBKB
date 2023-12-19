@@ -11,22 +11,14 @@
                 <a class="nav-link" href="{{ url('dashboard') }}"><i class="fas fa-house"></i> <span>Dashboard</span></a>
             </li>
             <li class="menu-header">Users</li>
-            <li class="nav-item dropdown {{ $type_menu === 'error' ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-exclamation"></i>
-                    <span>Errors</span></a>
+            <li class="nav-item dropdown {{ $type_menu === 'user' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-user"></i>
+                    <span>Users</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::is('error-403') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('error-403') }}">403</a>
+                    <li class="{{ Request::is('user') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('user.index') }}">User</a>
                     </li>
-                    <li class="{{ Request::is('error-404') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('error-404') }}">404</a>
-                    </li>
-                    <li class="{{ Request::is('error-500') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('error-500') }}">500</a>
-                    </li>
-                    <li class="{{ Request::is('error-503') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('error-503') }}">503</a>
-                    </li>
+
                 </ul>
             </li>
 
