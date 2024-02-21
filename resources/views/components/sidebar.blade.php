@@ -7,8 +7,8 @@
             <a href="">ALO</a>
         </div>
         <ul class="sidebar-menu mt-4">
-            <li class="mt-5 {{ Request::is('dashboard') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('dashboard') }}"><i class="fas fa-house"></i> <span>Dashboard</span></a>
+            <li class="mt-5 {{ Request::is('home') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('home') }}"><i class="fas fa-house"></i> <span>Dashboard</span></a>
             </li>
             <li class="menu-header">Users</li>
             <li class="nav-item dropdown {{ $type_menu === 'user' ? 'active' : '' }}">
