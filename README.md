@@ -1,4 +1,4 @@
-<p align="center"><a href="" target="_blank"><img src="" width="400" alt="Laravel Logo">New Aplikasi Logbook Operasional BKB</a></p>
+<p align="center"><a href="" target="_blank"><img src="" width="400" alt="AloBKB Logo">New Aplikasi Logbook Operasional BKB</a></p>
 
 
 ## About ALO BKB
