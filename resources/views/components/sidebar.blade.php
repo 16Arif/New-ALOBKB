@@ -11,17 +11,13 @@
                 <a class="nav-link" href="{{ url('home') }}"><i class="fas fa-house"></i> <span>Dashboard</span></a>
             </li>
             <li class="menu-header">Users</li>
-            <li class="nav-item dropdown {{ $type_menu === 'user' ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-user"></i>
-                    <span>Users</span></a>
-                <ul class="dropdown-menu">
-                    <li class="{{ Request::is('user') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('user.index') }}">User</a>
-                    </li>
-
-                </ul>
+            <li class="{{ Request::is('user') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user.index') }}"><i class="fas fa-user"></i><span>Users</span></a>
             </li>
-
+            <li class="menu-header">Logbook</li>
+            <li class="{{ Request::is('logbookpetir') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('logbookpetir.index') }}"><i class="fa-solid fa-bolt-lightning"></i></i><span>Logbook Petir</span></a>
+            </li>
         </ul>
     </aside>
 </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LogbookpetirController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,7 @@ Route::middleware(['auth'])->group(function(){
     // })->name('home');
     Route::resource('home',DashboardController::class);
     Route::resource('user', UserController::class);
+    Route::resource('logbookpetir', LogbookpetirController::class);
 });
 
 
