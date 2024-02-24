@@ -25,7 +25,6 @@ class LogbookpetirController extends Controller
         return view('pages.logbookpetir.index', compact('logbookpetirs'));
     }
 
-
     public function create(){
         return view('pages.logbookpetir.create',  ['type_menu' => '']);
     }
@@ -42,8 +41,12 @@ class LogbookpetirController extends Controller
     }
 
     public function show($id){
+
         $logbookpetir = LogbookPetir::findOrFail($id);
-        return view('pages.logbookpetir.show', compact('logbookpetir'),  ['type_menu' => '']);
+        
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf-> WriteHTML(view('pages.logbookpetir.show', compact('logbookpetir')));
+        $mpdf->Output(); 
     }
 
     public function update(UpdateLogbookpetirRequest $request, LogbookPetir $logbookpetir){

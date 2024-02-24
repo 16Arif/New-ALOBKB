@@ -38,6 +38,11 @@
                                 <h4>All Data</h4>
                             </div>
                             <div class="card-body">
+                                <a href="{{ route('download.index') }}"  target="_blank">
+                                    <div class="btn btn-sm btn-info btn-icon mx-2">
+                                        <i class="fa-solid fa-file-pdf"> </i><span> Download Semua Data</span>
+                                    </div>
+                                </a>
                                 {{-- <div class="float-left">
                                     <select class="form-control selectric">
                                         <option>Action For Selected</option>
@@ -62,6 +67,7 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
+                                            <th>No</th>
                                             <th>Tanggal</th>
                                             <th>Jam Dinas</th>
                                             <th>onduty1</th>
@@ -75,12 +81,17 @@
                                             <th>Pengamatan 5</th>
                                             <th>Pengamatan 6</th>
                                             <th>Kondisi</th>
+                                            <th>created_at</th>
                                         </tr>
+                                        @php
+                                         $no=1;   
+                                        @endphp
                                         @foreach ($logbookpetirs as $lbp)
                                             <tr>
+                                                <td>{{ $no++ }}.</td>
                                                 <td>{{ $lbp->tanggal }}
                                                 </td>
-                                                <td>{{ $lbp->jam }}
+                                                <td>{{ $lbp->jam }} WITA
                                                 </td>
                                                 <td>
                                                     {{ $lbp->onduty1 }}
@@ -117,10 +128,9 @@
                                                 <td>{{ $lbp->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        
-                                                        <a href="{{ route('logbookpetir.show', $lbp->id) }}" >
-                                                            <div class="btn btn-sm btn-info btn-icon">
-                                                                <i class="fas fa-edit"></i>
+                                                        <a href="{{ route('logbookpetir.show', $lbp->id) }}"  target="_blank">
+                                                            <div class="btn btn-sm btn-info btn-icon mx-2">
+                                                                <i class="fa-solid fa-file-pdf"></i>
                                                             </div>
                                                         </a>
                                                         <a href="{{ route('logbookpetir.edit', $lbp->id) }}" >
