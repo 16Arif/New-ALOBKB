@@ -87,11 +87,11 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td>{{ $lbp->onduty2 }}</td>
+                        <td>{{ $lbp->onduty2 ?? '-' }}</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td>{{ $lbp->onduty3 }}</td>
+                        <td>{{ $lbp->onduty3 ?? '-' }}</td>
                     </tr>
                     <tr>
                         <td>4. Kehadiran</td>
