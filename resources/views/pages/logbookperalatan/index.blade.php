@@ -71,9 +71,7 @@
                                             <th>No</th>
                                             <th>Tanggal</th>
                                             <th>Jam Dinas</th>
-                                            <th>onduty1</th>
-                                            <th>onduty2</th>
-                                            <th>onduty3</th>
+                                            <th>On Duty</th>
                                             <th>Kehadiran</th>
                                             <th>Finger Print</th>
                                             <th>TDS</th>
@@ -105,13 +103,12 @@
                                                 <td>{{ $lbp->jam }} WITA
                                                 </td>
                                                 <td>
-                                                    {{ $lbp->onduty1 }}
+                                                    <ul>
+                                                        <li>{{ $lbp->onduty1 }}</li>
+                                                        <li>{{ $lbp->onduty2 }}</li>
+                                                        <li>{{ $lbp->onduty3 }}</li>
+                                                    </ul>
                                                 </td>
-                                                <td>
-                                                    {{ $lbp->onduty2 }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->onduty3 }}
                                                 </td>
                                                 <td>{{ $lbp->kehadiran }}
                                                 </td>
