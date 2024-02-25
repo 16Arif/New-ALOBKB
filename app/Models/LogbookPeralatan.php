@@ -11,4 +11,5 @@ class LogbookPeralatan extends Model
     protected $guarded = [
         'id',
     ];
+
 }
