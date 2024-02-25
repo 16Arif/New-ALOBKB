@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('logbookgempas', function (Blueprint $table) {
+        Schema::create('logbook_gempas', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
             $table->string('jam');
@@ -19,6 +19,12 @@ return new class extends Migration
             $table->string('onduty2')->nullable();
             $table->string('onduty3')->nullable();
             $table->string('kehadiran');
+            $table->string('kegiatan1');
+            $table->string('kegiatan2');
+            $table->string('monitoring1');
+            $table->string('berita1');
+            $table->string('monitoring2');
+            $table->string('berita2');
             $table->string('kondisi');
             $table->string('note')->nullable();
             $table->timestamps();
@@ -30,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('logbookgempas');
+        Schema::dropIfExists('logbook_gempas');
     }
 };
