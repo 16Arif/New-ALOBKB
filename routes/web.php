@@ -27,9 +27,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('download', PdfController::class);
 });
 
-
-Route::get('/', function () {
-    return view('pages.auth.login');
+Route::middleware(['guest'])->group(function(){
+    Route::get('/', function () {
+        return view('pages.auth.login');
+    });
 });
 
 // Route::get('/register', function () {
