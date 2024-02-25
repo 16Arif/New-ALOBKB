@@ -11,10 +11,8 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Logbook Gempa</h1>
-                <div class="section-header-button">
-                    <a href="{{ route('logbookpetir.create') }}" class="btn btn-primary">Add New</a>
-                </div>
+                <h1>Stasiun Geofisika Balikpapan</h1>
+
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Logbook</a></div>
@@ -38,10 +36,16 @@
                                 <h4>All Data</h4>
                             </div>
                             <div class="card-body">
+                                <div class="float-left">
+                                    <div class="section-header-button">
+                                        <a href="{{ route('logbookgempa.create') }}" class="btn btn-primary">Add New</a>
+                                    </div>
+                                </div>
                                 {{-- <a href="{{ route('download.index') }}" target="_blank">
                                     <div class="btn btn-sm btn-info btn-icon mx-2">
                                         <i class="fa-solid fa-file-pdf"> </i><span> Download Semua Data</span>
                                     </div>
+                                
                                 </a> --}}
                                 {{-- <div class="float-left">
                                     <select class="form-control selectric">
@@ -71,9 +75,7 @@
                                             <th>No</th>
                                             <th>Tanggal</th>
                                             <th>Jam Dinas</th>
-                                            <th>onduty1</th>
-                                            <th>onduty2</th>
-                                            <th>onduty3</th>
+                                            <th>On Duty</th>
                                             <th>Kehadiran</th>
                                             <th>Kegiatan 1</th>
                                             <th>Kegiatan 2</th>
@@ -82,7 +84,6 @@
                                             <th>Monitoring 2</th>
                                             <th>Berita 2</th>
                                             <th>Kondisi</th>
-                                            <th>created_at</th>
                                         </tr>
                                         @php
                                             $no = 1;
@@ -95,14 +96,13 @@
                                                 <td>{{ $lpg->jam }} WITA
                                                 </td>
                                                 <td>
-                                                    {{ $lpg->onduty1 }}
+                                                    <ul>
+                                                        <li>{{ $lpg->onduty1 }}</li>
+                                                        <li>{{ $lpg->onduty2 }}</li>
+                                                        <li>{{ $lpg->onduty3 }}</li>
+                                                    </ul>
                                                 </td>
-                                                <td>
-                                                    {{ $lpg->onduty2 }}
-                                                </td>
-                                                <td>
-                                                    {{ $lpg->onduty3 }}
-                                                </td>
+
                                                 <td>{{ $lpg->kehadiran }}
                                                 </td>
                                                 <td>
@@ -126,10 +126,9 @@
                                                 <td>
                                                     {{ $lpg->kondisi }}
                                                 </td>
-                                                <td>{{ $lpg->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        {{-- <a href="{{ route('logbookgempa.show', $lpg->id) }}"
+                                                        <a href="{{ route('logbookgempa.show', $lpg->id) }}"
                                                             target="_blank">
                                                             <div class="btn btn-sm btn-info btn-icon mx-2">
                                                                 <i class="fa-solid fa-file-pdf"></i>
@@ -139,7 +138,7 @@
                                                             <div class="btn btn-sm btn-info btn-icon">
                                                                 <i class="fas fa-edit"></i>
                                                             </div>
-                                                        </a> --}}
+                                                        </a>
                                                         <form action="{{ route('logbookgempa.destroy', $lpg->id) }}"
                                                             method="POST" class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE">

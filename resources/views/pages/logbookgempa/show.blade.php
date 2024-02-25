@@ -60,48 +60,48 @@
     <table>
         <tr>
             <td>1. Tanggal Dinas</td>
-            <td>{{ $logbookpetir->tanggal }}</td>
+            <td>{{ $logbookgempa->tanggal }}</td>
         </tr>
         <tr>
             <td>2. Jam Dinas</td>
-            <td>{{ $logbookpetir->jam }} WITA</td>
+            <td>{{ $logbookgempa->jam }} WITA</td>
         </tr>
         <tr>
             <td>3. On Duty</td>
             <td>
                 <ol>
-                    <li>{{ $logbookpetir->onduty1 }}</li>
-                    <li>{{ $logbookpetir->onduty2 }}</li>
-                    <li>{{ $logbookpetir->onduty3 }}</li>
+                    <li>{{ $logbookgempa->onduty1 }}</li>
+                    <li>{{ $logbookgempa->onduty2 }}</li>
+                    <li>{{ $logbookgempa->onduty3 }}</li>
                 </ol>
             </td>
         </tr>
         <tr>
             <td>4. Kehadiran</td>
-            <td>{{ $logbookpetir->kehadiran }}</td>
+            <td>{{ $logbookgempa->kehadiran }}</td>
         </tr>
         <tr>
-            <td>5. Pengamatan</td>
+            <td>5. Monitoring</td>
             <td>
                 <ul>
-                    <li>{{ $logbookpetir->pengamatan1 }}</li>
-                    <li>{{ $logbookpetir->pengamatan2 }}</li>
-                    <li>{{ $logbookpetir->pengamatan3 }}</li>
-                    <li>{{ $logbookpetir->pengamatan4 }}</li>
-                    <li>{{ $logbookpetir->pengamatan5 }}</li>
-                    <li>{{ $logbookpetir->pengamatan6 }}</li>
+                    <li>{{ $logbookgempa->kegiatan1 }}</li>
+                    <li>{{ $logbookgempa->kegiatan2 }}</li>
+                    <li>{{ $logbookgempa->monitoring1 }}</li>
+                    <li>{{ $logbookgempa->berita1 }}</li>
+                    <li>{{ $logbookgempa->monitoring2 }}</li>
+                    <li>{{ $logbookgempa->berita2 }}</li>
                 </ul>
             </td>
         </tr>
         <tr>
             <td>6. Kondisi</td>
-            <td>{{ $logbookpetir->kondisi }}</td>
+            <td>{{ $logbookgempa->kondisi }}</td>
         </tr>
         <tr>
             <td>7. Catatan</td>
             <td>
                 <article>
-                    {!! $logbookpetir->note !!}
+                    {!! $logbookgempa->note !!}
             </td>
             </article>
         </tr>
