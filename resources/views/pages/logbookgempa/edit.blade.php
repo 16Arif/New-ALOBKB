@@ -1,0 +1,335 @@
+@extends('layouts.app')
+
+@section('title', 'Edit Data Logbook Gempabumi')
+
+@push('style')
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+@endpush
+
+@section('main')
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Logbook Gempa</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('logbookgempa.index') }}">Manage Logbook Gempa</a></div>
+                    <div class="breadcrumb-item">Edit Data Logbook Gempa</div>
+                </div>
+            </div>
+
+            <div class="section-body">
+                <h2 class="section-title">Edit Data Logbook Gempa</h2>
+
+                <div class="card">
+                    <form action="{{ route('logbookgempa.update', $logbookgempa) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="card-header">
+                            <h4>Logbook Gempa Data</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Tanggal</label>
+                                <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
+                                    name="tanggal" value="{{ $logbookgempa->tanggal }}">
+                                @error('tanggal')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Jam Dinas</label>
+                                <div class="selectgroup w-100 @error('jam') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="jam" value="07.00" class="selectgroup-input"
+                                            @if ($logbookgempa->jam == '07.00') checked @endif>
+                                        <span class="selectgroup-button">07.00</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="jam" value="13.00" class="selectgroup-input"
+                                            @if ($logbookgempa->jam == '13.00') checked @endif>
+                                        <span class="selectgroup-button">13.00</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="jam" value="19.00" class="selectgroup-input"
+                                            @if ($logbookgempa->jam == '19.00') checked @endif>
+                                        <span class="selectgroup-button">19.00</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="jam" value="01.00" class="selectgroup-input"
+                                            @if ($logbookgempa->jam == '01.00') checked @endif>
+                                        <span class="selectgroup-button">01.00</span>
+                                    </label>
+                                </div>
+                                @error('jam')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <label>On Duty 1</label>
+                                        <input type="text" class="form-control @error('onduty1') is-invalid @enderror"
+                                            name="onduty1" value="{{ $logbookgempa->onduty1 }}">
+                                        @error('onduty1')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label>On Duty 2</label>
+                                        <input type="text" class="form-control " name="onduty2"
+                                            value="{{ $logbookgempa->onduty2 }}">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>On Duty 3</label>
+                                        <input type="text" class="form-control " name="onduty3"
+                                            value="{{ $logbookgempa->onduty3 }}">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Kehadiran</label>
+                                <div class="selectgroup w-100">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="kehadiran" value="HADIR" class="selectgroup-input"
+                                            @if ($logbookgempa->kehadiran == 'HADIR') checked @endif>
+                                        <span class="selectgroup-button">HADIR</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="kehadiran" value="TIDAK HADIR" class="selectgroup-input"
+                                            @if ($logbookgempa->kehadiran == 'TIDAK HADIR') checked @endif>
+                                        <span class="selectgroup-button">TIDAK HADIR</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check ml-3">
+                                    <input class="form-check-input @error('kegiatan1') is-invalid @enderror" type="checkbox"
+                                        value="Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc" id="flexCheckDefault"
+                                        name="kegiatan1" @if ($logbookgempa->kegiatan1 == 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc') checked @endif>
+                                    <label class="form-check" for="flexCheckDefault">
+                                        Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc
+                                    </label>
+                                </div>
+                                @error('kegiatan1')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check ml-3">
+                                    <input class="form-check-input @error('kegiatan2') is-invalid @enderror"
+                                        type="checkbox" value="Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2"
+                                        id="flexCheckDefault" name="kegiatan2"
+                                        @if ($logbookgempa->kegiatan2 == 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2') checked @endif>
+                                    <label class="form-check" for="flexCheckDefault">
+                                        Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2
+                                    </label>
+                                </div>
+                                @error('kegiatan2')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Monitoring 1</label>
+                                <div class="selectgroup w-100 @error('monitoring1') is-invalid @enderror">
+
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitoring1"
+                                            value="Observasi Seiscomp4 jam 08.00-11.00 WITA" class="selectgroup-input"
+                                            @if ($logbookgempa->monitoring1 == 'Observasi Seiscomp4 jam 08.00-11.00 WITA') checked @endif>
+                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 08.00-11.00
+                                            WITA</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitoring1"
+                                            value="Observasi Seiscomp4 jam 14.00-17.00 WITA" class="selectgroup-input"
+                                            @if ($logbookgempa->monitoring1 == 'Observasi Seiscomp4 jam 14.00-17.00 WITA') checked @endif>
+                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 14.00-17.00
+                                            WITA</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitoring1"
+                                            value="Observasi Seiscomp4 jam 20.00-23.00 WITA" class="selectgroup-input"
+                                            @if ($logbookgempa->monitoring1 == 'Observasi Seiscomp4 jam 20.00-23.00 WITA') checked @endif>
+                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 20.00-23.00
+                                            WITA</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitoring1"
+                                            value="Observasi Seiscomp4 jam 02.00-05.00 WITA" class="selectgroup-input"
+                                            @if ($logbookgempa->monitoring1 == 'Observasi Seiscomp4 jam 02.00-05.00 WITA') checked @endif>
+                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 02.00-05.00
+                                            WITA</span>
+                                    </label>
+
+                                </div>
+                                @error('monitoring1')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Kirim Berita 1</label>
+                                <div class="selectgroup w-100  @error('berita1') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="berita1" value="Kirim Berita CMSS jam 03.00 GMT"
+                                            class="selectgroup-input" @if ($logbookgempa->berita1 == 'Kirim Berita CMSS jam 03.00 GMT') checked @endif>
+                                        <span class="selectgroup-button">Kirim Berita CMSS jam 03.00 GMT</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="berita1" value="Kirim Berita CMSS jam 09.00 GMT"
+                                            class="selectgroup-input" @if ($logbookgempa->berita1 == 'Kirim Berita CMSS jam 09.00 GMT') checked @endif>
+                                        <span class="selectgroup-button">Kirim Berita CMSS jam 09.00 GMT</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="berita1" value="Kirim Berita CMSS jam 15.00 GMT"
+                                            class="selectgroup-input" @if ($logbookgempa->berita1 == 'Kirim Berita CMSS jam 15.00 GMT') checked @endif>
+                                        <span class="selectgroup-button">Kirim Berita CMSS jam 15.00 GMT</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="berita1" value="Kirim Berita CMSS jam 21.00 GMT"
+                                            class="selectgroup-input" @if ($logbookgempa->berita1 == 'Kirim Berita CMSS jam 21.00 GMT') checked @endif>
+                                        <span class="selectgroup-button">Kirim Berita CMSS jam 21.00 GMT</span>
+                                    </label>
+                                </div>
+                                @error('berita1')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Monitoring 2</label>
+                                <div class="selectgroup w-100 @error('monitoring2') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitoring2"
+                                            value="Observasi Seiscomp4 jam 11.00-14.00 WITA" class="selectgroup-input"
+                                            @if ($logbookgempa->monitoring2 == 'Observasi Seiscomp4 jam 11.00-14.00 WITA') checked @endif>
+                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 11.00-14.00 WITA</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitoring2"
+                                            value="Observasi Seiscomp4 jam 17.00-20.00 WITA" class="selectgroup-input"
+                                            @if ($logbookgempa->monitoring2 == 'Observasi Seiscomp4 jam 17.00-20.00 WITA') checked @endif>
+                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 17.00-20.00 WITA</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitoring2"
+                                            value="Observasi Seiscomp4 jam 23.00-02.00 WITA" class="selectgroup-input"
+                                            @if ($logbookgempa->monitoring2 == 'Observasi Seiscomp4 jam 23.00-02.00 WITA') checked @endif>
+                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 23.00-02.00 WITA</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitoring2"
+                                            value="Observasi Seiscomp4 jam 05.00-08.00 WITA" class="selectgroup-input"
+                                            @if ($logbookgempa->monitoring2 == 'Observasi Seiscomp4 jam 05.00-08.00 WITA') checked @endif>
+                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 05.00-08.00 WITA</span>
+                                    </label>
+                                </div>
+                                @error('monitoring2')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Berita 2</label>
+                                <div class="selectgroup w-100 @error('berita2') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="berita2" value="Kirim Berita CMSS jam 06.00 GMT"
+                                            class="selectgroup-input" @if ($logbookgempa->berita2 == 'Kirim Berita CMSS jam 06.00 GMT') checked @endif>
+                                        <span class="selectgroup-button">Kirim Berita CMSS jam 06.00 GMT</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="berita2" value="Kirim Berita CMSS jam 12.00 GMT"
+                                            class="selectgroup-input" @if ($logbookgempa->berita2 == 'Kirim Berita CMSS jam 12.00 GMT') checked @endif>
+                                        <span class="selectgroup-button">Kirim Berita CMSS jam 12.00 GMT</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="berita2" value="Kirim Berita CMSS jam 18.00 GMT"
+                                            class="selectgroup-input" @if ($logbookgempa->berita2 == 'Kirim Berita CMSS jam 18.00 GMT') checked @endif>
+                                        <span class="selectgroup-button">Kirim Berita CMSS jam 18.00 GMT</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="berita2" value="Kirim Berita CMSS jam 00.00 GMT"
+                                            class="selectgroup-input" @if ($logbookgempa->berita2 == 'Kirim Berita CMSS jam 00.00 GMT') checked @endif>
+                                        <span class="selectgroup-button">Kirim Berita CMSS jam 00.00 GMT</span>
+                                    </label>
+                                </div>
+                                @error('berita2')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Kondisi</label>
+                                <div class="selectgroup w-100">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="kondisi" value="BAIK" class="selectgroup-input"
+                                            @if ($logbookgempa->kondisi == 'BAIK') checked @endif>
+                                        <span class="selectgroup-button">BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="kondisi" value="TIDAK BAIK"
+                                            class="selectgroup-input" @if ($logbookgempa->kondisi == 'TIDAK BAIK') checked @endif>
+                                        <span class="selectgroup-button">TIDAK BAIK</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Catatan</label>
+                                <input id="note" type="hidden" name="note" value="{{ $logbookgempa->note }}">
+                                <trix-editor input="note"></trix-editor>
+                            </div>
+                        </div>
+                        <div class=" text-right mr-4">
+                            <button class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                    <div class="card-footer text-right">
+                        <a href="{{ route('logbookgempa.index') }}">
+                            <button class="btn btn-danger">Cancel</button>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+    </div>
+@endsection
+
+@push('scripts')
+    <!-- JS Libraies -->
+    <script src="{{ asset('library/cleave.js/dist/cleave.min.js') }}"></script>
+    <script src="{{ asset('library/cleave.js/dist/addons/cleave-phone.us.js') }}"></script>
+    <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('library/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
+    <script src="{{ asset('library/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+    <script src="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+    <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
+
+    <!-- Page Specific JS File -->
+    <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
+@endpush
