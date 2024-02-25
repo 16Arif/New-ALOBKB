@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            LogbookpetirSeeder::class
+            LogbookpetirSeeder::class,
+            LogbookperalatanSeeder::class
         ]);
 
         // \App\Models\User::factory()->create([

@@ -13,6 +13,27 @@ return new class extends Migration
     {
         Schema::create('logbook_peralatans', function (Blueprint $table) {
             $table->id();
+            $table->date('tanggal');
+            $table->string('jam');
+            $table->string('onduty1');
+            $table->string('onduty2')->nullable();
+            $table->string('onduty3')->nullable();
+            $table->string('kehadiran');
+            $table->string('fingerprint');
+            $table->string('tds');
+            $table->string('nexstorm');
+            $table->string('obs_nexstorm');
+            $table->string('cmss');
+            $table->string('monitoring');
+            $table->string('acc');
+            $table->string('wrsng');
+            $table->string('integrasi_data');
+            $table->string('seiscomp4');
+            $table->string('pc_magnet');
+            $table->string('penakar_hujan');
+            $table->string('radio_ssb');
+            $table->string('kondisi');
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

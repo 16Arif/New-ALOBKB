@@ -18,6 +18,9 @@
             <li class="{{ Request::is('logbookpetir') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('logbookpetir.index') }}"><i class="fa-solid fa-bolt-lightning"></i></i><span>Logbook Petir</span></a>
             </li>
+            <li class="{{ Request::is('logbookperalatan') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('logbookperalatan.index') }}"><i class="fa-solid fa-screwdriver-wrench"></i><span>Logbook Peralatan</span></a>
+            </li>
         </ul>
     </aside>
 </div>

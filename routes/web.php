@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LogbookpetirController;
+use App\Http\Controllers\LogbookperalatanController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('logbookpetir', LogbookpetirController::class);
     Route::resource('download', PdfController::class);
+    Route::resource('logbookperalatan', LogbookperalatanController::class);
 });
 
 Route::middleware(['guest'])->group(function(){
