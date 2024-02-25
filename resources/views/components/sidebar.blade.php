@@ -16,7 +16,12 @@
             </li>
             <li class="menu-header">Logbook</li>
             <li class="{{ Request::is('logbookpetir') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('logbookpetir.index') }}"><i class="fa-solid fa-bolt-lightning"></i></i><span>Logbook Petir</span></a>
+                <a class="nav-link" href="{{ route('logbookpetir.index') }}"><i
+                        class="fa-solid fa-bolt-lightning"></i></i><span>Logbook Petir</span></a>
+            </li>
+            <li class="{{ Request::is('logbookgempa') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('logbookgempa.index') }}"><i class="bi bi-activity"></i><span>Logbook
+                        Gempa</span></a>
             </li>
         </ul>
     </aside>
