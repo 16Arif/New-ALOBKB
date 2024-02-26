@@ -16,7 +16,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Logbook Petir</h1>
+                <h1>Stasiun Geofisika Balikpapan</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Manage Logbook Petir</a></div>
@@ -25,13 +25,11 @@
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Add New Data Logbook Petir</h2>
-
                 <div class="card">
                     <form action="{{ route('logbookpetir.store') }}" method="POST">
                         @csrf
                         <div class="card-header">
-                            <h4>Logbook Petir Data</h4>
+                            <h4>Tambah Data Logbook Petir</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
