@@ -19,11 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             LogbookpetirSeeder::class,
-<<<<<<< HEAD
-            LogbookperalatanSeeder::class
-=======
+            LogbookperalatanSeeder::class,
             LogbookgempaSeeder::class,
->>>>>>> 03-logbookgempa
         ]);
 
         // \App\Models\User::factory()->create([

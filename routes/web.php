@@ -1,17 +1,12 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LogbookpetirController;
 use App\Http\Controllers\LogbookperalatanController;
-=======
 use Illuminate\Support\Facades\Route;
->>>>>>> 03-logbookgempa
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LogbookgempaController;
-use App\Http\Controllers\LogbookpetirController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,14 +27,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('logbookpetir', LogbookpetirController::class);
     Route::resource('download', PdfController::class);
-<<<<<<< HEAD
     Route::resource('logbookperalatan', LogbookperalatanController::class);
-=======
     Route::resource('logbookgempa', LogbookgempaController::class);
->>>>>>> 03-logbookgempa
 });
 
-Route::middleware(['guest'])->group(function(){
+Route::middleware(['guest'])->group(function () {
     Route::get('/', function () {
         return view('pages.auth.login');
     });
