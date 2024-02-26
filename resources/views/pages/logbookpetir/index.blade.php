@@ -11,7 +11,8 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Logbook Petir</h1>
+
+                <h1>Stasiun Geofisika Balikpapan</h1>
 
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
@@ -29,22 +30,20 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Data</h4>
+                                <h4>Logbook Petir</h4>
+                                <div class="section-header-button">
+                                    <a href="{{ route('logbookpetir.create') }}" class="btn btn-primary">Tambah Data</a>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="float-left">
-                                    <div class="row">
-                                        <div class="section-header-button ml-3">
-                                            <a href="{{ route('logbookpetir.create') }}" class="btn btn-sm btn-primary">Add
-                                                New</a>
-                                        </div>
-                                        <a href="{{ route('download.index') }}" target="_blank">
-                                            <div class="btn btn-sm btn-info btn-icon mx-2">
-                                                <i class="fa-solid fa-file-pdf"> </i><span> Download Semua Data</span>
-                                            </div>
-                                        </a>
 
-                                    </div>
+                                    <a href="{{ route('download.index') }}" target="_blank">
+                                        <div class="btn btn-sm btn-outline-success btn-icon mx-2">
+                                            <i class="fa-solid fa-file-pdf"> </i><span> Download Semua Data</span>
+                                        </div>
+                                    </a>
+
                                 </div>
                                 {{-- <div class="float-left">
                                     <select class="form-control selectric">
@@ -74,9 +73,7 @@
                                             <th>No</th>
                                             <th>Tanggal</th>
                                             <th>Jam Dinas</th>
-                                            <th>onduty1</th>
-                                            <th>onduty2</th>
-                                            <th>onduty3</th>
+                                            <th>On Duty</th>
                                             <th>Kehadiran</th>
                                             <th>Pengamatan 1</th>
                                             <th>Pengamatan 2</th>
@@ -85,7 +82,6 @@
                                             <th>Pengamatan 5</th>
                                             <th>Pengamatan 6</th>
                                             <th>Kondisi</th>
-                                            <th>created_at</th>
                                         </tr>
                                         @php
                                             $no = 1;
@@ -95,16 +91,16 @@
                                                 <td>{{ $no++ }}.</td>
                                                 <td>{{ $lbp->tanggal }}
                                                 </td>
-                                                <td>{{ $lbp->jam }} WITA
+                                                <td>
+                                                    {{ $lbp->jam }} WITA
                                                 </td>
                                                 <td>
-                                                    {{ $lbp->onduty1 }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->onduty2 }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->onduty3 }}
+                                                    <ul>
+                                                        <li>{{ $lbp->onduty1 }}</li>
+                                                        <li>{{ $lbp->onduty2 }}</li>
+                                                        <li>{{ $lbp->onduty3 }}</li>
+
+                                                    </ul>
                                                 </td>
                                                 <td>{{ $lbp->kehadiran }}
                                                 </td>
@@ -129,12 +125,13 @@
                                                 <td>
                                                     {{ $lbp->kondisi }}
                                                 </td>
-                                                <td>{{ $lbp->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
                                                         <a href="{{ route('logbookpetir.show', $lbp->id) }}"
                                                             target="_blank">
-                                                            <div class="btn btn-sm btn-info btn-icon mx-2">
+
+                                                            <div class="btn btn-sm btn-success btn-icon mx-2">
+
                                                                 <i class="fa-solid fa-file-pdf"></i>
                                                             </div>
                                                         </a>
