@@ -23,6 +23,9 @@
                 <a class="nav-link" href="{{ route('logbookgempa.index') }}"><i class="bi bi-activity"></i><span>Logbook
                         Gempa</span></a>
             </li>
+            <li class="{{ Request::is('logbookperalatan') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('logbookperalatan.index') }}"><i class="fa-solid fa-screwdriver-wrench"></i><span>Logbook Peralatan</span></a>
+            </li>
         </ul>
     </aside>
 </div>
