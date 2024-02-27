@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LogbookpetirController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LogbookpetirController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('logbookpetir', LogbookpetirController::class);
     Route::resource('download', PdfController::class);
+    Route::get('export/spatie', [ExportController::class, 'spatie'])->name('export.spatie');
 });
 
 
