@@ -7,6 +7,7 @@ use App\Http\Controllers\ExportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LogbookpetirController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,11 +28,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('logbookpetir', LogbookpetirController::class);
     Route::resource('download', PdfController::class);
     Route::get('export/spatie', [ExportController::class, 'spatie'])->name('export.spatie');
+
 });
 
-
-Route::get('/', function () {
-    return view('pages.auth.login');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', function () {
+        return view('pages.auth.login');
+    });
 });
 
 // Route::get('/register', function () {
