@@ -21,6 +21,7 @@
                 </div>
             </div>
             <div class="section-body">
+                <h2 class="section-title">Logbook Petir</h2>
                 <div class="row">
                     <div class="col-12">
                         @include('layouts.alert')
@@ -30,13 +31,13 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Logbook Petir</h4>
+                                <h4>Semua Data</h4>
                                 <div class="section-header-button">
                                     <a href="{{ route('logbookpetir.create') }}" class="btn btn-primary">Tambah Data</a>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="float-left">
+                                {{-- <div class="float-left">
 
                                     <a href="{{ route('download.index') }}" target="_blank">
                                         <div class="btn btn-sm btn-outline-info btn-icon mx-2">
@@ -44,9 +45,9 @@
                                         </div>
                                     </a>
 
-                                </div>
+                                </div> --}}
                                 <div class="float-left">
-                                    <a href="{{ route('export.spatie') }}">
+                                    <a href="{{ route('export.spatie_petir') }}">
                                         <div class="btn btn-sm btn-outline-success btn-icon mx-2">
                                             <i class="fa-solid fa-file-excel"> </i><span> Download Semua Data</span>
                                         </div>

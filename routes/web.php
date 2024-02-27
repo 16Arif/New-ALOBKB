@@ -30,7 +30,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('logbookperalatan', LogbookperalatanController::class);
     Route::resource('logbookgempa', LogbookgempaController::class);
     Route::resource('download', PdfController::class);
-    Route::get('export/spatie', [ExportController::class, 'spatie'])->name('export.spatie');
+    Route::get('export/spatie_petir', [ExportController::class, 'spatie_petir'])->name('export.spatie_petir');
+    Route::get('export/spatie_peralatan', [ExportController::class, 'spatie_peralatan'])->name('export.spatie_peralatan');
+    Route::get('export/spatie_gempa', [ExportController::class, 'spatie_gempa'])->name('export.spatie_gempa');
 });
 
 Route::middleware(['guest'])->group(function () {

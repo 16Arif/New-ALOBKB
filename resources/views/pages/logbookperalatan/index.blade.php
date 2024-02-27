@@ -11,7 +11,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Logbook Peralatan</h1>
+                <h1>Stasiun Geofisika Balikpapan</h1>
 
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
@@ -20,6 +20,7 @@
                 </div>
             </div>
             <div class="section-body">
+                <h2 class="section-title">Logbook Peralatan</h2>
                 <div class="row">
                     <div class="col-12">
                         @include('layouts.alert')
@@ -29,14 +30,19 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Data</h4>
+                                <h4>Semua Data</h4>
+                                <div class="section-header-button">
+                                    <a href="{{ route('logbookperalatan.create') }}" class="btn btn-sm btn-primary">Tambah
+                                        Data</a>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="float-left">
-                                    <div class="section-header-button">
-                                        <a href="{{ route('logbookperalatan.create') }}" class="btn btn-sm btn-primary">Add
-                                            New</a>
-                                    </div>
+                                    <a href="{{ route('export.spatie_peralatan') }}">
+                                        <div class="btn btn-sm btn-outline-success btn-icon mx-2">
+                                            <i class="fa-solid fa-file-excel"> </i><span> Download Semua Data</span>
+                                        </div>
+                                    </a>
                                 </div>
                                 {{-- <a href="{{ route('download.index') }}"  target="_blank">
                                     <div class="btn btn-sm btn-info btn-icon mx-2">
@@ -159,7 +165,7 @@
                                                     <div class="d-flex justify-content-center">
                                                         <a href="{{ route('logbookperalatan.show', $lbp->id) }}"
                                                             target="_blank">
-                                                            <div class="btn btn-sm btn-info btn-icon mx-2">
+                                                            <div class="btn btn-sm btn-success btn-icon mx-2">
                                                                 <i class="fa-solid fa-file-pdf"></i>
                                                             </div>
                                                         </a>

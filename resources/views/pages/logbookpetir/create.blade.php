@@ -25,11 +25,12 @@
             </div>
 
             <div class="section-body">
+                <h2 class="section-title">Logbook Petir</h2>
                 <div class="card">
                     <form action="{{ route('logbookpetir.store') }}" method="POST">
                         @csrf
                         <div class="card-header">
-                            <h4>Tambah Data Logbook Petir</h4>
+                            <h4>Tambah Data</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
