@@ -39,11 +39,18 @@
                                 <div class="float-left">
 
                                     <a href="{{ route('download.index') }}" target="_blank">
-                                        <div class="btn btn-sm btn-outline-success btn-icon mx-2">
+                                        <div class="btn btn-sm btn-outline-info btn-icon mx-2">
                                             <i class="fa-solid fa-file-pdf"> </i><span> Download Semua Data</span>
                                         </div>
                                     </a>
 
+                                </div>
+                                <div class="float-left">
+                                    <a href="{{ route('export.spatie') }}">
+                                        <div class="btn btn-sm btn-outline-success btn-icon mx-2">
+                                            <i class="fa-solid fa-file-excel"> </i><span> Download Semua Data</span>
+                                        </div>
+                                    </a>
                                 </div>
                                 {{-- <div class="float-left">
                                     <select class="form-control selectric">
