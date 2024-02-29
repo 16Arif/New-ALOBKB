@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\LogbookgempaController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LogbookgempaController;
 use App\Http\Controllers\LogbookpetirController;
+use App\Http\Controllers\LogbookperalatanController;
 
 
 /*
@@ -34,7 +35,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('export/spatie_petir', [ExportController::class, 'spatie_petir'])->name('export.spatie_petir');
     Route::get('export/spatie_peralatan', [ExportController::class, 'spatie_peralatan'])->name('export.spatie_peralatan');
     Route::get('export/spatie_gempa', [ExportController::class, 'spatie_gempa'])->name('export.spatie_gempa');
-
 });
 
 Route::middleware(['guest'])->group(function () {
