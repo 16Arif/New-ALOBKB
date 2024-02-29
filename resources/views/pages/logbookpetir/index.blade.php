@@ -53,6 +53,13 @@
                                         </div>
                                     </a>
                                 </div>
+                                <div class="float-left">
+                                    <a href="{{ route('export.spatie') }}">
+                                        <div class="btn btn-sm btn-outline-success btn-icon mx-2">
+                                            <i class="fa-solid fa-file-excel"> </i><span> Download Semua Data</span>
+                                        </div>
+                                    </a>
+                                </div>
                                 {{-- <div class="float-left">
                                     <select class="form-control selectric">
                                         <option>Action For Selected</option>
