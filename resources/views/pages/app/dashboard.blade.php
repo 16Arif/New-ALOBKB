@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{ asset('library/summernote/dist/summernote-bs4.min.css') }}">
 @endpush
 
+
+
 @section('main')
     <div class="main-content">
         <section class="section">
@@ -19,26 +21,30 @@
                 <div class="col-lg-6 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-body pt-2 pb-2">
-                            <div id="myWeather">Please wait</div>
+                            {{-- Tabel untuk cek data terbaru tiap shift --}}
+                            @include('components.logbook-petir')
+                            @include('components.logbook-gempa')
+                            @include('components.logbook-peralatan')
+
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Authors</h4>
+                            <h4>Pegawai</h4>
                         </div>
                         <div class="card-body">
                             <div class="row pb-2">
                                 @foreach ($users as $user)
-                                <div class="col-6 col-sm-3 col-lg-3 mb-md-0 mb-4">
-                                    <div class="avatar-item mb-4">
-                                        <img src="https://source.unsplash.com/400x400?news,water"
-                                        class="img-fluid rounded-start" alt="bg-card" title="{{ $user->name }}">
-                                        <div class="avatar-badge" title="Editor" data-toggle="tooltip"><i
-                                                class="fas fa-eye"></i></div>
+                                    <div class="col-6 col-sm-3 col-lg-3 mb-md-0 mb-4">
+                                        <div class="avatar-item mb-4">
+                                            <img src="https://source.unsplash.com/400x400?news,water"
+                                                class="img-fluid rounded-start" alt="bg-card" title="{{ $user->name }}">
+                                            <div class="avatar-badge" title="Editor" data-toggle="tooltip"><i
+                                                    class="fas fa-eye"></i></div>
+                                        </div>
                                     </div>
-                                </div>
                                 @endforeach
                                 <div class="float-right mt-3">
                                     {{ $users->withQueryString()->links() }}
@@ -48,7 +54,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </section>
     </div>
 @endsection
@@ -66,6 +72,4 @@
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/index-0.js') }}"></script>
     <script src="{{ asset('js/page/features-posts.js') }}"></script>
-
-
 @endpush

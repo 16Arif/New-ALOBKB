@@ -25,12 +25,13 @@
             </div>
 
             <div class="section-body">
+                <h2 class="section-title">Logbook Petir</h2>
                 <div class="card">
                     <form action="{{ route('logbookpetir.update', $logbookpetir) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
-                            <h4>Edit Logbook Petir Data</h4>
+                            <h4>Edit Data</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">

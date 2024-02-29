@@ -16,22 +16,21 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Logbook Peralatan</h1>
+                <h1>Stasiun Geofisika Balikpapan</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Manage Logbook Peralatan</a></div>
-                    <div class="breadcrumb-item">Add New Data Logbook Peralatan</div>
+                    <div class="breadcrumb-item"><a href="#">Kelola Logbook Peralatan</a></div>
+                    <div class="breadcrumb-item">Tambah Data Logbook Peralatan</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Add New Data Logbook Peralatan</h2>
-
+                <h2 class="section-title">Logbook Peralatan</h2>
                 <div class="card">
                     <form action="{{ route('logbookperalatan.store') }}" method="POST">
                         @csrf
                         <div class="card-header">
-                            <h4>Logbook Peralatan Data</h4>
+                            <h4>Tambah Data </h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
