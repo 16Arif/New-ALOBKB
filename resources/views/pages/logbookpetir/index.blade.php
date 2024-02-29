@@ -90,6 +90,7 @@
                                             <th>Pengamatan 5</th>
                                             <th>Pengamatan 6</th>
                                             <th>Kondisi</th>
+                                            <th>Created_at</th>
                                         </tr>
                                         @php
                                             $no = 1;
@@ -132,6 +133,9 @@
                                                 </td>
                                                 <td>
                                                     {{ $lbp->kondisi }}
+                                                </td>
+                                                <td>
+                                                    {{ $lbp->created_at }}
                                                 </td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
