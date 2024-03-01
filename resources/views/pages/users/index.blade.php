@@ -49,7 +49,7 @@
                                 <div class="float-right">
                                     <form method="GET" action="{{ route('user.index') }}">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search" name="name">
+                                            <input type="text" class="form-control" placeholder="Search" name="username">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>

@@ -46,6 +46,16 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                    name="username" value="{{ $user->username }}">
+                                @error('username')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label>Email</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
                                     name="email" value="{{ $user->email }}">

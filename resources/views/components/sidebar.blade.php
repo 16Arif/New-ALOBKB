@@ -10,10 +10,12 @@
             <li class="mt-5 {{ Request::is('home') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('home') }}"><i class="fas fa-house"></i> <span>Dashboard</span></a>
             </li>
-            <li class="menu-header">Users</li>
-            <li class="{{ Request::is('user') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('user.index') }}"><i class="fas fa-user"></i><span>Users</span></a>
-            </li>
+            @can('admin')
+                <li class="menu-header">Users</li>
+                <li class="{{ Request::is('user') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('user.index') }}"><i class="fas fa-user"></i><span>Users</span></a>
+                </li>
+            @endcan
             <li class="menu-header">Logbook</li>
             <li class="{{ Request::is('logbookpetir') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('logbookpetir.index') }}"><i

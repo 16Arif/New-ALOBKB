@@ -26,7 +26,6 @@ Route::middleware(['auth'])->group(function () {
     //     return view('pages.app.dashboard', ['type_menu' => '']);
     // })->name('home');
     Route::resource('home', DashboardController::class);
-    Route::resource('user', UserController::class);
     Route::resource('logbookpetir', LogbookpetirController::class);
     Route::resource('logbookperalatan', LogbookperalatanController::class);
     Route::resource('logbookgempa', LogbookgempaController::class);
@@ -36,11 +35,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('export/spatie_gempa', [ExportController::class, 'spatie_gempa'])->name('export.spatie_gempa');
 });
 
-// Route::middleware(['guest'])->group(function () {
-//     Route::get('/', function () {
-//         return view('pages.auth.login');
-//     });
-// });
+Route::middleware(['admin'])->group(function(){
+    Route::resource('user', UserController::class);
+});
+
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', function () {
+        return view('pages.auth.login');
+    });
+});
 
 // Route::get('/register', function () {
 //     return view('pages.auth.register');
