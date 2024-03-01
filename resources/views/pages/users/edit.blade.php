@@ -66,7 +66,6 @@
 
                             <div class="form-group">
                                 <label>Phone</label>
-
                                 <input type="number" class="form-control @error('phone') is-invalid @enderror"
                                     name="phone" value="{{ $user->phone }}">
                                 @error('phone')
@@ -98,9 +97,12 @@
                             <button class="btn btn-primary">Submit</button>
                         </div>
                     </form>
+                    <div class="card-footer text-right">
+                        <a href="{{ route('user.index') }}">
+                            <button class="btn btn-danger">Cancel</button>
+                        </a>
+                    </div>
                 </div>
-
-
             </div>
         </section>
     </div>
