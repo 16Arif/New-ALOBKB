@@ -16,12 +16,13 @@
         <div class="card-body">
             <form method="POST">
                 @csrf
+
                 <div class="row">
                     <div class="form-group col">
-                        <label for="name">Name</label>
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                            name="name" autofocus>
-                        @error('name')
+                        <label for="username">Username</label>
+                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
+                            name="username" autofocus>
+                        @error('username')
                             {{ $message }}
                         @enderror
                     </div>
