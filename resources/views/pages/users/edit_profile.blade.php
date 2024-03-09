@@ -18,8 +18,9 @@
                     <div class="breadcrumb-item">Profile</div>
                 </div>
             </div>
+
             <div class="section-body">
-                <h2 class="section-title">Hi, {{ auth()->user()->name }} </h2>
+                <h2 class="section-title">Hi, {{ $user->name }} </h2>
                 <p class="section-lead">
                     Change information about yourself on this page.
                 </p>
@@ -32,70 +33,87 @@
                                     class="rounded-circle profile-widget-picture">
                             </div>
                             <div class="profile-widget-description">
-                                <div class="profile-widget-name">{{ old('name') ?? auth()->user()->name }} <div
+                                <div class="profile-widget-name">{{ old('name') ?? $user->name }} <div
                                         class="text-muted d-inline font-weight-normal">
                                     </div>
                                 </div>
-                                {{ auth()->user()->name }} is a superhero name in <b>Indonesia</b>, especially in my family.
-                                He is not a
-                                fictional character but an original hero in my family, a hero for his children and for his
-                                wife. So, I use the name as a user in this template. Not a tribute, I'm just bored with
-                                <b>'John Doe'</b>.
+                                <hr>
+                                <a href=""><button class="btn btn-outline-secondary">Ubah Password</button></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-12 col-lg-7">
                         <div class="card">
-                            <form method="post" action="{{ route('user-profile-information.update') }}">
+                            <form action="{{ route('profile.update', auth()->user()) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="card-header">
-                                    <h4>Edit Profile</h4>
+                                    <h4>User Data</h4>
                                 </div>
                                 <div class="card-body">
-                                    <div class="form-group col-md-12 ">
-                                        <label>Nama</label>
-                                        <input type="text" class="form-control  @error('name') is-invalid @enderror"
-                                            name="name" value="{{ auth()->user()->name }}">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                            name="name" value="{{ $user->name }}">
                                         @error('name')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-12 ">
+                                    <div class="form-group">
                                         <label>Username</label>
                                         <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                            value="{{ auth()->user()->username }}">
+                                            name="username" value="{{ $user->username }}">
                                         @error('username')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-12 ">
+                                    <div class="form-group">
                                         <label>Email</label>
                                         <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                            value="{{ auth()->user()->email }}">
+                                            name="email" value="{{ $user->email }}">
                                         @error('email')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                            {{ $message }}
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-12 ">
+
+                                    <div class="form-group">
                                         <label>Phone</label>
-                                        <input type="tel" class="form-control @error('phone') is-invalid @enderror"
-                                            value="{{ auth()->user()->phone }}">
+                                        <input type="number" class="form-control @error('phone') is-invalid @enderror"
+                                            name="phone" value="{{ $user->phone }}">
                                         @error('phone')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                            {{ $message }}
                                         @enderror
                                     </div>
+                                    {{-- <div class="form-group">
+                                        <label class="form-label">Roles</label>
+                                        <div class="selectgroup w-100">
+                                            <label class="selectgroup-item">
+                                                <input type="radio" name="roles" value="ADMIN"
+                                                    class="selectgroup-input"
+                                                    @if ($user->roles == 'ADMIN') checked @endif>
+                                                <span class="selectgroup-button">ADMIN</span>
+                                            </label>
+                                            <label class="selectgroup-item">
+                                                <input type="radio" name="roles" value="OBSERVER"
+                                                    class="selectgroup-input"
+                                                    @if ($user->roles == 'OBSERVER') checked @endif>
+                                                <span class="selectgroup-button">OBSERVER</span>
+                                            </label>
+                                            <label class="selectgroup-item">
+                                                <input type="radio" name="roles" value="TEKNISI"
+                                                    class="selectgroup-input"
+                                                    @if ($user->roles == 'TEKNISI') checked @endif>
+                                                <span class="selectgroup-button">TEKNISI</span>
+                                            </label>
+                                        </div>
+                                    </div> --}}
                                 </div>
                                 <div class="card-footer text-right">
-                                    <button class="btn btn-primary">Save Changes</button>
+                                    <button class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </div>

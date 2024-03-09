@@ -16,7 +16,11 @@
             <div class="section-header">
                 <h1>Dashboard </h1>
             </div>
-
+            <div class="row">
+                <div class="col-12">
+                    @include('layouts.alert')
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-12 col-sm-12">
                     <div class="card">
@@ -39,10 +43,8 @@
                                 @foreach ($users as $user)
                                     <div class="col-6 col-sm-3 col-lg-3 mb-md-0 mb-4">
                                         <div class="avatar-item mb-4">
-                                            <img src="https://source.unsplash.com/400x400?news,water"
+                                            <img src="{{ asset('img/avatar/avatar-1.png') }}"
                                                 class="img-fluid rounded-start" alt="bg-card" title="{{ $user->name }}">
-                                            <div class="avatar-badge" title="Editor" data-toggle="tooltip"><i
-                                                    class="fas fa-eye"></i></div>
                                         </div>
                                     </div>
                                 @endforeach

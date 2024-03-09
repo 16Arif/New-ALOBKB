@@ -33,11 +33,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('export/spatie_petir', [ExportController::class, 'spatie_petir'])->name('export.spatie_petir');
     Route::get('export/spatie_peralatan', [ExportController::class, 'spatie_peralatan'])->name('export.spatie_peralatan');
     Route::get('export/spatie_gempa', [ExportController::class, 'spatie_gempa'])->name('export.spatie_gempa');
-    Route::resource('profile', UserprofileController::class)->except('index', 'show', 'create', 'update', 'destroy');
-
+    Route::resource('profile', UserprofileController::class)->except('index', 'show', 'create', 'store', 'destroy');
 });
 
-Route::middleware(['admin'])->group(function(){
+Route::middleware(['admin'])->group(function () {
     Route::resource('user', UserController::class);
 });
 
