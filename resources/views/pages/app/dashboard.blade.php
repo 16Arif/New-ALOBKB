@@ -44,9 +44,9 @@
                                         <div class="avatar-item mb-4">
 
                                             @if ($user->image)
-                                                <div style="width: 140px; height: 140px;">
+                                                <div style="width: 120px; height: 120px;">
                                                     <img src="{{ asset('storage/' . $user->image) }}"
-                                                        class="img-fluid img-thumbnail rounded" alt="bg-card"
+                                                        class="img-fluid img-thumbnail rounded mx-3 " alt="bg-card"
                                                         title="{{ $user->name }}">
                                                 </div>
                                             @else

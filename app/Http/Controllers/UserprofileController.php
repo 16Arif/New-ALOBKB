@@ -12,16 +12,14 @@ class UserprofileController extends Controller
 {
     public function edit($id)
     {
-        // $user = User::findOrFail($id);
         $user = Auth::user();
         return view('pages.profile.edit_profile', compact('user'));
     }
 
-    public function update(UpdateProfileRequest $request, User $user)
+    public function update(UpdateProfileRequest $request, $id)
     {
         $data = $request->validated();
-        $user = auth()->user();
-        $user->update($data);
+        User::whereId($id)->update($data);
         return redirect()->route('home.index')->with('success', 'Profil Berhasil Diperbarui');
     }
 }

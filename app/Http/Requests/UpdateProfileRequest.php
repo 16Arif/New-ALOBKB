@@ -28,7 +28,6 @@ class UpdateProfileRequest extends FormRequest
             'username' => 'required|max:100|min:3',
             'email' => 'required|email',
             'phone' => 'numeric',
-            // 'roles' => 'required|in:ADMIN,OBSERVER,TEKNISI',
         ];
     }
 }

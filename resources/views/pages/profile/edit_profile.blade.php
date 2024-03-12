@@ -22,19 +22,19 @@
             <div class="section-body">
                 <h2 class="section-title">Hi, {{ $user->name }} </h2>
                 <p class="section-lead">
-                    Change information about yourself on this page.
+                    Ubah informasi tentang diri Anda di halaman ini.
                 </p>
 
                 <div class="row mt-sm-4">
                     <div class="col-16 col-md-12 col-lg-5">
                         <div class="card profile-widget">
-                            <div class="profile-widget-header">
+                            <div class="row profile-widget-header mb-5">
                                 <a href="{{ route('imageprofile.edit', ['imageprofile' => auth()->user()->id]) }}"
                                     title="Edit Foto Profile">
                                     @if ($user->image)
                                         <div style="max-width: 180px; max-height: 180px;">
                                             <img src="{{ asset('storage/' . $user->image) }}"
-                                                class="img-fluid img-thumbnail rounded" alt="bg-card"
+                                                class="img-fluid img-thumbnail rounded ml-4" alt="bg-card"
                                                 title="{{ $user->name }}">
                                         </div>
                                     @else
@@ -43,14 +43,23 @@
                                     @endif
                                 </a>
                             </div>
-
-                            <div class="profile-widget-description">
+                            <br><br>
+                            <hr>
+                            <div class="row profile-widget-description ml-2">
                                 <div class="profile-widget-name">{{ old('name') ?? $user->name }} <div
                                         class="text-muted d-inline font-weight-normal">
                                     </div>
                                 </div>
-                                <hr>
-                                {{-- <a href=""><button class="btn btn-outline-secondary">Ubah Password</button></a> --}}
+                            </div>
+                            <div class="mb-4 mr-3 text-right">
+                                <form action="{{ route('imageprofile.destroy', $user->id) }}" method="POST" class="ml-2">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <button class="btn btn-sm btn-danger btn-icon"
+                                        onclick="return confirmDelete({{ $user->id }})">
+                                        <i class="fas fa-trash"> Hapus Foto</i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

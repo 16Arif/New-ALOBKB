@@ -13,8 +13,14 @@
 
         <li class="dropdown"><a href="#" data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
-                <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div>
+                @if (auth()->user()->image)
+                    <img src="{{ asset('storage/' . auth()->user()->image) }}" class="img-fluid mr-1 mt-2"
+                        alt="profile">
+                @else
+                    <img src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-1 mt-2" alt="profile">
+                @endif
+                {{-- <img src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-1" alt="bg-card"> --}}
+                <div class="d-sm-none d-lg-inline-block">{{ auth()->user()->name }}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 {{-- <div class="dropdown-title">Logged in 5 min ago</div> --}}

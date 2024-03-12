@@ -27,7 +27,7 @@
                                 <h4>Photo Profile</h4>
                             </div>
                             <div class="card-body ">
-                                <div class="mb-3 ml-3">
+                                <div class="row mb-5 ml-3">
                                     @if ($user->image)
                                         <div style="width: 140px; height: 140px;">
                                             <img src="{{ asset('storage/' . $user->image) }}"
@@ -39,14 +39,19 @@
                                             class="img-fluid profile-widget-picture" style="width: 400px">
                                     @endif
                                 </div>
-                                <div class="text-start d-flex justify-content-start align-items-start">
+                                <br>
+                                <hr>
+                                <div class="row text-start d-flex justify-content-start align-items-start  ml-2">
                                     <form action="{{ route('imageprofile.update', auth()->user()) }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="mb-3 col-lg-12 ">
+                                            <p>Update Profile</p>
+                                            <input type="hidden" name="oldImage" value="{{ $user->image }}">
+                                            <img class="img-preview img-fluid col-sm-3 mb-2" alt="img-preview">
                                             <input class="form-control @error('image') is-invalid @enderror" type="file"
-                                                id="image" name="image">
+                                                id="image" name="image" onchange="previewImage()">
                                             @error('image')
                                                 {{ $message }}
                                             @enderror
@@ -71,4 +76,20 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/components-multiple-upload.js') }}"></script>
+
+    <script>
+        function previewImage() {
+            const image = document.querySelector('#image');
+            const imgPreview = document.querySelector('.img-preview')
+
+            imgPreview.style.display = 'block'
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(OFREvent) {
+                imgPreview.src = OFREvent.target.result;
+            }
+        }
+    </script>
 @endpush
