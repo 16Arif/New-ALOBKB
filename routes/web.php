@@ -5,6 +5,7 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LogbookgempaController;
 use App\Http\Controllers\LogbookpetirController;
 use App\Http\Controllers\LogbookperalatanController;
@@ -34,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('export/spatie_peralatan', [ExportController::class, 'spatie_peralatan'])->name('export.spatie_peralatan');
     Route::get('export/spatie_gempa', [ExportController::class, 'spatie_gempa'])->name('export.spatie_gempa');
     Route::resource('profile', UserprofileController::class)->except('index', 'show', 'create', 'store', 'destroy');
+    Route::resource('imageprofile', ImageController::class);
 });
 
 Route::middleware(['admin'])->group(function () {

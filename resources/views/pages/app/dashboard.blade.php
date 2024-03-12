@@ -29,7 +29,6 @@
                             @include('components.logbook-petir')
                             @include('components.logbook-gempa')
                             @include('components.logbook-peralatan')
-
                         </div>
                     </div>
                 </div>
@@ -43,8 +42,18 @@
                                 @foreach ($users as $user)
                                     <div class="col-6 col-sm-3 col-lg-3 mb-md-0 mb-4">
                                         <div class="avatar-item mb-4">
-                                            <img src="{{ asset('img/avatar/avatar-1.png') }}"
-                                                class="img-fluid rounded-start" alt="bg-card" title="{{ $user->name }}">
+
+                                            @if ($user->image)
+                                                <div style="width: 140px; height: 140px;">
+                                                    <img src="{{ asset('storage/' . $user->image) }}"
+                                                        class="img-fluid img-thumbnail rounded" alt="bg-card"
+                                                        title="{{ $user->name }}">
+                                                </div>
+                                            @else
+                                                <img src="{{ asset('img/avatar/avatar-1.png') }}"
+                                                    class="img-fluid img-thumbnail rounded" alt="bg-card"
+                                                    title="{{ $user->name }}">
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach
@@ -56,9 +65,9 @@
                     </div>
                 </div>
             </div>
-
         </section>
     </div>
+
 @endsection
 
 @push('scripts')
@@ -74,4 +83,6 @@
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/index-0.js') }}"></script>
     <script src="{{ asset('js/page/features-posts.js') }}"></script>
+    <!-- Page Specific JS File -->
+    <script src="{{ asset('js/page/bootstrap-modal.js') }}"></script>
 @endpush

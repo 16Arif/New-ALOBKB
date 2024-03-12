@@ -26,22 +26,35 @@
                 </p>
 
                 <div class="row mt-sm-4">
-                    <div class="col-12 col-md-12 col-lg-5">
+                    <div class="col-16 col-md-12 col-lg-5">
                         <div class="card profile-widget">
                             <div class="profile-widget-header">
-                                <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}"
-                                    class="rounded-circle profile-widget-picture">
+                                <a href="{{ route('imageprofile.edit', ['imageprofile' => auth()->user()->id]) }}"
+                                    title="Edit Foto Profile">
+                                    @if ($user->image)
+                                        <div style="max-width: 180px; max-height: 180px;">
+                                            <img src="{{ asset('storage/' . $user->image) }}"
+                                                class="img-fluid img-thumbnail rounded" alt="bg-card"
+                                                title="{{ $user->name }}">
+                                        </div>
+                                    @else
+                                        <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}"
+                                            class="img-fluid profile-widget-picture" style="width: 400px">
+                                    @endif
+                                </a>
                             </div>
+
                             <div class="profile-widget-description">
                                 <div class="profile-widget-name">{{ old('name') ?? $user->name }} <div
                                         class="text-muted d-inline font-weight-normal">
                                     </div>
                                 </div>
                                 <hr>
-                                <a href=""><button class="btn btn-outline-secondary">Ubah Password</button></a>
+                                {{-- <a href=""><button class="btn btn-outline-secondary">Ubah Password</button></a> --}}
                             </div>
                         </div>
                     </div>
+
                     <div class="col-12 col-md-12 col-lg-7">
                         <div class="card">
                             <form action="{{ route('profile.update', auth()->user()) }}" method="POST">
@@ -88,29 +101,7 @@
                                             {{ $message }}
                                         @enderror
                                     </div>
-                                    {{-- <div class="form-group">
-                                        <label class="form-label">Roles</label>
-                                        <div class="selectgroup w-100">
-                                            <label class="selectgroup-item">
-                                                <input type="radio" name="roles" value="ADMIN"
-                                                    class="selectgroup-input"
-                                                    @if ($user->roles == 'ADMIN') checked @endif>
-                                                <span class="selectgroup-button">ADMIN</span>
-                                            </label>
-                                            <label class="selectgroup-item">
-                                                <input type="radio" name="roles" value="OBSERVER"
-                                                    class="selectgroup-input"
-                                                    @if ($user->roles == 'OBSERVER') checked @endif>
-                                                <span class="selectgroup-button">OBSERVER</span>
-                                            </label>
-                                            <label class="selectgroup-item">
-                                                <input type="radio" name="roles" value="TEKNISI"
-                                                    class="selectgroup-input"
-                                                    @if ($user->roles == 'TEKNISI') checked @endif>
-                                                <span class="selectgroup-button">TEKNISI</span>
-                                            </label>
-                                        </div>
-                                    </div> --}}
+
                                 </div>
                                 <div class="card-footer text-right">
                                     <button class="btn btn-primary">Submit</button>
@@ -120,13 +111,16 @@
                     </div>
                 </div>
             </div>
+
         </section>
     </div>
+
+
 @endsection
 
 @push('scripts')
     <!-- JS Libraies -->
     <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
-
     <!-- Page Specific JS File -->
+    <script src="{{ asset('js/page/bootstrap-modal.js') }}"></script>
 @endpush

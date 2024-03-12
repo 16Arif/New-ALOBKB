@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\UpdateImageProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class UserprofileController extends Controller
+class ImageController extends Controller
 {
     public function edit($id)
     {
-        // $user = User::findOrFail($id);
         $user = Auth::user();
-        return view('pages.profile.edit_profile', compact('user'));
+        return view('pages.profile.upload_image', compact('user'));
     }
 
-    public function update(UpdateProfileRequest $request, User $user)
+    public function update(UpdateImageProfileRequest $request, User $user)
     {
         $data = $request->validated();
+        if ($request->file('image')) {
+            $data['image'] = $request->file('image')->store('profile-image');
+        }
         $user = auth()->user();
         $user->update($data);
         return redirect()->route('home.index')->with('success', 'Profil Berhasil Diperbarui');

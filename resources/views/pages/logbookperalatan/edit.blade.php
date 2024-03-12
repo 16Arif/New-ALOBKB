@@ -476,6 +476,11 @@
                             <button class="btn btn-primary">Submit</button>
                         </div>
                     </form>
+                    <div class="card-footer text-right">
+                        <a href="{{ route('logbookperalatan.index') }}">
+                            <button class="btn btn-danger">Cancel</button>
+                        </a>
+                    </div>
                 </div>
 
 
