@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use Illuminate\Support\Facades\Route;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -34,7 +35,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
+            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
 
             return Limit::perMinute(5)->by($throttleKey);
         });
@@ -43,14 +44,16 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
 
-        Fortify::loginView(function(){
-            return view('pages.auth.login');
-        });
-        Fortify::registerView(function(){
-            return view('pages.auth.register');
-        });
-        Fortify::resetPasswordView(function(){
-            return view('pages.auth.reset-password');
+        Route::group(['middleware' => ['guest']], function () {
+            Fortify::loginView(function () {
+                return view('pages.auth.login');
+            });
+            Fortify::registerView(function () {
+                return view('pages.auth.register');
+            });
+            Fortify::resetPasswordView(function () {
+                return view('pages.auth.reset-password');
+            });
         });
     }
 }

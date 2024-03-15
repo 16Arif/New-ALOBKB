@@ -2,16 +2,18 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class UpdateProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        // return true;
+        return Auth::check();
     }
 
     /**
@@ -26,7 +28,6 @@ class UpdateUserRequest extends FormRequest
             'username' => 'required|max:100|min:3',
             'email' => 'required|email',
             'phone' => 'numeric',
-            'roles' => 'required|in:ADMIN,OBSERVER,TEKNISI',
         ];
     }
 }

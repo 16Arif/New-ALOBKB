@@ -6,8 +6,8 @@ namespace App\Http\Controllers;
 use App\Models\LogbookGempa;
 use App\Models\LogbookPeralatan;
 use App\Models\LogbookPetir;
-use Illuminate\Http\Request;
 use Spatie\SimpleExcel\SimpleExcelWriter;
+use Illuminate\Routing\Controller;
 
 class ExportController extends Controller
 {
@@ -28,11 +28,10 @@ class ExportController extends Controller
                 $rows[] = $logbookpetir->toArray();
             });
         SimpleExcelWriter::streamDownload('logbookpetir.xlsx')
-
             // ->noHeaderRow()
 
             ->addRows($rows);
-            // ->save('xlsx');
+        // ->save('xlsx');
         // SimpleExcelWriter::streamDownload('logbookpetir.csv')
         //     ->noHeaderRow()
         //     ->addRows($rows);
@@ -63,4 +62,4 @@ class ExportController extends Controller
         SimpleExcelWriter::streamDownload('logbookgempa.xlsx')
             ->addRows($rows);
     }
-
+}

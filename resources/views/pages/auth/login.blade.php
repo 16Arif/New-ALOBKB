@@ -17,10 +17,10 @@
             <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
                 @csrf
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                        name="email" tabindex="1" required autofocus>
-                    @error('email')
+                    <label for="username">Username</label>
+                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
+                        name="username" tabindex="1" required autofocus>
+                    @error('username')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
@@ -36,6 +36,7 @@
                             </a>
                         </div>
                     </div> --}}
+                    <label for="username">Password</label>
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
                         name="password" tabindex="2" required>
                     @error('password')
@@ -55,7 +56,7 @@
         </div>
     </div>
     <div class="text-muted mt-5 text-center">
-        Don't have an account? <a href="{{ route('register') }}">Create One</a>
+        {{-- Don't have an account? <a href="{{ route('register') }}">Create One</a> --}}
     </div>
 @endsection
 
