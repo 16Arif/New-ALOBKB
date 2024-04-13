@@ -132,4 +132,10 @@
     <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/bootstrap-modal.js') }}"></script>
+    <script>
+        function confirmDelete(userId) {
+            var result = confirm("Are you sure you want to delete this data?");
+            return result;
+        }
+    </script>
 @endpush
