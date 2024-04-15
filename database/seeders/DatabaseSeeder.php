@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\LogbookGempa;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\LogbookgempaSeeder;
 use Database\Seeders\LogbookpetirSeeder;
+use Database\Seeders\LogbookperalatanSeeder;
 
 class DatabaseSeeder extends Seeder
 {
