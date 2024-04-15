@@ -35,7 +35,7 @@
                                                 title="{{ $user->name }}">
                                         </div>
                                     @else
-                                        <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}"
+                                        <img alt="image" src="{{ asset('img/avatar1.svg') }}"
                                             class="img-fluid profile-widget-picture" style="width: 400px">
                                     @endif
                                 </div>
