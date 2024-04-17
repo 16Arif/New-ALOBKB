@@ -70,7 +70,7 @@
                                             <i class="fas fa-lock"></i>
                                         </div>
                                     </div>
-                                    <input type="password" class="form-control @error('email') is-invalid @enderror"
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
                                         name="password">
                                 </div>
                                 @error('password')
@@ -79,19 +79,13 @@
                             </div>
                             <div class="form-group">
                                 <label>Phone</label>
-
-                                <input type="number" class="form-control @error('email') is-invalid @enderror"
-                                    name="phone">
-                                @error('password')
-                                    {{ $message }}
-                                @enderror
+                                <input type="numeric" class="form-control" name="phone">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Roles</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="ADMIN" class="selectgroup-input"
-                                            checked>
+                                        <input type="radio" name="roles" value="ADMIN" class="selectgroup-input">
                                         <span class="selectgroup-button">ADMIN</span>
                                     </label>
                                     <label class="selectgroup-item">

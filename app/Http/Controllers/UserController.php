@@ -31,6 +31,12 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $data = $request->all();
+        // Jika roles adalah ADMIN, atur is_admin menjadi 1
+        if ($request->roles == 'ADMIN') {
+            $data['is_admin'] = 1;
+        } else {
+            $data['is_admin'] = 0;
+        }
         $data['password'] = Hash::make($request->password);
         User::create($data);
         return redirect()->route('user.index')->with('success', 'User Successfully Created');
@@ -45,6 +51,12 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $data = $request->validated();
+        // Jika roles adalah ADMIN, atur is_admin menjadi 1
+        if ($request->roles == 'ADMIN') {
+            $data['is_admin'] = 1;
+        } else {
+            $data['is_admin'] = 0;
+        }
         $user->update($data);
         return redirect()->route('user.index')->with('success', 'User Successfully Updated');
     }

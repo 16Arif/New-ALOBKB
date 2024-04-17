@@ -27,7 +27,7 @@ class UpdateProfileRequest extends FormRequest
             'name' => 'required|max:100|min:3',
             'username' => 'required|max:100|min:3',
             'email' => 'required|email',
-            'phone' => 'numeric',
+            'phone' => '',
         ];
     }
 }

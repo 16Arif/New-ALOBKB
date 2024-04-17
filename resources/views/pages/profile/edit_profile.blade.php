@@ -76,7 +76,7 @@
                                     <div class="form-group">
                                         <label>Name</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                            name="name" value="{{ $user->name }}">
+                                            name="name" value="{{ old('name', $user->name) }}">
                                         @error('name')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -86,7 +86,7 @@
                                     <div class="form-group">
                                         <label>Username</label>
                                         <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                            name="username" value="{{ $user->username }}">
+                                            name="username" value="{{ old('username', $user->username) }}">
                                         @error('username')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -96,7 +96,7 @@
                                     <div class="form-group">
                                         <label>Email</label>
                                         <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                            name="email" value="{{ $user->email }}">
+                                            name="email" value="{{ old('email', $user->email) }}">
                                         @error('email')
                                             {{ $message }}
                                         @enderror
@@ -105,7 +105,7 @@
                                     <div class="form-group">
                                         <label>Phone</label>
                                         <input type="number" class="form-control @error('phone') is-invalid @enderror"
-                                            name="phone" value="{{ $user->phone }}">
+                                            name="phone" value="{{ old('phone', $user->phone) }}">
                                         @error('phone')
                                             {{ $message }}
                                         @enderror
