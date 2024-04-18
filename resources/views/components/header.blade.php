@@ -17,7 +17,7 @@
                     <img src="{{ asset('storage/' . auth()->user()->image) }}" class="img-fluid mr-1 mt-2"
                         alt="profile">
                 @else
-                    <img src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-1 mt-2" alt="profile">
+                    <img src="{{ asset('img/avatar1.svg') }}" class="rounded-circle mr-1 mt-2" alt="profile">
                 @endif
                 {{-- <img src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-1" alt="bg-card"> --}}
                 <div class="d-sm-none d-lg-inline-block">{{ auth()->user()->name }}</div>

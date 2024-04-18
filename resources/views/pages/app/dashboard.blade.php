@@ -50,7 +50,7 @@
                                                         title="{{ $user->name }}">
                                                 </div>
                                             @else
-                                                <img src="{{ asset('img/avatar/avatar-1.png') }}"
+                                                <img src="{{ asset('img/avatar1.svg') }}"
                                                     class="img-fluid img-thumbnail rounded" alt="bg-card"
                                                     title="{{ $user->name }}">
                                             @endif
