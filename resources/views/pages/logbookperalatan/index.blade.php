@@ -90,12 +90,12 @@
                                             <th>Integrasi Data</th>
                                             <th>Seiscomp4</th>
                                             <th>PC Magnet</th>
-                                            </th>
+                                            <th>Monitor Zoom</th>
+                                            <th>Internet Operasional (Lintasarta)</th>
+                                            <th>Internet Lokal (SG4-Balikpapan)</th>
+                                            <th>BKB Server</th>
                                             <th>Penakar Hujan</th>
-                                            </th>
                                             <th>Radio SSB</th>
-                                            </th>
-                                            <th>Kondisi</th>
                                             <th>created_at</th>
                                         </tr>
                                         @php
@@ -152,14 +152,24 @@
                                                     {{ $lbp->pc_magnet }}
                                                 </td>
                                                 <td>
+                                                    {{ $lbp->monitor_zoom }}
+                                                </td>
+                                                <td>
+                                                    {{ $lbp->internet_ops }}
+                                                </td>
+                                                <td>
+                                                    {{ $lbp->internet_lokal }}
+                                                </td>
+                                                <td>
+                                                    {{ $lbp->bkb_server }}
+                                                </td>
+                                                <td>
                                                     {{ $lbp->penakar_hujan }}
                                                 </td>
                                                 <td>
                                                     {{ $lbp->radio_ssb }}
                                                 </td>
-                                                <td>
-                                                    {{ $lbp->kondisi }}
-                                                </td>
+
                                                 <td>{{ $lbp->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">

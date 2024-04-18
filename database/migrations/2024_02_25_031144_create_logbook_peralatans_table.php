@@ -30,9 +30,12 @@ return new class extends Migration
             $table->string('integrasi_data');
             $table->string('seiscomp4');
             $table->string('pc_magnet');
+            $table->string('monitor_zoom');
+            $table->string('internet_ops');
+            $table->string('internet_lokal');
+            $table->string('bkb_server');
             $table->string('penakar_hujan');
             $table->string('radio_ssb');
-            $table->string('kondisi');
             $table->string('note')->nullable();
             $table->timestamps();
         });

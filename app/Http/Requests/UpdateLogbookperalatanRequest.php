@@ -19,8 +19,12 @@ class UpdateLogbookperalatanRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+
+    public const VALIDATION_OPTIONS = 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF';
+
     public function rules(): array
     {
+
         return [
             'tanggal' => 'required',
             'jam' => 'required',
@@ -39,9 +43,12 @@ class UpdateLogbookperalatanRequest extends FormRequest
             'integrasi_data' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'seiscomp4' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'pc_magnet' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
+            'monitor_zoom' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
+            'internet_ops' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
+            'internet_lokal' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
+            'bkb_server' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'penakar_hujan' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'radio_ssb' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
-            'kondisi' => 'required|in:BAIK,TIDAK BAIK',
             'note' => '',
         ];
     }

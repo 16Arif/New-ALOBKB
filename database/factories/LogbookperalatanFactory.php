@@ -34,9 +34,12 @@ class LogbookperalatanFactory extends Factory
             'integrasi_data' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
             'seiscomp4' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
             'pc_magnet' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'monitor_zoom' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'internet_ops' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'internet_lokal' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'bkb_server' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
             'penakar_hujan' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
             'radio_ssb' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
-            'kondisi' => $this->faker->randomElement(['BAIK', 'TIDAK BAIK']),
             'note' => $this->faker->text(),
         ];
     }

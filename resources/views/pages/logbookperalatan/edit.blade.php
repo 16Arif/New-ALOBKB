@@ -395,6 +395,106 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label class="form-label">Monitor ZOOM</label>
+                                <div class="selectgroup w-100 @error('monitor_zoom') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitor_zoom" value="BAIK"
+                                            class="selectgroup-input" @if (old('monitor_zoom') == 'BAIK' || $logbookperalatan->monitor_zoom == 'BAIK') checked @endif>
+                                        <span class="selectgroup-button">BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitor_zoom" value="TIDAK BAIK"
+                                            class="selectgroup-input" @if (old('monitor_zoom') == 'TIDAK BAIK' || $logbookperalatan->monitor_zoom == 'TIDAK BAIK') checked @endif>
+                                        <span class="selectgroup-button">TIDAK BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitor_zoom" value="TIDAK AKTIF"
+                                            class="selectgroup-input" @if (old('monitor_zoom') == 'TIDAK AKTIF' || $logbookperalatan->monitor_zoom == 'TIDAK AKTIF') checked @endif>
+                                        <span class="selectgroup-button">TIDAK AKTIF</span>
+                                    </label>
+                                </div>
+                                @error('monitor_zoom')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Internet Operasional Lintasarta</label>
+                                <div class="selectgroup w-100 @error('internet_ops') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="internet_ops" value="BAIK"
+                                            class="selectgroup-input" @if (old('internet_ops') == 'BAIK' || $logbookperalatan->internet_ops == 'BAIK') checked @endif>
+                                        <span class="selectgroup-button">BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="internet_ops" value="TIDAK BAIK"
+                                            class="selectgroup-input" @if (old('internet_ops') == 'TIDAK BAIK' || $logbookperalatan->internet_ops == 'TIDAK BAIK') checked @endif>
+                                        <span class="selectgroup-button">TIDAK BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="internet_ops" value="TIDAK AKTIF"
+                                            class="selectgroup-input" @if (old('internet_ops') == 'TIDAK AKTIF' || $logbookperalatan->internet_ops == 'TIDAK AKTIF') checked @endif>
+                                        <span class="selectgroup-button">TIDAK AKTIF</span>
+                                    </label>
+                                </div>
+                                @error('internet_ops')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Internet Lokal SG4-Balikpapan</label>
+                                <div class="selectgroup w-100 @error('internet_lokal') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="internet_lokal" value="BAIK"
+                                            class="selectgroup-input" @if (old('internet_lokal') == 'BAIK' || $logbookperalatan->internet_lokal == 'BAIK') checked @endif>
+                                        <span class="selectgroup-button">BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="internet_lokal" value="TIDAK BAIK"
+                                            class="selectgroup-input" @if (old('internet_lokal') == 'TIDAK BAIK' || $logbookperalatan->internet_lokal == 'TIDAK BAIK') checked @endif>
+                                        <span class="selectgroup-button">TIDAK BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="internet_lokal" value="TIDAK AKTIF"
+                                            class="selectgroup-input" @if (old('internet_lokal') == 'TIDAK AKTIF' || $logbookperalatan->internet_lokal == 'TIDAK AKTIF') checked @endif>
+                                        <span class="selectgroup-button">TIDAK AKTIF</span>
+                                    </label>
+                                </div>
+                                @error('internet_lokal')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">BKB Server</label>
+                                <div class="selectgroup w-100 @error('bkb_server') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="bkb_server" value="BAIK" class="selectgroup-input"
+                                            @if (old('bkb_server') == 'BAIK' || $logbookperalatan->bkb_server == 'BAIK') checked @endif>
+                                        <span class="selectgroup-button">BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="bkb_server" value="TIDAK BAIK"
+                                            class="selectgroup-input" @if (old('bkb_server') == 'TIDAK BAIK' || $logbookperalatan->bkb_server == 'TIDAK BAIK') checked @endif>
+                                        <span class="selectgroup-button">TIDAK BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="bkb_server" value="TIDAK AKTIF"
+                                            class="selectgroup-input" @if (old('bkb_server') == 'TIDAK AKTIF' || $logbookperalatan->bkb_server == 'TIDAK AKTIF') checked @endif>
+                                        <span class="selectgroup-button">TIDAK AKTIF</span>
+                                    </label>
+                                </div>
+                                @error('bkb_server')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label class="form-label">Penakar Hujan</label>
                                 <div class="selectgroup w-100 @error('penakar_hujan') is-invalid @enderror">
                                     <label class="selectgroup-item">
@@ -439,27 +539,6 @@
                                     </label>
                                 </div>
                                 @error('radio_ssb')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Kondisi</label>
-                                <div class="selectgroup w-100 @error('kondisi') is-invalid @enderror">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi" value="BAIK" class="selectgroup-input"
-                                            @if (old('kondisi') == 'BAIK' || $logbookperalatan->kondisi == 'BAIK') checked @endif>
-                                        <span class="selectgroup-button">BAIK</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if (old('kondisi') == 'TIDAK BAIK' || $logbookperalatan->kondisi == 'TIDAK BAIK') checked @endif>
-                                        <span class="selectgroup-button">TIDAK BAIK</span>
-                                    </label>
-                                </div>
-                                @error('kondisi')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
