@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Preview Data Logbook Petir</title>
+    <title>Preview Data Logbook Gempabumi</title>
     <style>
         h4 {
             font-family: verdana;
@@ -55,7 +55,7 @@
 
 <body>
 
-    <h4>Data Logbook Petir</h4>
+    <h4>Data Logbook Gempabumi</h4>
     <h5>Operasional Stasiun Geofisika Balikpapan</h5>
     <table>
         <tr>
@@ -94,11 +94,7 @@
             </td>
         </tr>
         <tr>
-            <td>6. Kondisi</td>
-            <td>{{ $logbookgempa->kondisi }}</td>
-        </tr>
-        <tr>
-            <td>7. Catatan</td>
+            <td>6. Catatan</td>
             <td>
                 <article>
                     {!! $logbookgempa->note !!}

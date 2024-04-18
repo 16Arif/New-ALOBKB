@@ -94,11 +94,7 @@
             </td>
         </tr>
         <tr>
-            <td>6. Kondisi</td>
-            <td>{{ $logbookpetir->kondisi }}</td>
-        </tr>
-        <tr>
-            <td>7. Catatan</td>
+            <td>6. Catatan</td>
             <td>
                 <article>
                     {!! $logbookpetir->note !!}
