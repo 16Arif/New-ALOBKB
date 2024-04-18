@@ -119,11 +119,6 @@
                                 <label class="form-label">Pengamatan 1</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan1" value="Pengamatan LD jam 02.00"
-                                            class="selectgroup-input" @if (old('pengamatan1') == 'Pengamatan LD jam 02.00' || $logbookpetir->pengamatan1 == 'Pengamatan LD jam 02.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 02.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
                                         <input type="radio" name="pengamatan1" value="Pengamatan LD jam 08.00"
                                             class="selectgroup-input" @if (old('pengamatan1') == 'Pengamatan LD jam 08.00' || $logbookpetir->pengamatan1 == 'Pengamatan LD jam 08.00') checked @endif>
                                         <span class="selectgroup-button">Pengamatan LD jam 08.00</span>
@@ -138,16 +133,16 @@
                                             class="selectgroup-input" @if (old('pengamatan1') == 'Pengamatan LD jam 20.00' || $logbookpetir->pengamatan1 == 'Pengamatan LD jam 20.00') checked @endif>
                                         <span class="selectgroup-button">Pengamatan LD jam 20.00</span>
                                     </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="pengamatan1" value="Pengamatan LD jam 02.00"
+                                            class="selectgroup-input" @if (old('pengamatan1') == 'Pengamatan LD jam 02.00' || $logbookpetir->pengamatan1 == 'Pengamatan LD jam 02.00') checked @endif>
+                                        <span class="selectgroup-button">Pengamatan LD jam 02.00</span>
+                                    </label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Pengamatan 2</label>
                                 <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan2" value="Pengamatan LD jam 03.00"
-                                            class="selectgroup-input" @if (old('pengamatan2') == 'Pengamatan LD jam 03.00' || $logbookpetir->pengamatan2 == 'Pengamatan LD jam 03.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 03.00</span>
-                                    </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="pengamatan2" value="Pengamatan LD jam 09.00"
                                             class="selectgroup-input" @if (old('pengamatan2') == 'Pengamatan LD jam 09.00' || $logbookpetir->pengamatan2 == 'Pengamatan LD jam 09.00') checked @endif>
@@ -163,16 +158,16 @@
                                             class="selectgroup-input" @if (old('pengamatan2') == 'Pengamatan LD jam 21.00' || $logbookpetir->pengamatan2 == 'Pengamatan LD jam 21.00') checked @endif>
                                         <span class="selectgroup-button">Pengamatan LD jam 21.00</span>
                                     </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="pengamatan2" value="Pengamatan LD jam 03.00"
+                                            class="selectgroup-input" @if (old('pengamatan2') == 'Pengamatan LD jam 03.00' || $logbookpetir->pengamatan2 == 'Pengamatan LD jam 03.00') checked @endif>
+                                        <span class="selectgroup-button">Pengamatan LD jam 03.00</span>
+                                    </label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Pengamatan 3</label>
                                 <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan3" value="Pengamatan LD jam 04.00"
-                                            class="selectgroup-input" @if (old('pengamatan3') == 'Pengamatan LD jam 04.00' || $logbookpetir->pengamatan3 == 'Pengamatan LD jam 04.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 04.00</span>
-                                    </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="pengamatan3" value="Pengamatan LD jam 10.00"
                                             class="selectgroup-input" @if (old('pengamatan3') == 'Pengamatan LD jam 10.00' || $logbookpetir->pengamatan3 == 'Pengamatan LD jam 10.00') checked @endif>
@@ -188,16 +183,16 @@
                                             class="selectgroup-input" @if (old('pengamatan3') == 'Pengamatan LD jam 22.00' || $logbookpetir->pengamatan3 == 'Pengamatan LD jam 22.00') checked @endif>
                                         <span class="selectgroup-button">Pengamatan LD jam 22.00</span>
                                     </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="pengamatan3" value="Pengamatan LD jam 04.00"
+                                            class="selectgroup-input" @if (old('pengamatan3') == 'Pengamatan LD jam 04.00' || $logbookpetir->pengamatan3 == 'Pengamatan LD jam 04.00') checked @endif>
+                                        <span class="selectgroup-button">Pengamatan LD jam 04.00</span>
+                                    </label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Pengamatan 4</label>
                                 <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan4" value="Pengamatan LD jam 05.00"
-                                            class="selectgroup-input" @if (old('pengamatan4') == 'Pengamatan LD jam 05.00' || $logbookpetir->pengamatan4 == 'Pengamatan LD jam 05.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 05.00</span>
-                                    </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="pengamatan4" value="Pengamatan LD jam 11.00"
                                             class="selectgroup-input" @if (old('pengamatan4') == 'Pengamatan LD jam 11.00' || $logbookpetir->pengamatan4 == 'Pengamatan LD jam 11.00') checked @endif>
@@ -213,16 +208,16 @@
                                             class="selectgroup-input" @if (old('pengamatan4') == 'Pengamatan LD jam 23.00' || $logbookpetir->pengamatan4 == 'Pengamatan LD jam 23.00') checked @endif>
                                         <span class="selectgroup-button">Pengamatan LD jam 23.00</span>
                                     </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="pengamatan4" value="Pengamatan LD jam 05.00"
+                                            class="selectgroup-input" @if (old('pengamatan4') == 'Pengamatan LD jam 05.00' || $logbookpetir->pengamatan4 == 'Pengamatan LD jam 05.00') checked @endif>
+                                        <span class="selectgroup-button">Pengamatan LD jam 05.00</span>
+                                    </label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Pengamatan 5</label>
                                 <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan5" value="Pengamatan LD jam 06.00"
-                                            class="selectgroup-input" @if (old('pengamatan5') == 'Pengamatan LD jam 06.00' || $logbookpetir->pengamatan5 == 'Pengamatan LD jam 06.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 06.00</span>
-                                    </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="pengamatan5" value="Pengamatan LD jam 12.00"
                                             class="selectgroup-input" @if (old('pengamatan5') == 'Pengamatan LD jam 12.00' || $logbookpetir->pengamatan5 == 'Pengamatan LD jam 12.00') checked @endif>
@@ -238,16 +233,16 @@
                                             class="selectgroup-input" @if (old('pengamatan5') == 'Pengamatan LD jam 00.00' || $logbookpetir->pengamatan5 == 'Pengamatan LD jam 00.00') checked @endif>
                                         <span class="selectgroup-button">Pengamatan LD jam 00.00</span>
                                     </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="pengamatan5" value="Pengamatan LD jam 06.00"
+                                            class="selectgroup-input" @if (old('pengamatan5') == 'Pengamatan LD jam 06.00' || $logbookpetir->pengamatan5 == 'Pengamatan LD jam 06.00') checked @endif>
+                                        <span class="selectgroup-button">Pengamatan LD jam 06.00</span>
+                                    </label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Pengamatan 6</label>
                                 <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan6" value="Pengamatan LD jam 07.00"
-                                            class="selectgroup-input" @if (old('pengamatan6') == 'Pengamatan LD jam 07.00' || $logbookpetir->pengamatan6 == 'Pengamatan LD jam 07.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 07.00</span>
-                                    </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="pengamatan6" value="Pengamatan LD jam 13.00"
                                             class="selectgroup-input" @if (old('pengamatan6') == 'Pengamatan LD jam 13.00' || $logbookpetir->pengamatan6 == 'Pengamatan LD jam 13.00') checked @endif>
@@ -262,6 +257,11 @@
                                         <input type="radio" name="pengamatan6" value="Pengamatan LD jam 01.00"
                                             class="selectgroup-input" @if (old('pengamatan6') == 'Pengamatan LD jam 01.00' || $logbookpetir->pengamatan6 == 'Pengamatan LD jam 01.00') checked @endif>
                                         <span class="selectgroup-button">Pengamatan LD jam 01.00</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="pengamatan6" value="Pengamatan LD jam 07.00"
+                                            class="selectgroup-input" @if (old('pengamatan6') == 'Pengamatan LD jam 07.00' || $logbookpetir->pengamatan6 == 'Pengamatan LD jam 07.00') checked @endif>
+                                        <span class="selectgroup-button">Pengamatan LD jam 07.00</span>
                                     </label>
                                 </div>
                             </div>

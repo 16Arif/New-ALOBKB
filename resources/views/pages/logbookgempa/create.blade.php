@@ -120,11 +120,10 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <div class="form-check ml-3">
-                                    <input class="form-check-input @error('kegiatan1') is-invalid @enderror"
-                                        type="checkbox" value="Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc"
-                                        id="flexCheckDefault" name="kegiatan1"
-                                        @if (old('kegiatan1') == 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc') checked @endif>
+                                <div class="form-check @error('kegiatan1') is-invalid @enderror ml-3">
+                                    <input class="form-check-input " type="checkbox"
+                                        value="Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc" id="flexCheckDefault"
+                                        name="kegiatan1" @if (old('kegiatan1') == 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc') checked @endif>
                                     <label class="form-check" for="flexCheckDefault">
                                         Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc
                                     </label>
@@ -136,11 +135,10 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <div class="form-check ml-3">
-                                    <input class="form-check-input @error('kegiatan2') is-invalid @enderror"
-                                        type="checkbox" value="Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2"
-                                        id="flexCheckDefault" name="kegiatan2"
-                                        @if (old('kegiatan2') == 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2') checked @endif>
+                                <div class="form-check ml-3 @error('kegiatan2') is-invalid @enderror">
+                                    <input class="form-check-input " type="checkbox"
+                                        value="Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2" id="flexCheckDefault"
+                                        name="kegiatan2" @if (old('kegiatan2') == 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2') checked @endif>
                                     <label class="form-check" for="flexCheckDefault">
                                         Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2
                                     </label>

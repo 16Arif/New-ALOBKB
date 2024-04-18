@@ -37,7 +37,7 @@
                             <div class="form-group">
                                 <label>Tanggal</label>
                                 <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                    name="tanggal" autofocus value="{{ $logbookperalatan->tanggal }}">
+                                    name="tanggal" autofocus value="{{ old('tanggal', $logbookperalatan->tanggal) }}">
                                 @error('tanggal')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -49,22 +49,22 @@
                                 <div class="selectgroup w-100 @error('jam') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="jam" value="07.00" class="selectgroup-input"
-                                            @if ($logbookperalatan->jam == '07.00') checked @endif>
+                                            @if (old('jam') == '07.00' || $logbookperalatan->jam == '07.00') checked @endif>
                                         <span class="selectgroup-button">07.00</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="jam" value="13.00" class="selectgroup-input"
-                                            @if ($logbookperalatan->jam == '13.00') checked @endif>
+                                            @if (old('jam') == '13.00' || $logbookperalatan->jam == '13.00') checked @endif>
                                         <span class="selectgroup-button">13.00</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="jam" value="19.00" class="selectgroup-input"
-                                            @if ($logbookperalatan->jam == '19.00') checked @endif>
+                                            @if (old('jam') == '19.00' || $logbookperalatan->jam == '19.00') checked @endif>
                                         <span class="selectgroup-button">19.00</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="jam" value="01.00" class="selectgroup-input"
-                                            @if ($logbookperalatan->jam == '01.00') checked @endif>
+                                            @if (old('jam') == '01.00' || $logbookperalatan->jam == '01.00') checked @endif>
                                         <span class="selectgroup-button">01.00</span>
                                     </label>
                                 </div>
@@ -80,7 +80,7 @@
                                     <div class="col-lg-4">
                                         <label>On Duty 1</label>
                                         <input type="text" class="form-control @error('onduty1') is-invalid @enderror"
-                                            name="onduty1" value="{{ $logbookperalatan->onduty1 }}">
+                                            name="onduty1" value="{{ old('onduty1', $logbookperalatan->onduty1) }}">
                                         @error('onduty1')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -90,12 +90,12 @@
                                     <div class="col-lg-4">
                                         <label>On Duty 2</label>
                                         <input type="text" class="form-control " name="onduty2"
-                                            value="{{ $logbookperalatan->onduty2 }}">
+                                            value="{{ old('onduty2', $logbookperalatan->onduty2) }}">
                                     </div>
                                     <div class="col-lg-4">
                                         <label>On Duty 3</label>
                                         <input type="text" class="form-control " name="onduty3"
-                                            value="{{ $logbookperalatan->onduty3 }}">
+                                            value="{{ old('onduty3', $logbookperalatan->onduty3) }}">
                                     </div>
                                 </div>
                             </div>
@@ -104,12 +104,12 @@
                                 <div class="selectgroup w-100 @error('kehadiran') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="kehadiran" value="HADIR" class="selectgroup-input "
-                                            @if ($logbookperalatan->kehadiran == 'HADIR') checked @endif>
+                                            @if (old('kehadiran') == 'HADIR' || $logbookperalatan->kehadiran == 'HADIR') checked @endif>
                                         <span class="selectgroup-button ">HADIR</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="kehadiran" value="TIDAK HADIR" class="selectgroup-input"
-                                            @if ($logbookperalatan->kehadiran == 'TIDAK HADIR') checked @endif>
+                                            @if (old('kehadiran') == 'TIDAK HADIR' || $logbookperalatan->kehadiran == 'TIDAK HADIR') checked @endif>
                                         <span class="selectgroup-button">TIDAK HADIR</span>
                                     </label>
                                 </div>
@@ -124,17 +124,17 @@
                                 <div class="selectgroup w-100 @error('fingerprint') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="fingerprint" value="BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->fingerprint == 'BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('fingerprint') == 'BAIK' || $logbookperalatan->fingerprint == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="fingerprint" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->fingerprint == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('fingerprint') == 'TIDAK BAIK' || $logbookperalatan->fingerprint == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="fingerprint" value="TIDAK AKTIF"
-                                            class="selectgroup-input" @if ($logbookperalatan->fingerprint == 'TIDAK AKTIF') checked @endif>
+                                            class="selectgroup-input" @if (old('fingerprint') == 'TIDAK AKTIF' || $logbookperalatan->fingerprint == 'TIDAK AKTIF') checked @endif>
                                         <span class="selectgroup-button">TIDAK AKTIF</span>
                                     </label>
                                 </div>
@@ -149,17 +149,17 @@
                                 <div class="selectgroup w-100 @error('tds') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="tds" value="BAIK" class="selectgroup-input"
-                                            @if ($logbookperalatan->tds == 'BAIK') checked @endif>
+                                            @if (old('tds') == 'BAIK' || $logbookperalatan->tds == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="tds" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->tds == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('tds') == 'TIDAK BAIK' || $logbookperalatan->tds == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="tds" value="TIDAK AKTIF"
-                                            class="selectgroup-input" @if ($logbookperalatan->tds == 'TIDAK AKTIF') checked @endif>
+                                            class="selectgroup-input" @if (old('tds') == 'TIDAK AKTIF' || $logbookperalatan->tds == 'TIDAK AKTIF') checked @endif>
                                         <span class="selectgroup-button">TIDAK AKTIF</span>
                                     </label>
                                 </div>
@@ -174,17 +174,17 @@
                                 <div class="selectgroup w-100 @error('nexstorm') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="nexstorm" value="BAIK" class="selectgroup-input"
-                                            @if ($logbookperalatan->nexstorm == 'BAIK') checked @endif>
+                                            @if (old('nexstorm') == 'BAIK' || $logbookperalatan->nexstorm == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="nexstorm" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->nexstorm == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('nexstorm') == 'TIDAK BAIK' || $logbookperalatan->nexstorm == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="nexstorm" value="TIDAK AKTIF"
-                                            class="selectgroup-input" @if ($logbookperalatan->nexstorm == 'TIDAK AKTIF') checked @endif>
+                                            class="selectgroup-input" @if (old('nexstorm') == 'TIDAK AKTIF' || $logbookperalatan->nexstorm == 'TIDAK AKTIF') checked @endif>
                                         <span class="selectgroup-button">TIDAK AKTIF</span>
                                     </label>
                                 </div>
@@ -199,17 +199,17 @@
                                 <div class="selectgroup w-100 @error('obs_nexstorm') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="obs_nexstorm" value="BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->obs_nexstorm == 'BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('obs_nexstorm') == 'BAIK' || $logbookperalatan->obs_nexstorm == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="obs_nexstorm" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->obs_nexstorm == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('obs_nexstorm') == 'TIDAK BAIK' || $logbookperalatan->obs_nexstorm == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="obs_nexstorm" value="TIDAK AKTIF"
-                                            class="selectgroup-input" @if ($logbookperalatan->obs_nexstorm == 'TIDAK AKTIF') checked @endif>
+                                            class="selectgroup-input" @if (old('obs_nexstorm') == 'TIDAK AKTIF' || $logbookperalatan->obs_nexstorm == 'TIDAK AKTIF') checked @endif>
                                         <span class="selectgroup-button">TIDAK AKTIF</span>
                                     </label>
                                 </div>
@@ -224,17 +224,17 @@
                                 <div class="selectgroup w-100 @error('cmss') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="cmss" value="BAIK" class="selectgroup-input"
-                                            @if ($logbookperalatan->cmss == 'BAIK') checked @endif>
+                                            @if (old('cmss') == 'BAIK' || $logbookperalatan->cmss == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="cmss" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->cmss == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('cmss') == 'TIDAK BAIK' || $logbookperalatan->cmss == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="cmss" value="TIDAK AKTIF"
-                                            class="selectgroup-input" @if ($logbookperalatan->cmss == 'TIDAK AKTIF') checked @endif>
+                                            class="selectgroup-input" @if (old('cmss') == 'TIDAK AKTIF' || $logbookperalatan->cmss == 'TIDAK AKTIF') checked @endif>
                                         <span class="selectgroup-button">TIDAK AKTIF</span>
                                     </label>
                                 </div>
@@ -249,17 +249,17 @@
                                 <div class="selectgroup w-100 @error('monitoring') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitoring" value="BAIK" class="selectgroup-input"
-                                            @if ($logbookperalatan->monitoring == 'BAIK') checked @endif>
+                                            @if (old('monitoring') == 'BAIK' || $logbookperalatan->monitoring == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitoring" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->monitoring == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('monitoring') == 'TIDAK BAIK' || $logbookperalatan->monitoring == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitoring" value="TIDAK AKTIF"
-                                            class="selectgroup-input" @if ($logbookperalatan->monitoring == 'TIDAK AKTIF') checked @endif>
+                                            class="selectgroup-input" @if (old('monitoring') == 'TIDAK AKTIF' || $logbookperalatan->monitoring == 'TIDAK AKTIF') checked @endif>
                                         <span class="selectgroup-button">TIDAK AKTIF</span>
                                     </label>
                                 </div>
@@ -274,17 +274,17 @@
                                 <div class="selectgroup w-100 @error('acc') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="acc" value="BAIK" class="selectgroup-input"
-                                            @if ($logbookperalatan->acc == 'BAIK') checked @endif>
+                                            @if (old('acc') == 'BAIK' || $logbookperalatan->acc == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="acc" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->acc == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('acc') == 'TIDAK BAIK' || $logbookperalatan->acc == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="acc" value="TIDAK AKTIF"
-                                            class="selectgroup-input" @if ($logbookperalatan->acc == 'TIDAK AKTIF') checked @endif>
+                                            class="selectgroup-input" @if (old('acc') == 'TIDAK AKTIF' || $logbookperalatan->acc == 'TIDAK AKTIF') checked @endif>
                                         <span class="selectgroup-button">TIDAK AKTIF</span>
                                     </label>
                                 </div>
@@ -299,17 +299,17 @@
                                 <div class="selectgroup w-100 @error('wrsng') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="wrsng" value="BAIK" class="selectgroup-input"
-                                            @if ($logbookperalatan->wrsng == 'BAIK') checked @endif>
+                                            @if (old('wrsng') == 'BAIK' || $logbookperalatan->wrsng == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="wrsng" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->wrsng == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('wrsng') == 'TIDAK BAIK' || $logbookperalatan->wrsng == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="wrsng" value="TIDAK AKTIF"
-                                            class="selectgroup-input" @if ($logbookperalatan->wrsng == 'TIDAK AKTIF') checked @endif>
+                                            class="selectgroup-input" @if (old('wrsng') == 'TIDAK AKTIF' || $logbookperalatan->wrsng == 'TIDAK AKTIF') checked @endif>
                                         <span class="selectgroup-button">TIDAK AKTIF</span>
                                     </label>
                                 </div>
@@ -324,17 +324,17 @@
                                 <div class="selectgroup w-100 @error('integrasi_data') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="integrasi_data" value="BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->integrasi_data == 'BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('integrasi_data') == 'BAIK' || $logbookperalatan->integrasi_data == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="integrasi_data" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->integrasi_data == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('integrasi_data') == 'TIDAK BAIK' || $logbookperalatan->integrasi_data == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="integrasi_data" value="TIDAK AKTIF"
-                                            class="selectgroup-input" @if ($logbookperalatan->integrasi_data == 'TIDAK AKTIF') checked @endif>
+                                            class="selectgroup-input" @if (old('integrasi_data') == 'TIDAK AKTIF' || $logbookperalatan->integrasi_data == 'TIDAK AKTIF') checked @endif>
                                         <span class="selectgroup-button">TIDAK AKTIF</span>
                                     </label>
                                 </div>
@@ -349,17 +349,17 @@
                                 <div class="selectgroup w-100 @error('seiscomp4') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="seiscomp4" value="BAIK" class="selectgroup-input"
-                                            @if ($logbookperalatan->seiscomp4 == 'BAIK') checked @endif>
+                                            @if (old('seiscomp4') == 'BAIK' || $logbookperalatan->seiscomp4 == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="seiscomp4" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->seiscomp4 == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('seiscomp4') == 'TIDAK BAIK' || $logbookperalatan->seiscomp4 == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="seiscomp4" value="TIDAK AKTIF"
-                                            class="selectgroup-input" @if ($logbookperalatan->seiscomp4 == 'TIDAK AKTIF') checked @endif>
+                                            class="selectgroup-input" @if (old('seiscomp4') == 'TIDAK AKTIF' || $logbookperalatan->seiscomp4 == 'TIDAK AKTIF') checked @endif>
                                         <span class="selectgroup-button">TIDAK AKTIF</span>
                                     </label>
                                 </div>
@@ -374,17 +374,17 @@
                                 <div class="selectgroup w-100 @error('pc_magnet') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="pc_magnet" value="BAIK" class="selectgroup-input"
-                                            @if ($logbookperalatan->pc_magnet == 'BAIK') checked @endif>
+                                            @if (old('pc_magnet') == 'BAIK' || $logbookperalatan->pc_magnet == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="pc_magnet" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->pc_magnet == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('pc_magnet') == 'TIDAK BAIK' || $logbookperalatan->pc_magnet == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="pc_magnet" value="TIDAK AKTIF"
-                                            class="selectgroup-input" @if ($logbookperalatan->pc_magnet == 'TIDAK AKTIF') checked @endif>
+                                            class="selectgroup-input" @if (old('pc_magnet') == 'TIDAK AKTIF' || $logbookperalatan->pc_magnet == 'TIDAK AKTIF') checked @endif>
                                         <span class="selectgroup-button">TIDAK AKTIF</span>
                                     </label>
                                 </div>
@@ -399,17 +399,17 @@
                                 <div class="selectgroup w-100 @error('penakar_hujan') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="penakar_hujan" value="BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->penakar_hujan == 'BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('penakar_hujan') == 'BAIK' || $logbookperalatan->penakar_hujan == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="penakar_hujan" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->penakar_hujan == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('penakar_hujan') == 'TIDAK BAIK' || $logbookperalatan->penakar_hujan == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="penakar_hujan" value="TIDAK AKTIF"
-                                            class="selectgroup-input" @if ($logbookperalatan->penakar_hujan == 'TIDAK AKTIF') checked @endif>
+                                            class="selectgroup-input" @if (old('penakar_hujan') == 'TIDAK AKTIF' || $logbookperalatan->penakar_hujan == 'TIDAK AKTIF') checked @endif>
                                         <span class="selectgroup-button">TIDAK AKTIF</span>
                                     </label>
                                 </div>
@@ -424,17 +424,17 @@
                                 <div class="selectgroup w-100 @error('radio_ssb') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="radio_ssb" value="BAIK" class="selectgroup-input"
-                                            @if ($logbookperalatan->radio_ssb == 'BAIK') checked @endif>
+                                            @if (old('radio_ssb') == 'BAIK' || $logbookperalatan->radio_ssb == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="radio_ssb" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->radio_ssb == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('radio_ssb') == 'TIDAK BAIK' || $logbookperalatan->radio_ssb == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="radio_ssb" value="TIDAK AKTIF"
-                                            class="selectgroup-input" @if ($logbookperalatan->radio_ssb == 'TIDAK AKTIF') checked @endif>
+                                            class="selectgroup-input" @if (old('radio_ssb') == 'TIDAK AKTIF' || $logbookperalatan->radio_ssb == 'TIDAK AKTIF') checked @endif>
                                         <span class="selectgroup-button">TIDAK AKTIF</span>
                                     </label>
                                 </div>
@@ -450,12 +450,12 @@
                                 <div class="selectgroup w-100 @error('kondisi') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="kondisi" value="BAIK" class="selectgroup-input"
-                                            @if ($logbookperalatan->kondisi == 'BAIK') checked @endif>
+                                            @if (old('kondisi') == 'BAIK' || $logbookperalatan->kondisi == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="kondisi" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookperalatan->kondisi == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('kondisi') == 'TIDAK BAIK' || $logbookperalatan->kondisi == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                 </div>
@@ -468,7 +468,7 @@
                             <div class="form-group">
                                 <label>Catatan</label>
                                 <input id="note" type="hidden" name="note"
-                                    value="{{ $logbookperalatan->note }}">
+                                    value="{{ old('note', $logbookperalatan->note) }}">
                                 <trix-editor input="note"></trix-editor>
                             </div>
                         </div>

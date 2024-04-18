@@ -37,7 +37,7 @@
                             <div class="form-group">
                                 <label>Tanggal</label>
                                 <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                    name="tanggal" value="{{ $logbookgempa->tanggal }}">
+                                    name="tanggal" value="{{ old('tanggal', $logbookgempa->tanggal) }}">
                                 @error('tanggal')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -49,22 +49,22 @@
                                 <div class="selectgroup w-100 @error('jam') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="jam" value="07.00" class="selectgroup-input"
-                                            @if ($logbookgempa->jam == '07.00') checked @endif>
+                                            @if (old('jam') == '07.00' || $logbookgempa->jam == '07.00') checked @endif>
                                         <span class="selectgroup-button">07.00</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="jam" value="13.00" class="selectgroup-input"
-                                            @if ($logbookgempa->jam == '13.00') checked @endif>
+                                            @if (old('jam') == '13.00' || $logbookgempa->jam == '13.00') checked @endif>
                                         <span class="selectgroup-button">13.00</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="jam" value="19.00" class="selectgroup-input"
-                                            @if ($logbookgempa->jam == '19.00') checked @endif>
+                                            @if (old('jam') == '19.00' || $logbookgempa->jam == '19.00') checked @endif>
                                         <span class="selectgroup-button">19.00</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="jam" value="01.00" class="selectgroup-input"
-                                            @if ($logbookgempa->jam == '01.00') checked @endif>
+                                            @if (old('jam') == '01.00' || $logbookgempa->jam == '01.00') checked @endif>
                                         <span class="selectgroup-button">01.00</span>
                                     </label>
                                 </div>
@@ -79,7 +79,7 @@
                                     <div class="col-lg-4">
                                         <label>On Duty 1</label>
                                         <input type="text" class="form-control @error('onduty1') is-invalid @enderror"
-                                            name="onduty1" value="{{ $logbookgempa->onduty1 }}">
+                                            name="onduty1" value="{{ old('onduty1', $logbookgempa->onduty1) }}">
                                         @error('onduty1')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -90,12 +90,12 @@
                                     <div class="col-lg-4">
                                         <label>On Duty 2</label>
                                         <input type="text" class="form-control " name="onduty2"
-                                            value="{{ $logbookgempa->onduty2 }}">
+                                            value="{{ old('onduty2', $logbookgempa->onduty2) }}">
                                     </div>
                                     <div class="col-lg-4">
                                         <label>On Duty 3</label>
                                         <input type="text" class="form-control " name="onduty3"
-                                            value="{{ $logbookgempa->onduty3 }}">
+                                            value="{{ old('onduty3', $logbookgempa->onduty3) }}">
                                     </div>
 
                                 </div>
@@ -105,21 +105,22 @@
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="kehadiran" value="HADIR" class="selectgroup-input"
-                                            @if ($logbookgempa->kehadiran == 'HADIR') checked @endif>
+                                            @if (old('kehadiran') == 'HADIR' || $logbookgempa->kehadiran == 'HADIR') checked @endif>
                                         <span class="selectgroup-button">HADIR</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="kehadiran" value="TIDAK HADIR" class="selectgroup-input"
-                                            @if ($logbookgempa->kehadiran == 'TIDAK HADIR') checked @endif>
+                                            @if (old('kehadiran') == 'TIDAK HADIR' || $logbookgempa->kehadiran == 'TIDAK HADIR') checked @endif>
                                         <span class="selectgroup-button">TIDAK HADIR</span>
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="form-check ml-3">
-                                    <input class="form-check-input @error('kegiatan1') is-invalid @enderror" type="checkbox"
+                                <div class="form-check ml-3 @error('kegiatan1') is-invalid @enderror">
+                                    <input class="form-check-input " type="checkbox"
                                         value="Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc" id="flexCheckDefault"
-                                        name="kegiatan1" @if ($logbookgempa->kegiatan1 == 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc') checked @endif>
+                                        name="kegiatan1" @if (old('kegiatan1') == 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc' ||
+                                                $logbookgempa->kegiatan1 == 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc') checked @endif>
                                     <label class="form-check" for="flexCheckDefault">
                                         Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc
                                     </label>
@@ -131,11 +132,11 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <div class="form-check ml-3">
-                                    <input class="form-check-input @error('kegiatan2') is-invalid @enderror"
-                                        type="checkbox" value="Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2"
-                                        id="flexCheckDefault" name="kegiatan2"
-                                        @if ($logbookgempa->kegiatan2 == 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2') checked @endif>
+                                <div class="form-check ml-3 @error('kegiatan2') is-invalid @enderror">
+                                    <input class="form-check-input " type="checkbox"
+                                        value="Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2" id="flexCheckDefault"
+                                        name="kegiatan2" @if (old('kegiatan2') == 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2' ||
+                                                $logbookgempa->kegiatan2 == 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2') checked @endif>
                                     <label class="form-check" for="flexCheckDefault">
                                         Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2
                                     </label>
@@ -149,35 +150,39 @@
                             <div class="form-group">
                                 <label class="form-label">Monitoring 1</label>
                                 <div class="selectgroup w-100 @error('monitoring1') is-invalid @enderror">
-
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitoring1"
                                             value="Observasi Seiscomp4 jam 08.00-11.00 WITA" class="selectgroup-input"
-                                            @if ($logbookgempa->monitoring1 == 'Observasi Seiscomp4 jam 08.00-11.00 WITA') checked @endif>
+                                            @if (old('monitoring1') == 'Observasi Seiscomp4 jam 08.00-11.00 WITA' ||
+                                                    $logbookgempa->monitoring1 == 'Observasi Seiscomp4 jam 08.00-11.00 WITA') checked @endif>
                                         <span class="selectgroup-button">Observasi Seiscomp4 jam 08.00-11.00
                                             WITA</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitoring1"
                                             value="Observasi Seiscomp4 jam 14.00-17.00 WITA" class="selectgroup-input"
-                                            @if ($logbookgempa->monitoring1 == 'Observasi Seiscomp4 jam 14.00-17.00 WITA') checked @endif>
+                                            @if (old('monitoring1') == 'Observasi Seiscomp4 jam 14.00-17.00 WITA' ||
+                                                    $logbookgempa->monitoring1 == 'Observasi Seiscomp4 jam 14.00-17.00 WITA') checked @endif>
                                         <span class="selectgroup-button">Observasi Seiscomp4 jam 14.00-17.00
                                             WITA</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitoring1"
                                             value="Observasi Seiscomp4 jam 20.00-23.00 WITA" class="selectgroup-input"
-                                            @if ($logbookgempa->monitoring1 == 'Observasi Seiscomp4 jam 20.00-23.00 WITA') checked @endif>
+                                            @if (old('monitoring1') == 'Observasi Seiscomp4 jam 20.00-23.00 WITA' ||
+                                                    $logbookgempa->monitoring1 == 'Observasi Seiscomp4 jam 20.00-23.00 WITA') checked @endif>
                                         <span class="selectgroup-button">Observasi Seiscomp4 jam 20.00-23.00
                                             WITA</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitoring1"
                                             value="Observasi Seiscomp4 jam 02.00-05.00 WITA" class="selectgroup-input"
-                                            @if ($logbookgempa->monitoring1 == 'Observasi Seiscomp4 jam 02.00-05.00 WITA') checked @endif>
+                                            @if (old('monitoring1') == 'Observasi Seiscomp4 jam 02.00-05.00 WITA' ||
+                                                    $logbookgempa->monitoring1 == 'Observasi Seiscomp4 jam 02.00-05.00 WITA') checked @endif>
                                         <span class="selectgroup-button">Observasi Seiscomp4 jam 02.00-05.00
                                             WITA</span>
                                     </label>
+
 
                                 </div>
                                 @error('monitoring1')
@@ -191,22 +196,22 @@
                                 <div class="selectgroup w-100  @error('berita1') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="berita1" value="Kirim Berita CMSS jam 03.00 GMT"
-                                            class="selectgroup-input" @if ($logbookgempa->berita1 == 'Kirim Berita CMSS jam 03.00 GMT') checked @endif>
+                                            class="selectgroup-input" @if (old('berita1') == 'Kirim Berita CMSS jam 03.00 GMT' || $logbookgempa->berita1 == 'Kirim Berita CMSS jam 03.00 GMT') checked @endif>
                                         <span class="selectgroup-button">Kirim Berita CMSS jam 03.00 GMT</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="berita1" value="Kirim Berita CMSS jam 09.00 GMT"
-                                            class="selectgroup-input" @if ($logbookgempa->berita1 == 'Kirim Berita CMSS jam 09.00 GMT') checked @endif>
+                                            class="selectgroup-input" @if (old('berita1') == 'Kirim Berita CMSS jam 09.00 GMT' || $logbookgempa->berita1 == 'Kirim Berita CMSS jam 09.00 GMT') checked @endif>
                                         <span class="selectgroup-button">Kirim Berita CMSS jam 09.00 GMT</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="berita1" value="Kirim Berita CMSS jam 15.00 GMT"
-                                            class="selectgroup-input" @if ($logbookgempa->berita1 == 'Kirim Berita CMSS jam 15.00 GMT') checked @endif>
+                                            class="selectgroup-input" @if (old('berita1') == 'Kirim Berita CMSS jam 15.00 GMT' || $logbookgempa->berita1 == 'Kirim Berita CMSS jam 15.00 GMT') checked @endif>
                                         <span class="selectgroup-button">Kirim Berita CMSS jam 15.00 GMT</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="berita1" value="Kirim Berita CMSS jam 21.00 GMT"
-                                            class="selectgroup-input" @if ($logbookgempa->berita1 == 'Kirim Berita CMSS jam 21.00 GMT') checked @endif>
+                                            class="selectgroup-input" @if (old('berita1') == 'Kirim Berita CMSS jam 21.00 GMT' || $logbookgempa->berita1 == 'Kirim Berita CMSS jam 21.00 GMT') checked @endif>
                                         <span class="selectgroup-button">Kirim Berita CMSS jam 21.00 GMT</span>
                                     </label>
                                 </div>
@@ -222,25 +227,29 @@
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitoring2"
                                             value="Observasi Seiscomp4 jam 11.00-14.00 WITA" class="selectgroup-input"
-                                            @if ($logbookgempa->monitoring2 == 'Observasi Seiscomp4 jam 11.00-14.00 WITA') checked @endif>
+                                            @if (old('monitoring2') == 'Observasi Seiscomp4 jam 11.00-14.00 WITA' ||
+                                                    $logbookgempa->monitoring2 == 'Observasi Seiscomp4 jam 11.00-14.00 WITA') checked @endif>
                                         <span class="selectgroup-button">Observasi Seiscomp4 jam 11.00-14.00 WITA</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitoring2"
                                             value="Observasi Seiscomp4 jam 17.00-20.00 WITA" class="selectgroup-input"
-                                            @if ($logbookgempa->monitoring2 == 'Observasi Seiscomp4 jam 17.00-20.00 WITA') checked @endif>
+                                            @if (old('monitoring2') == 'Observasi Seiscomp4 jam 17.00-20.00 WITA' ||
+                                                    $logbookgempa->monitoring2 == 'Observasi Seiscomp4 jam 17.00-20.00 WITA') checked @endif>
                                         <span class="selectgroup-button">Observasi Seiscomp4 jam 17.00-20.00 WITA</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitoring2"
                                             value="Observasi Seiscomp4 jam 23.00-02.00 WITA" class="selectgroup-input"
-                                            @if ($logbookgempa->monitoring2 == 'Observasi Seiscomp4 jam 23.00-02.00 WITA') checked @endif>
+                                            @if (old('monitoring2') == 'Observasi Seiscomp4 jam 23.00-02.00 WITA' ||
+                                                    $logbookgempa->monitoring2 == 'Observasi Seiscomp4 jam 23.00-02.00 WITA') checked @endif>
                                         <span class="selectgroup-button">Observasi Seiscomp4 jam 23.00-02.00 WITA</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitoring2"
                                             value="Observasi Seiscomp4 jam 05.00-08.00 WITA" class="selectgroup-input"
-                                            @if ($logbookgempa->monitoring2 == 'Observasi Seiscomp4 jam 05.00-08.00 WITA') checked @endif>
+                                            @if (old('monitoring2') == 'Observasi Seiscomp4 jam 05.00-08.00 WITA' ||
+                                                    $logbookgempa->monitoring2 == 'Observasi Seiscomp4 jam 05.00-08.00 WITA') checked @endif>
                                         <span class="selectgroup-button">Observasi Seiscomp4 jam 05.00-08.00 WITA</span>
                                     </label>
                                 </div>
@@ -255,22 +264,22 @@
                                 <div class="selectgroup w-100 @error('berita2') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="berita2" value="Kirim Berita CMSS jam 06.00 GMT"
-                                            class="selectgroup-input" @if ($logbookgempa->berita2 == 'Kirim Berita CMSS jam 06.00 GMT') checked @endif>
+                                            class="selectgroup-input" @if (old('berita2') == 'Kirim Berita CMSS jam 06.00 GMT' || $logbookgempa->berita2 == 'Kirim Berita CMSS jam 06.00 GMT') checked @endif>
                                         <span class="selectgroup-button">Kirim Berita CMSS jam 06.00 GMT</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="berita2" value="Kirim Berita CMSS jam 12.00 GMT"
-                                            class="selectgroup-input" @if ($logbookgempa->berita2 == 'Kirim Berita CMSS jam 12.00 GMT') checked @endif>
+                                            class="selectgroup-input" @if (old('berita2') == 'Kirim Berita CMSS jam 12.00 GMT' || $logbookgempa->berita2 == 'Kirim Berita CMSS jam 12.00 GMT') checked @endif>
                                         <span class="selectgroup-button">Kirim Berita CMSS jam 12.00 GMT</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="berita2" value="Kirim Berita CMSS jam 18.00 GMT"
-                                            class="selectgroup-input" @if ($logbookgempa->berita2 == 'Kirim Berita CMSS jam 18.00 GMT') checked @endif>
+                                            class="selectgroup-input" @if (old('berita2') == 'Kirim Berita CMSS jam 18.00 GMT' || $logbookgempa->berita2 == 'Kirim Berita CMSS jam 18.00 GMT') checked @endif>
                                         <span class="selectgroup-button">Kirim Berita CMSS jam 18.00 GMT</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="berita2" value="Kirim Berita CMSS jam 00.00 GMT"
-                                            class="selectgroup-input" @if ($logbookgempa->berita2 == 'Kirim Berita CMSS jam 00.00 GMT') checked @endif>
+                                            class="selectgroup-input" @if (old('berita2') == 'Kirim Berita CMSS jam 00.00 GMT' || $logbookgempa->berita2 == 'Kirim Berita CMSS jam 00.00 GMT') checked @endif>
                                         <span class="selectgroup-button">Kirim Berita CMSS jam 00.00 GMT</span>
                                     </label>
                                 </div>
@@ -285,19 +294,20 @@
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="kondisi" value="BAIK" class="selectgroup-input"
-                                            @if ($logbookgempa->kondisi == 'BAIK') checked @endif>
+                                            @if (old('kondisi') == 'BAIK' || $logbookgempa->kondisi == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="kondisi" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if ($logbookgempa->kondisi == 'TIDAK BAIK') checked @endif>
+                                            class="selectgroup-input" @if (old('kondisi') == 'TIDAK BAIK' || $logbookgempa->kondisi == 'TIDAK BAIK') checked @endif>
                                         <span class="selectgroup-button">TIDAK BAIK</span>
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Catatan</label>
-                                <input id="note" type="hidden" name="note" value="{{ $logbookgempa->note }}">
+                                <input id="note" type="hidden" name="note"
+                                    value="{{ old('note', $logbookgempa->note) }}">
                                 <trix-editor input="note"></trix-editor>
                             </div>
                         </div>
