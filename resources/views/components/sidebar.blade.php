@@ -31,5 +31,17 @@
                         class="fas fa-screwdriver-wrench"></i><span>Logbook Peralatan</span></a>
             </li>
         </ul>
+
+        <ul class="sidebar-menu mt-4">
+            <li class="menu-header">Info</li>
+            <li>
+                <a class="nav-link" href="{{ route('about') }}"><i
+                        class="fas fa-info-circle"></i><span>Tentang</span></a>
+            </li>
+            <li>
+                <a class="nav-link" href="{{ route('help') }}"><i
+                        class="fas fa-info-circle"></i><span>Bantuan</span></a>
+            </li>
+        </ul>
     </aside>
 </div>

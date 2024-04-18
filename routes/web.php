@@ -1,8 +1,11 @@
 <?php
 
+use PHPUnit\TextUI\Help;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserprofileController;
@@ -23,7 +26,7 @@ use App\Http\Controllers\LogbookperalatanController;
 */
 
 Route::middleware(['auth'])->group(function () {
-  
+
     Route::resource('home', DashboardController::class);
     Route::resource('logbookpetir', LogbookpetirController::class);
     Route::resource('logbookperalatan', LogbookperalatanController::class);
@@ -35,6 +38,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('export/spatie_gempa', [ExportController::class, 'spatie_gempa'])->name('export.spatie_gempa');
     Route::resource('profile', UserprofileController::class)->except('index', 'show', 'create', 'store', 'destroy');
     Route::resource('imageprofile', ImageprofileController::class);
+    Route::get('about', AboutController::class)->name('about');
+    Route::get('help', HelpController::class)->name('help');
 });
 
 Route::middleware(['admin'])->group(function () {
