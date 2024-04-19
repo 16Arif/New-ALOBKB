@@ -21,7 +21,21 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        Route::group(['middleware' => ['guest']], function () {
+            Fortify::loginView(function () {
+                return view('pages.auth.login');
+            });
+            Fortify::registerView(function () {
+                return view('pages.auth.register');
+            });
+            Fortify::requestPasswordResetLinkView(function () {
+                return view('pages.auth.request-password');
+            });
+
+            Fortify::resetPasswordView(function(){
+                return view('pages.auth.reset-password');
+            });
+        });
     }
 
     /**
@@ -44,16 +58,6 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
 
-        Route::group(['middleware' => ['guest']], function () {
-            Fortify::loginView(function () {
-                return view('pages.auth.login');
-            });
-            Fortify::registerView(function () {
-                return view('pages.auth.register');
-            });
-            Fortify::resetPasswordView(function () {
-                return view('pages.auth.reset-password');
-            });
-        });
+
     }
 }

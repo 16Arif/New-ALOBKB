@@ -28,17 +28,21 @@
                 </div>
 
                 <div class="form-group">
-                    {{-- <div class="d-block">
+                    <div class="d-block">
                         <label for="password" class="control-label">Password</label>
                         <div class="float-right">
-                            <a href="{{ route('forgot-password') }}" class="text-small">
+                            <a href="{{ route('password.request') }}" class="text-small">
                                 Forgot Password?
                             </a>
                         </div>
-                    </div> --}}
-                    <label for="pasword">Password</label>
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                        name="password" tabindex="2" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-10">
+                            <input id="password" type="password"
+                                class="form-control @error('password') is-invalid @enderror " name="password" required>
+                        </div>
+                        <span class="input-group-text fas fa-eye" id="togglePassword"></span>
+                    </div>
                     @error('password')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -47,7 +51,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="3">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
                         Login
                     </button>
                 </div>
@@ -62,6 +66,17 @@
 
 @push('scripts')
     <!-- JS Libraies -->
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
 
+        togglePassword.addEventListener('click', function(e) {
+            // toggle tipe input antara 'password' dan 'text'
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // ubah ikon mata untuk menunjukkan apakah sedang menampilkan atau menyembunyikan password
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
     <!-- Page Specific JS File -->
 @endpush

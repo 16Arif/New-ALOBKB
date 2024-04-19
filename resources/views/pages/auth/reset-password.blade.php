@@ -14,48 +14,50 @@
 
         <div class="card-body">
             <p class="text-muted">We will send a link to reset your password</p>
-            <form method="POST">
+            <form action="{{ route('password.update') }}" method="POST">
+                @csrf
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email"
-                        type="email"
-                        class="form-control"
-                        name="email"
-                        tabindex="1"
-                        required
-                        autofocus>
+                    <input id="email" type="email" class="form-control" name="email" value="{{ request()->email }}"
+                        readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="password">New Password</label>
-                    <input id="password"
-                        type="password"
-                        class="form-control pwstrength"
-                        data-indicator="pwindicator"
-                        name="password"
-                        tabindex="2"
-                        required>
-                    <div id="pwindicator"
-                        class="pwindicator">
+                    <div class="row">
+                        <div class="col-10">
+                            <input id="password" type="password"
+                                class="form-control pwstrength @error('password') is-invalid @enderror"
+                                data-indicator="pwindicator" name="password">
+                        </div>
+                        <span class="input-group-text fas fa-eye" id="togglePassword"></span>
+                    </div>
+                    <div id="pwindicator" class="pwindicator">
                         <div class="bar"></div>
                         <div class="label"></div>
                     </div>
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
-                    <label for="password-confirm">Confirm Password</label>
-                    <input id="password-confirm"
-                        type="password"
-                        class="form-control"
-                        name="confirm-password"
-                        tabindex="2"
-                        required>
+                    <label for="password_confirmation">Confirm Password</label>
+                    <div class="input-group">
+                        <input id="password_confirmation" type="password" class="form-control" name="password_confirmation">
+                        <div class="input-group-append">
+                            <span class="input-group-text fas fa-eye" id="togglePassword_confirmation"></span>
+                        </div>
+                    </div>
                 </div>
 
+                <input type="hidden" name="token" value="{{ request()->route('token') }}">
+
+
                 <div class="form-group">
-                    <button type="submit"
-                        class="btn btn-primary btn-lg btn-block"
-                        tabindex="4">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
                         Reset Password
                     </button>
                 </div>
@@ -70,4 +72,29 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/auth-register.js') }}"></script>
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function(e) {
+            // toggle tipe input antara 'password' dan 'text'
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // ubah ikon mata untuk menunjukkan apakah sedang menampilkan atau menyembunyikan password
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+    <script>
+        const togglePasswordConfirmation = document.querySelector('#togglePassword_confirmation');
+        const passwordConfirmation = document.querySelector('#password_confirmation');
+
+        togglePasswordConfirmation.addEventListener('click', function(e) {
+            // toggle tipe input antara 'password' dan 'text'
+            const type = passwordConfirmation.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordConfirmation.setAttribute('type', type);
+            // ubah ikon mata untuk menunjukkan apakah sedang menampilkan atau menyembunyikan password
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
 @endpush
