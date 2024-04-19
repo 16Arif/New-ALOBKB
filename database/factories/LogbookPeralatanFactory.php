@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class LogbookperalatanFactory extends Factory
 {
 
-    private const STATUS_OPTIONS = ['BAIK', 'TIDAK BAIK', 'TIDAK AKTIF'];
     /**
      * Define the model's default state.
      *
@@ -25,23 +24,23 @@ class LogbookperalatanFactory extends Factory
             'onduty2' => $this->faker->word(),
             'onduty3' => $this->faker->word(),
             'kehadiran' => $this->faker->randomElement(['HADIR','TIDAK HADIR']),
-            'fingerprint' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'tds' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'nexstorm' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'obs_nexstorm' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'cmss' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'monitoring' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'acc' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'wrsng' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'integrasi_data' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'seiscomp4' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'pc_magnet' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'monitor_zoom' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'internet_ops' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'internet_lokal' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'bkb_server' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'penakar_hujan' => $this->faker->randomElement([self::STATUS_OPTIONS]),
-            'radio_ssb' => $this->faker->randomElement([self::STATUS_OPTIONS]),
+            'fingerprint' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'tds' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'nexstorm' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'obs_nexstorm' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'cmss' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'monitoring' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'acc' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'wrsng' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'integrasi_data' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'seiscomp4' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'pc_magnet' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'monitor_zoom' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'internet_ops' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'internet_lokal' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'bkb_server' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'penakar_hujan' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
+            'radio_ssb' => $this->faker->randomElement(['BAIK','TIDAK BAIK','TIDAK AKTIF']),
             'note' => $this->faker->text(),
         ];
     }

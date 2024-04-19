@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             'username' => 'stageof.balikpapan',
             'email' => 'stageof.balikpapan@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('asdasd'),
+            'password' => Hash::make('Bkb289101'),
             'roles' => 'admin',
         ]);
         User::factory(10)->create();
