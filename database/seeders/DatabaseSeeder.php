@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
-
+use App\Models\LogbookGempa;
+use App\Models\LogbookPeralatan;
+use App\Models\LogbookPetir;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
-use Database\Seeders\LogbookgempaSeeder;
-use Database\Seeders\LogbookpetirSeeder;
-use Database\Seeders\LogbookperalatanSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,9 +17,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            LogbookpetirSeeder::class,
-            LogbookperalatanSeeder::class,
-            LogbookgempaSeeder::class,
+            LogbookGempa::class,
+            LogbookPetir::class,
+            LogbookPeralatan::class,
         ]);
 
     }
