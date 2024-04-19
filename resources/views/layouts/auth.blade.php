@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components.css') }}">
 
+    {{-- Icon Tab --}}
+    <link rel="icon" type="image/png" href="{{ asset('img/alobkb2.png') }}">
+
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <script>
