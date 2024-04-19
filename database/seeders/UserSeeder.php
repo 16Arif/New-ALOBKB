@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Stasiun Geofisika Balikpapan',
             'username' => 'stageof.balikpapan',
-            'email' => 'stageof.balikpapan@gmail.com',
+            'email' => 'ops.stageof.balikpapan@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('Bkb289101'),
             'roles' => 'admin',

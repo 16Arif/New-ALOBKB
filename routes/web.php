@@ -13,6 +13,7 @@ use App\Http\Controllers\ImageprofileController;
 use App\Http\Controllers\LogbookgempaController;
 use App\Http\Controllers\LogbookpetirController;
 use App\Http\Controllers\LogbookperalatanController;
+use App\Http\Controllers\Settings\PasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('imageprofile', ImageprofileController::class);
     Route::get('about', AboutController::class)->name('about');
     Route::get('help', HelpController::class)->name('help');
+    // Route::get('settings/update_password', PasswordController::class)->name('user-password.update');
 });
 
 Route::middleware(['admin'])->group(function () {
