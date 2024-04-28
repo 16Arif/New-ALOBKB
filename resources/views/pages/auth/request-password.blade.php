@@ -34,6 +34,11 @@
                         Forgot Password
                     </button>
                 </div>
+                <div class="text-center">
+                    <a href="{{ route('login') }}" class="btn btn-outline-danger btn-lg btn-block px-5">
+                        Cancel
+                    </a>
+                </div>
             </form>
         </div>
     </div>
