@@ -1,8 +1,11 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand mt-lg-4">
-            <a href="">Aplikasi Logbook Operasional</a>
+            <img src="\img\alobkb3.png" alt="logo_alo" style="max-height: 100px">
+            <br>
+            <a href="" class="ml-2" style="font-size: 10px">Aplikasi Logbook Operasional</a>
         </div>
+
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="">ALO</a>
         </div>
