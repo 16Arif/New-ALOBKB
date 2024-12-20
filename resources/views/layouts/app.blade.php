@@ -21,7 +21,7 @@
 
     {{-- Icon Tab --}}
     <link rel="icon" type="image/png" href="{{ asset('img/alobkb2.png') }}">
-    {{-- <link rel="icon" href="img/bmkg-title.png" type="img/alobkb2.png"> --}}
+
 
 
     {{-- trix-editor --}}
