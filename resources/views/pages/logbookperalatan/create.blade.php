@@ -26,9 +26,16 @@
 
             <div class="section-body">
                 <h2 class="section-title">Logbook Peralatan</h2>
+
+                <div class="text-right mb-2">
+                    <a href="{{ route('logbookperalatan.index') }}" style="color: white; text-decoration: none;">
+                        <button class="btn btn-danger">Kembali</button>
+                    </a>
+                </div>
                 <div class="card">
                     <form action="{{ route('logbookperalatan.store') }}" method="POST">
                         @csrf
+
                         <div class="card-header">
                             <h4>Tambah Data </h4>
                         </div>
