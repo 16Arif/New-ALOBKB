@@ -26,6 +26,11 @@
 
             <div class="section-body">
                 <h2 class="section-title">Logbook Petir</h2>
+                <div class="text-right mb-2">
+                    <a href="{{ route('logbookpetir.index') }}" style="color: white; text-decoration: none;">
+                        <button class="btn btn-danger">Kembali</button>
+                    </a>
+                </div>
                 <div class="card">
                     <form action="{{ route('logbookpetir.store') }}" method="POST">
                         @csrf

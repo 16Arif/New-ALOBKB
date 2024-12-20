@@ -26,12 +26,20 @@
 
             <div class="section-body">
                 <h2 class="section-title">Logbook Gempabumi</h2>
+                <div class="text-right mb-2">
+                    <a href="{{ route('logbookgempa.index') }}" style="color: white; text-decoration: none;">
+                        <button class="btn btn-danger">Kembali</button>
+                    </a>
+                </div>
 
                 <div class="card">
                     <form action="{{ route('logbookgempa.store') }}" method="POST">
                         @csrf
                         <div class="card-header">
-                            <h4>Tambah Data Baru</h4>
+                            <div class="row">
+                                <h4>Tambah Data Baru</h4>
+
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
