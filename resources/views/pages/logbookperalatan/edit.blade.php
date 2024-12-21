@@ -470,6 +470,131 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label class="form-label">Shakemap</label>
+                                <div class="selectgroup w-100 @error('shakemap') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="shakemap" value="BAIK" class="selectgroup-input"
+                                            @if (old('shakemap') == 'BAIK' || $logbookperalatan->shakemap == 'BAIK') checked @endif>
+                                        <span class="selectgroup-button">BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="shakemap" value="TIDAK BAIK"
+                                            class="selectgroup-input" @if (old('shakemap') == 'TIDAK BAIK' || $logbookperalatan->shakemap == 'TIDAK BAIK') checked @endif>
+                                        <span class="selectgroup-button">TIDAK BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="shakemap" value="TIDAK AKTIF"
+                                            class="selectgroup-input" @if (old('shakemap') == 'TIDAK AKTIF' || $logbookperalatan->shakemap == 'TIDAK AKTIF') checked @endif>
+                                        <span class="selectgroup-button">TIDAK AKTIF</span>
+                                    </label>
+                                </div>
+                                @error('shakemap')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Seiscomp Regional</label>
+                                <div class="selectgroup w-100 @error('seiscomp_reg') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="seiscomp_reg" value="BAIK"
+                                            class="selectgroup-input" @if (old('seiscomp_reg') == 'BAIK' || $logbookperalatan->seiscomp_reg == 'BAIK') checked @endif>
+                                        <span class="selectgroup-button">BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="seiscomp_reg" value="TIDAK BAIK"
+                                            class="selectgroup-input" @if (old('seiscomp_reg') == 'TIDAK BAIK' || $logbookperalatan->seiscomp_reg == 'TIDAK BAIK') checked @endif>
+                                        <span class="selectgroup-button">TIDAK BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="seiscomp_reg" value="TIDAK AKTIF"
+                                            class="selectgroup-input" @if (old('seiscomp_reg') == 'TIDAK AKTIF' || $logbookperalatan->seiscomp_reg == 'TIDAK AKTIF') checked @endif>
+                                        <span class="selectgroup-button">TIDAK AKTIF</span>
+                                    </label>
+                                </div>
+                                @error('seiscomp_reg')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">PC QC Seiscomp</label>
+                                <div class="selectgroup w-100 @error('qc_seiscomp') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="qc_seiscomp" value="BAIK"
+                                            class="selectgroup-input" @if (old('qc_seiscomp') == 'BAIK' || $logbookperalatan->qc_seiscomp == 'BAIK') checked @endif>
+                                        <span class="selectgroup-button">BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="qc_seiscomp" value="TIDAK BAIK"
+                                            class="selectgroup-input" @if (old('qc_seiscomp') == 'TIDAK BAIK' || $logbookperalatan->qc_seiscomp == 'TIDAK BAIK') checked @endif>
+                                        <span class="selectgroup-button">TIDAK BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="qc_seiscomp" value="TIDAK AKTIF"
+                                            class="selectgroup-input" @if (old('qc_seiscomp') == 'TIDAK AKTIF' || $logbookperalatan->qc_seiscomp == 'TIDAK AKTIF') checked @endif>
+                                        <span class="selectgroup-button">TIDAK AKTIF</span>
+                                    </label>
+                                </div>
+                                @error('qc_seiscomp')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Monitor SIMAP</label>
+                                <div class="selectgroup w-100 @error('monitor_simap') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitor_simap" value="BAIK"
+                                            class="selectgroup-input" @if (old('monitor_simap') == 'BAIK' || $logbookperalatan->monitor_simap == 'BAIK') checked @endif>
+                                        <span class="selectgroup-button">BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitor_simap" value="TIDAK BAIK"
+                                            class="selectgroup-input" @if (old('monitor_simap') == 'TIDAK BAIK' || $logbookperalatan->monitor_simap == 'TIDAK BAIK') checked @endif>
+                                        <span class="selectgroup-button">TIDAK BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="monitor_simap" value="TIDAK AKTIF"
+                                            class="selectgroup-input" @if (old('monitor_simap') == 'TIDAK AKTIF' || $logbookperalatan->monitor_simap == 'TIDAK AKTIF') checked @endif>
+                                        <span class="selectgroup-button">TIDAK AKTIF</span>
+                                    </label>
+                                </div>
+                                @error('monitor_simap')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">PC WorkStation SIMAP</label>
+                                <div class="selectgroup w-100 @error('ws_simap') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="ws_simap" value="BAIK" class="selectgroup-input"
+                                            @if (old('ws_simap') == 'BAIK' || $logbookperalatan->ws_simap == 'BAIK') checked @endif>
+                                        <span class="selectgroup-button">BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="ws_simap" value="TIDAK BAIK"
+                                            class="selectgroup-input" @if (old('ws_simap') == 'TIDAK BAIK' || $logbookperalatan->ws_simap == 'TIDAK BAIK') checked @endif>
+                                        <span class="selectgroup-button">TIDAK BAIK</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="ws_simap" value="TIDAK AKTIF"
+                                            class="selectgroup-input" @if (old('ws_simap') == 'TIDAK AKTIF' || $logbookperalatan->ws_simap == 'TIDAK AKTIF') checked @endif>
+                                        <span class="selectgroup-button">TIDAK AKTIF</span>
+                                    </label>
+                                </div>
+                                @error('ws_simap')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label class="form-label">BKB Server</label>
                                 <div class="selectgroup w-100 @error('bkb_server') is-invalid @enderror">
                                     <label class="selectgroup-item">

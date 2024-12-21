@@ -33,6 +33,11 @@ return new class extends Migration
             $table->string('monitor_zoom');
             $table->string('internet_ops');
             $table->string('internet_lokal');
+            $table->string('shakemap');
+            $table->string('seiscomp_reg');
+            $table->string('qc_seiscomp');
+            $table->string('monitor_simap');
+            $table->string('ws_simap');
             $table->string('bkb_server');
             $table->string('penakar_hujan');
             $table->string('radio_ssb');

@@ -93,6 +93,11 @@
                                             <th>Monitor Zoom</th>
                                             <th>Internet Operasional (Lintasarta)</th>
                                             <th>Internet Lokal (SG4-Balikpapan)</th>
+                                            <th>Shakemap</th>
+                                            <th>Seiscomp Regional</th>
+                                            <th>PC QC Seiscomp</th>
+                                            <th>Monitor SIMAP</th>
+                                            <th>PC WorkStation SIMAP</th>
                                             <th>BKB Server</th>
                                             <th>Penakar Hujan</th>
                                             <th>Radio SSB</th>
@@ -159,6 +164,21 @@
                                                 </td>
                                                 <td>
                                                     {{ $lbp->internet_lokal }}
+                                                </td>
+                                                <td>
+                                                    {{ $lbp->shakemap }}
+                                                </td>
+                                                <td>
+                                                    {{ $lbp->seiscomp_reg }}
+                                                </td>
+                                                <td>
+                                                    {{ $lbp->qc_seiscomp }}
+                                                </td>
+                                                <td>
+                                                    {{ $lbp->monitor_simap }}
+                                                </td>
+                                                <td>
+                                                    {{ $lbp->ws_simap }}
                                                 </td>
                                                 <td>
                                                     {{ $lbp->bkb_server }}
