@@ -4,51 +4,93 @@
 <head>
     <title>Preview Data Logbook Petir</title>
     <style>
-        h4 {
-            font-family: verdana;
+        /* Reset dan Font Global */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        h4,
+        h5 {
             text-align: center;
+            margin: 0;
+            color: #222;
+        }
+
+        h4 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
         h5 {
-            font-size: 100%;
-            font-family: verdana;
-            text-align: center;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #555;
         }
 
-        p {
-            font-family: courier;
+        h6 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #555;
         }
 
         table {
-            font-family: arial, sans-serif;
-            width: 40%;
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        td {
-            /* border: 1px solid #dddddd; */
+        table th,
+        table td {
+            border: 1px solid #ddd;
             text-align: left;
-            width: 120%;
-            padding: 8px;
+            padding: 10px;
+            font-size: 14px;
         }
 
-        #mengetahui {
-            font-family: arial, sans-serif;
-            text-align: right;
-            margin-top: 100px;
-            margin-right: 90px;
+        table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+            text-align: center;
         }
 
-        #kpg {
-            font-family: arial, sans-serif;
-            text-align: right;
-            margin-right: 10px;
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
-        #nama-kpg {
-            font-family: arial, sans-serif;
+        #note td {
+            background-color: #fff5e6;
+            font-style: italic;
+        }
+
+        /* Bagian tanda tangan */
+        .signature {
             text-align: right;
-            margin-top: 100px;
-            margin-right: 90px;
+            margin-top: 20px;
+        }
+
+        .signature p {
+            margin: 0;
+        }
+
+        .signature .nama {
+            margin-top: 50px;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #777;
         }
     </style>
 </head>
@@ -102,9 +144,32 @@
             </article>
         </tr>
     </table>
-    <p id="mengetahui">Mengetahui,</p>
+    {{-- <p id="mengetahui">Mengetahui,</p>
     <p id="kpg">Kepala Stasiun Geofisika Balikpapan</p>
-    <p id="nama-kpg">Rasmid, M.Si</p>
+    <p id="nama-kpg">Rasmid, M.Si</p> --}}
+
+    <table>
+        <tr>
+            <th></th>
+            <th>Kepala UPT</th>
+            <th style="width: 30%">Koordinator OPS</th>
+        </tr>
+        <tr>
+            <td>Paraf</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Nama</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 Stasiun Geofisika Balikpapan - Semua Hak Dilindungi.
+    </footer>
 </body>
 
 </html>
