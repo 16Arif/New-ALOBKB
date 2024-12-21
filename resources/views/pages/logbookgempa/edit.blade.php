@@ -78,8 +78,15 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <label>On Duty 1</label>
-                                        <input type="text" class="form-control @error('onduty1') is-invalid @enderror"
-                                            name="onduty1" value="{{ old('onduty1', $logbookgempa->onduty1) }}">
+                                        <select class="form-control @error('onduty1') is-invalid @enderror" name="onduty1">
+                                            <option value="">{{ old('onduty1', $logbookgempa->onduty1) }}</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->name }}"
+                                                    {{ old('onduty1', $logbookgempa->onduty1) == $user->name ? 'selected' : '' }}>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                         @error('onduty1')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -89,13 +96,27 @@
 
                                     <div class="col-lg-4">
                                         <label>On Duty 2</label>
-                                        <input type="text" class="form-control " name="onduty2"
-                                            value="{{ old('onduty2', $logbookgempa->onduty2) }}">
+                                        <select class="form-control" name="onduty2">
+                                            <option value="">{{ old('onduty2', $logbookgempa->onduty2) }}</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->name }}"
+                                                    {{ old('onduty2', $logbookgempa->onduty2) == $user->name ? 'selected' : '' }}>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-lg-4">
                                         <label>On Duty 3</label>
-                                        <input type="text" class="form-control " name="onduty3"
-                                            value="{{ old('onduty3', $logbookgempa->onduty3) }}">
+                                        <select class="form-control" name="onduty3">
+                                            <option value="">{{ old('onduty3', $logbookgempa->onduty3) }}</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->name }}"
+                                                    {{ old('onduty3', $logbookgempa->onduty3) == $user->name ? 'selected' : '' }}>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
 
                                 </div>
@@ -119,7 +140,8 @@
                                 <div class="form-check ml-3 @error('kegiatan1') is-invalid @enderror">
                                     <input class="form-check-input " type="checkbox"
                                         value="Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc" id="flexCheckDefault"
-                                        name="kegiatan1" @if (old('kegiatan1') == 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc' ||
+                                        name="kegiatan1" style="transform: scale(1.5); margin-right: 10px;"
+                                        @if (old('kegiatan1') == 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc' ||
                                                 $logbookgempa->kegiatan1 == 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc') checked @endif>
                                     <label class="form-check" for="flexCheckDefault">
                                         Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc
@@ -135,7 +157,8 @@
                                 <div class="form-check ml-3 @error('kegiatan2') is-invalid @enderror">
                                     <input class="form-check-input " type="checkbox"
                                         value="Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2" id="flexCheckDefault"
-                                        name="kegiatan2" @if (old('kegiatan2') == 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2' ||
+                                        name="kegiatan2" style="transform: scale(1.5); margin-right: 10px;"
+                                        @if (old('kegiatan2') == 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2' ||
                                                 $logbookgempa->kegiatan2 == 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2') checked @endif>
                                     <label class="form-check" for="flexCheckDefault">
                                         Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2

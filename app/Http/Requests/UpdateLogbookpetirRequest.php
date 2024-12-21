@@ -24,7 +24,7 @@ class UpdateLogbookpetirRequest extends FormRequest
         return [
             'tanggal' => 'required',
             'jam' => 'required',
-            'onduty1' => 'required|max:100|min:3',
+            'onduty1' => 'required',
             'onduty2' => '',
             'onduty3' => '',
             'kehadiran' => 'required|in:HADIR,TIDAK HADIR',

@@ -83,12 +83,19 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <div class="row">
 
+                                <div class="row mb-4">
                                     <div class="col-lg-4">
                                         <label>On Duty 1</label>
-                                        <input type="text" class="form-control @error('onduty1') is-invalid @enderror"
-                                            name="onduty1" value="{{ old('onduty1') }}">
+                                        <select class="form-control @error('onduty1') is-invalid @enderror" name="onduty1">
+                                            <option value="">-- Select User --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->name }}"
+                                                    {{ old('onduty1') == $user->name ? 'selected' : '' }}>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                         @error('onduty1')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -97,230 +104,261 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <label>On Duty 2</label>
-                                        <input type="text" class="form-control " name="onduty2"
-                                            value="{{ old('onduty2') }}">
+                                        <select class="form-control " name="onduty2">
+                                            <option value="">-- Select User --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->name }}"
+                                                    {{ old('onduty2') == $user->name ? 'selected' : '' }}>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-lg-4">
                                         <label>On Duty 3</label>
-                                        <input type="text" class="form-control " name="onduty3"
-                                            value="{{ old('onduty3') }}">
+                                        <select class="form-control " name="onduty3">
+                                            <option value="">-- Select User --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->name }}"
+                                                    {{ old('onduty3') == $user->name ? 'selected' : '' }}>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group ">
-                                <label class="form-label">Kehadiran</label>
-                                <div class="selectgroup w-100 @error('kehadiran') is-invalid @enderror">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kehadiran" value="HADIR" class="selectgroup-input "
-                                            @if (old('kehadiran') == 'HADIR') checked @endif>
-                                        <span class="selectgroup-button ">HADIR</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kehadiran" value="TIDAK HADIR" class="selectgroup-input"
-                                            @if (old('kehadiran') == 'TIDAK HADIR') checked @endif>
-                                        <span class="selectgroup-button">TIDAK HADIR</span>
-                                    </label>
-                                </div>
-                                @error('kehadiran')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check @error('kegiatan1') is-invalid @enderror ml-3">
-                                    <input class="form-check-input " type="checkbox"
-                                        value="Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc" id="flexCheckDefault"
-                                        name="kegiatan1" @if (old('kegiatan1') == 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc') checked @endif>
-                                    <label class="form-check" for="flexCheckDefault">
-                                        Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc
-                                    </label>
-                                </div>
-                                @error('kegiatan1')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check ml-3 @error('kegiatan2') is-invalid @enderror">
-                                    <input class="form-check-input " type="checkbox"
-                                        value="Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2" id="flexCheckDefault"
-                                        name="kegiatan2" @if (old('kegiatan2') == 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2') checked @endif>
-                                    <label class="form-check" for="flexCheckDefault">
-                                        Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2
-                                    </label>
-                                </div>
-                                @error('kegiatan2')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Monitoring 1</label>
-                                <div class="selectgroup w-100 @error('monitoring1') is-invalid @enderror">
 
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="monitoring1"
-                                            value="Observasi Seiscomp4 jam 08.00-11.00 WITA" class="selectgroup-input"
-                                            @if (old('monitoring1') == 'Observasi Seiscomp4 jam 08.00-11.00 WITA') checked @endif>
-                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 08.00-11.00
-                                            WITA</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="monitoring1"
-                                            value="Observasi Seiscomp4 jam 14.00-17.00 WITA" class="selectgroup-input"
-                                            @if (old('monitoring1') == 'Observasi Seiscomp4 jam 14.00-17.00 WITA') checked @endif>
-                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 14.00-17.00
-                                            WITA</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="monitoring1"
-                                            value="Observasi Seiscomp4 jam 20.00-23.00 WITA" class="selectgroup-input"
-                                            @if (old('monitoring1') == 'Observasi Seiscomp4 jam 20.00-23.00 WITA') checked @endif>
-                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 20.00-23.00
-                                            WITA</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="monitoring1"
-                                            value="Observasi Seiscomp4 jam 02.00-05.00 WITA" class="selectgroup-input"
-                                            @if (old('monitoring1') == 'Observasi Seiscomp4 jam 02.00-05.00 WITA') checked @endif>
-                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 02.00-05.00
-                                            WITA</span>
-                                    </label>
+                                <div class="form-group ">
+                                    <label class="form-label">Kehadiran</label>
+                                    <div class="selectgroup w-100 @error('kehadiran') is-invalid @enderror">
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="kehadiran" value="HADIR" class="selectgroup-input "
+                                                @if (old('kehadiran') == 'HADIR') checked @endif>
+                                            <span class="selectgroup-button ">HADIR</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="kehadiran" value="TIDAK HADIR"
+                                                class="selectgroup-input" @if (old('kehadiran') == 'TIDAK HADIR') checked @endif>
+                                            <span class="selectgroup-button">TIDAK HADIR</span>
+                                        </label>
+                                    </div>
+                                    @error('kehadiran')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-check @error('kegiatan1') is-invalid @enderror ml-3">
+                                        <input class="form-check-input " type="checkbox"
+                                            value="Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc"
+                                            id="flexCheckDefault" name="kegiatan1"
+                                            style="transform: scale(1.5); margin-right: 10px;"
+                                            @if (old('kegiatan1') == 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc') checked @endif>
+                                        <label class="form-check" for="flexCheckDefault">
+                                            Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc
+                                        </label>
+                                    </div>
+                                    @error('kegiatan1')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-check ml-3 @error('kegiatan2') is-invalid @enderror">
+                                        <input class="form-check-input " type="checkbox"
+                                            value="Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2" id="flexCheckDefault"
+                                            name="kegiatan2" style="transform: scale(1.5); margin-right: 10px;"
+                                            @if (old('kegiatan2') == 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2') checked @endif>
+                                        <label class="form-check" for="flexCheckDefault">
+                                            Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2
+                                        </label>
+                                    </div>
+                                    @error('kegiatan2')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Monitoring 1</label>
+                                    <div class="selectgroup w-100 @error('monitoring1') is-invalid @enderror">
 
-                                </div>
-                                @error('monitoring1')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Kirim Berita 1</label>
-                                <div class="selectgroup w-100  @error('berita1') is-invalid @enderror">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="berita1" value="Kirim Berita CMSS jam 03.00 GMT"
-                                            class="selectgroup-input" @if (old('berita1') == 'Kirim Berita CMSS jam 03.00 GMT') checked @endif>
-                                        <span class="selectgroup-button">Kirim Berita CMSS jam 03.00 GMT</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="berita1" value="Kirim Berita CMSS jam 09.00 GMT"
-                                            class="selectgroup-input" @if (old('berita1') == 'Kirim Berita CMSS jam 09.00 GMT') checked @endif>
-                                        <span class="selectgroup-button">Kirim Berita CMSS jam 09.00 GMT</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="berita1" value="Kirim Berita CMSS jam 15.00 GMT"
-                                            class="selectgroup-input" @if (old('berita1') == 'Kirim Berita CMSS jam 15.00 GMT') checked @endif>
-                                        <span class="selectgroup-button">Kirim Berita CMSS jam 15.00 GMT</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="berita1" value="Kirim Berita CMSS jam 21.00 GMT"
-                                            class="selectgroup-input" @if (old('berita1') == 'Kirim Berita CMSS jam 21.00 GMT') checked @endif>
-                                        <span class="selectgroup-button">Kirim Berita CMSS jam 21.00 GMT</span>
-                                    </label>
-                                </div>
-                                @error('berita1')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Monitoring 2</label>
-                                <div class="selectgroup w-100 @error('monitoring2') is-invalid @enderror">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="monitoring2"
-                                            value="Observasi Seiscomp4 jam 11.00-14.00 WITA" class="selectgroup-input"
-                                            @if (old('monitoring2') == 'Observasi Seiscomp4 jam 11.00-14.00 WITA') checked @endif>
-                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 11.00-14.00 WITA</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="monitoring2"
-                                            value="Observasi Seiscomp4 jam 17.00-20.00 WITA" class="selectgroup-input"
-                                            @if (old('monitoring2') == 'Observasi Seiscomp4 jam 17.00-20.00 WITA') checked @endif>
-                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 17.00-20.00 WITA</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="monitoring2"
-                                            value="Observasi Seiscomp4 jam 23.00-02.00 WITA" class="selectgroup-input"
-                                            @if (old('monitoring2') == 'Observasi Seiscomp4 jam 23.00-02.00 WITA') checked @endif>
-                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 23.00-02.00 WITA</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="monitoring2"
-                                            value="Observasi Seiscomp4 jam 05.00-08.00 WITA" class="selectgroup-input"
-                                            @if (old('monitoring2') == 'Observasi Seiscomp4 jam 05.00-08.00 WITA') checked @endif>
-                                        <span class="selectgroup-button">Observasi Seiscomp4 jam 05.00-08.00 WITA</span>
-                                    </label>
-                                </div>
-                                @error('monitoring2')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Berita 2</label>
-                                <div class="selectgroup w-100 @error('berita2') is-invalid @enderror">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="berita2" value="Kirim Berita CMSS jam 06.00 GMT"
-                                            class="selectgroup-input" @if (old('berita2') == 'Kirim Berita CMSS jam 06.00 GMT') checked @endif>
-                                        <span class="selectgroup-button">Kirim Berita CMSS jam 06.00 GMT</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="berita2" value="Kirim Berita CMSS jam 12.00 GMT"
-                                            class="selectgroup-input" @if (old('berita2') == 'Kirim Berita CMSS jam 12.00 GMT') checked @endif>
-                                        <span class="selectgroup-button">Kirim Berita CMSS jam 12.00 GMT</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="berita2" value="Kirim Berita CMSS jam 18.00 GMT"
-                                            class="selectgroup-input" @if (old('berita2') == 'Kirim Berita CMSS jam 18.00 GMT') checked @endif>
-                                        <span class="selectgroup-button">Kirim Berita CMSS jam 18.00 GMT</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="berita2" value="Kirim Berita CMSS jam 00.00 GMT"
-                                            class="selectgroup-input" @if (old('berita2') == 'Kirim Berita CMSS jam 00.00 GMT') checked @endif>
-                                        <span class="selectgroup-button">Kirim Berita CMSS jam 00.00 GMT</span>
-                                    </label>
-                                </div>
-                                @error('berita2')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="monitoring1"
+                                                value="Observasi Seiscomp4 jam 08.00-11.00 WITA" class="selectgroup-input"
+                                                @if (old('monitoring1') == 'Observasi Seiscomp4 jam 08.00-11.00 WITA') checked @endif>
+                                            <span class="selectgroup-button">Observasi Seiscomp4 jam 08.00-11.00
+                                                WITA</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="monitoring1"
+                                                value="Observasi Seiscomp4 jam 14.00-17.00 WITA" class="selectgroup-input"
+                                                @if (old('monitoring1') == 'Observasi Seiscomp4 jam 14.00-17.00 WITA') checked @endif>
+                                            <span class="selectgroup-button">Observasi Seiscomp4 jam 14.00-17.00
+                                                WITA</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="monitoring1"
+                                                value="Observasi Seiscomp4 jam 20.00-23.00 WITA" class="selectgroup-input"
+                                                @if (old('monitoring1') == 'Observasi Seiscomp4 jam 20.00-23.00 WITA') checked @endif>
+                                            <span class="selectgroup-button">Observasi Seiscomp4 jam 20.00-23.00
+                                                WITA</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="monitoring1"
+                                                value="Observasi Seiscomp4 jam 02.00-05.00 WITA" class="selectgroup-input"
+                                                @if (old('monitoring1') == 'Observasi Seiscomp4 jam 02.00-05.00 WITA') checked @endif>
+                                            <span class="selectgroup-button">Observasi Seiscomp4 jam 02.00-05.00
+                                                WITA</span>
+                                        </label>
 
-                            <div class="form-group">
-                                <label class="form-label">Kondisi</label>
-                                <div class="selectgroup w-100 @error('kondisi') is-invalid @enderror">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi" value="BAIK" class="selectgroup-input"
-                                            @if (old('kondisi') == 'BAIK') checked @endif>
-                                        <span class="selectgroup-button">BAIK</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if (old('kondisi') == 'TIDAK BAIK') checked @endif>
-                                        <span class="selectgroup-button">TIDAK BAIK</span>
-                                    </label>
-                                </div>
-                                @error('kondisi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
                                     </div>
-                                @enderror
+                                    @error('monitoring1')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Kirim Berita 1</label>
+                                    <div class="selectgroup w-100  @error('berita1') is-invalid @enderror">
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="berita1" value="Kirim Berita CMSS jam 03.00 GMT"
+                                                class="selectgroup-input"
+                                                @if (old('berita1') == 'Kirim Berita CMSS jam 03.00 GMT') checked @endif>
+                                            <span class="selectgroup-button">Kirim Berita CMSS jam 03.00 GMT</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="berita1" value="Kirim Berita CMSS jam 09.00 GMT"
+                                                class="selectgroup-input"
+                                                @if (old('berita1') == 'Kirim Berita CMSS jam 09.00 GMT') checked @endif>
+                                            <span class="selectgroup-button">Kirim Berita CMSS jam 09.00 GMT</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="berita1" value="Kirim Berita CMSS jam 15.00 GMT"
+                                                class="selectgroup-input"
+                                                @if (old('berita1') == 'Kirim Berita CMSS jam 15.00 GMT') checked @endif>
+                                            <span class="selectgroup-button">Kirim Berita CMSS jam 15.00 GMT</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="berita1" value="Kirim Berita CMSS jam 21.00 GMT"
+                                                class="selectgroup-input"
+                                                @if (old('berita1') == 'Kirim Berita CMSS jam 21.00 GMT') checked @endif>
+                                            <span class="selectgroup-button">Kirim Berita CMSS jam 21.00 GMT</span>
+                                        </label>
+                                    </div>
+                                    @error('berita1')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Monitoring 2</label>
+                                    <div class="selectgroup w-100 @error('monitoring2') is-invalid @enderror">
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="monitoring2"
+                                                value="Observasi Seiscomp4 jam 11.00-14.00 WITA" class="selectgroup-input"
+                                                @if (old('monitoring2') == 'Observasi Seiscomp4 jam 11.00-14.00 WITA') checked @endif>
+                                            <span class="selectgroup-button">Observasi Seiscomp4 jam 11.00-14.00
+                                                WITA</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="monitoring2"
+                                                value="Observasi Seiscomp4 jam 17.00-20.00 WITA" class="selectgroup-input"
+                                                @if (old('monitoring2') == 'Observasi Seiscomp4 jam 17.00-20.00 WITA') checked @endif>
+                                            <span class="selectgroup-button">Observasi Seiscomp4 jam 17.00-20.00
+                                                WITA</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="monitoring2"
+                                                value="Observasi Seiscomp4 jam 23.00-02.00 WITA" class="selectgroup-input"
+                                                @if (old('monitoring2') == 'Observasi Seiscomp4 jam 23.00-02.00 WITA') checked @endif>
+                                            <span class="selectgroup-button">Observasi Seiscomp4 jam 23.00-02.00
+                                                WITA</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="monitoring2"
+                                                value="Observasi Seiscomp4 jam 05.00-08.00 WITA" class="selectgroup-input"
+                                                @if (old('monitoring2') == 'Observasi Seiscomp4 jam 05.00-08.00 WITA') checked @endif>
+                                            <span class="selectgroup-button">Observasi Seiscomp4 jam 05.00-08.00
+                                                WITA</span>
+                                        </label>
+                                    </div>
+                                    @error('monitoring2')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Berita 2</label>
+                                    <div class="selectgroup w-100 @error('berita2') is-invalid @enderror">
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="berita2" value="Kirim Berita CMSS jam 06.00 GMT"
+                                                class="selectgroup-input"
+                                                @if (old('berita2') == 'Kirim Berita CMSS jam 06.00 GMT') checked @endif>
+                                            <span class="selectgroup-button">Kirim Berita CMSS jam 06.00 GMT</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="berita2" value="Kirim Berita CMSS jam 12.00 GMT"
+                                                class="selectgroup-input"
+                                                @if (old('berita2') == 'Kirim Berita CMSS jam 12.00 GMT') checked @endif>
+                                            <span class="selectgroup-button">Kirim Berita CMSS jam 12.00 GMT</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="berita2" value="Kirim Berita CMSS jam 18.00 GMT"
+                                                class="selectgroup-input"
+                                                @if (old('berita2') == 'Kirim Berita CMSS jam 18.00 GMT') checked @endif>
+                                            <span class="selectgroup-button">Kirim Berita CMSS jam 18.00 GMT</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="berita2" value="Kirim Berita CMSS jam 00.00 GMT"
+                                                class="selectgroup-input"
+                                                @if (old('berita2') == 'Kirim Berita CMSS jam 00.00 GMT') checked @endif>
+                                            <span class="selectgroup-button">Kirim Berita CMSS jam 00.00 GMT</span>
+                                        </label>
+                                    </div>
+                                    @error('berita2')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Kondisi</label>
+                                    <div class="selectgroup w-100 @error('kondisi') is-invalid @enderror">
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="kondisi" value="BAIK"
+                                                class="selectgroup-input"
+                                                @if (old('kondisi') == 'BAIK') checked @endif>
+                                            <span class="selectgroup-button">BAIK</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="kondisi" value="TIDAK BAIK"
+                                                class="selectgroup-input"
+                                                @if (old('kondisi') == 'TIDAK BAIK') checked @endif>
+                                            <span class="selectgroup-button">TIDAK BAIK</span>
+                                        </label>
+                                    </div>
+                                    @error('kondisi')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label>Catatan</label>
+                                    <input id="note" type="hidden" name="note" value="{{ old('note') }}">
+                                    <trix-editor input="note"></trix-editor>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Catatan</label>
-                                <input id="note" type="hidden" name="note" value="{{ old('note') }}">
-                                <trix-editor input="note"></trix-editor>
+                            <div class="card-footer text-right">
+                                <button class="btn btn-primary">Submit</button>
                             </div>
-                        </div>
-                        <div class="card-footer text-right">
-                            <button class="btn btn-primary">Submit</button>
-                        </div>
                     </form>
                 </div>
 

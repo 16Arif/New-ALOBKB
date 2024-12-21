@@ -24,7 +24,7 @@ class StoreLogbookpetirRequest extends FormRequest
         return [
             'tanggal' => 'required',
             'jam' => 'required',
-            'onduty1' => 'required|max:100|min:3',
+            'onduty1' => 'required',
             'kehadiran' => 'required|in:HADIR,TIDAK HADIR',
             'pengamatan1' => 'required|in:Pengamatan LD jam 02.00,Pengamatan LD jam 08.00,Pengamatan LD jam 14.00,Pengamatan LD jam 20.00',
             'pengamatan2' => 'required|in:Pengamatan LD jam 03.00,Pengamatan LD jam 09.00,Pengamatan LD jam 15.00,Pengamatan LD jam 21.00',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLogbookgempaRequest;
 use App\Http\Requests\UpdateLogbookgempaRequest;
 use App\Models\LogbookGempa;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -37,7 +38,8 @@ class LogbookgempaController extends Controller
 
     public function create()
     {
-        return view('pages.logbookgempa.create',  ['type_menu' => '']);
+        $users = User::all();
+        return view('pages.logbookgempa.create',  ['type_menu' => ''], compact('users'));
     }
 
     public function store(StoreLogbookgempaRequest $request)
@@ -49,8 +51,9 @@ class LogbookgempaController extends Controller
 
     public function edit($id)
     {
+        $users = User::all();
         $logbookgempa = LogbookGempa::findOrFail($id);
-        return view('pages.logbookgempa.edit', compact('logbookgempa'),  ['type_menu' => '']);
+        return view('pages.logbookgempa.edit', compact('logbookgempa', 'users'),  ['type_menu' => '']);
     }
 
     public function update(UpdateLogbookgempaRequest $request, LogbookGempa $logbookgempa)

@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\LogbookPeralatan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreLogbookperalatanRequest;
+use Illuminate\Foundation\Auth\User;
 use App\Http\Requests\StoreLogbookpetirRequest;
+use App\Http\Requests\StoreLogbookperalatanRequest;
 use App\Http\Requests\UpdateLogbookperalatanRequest;
-use App\Models\LogbookPeralatan;
 
 class LogbookperalatanController extends Controller
 {
@@ -38,7 +39,8 @@ class LogbookperalatanController extends Controller
 
     public function create()
     {
-        return view('pages.logbookperalatan.create',  ['type_menu' => '']);
+        $users = User::all();
+        return view('pages.logbookperalatan.create',  ['type_menu' => ''], compact('users'));
     }
 
     public function store(StoreLogbookperalatanRequest $request)
@@ -50,8 +52,9 @@ class LogbookperalatanController extends Controller
 
     public function edit($id)
     {
+        $users = User::all();
         $logbookperalatan = LogbookPeralatan::findOrFail($id);
-        return view('pages.logbookperalatan.edit', compact('logbookperalatan'),  ['type_menu' => '']);
+        return view('pages.logbookperalatan.edit', compact('logbookperalatan', 'users'),  ['type_menu' => '']);
     }
 
     public function update(UpdateLogbookperalatanRequest $request, LogbookPeralatan $logbookperalatan)

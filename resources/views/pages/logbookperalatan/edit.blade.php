@@ -79,8 +79,16 @@
 
                                     <div class="col-lg-4">
                                         <label>On Duty 1</label>
-                                        <input type="text" class="form-control @error('onduty1') is-invalid @enderror"
-                                            name="onduty1" value="{{ old('onduty1', $logbookperalatan->onduty1) }}">
+                                        <select class="form-control @error('onduty1') is-invalid @enderror" name="onduty1">
+                                            <option value="">{{ old('onduty1', $logbookperalatan->onduty1) }}
+                                            </option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->name }}"
+                                                    {{ old('onduty1', $logbookperalatan->onduty1) == $user->name ? 'selected' : '' }}>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                         @error('onduty1')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -89,13 +97,29 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <label>On Duty 2</label>
-                                        <input type="text" class="form-control " name="onduty2"
-                                            value="{{ old('onduty2', $logbookperalatan->onduty2) }}">
+                                        <select class="form-control" name="onduty2">
+                                            <option value="">{{ old('onduty2', $logbookperalatan->onduty2) }}
+                                            </option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->name }}"
+                                                    {{ old('onduty2', $logbookperalatan->onduty2) == $user->name ? 'selected' : '' }}>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-lg-4">
                                         <label>On Duty 3</label>
-                                        <input type="text" class="form-control " name="onduty3"
-                                            value="{{ old('onduty3', $logbookperalatan->onduty3) }}">
+                                        <select class="form-control" name="onduty3">
+                                            <option value="">{{ old('onduty3', $logbookperalatan->onduty3) }}
+                                            </option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->name }}"
+                                                    {{ old('onduty3', $logbookperalatan->onduty3) == $user->name ? 'selected' : '' }}>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
