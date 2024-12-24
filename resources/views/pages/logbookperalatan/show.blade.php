@@ -104,8 +104,7 @@
     </div> --}}
 
     <!-- Header -->
-    <h4>Data Logbook Peralatan</h4>
-    <h5>Operasional Stasiun Geofisika Balikpapan</h5>
+    <img src="img\kop-peralatan.png" alt="Logo" style="height: 100px; width: 100%">
 
     <table>
         <tr>
@@ -227,10 +226,7 @@
         </tr>
     </table>
 
-    <!-- Footer -->
-    <footer>
-        &copy; 2024 Stasiun Geofisika Balikpapan - Semua Hak Dilindungi.
-    </footer>
+
 </body>
 
 </html>

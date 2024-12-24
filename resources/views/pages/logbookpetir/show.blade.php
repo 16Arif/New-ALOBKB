@@ -96,9 +96,7 @@
 </head>
 
 <body>
-
-    <h4>Data Logbook Petir</h4>
-    <h5>Operasional Stasiun Geofisika Balikpapan</h5>
+    <img src="img\kop-petir.png" alt="Logo" style="height: 120px; width: 100%">
     <table>
         <tr>
             <td>1. Tanggal Dinas</td>
@@ -166,10 +164,7 @@
         </tr>
     </table>
 
-    <!-- Footer -->
-    <footer>
-        &copy; 2024 Stasiun Geofisika Balikpapan - Semua Hak Dilindungi.
-    </footer>
+
 </body>
 
 </html>
