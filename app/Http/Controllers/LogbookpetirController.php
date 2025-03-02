@@ -53,9 +53,24 @@ class LogbookpetirController extends Controller
 
         $logbookpetir = LogbookPetir::findOrFail($id);
 
+        // Tentukan nama file berdasarkan tanggal atau ID
+        $tanggal = date('Y-m-d', strtotime($logbookpetir->tanggal)); // Sesuaikan dengan field tanggal di database
+        $jam = date('H-i', strtotime($logbookpetir->jam)); // Format HH-MM-SS
+        $namaFile = "LogbookPetir_{$tanggal}_{$jam}.pdf"; // Nama file yang akan diunduh
+
+        // Inisialisasi mPDF
         $mpdf = new \Mpdf\Mpdf();
-        $mpdf->WriteHTML(view('pages.logbookpetir.show', compact('logbookpetir')));
-        $mpdf->Output();
+
+        // Render tampilan Blade ke HTML
+        $html = view('pages.logbookpetir.show', compact('logbookpetir'))->render();
+
+        // Tambahkan HTML ke mPDF
+        $mpdf->WriteHTML($html);
+
+        // Unduh file dengan nama yang telah ditentukan
+        return response()->make($mpdf->Output($namaFile, "I"), 200, [
+            'Content-Type' => 'application/pdf',
+        ]);
     }
 
     public function update(UpdateLogbookpetirRequest $request, LogbookPetir $logbookpetir)

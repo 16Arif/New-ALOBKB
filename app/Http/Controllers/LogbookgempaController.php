@@ -29,11 +29,32 @@ class LogbookgempaController extends Controller
     public function show($id)
     {
 
+        // $logbookgempa = LogbookGempa::findOrFail($id);
+
+        // $mpdf = new \Mpdf\Mpdf();
+        // $mpdf->WriteHTML(view('pages.logbookgempa.show', compact('logbookgempa')));
+
+        // $mpdf->Output();
         $logbookgempa = LogbookGempa::findOrFail($id);
 
+        // Tentukan nama file berdasarkan tanggal atau ID
+        $tanggal = date('Y-m-d', strtotime($logbookgempa->tanggal)); // Sesuaikan dengan field tanggal di database
+        $jam = date('H-i', strtotime($logbookgempa->jam)); // Format HH-MM-SS
+        $namaFile = "LogbookGempa_{$tanggal}_{$jam}.pdf"; // Nama file yang akan diunduh
+
+        // Inisialisasi mPDF
         $mpdf = new \Mpdf\Mpdf();
-        $mpdf->WriteHTML(view('pages.logbookgempa.show', compact('logbookgempa')));
-        $mpdf->Output();
+
+        // Render tampilan Blade ke HTML
+        $html = view('pages.logbookgempa.show', compact('logbookgempa'))->render();
+
+        // Tambahkan HTML ke mPDF
+        $mpdf->WriteHTML($html);
+
+        // Unduh file dengan nama yang telah ditentukan
+        return response()->make($mpdf->Output($namaFile, "I"), 200, [
+            'Content-Type' => 'application/pdf',
+        ]);
     }
 
     public function create()
