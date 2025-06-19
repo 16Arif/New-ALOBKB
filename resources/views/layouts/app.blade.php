@@ -12,6 +12,9 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
     @stack('style')
 
     <!-- Template CSS -->
@@ -21,8 +24,6 @@
 
     {{-- Icon Tab --}}
     <link rel="icon" type="image/png" href="{{ asset('img/alobkb2.png') }}">
-
-
 
     {{-- trix-editor --}}
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
@@ -46,6 +47,8 @@
 
         gtag('config', 'UA-94034622-3');
     </script>
+
+
     <!-- END GA -->
 </head>
 </head>
@@ -62,10 +65,14 @@
             <!-- Content -->
             @yield('main')
 
+            {{-- alert --}}
+            @include('layouts.alert')
+
             <!-- Footer -->
             @include('components.footer')
         </div>
     </div>
+
 
     <!-- General JS Scripts -->
     <script src="{{ asset('library/jquery/dist/jquery.min.js') }}"></script>

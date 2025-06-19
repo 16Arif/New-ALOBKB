@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\GempaBumiSeeder;
 use Database\Seeders\LogbookGempaSeeder;
 use Database\Seeders\LogbookPetirSeeder;
 use Database\Seeders\LogbookPeralatanSeeder;
@@ -17,6 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            GempaBumiSeeder::class,
             LogbookGempaSeeder::class,
             LogbookPetirSeeder::class,
             LogbookPeralatanSeeder::class,

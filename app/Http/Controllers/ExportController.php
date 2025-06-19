@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\GempaBumi;
 use App\Models\LogbookGempa;
 use App\Models\LogbookPeralatan;
 use App\Models\LogbookPetir;
@@ -44,8 +44,8 @@ class ExportController extends Controller
         $rows = [];
 
         LogbookPeralatan::query()->lazyById(2000, 'id')
-            ->each(function ($logbookpetir) use (&$rows) {
-                $rows[] = $logbookpetir->toArray();
+            ->each(function ($logbookperalatan) use (&$rows) {
+                $rows[] = $logbookperalatan->toArray();
             });
         SimpleExcelWriter::streamDownload('logbookperalatan.xlsx')
             ->addRows($rows);
@@ -56,10 +56,22 @@ class ExportController extends Controller
         $rows = [];
 
         LogbookGempa::query()->lazyById(2000, 'id')
-            ->each(function ($logbookpetir) use (&$rows) {
-                $rows[] = $logbookpetir->toArray();
+            ->each(function ($logbookgempa) use (&$rows) {
+                $rows[] = $logbookgempa->toArray();
             });
         SimpleExcelWriter::streamDownload('logbookgempa.xlsx')
+            ->addRows($rows);
+    }
+
+    public function spatie_parametergempa()
+    {
+        $rows = [];
+
+        GempaBumi::query()->lazyById(2000, 'id')
+            ->each(function ($datagempa) use (&$rows) {
+                $rows[] = $datagempa->toArray();
+            });
+        SimpleExcelWriter::streamDownload('dataparametergempa.xlsx')
             ->addRows($rows);
     }
 }

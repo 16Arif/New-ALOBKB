@@ -24,7 +24,7 @@
                 <h2 class="section-title">Logbook Petir</h2>
                 <div class="row">
                     <div class="col-12">
-                        @include('layouts.alert')
+                        {{-- @include('layouts.alert') --}}
                     </div>
                 </div>
                 <div class="row mt-2">

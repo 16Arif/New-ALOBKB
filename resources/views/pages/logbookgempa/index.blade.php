@@ -23,7 +23,7 @@
                 <h2 class="section-title">Logbook Gempabumi</h2>
                 <div class="row">
                     <div class="col-12">
-                        @include('layouts.alert')
+                        {{-- @include('layouts.alert') --}}
                     </div>
                 </div>
                 <div class="row mt-2">
@@ -47,7 +47,7 @@
                                     <div class="btn btn-sm btn-info btn-icon mx-2">
                                         <i class="fa-solid fa-file-pdf"> </i><span> Download Semua Data</span>
                                     </div>
-                                
+
                                 </a> --}}
                                 {{-- <div class="float-left">
                                     <select class="form-control selectric">
