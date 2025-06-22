@@ -107,4 +107,24 @@ class GempaController extends Controller
             $gempabumi->delete();
             return redirect()->route('gempabumi.index')->with('success', 'Data Paremeter Gempabumi Berhasil Dihapus');
         }
+
+        public function destroyBatch(Request $request)
+        {
+            $ids = $request->id;
+
+            if (!is_array($ids)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Format ID tidak sesuai.'
+                ]);
+            }
+
+            GempaBumi::whereIn('id', $ids)->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data gempa berhasil dihapus.'
+            ]);
+        }
+
 }

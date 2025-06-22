@@ -12,7 +12,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tentang</h1>
+                <h1>Generate Infografis Gempabumi</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Gempabumi</a></div>
@@ -30,7 +30,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <img src="/img/logo-bmkg.png" alt="logo" style="max-height: 100px" />
                                     <h1 class="h4 mt-4 fw-bold text-dark">
-                                        Generator Infografis Gempa BMKG-BKB
+                                        Generator Infografis Gempabumi BMKG-BKB
                                     </h1>
                                     <p class="text-muted mt-2">Masukkan informasi gempa dari BMKG dan buat infografis secara
                                         otomatis</p>

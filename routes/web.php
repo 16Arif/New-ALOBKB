@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('logbookperalatan', LogbookperalatanController::class);
     Route::resource('logbookgempa', LogbookgempaController::class);
     Route::resource('gempabumi', GempaController::class);
+    Route::delete('/gempabumi-batch', [GempaController::class, 'destroyBatch'])->name('gempabumi.destroyBatch');
+
     Route::resource('download', PdfController::class);
     Route::get('export/spatie_petir', [ExportController::class, 'spatie_petir'])->name('export.spatie_petir');
     Route::get('export/spatie_peralatan', [ExportController::class, 'spatie_peralatan'])
