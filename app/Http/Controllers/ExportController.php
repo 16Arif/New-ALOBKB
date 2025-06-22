@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\GempaBumi;
 use App\Models\LogbookGempa;
-use App\Models\LogbookPeralatan;
 use App\Models\LogbookPetir;
-use Spatie\SimpleExcel\SimpleExcelWriter;
+use App\Models\LogbookPeralatan;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class ExportController extends Controller
 {
@@ -63,15 +65,48 @@ class ExportController extends Controller
             ->addRows($rows);
     }
 
-    public function spatie_parametergempa()
+    public function spatie_parametergempa(Request $request)
     {
-        $rows = [];
 
-        GempaBumi::query()->lazyById(2000, 'id')
-            ->each(function ($datagempa) use (&$rows) {
-                $rows[] = $datagempa->toArray();
-            });
-        SimpleExcelWriter::streamDownload('dataparametergempa.xlsx')
-            ->addRows($rows);
+        $request->validate([
+        'start' => 'required|date',
+        'end' => 'required|date|after_or_equal:start',
+        ]);
+
+        $start = Carbon::parse($request->start)->startOfDay();
+        $end = Carbon::parse($request->end)->endOfDay();
+
+        // Header kolom
+        $header = [
+            'Tanggal','Waktu (WIB)' , 'Waktu (UTC)','Waktu (WITA)', 'Magnitudo', 'Lintang',
+            'Bujur', 'Jarak', 'Kedalaman (Km)', 'Dirasakan', 'Keterangan'
+        ];
+
+        // Lazy load untuk efisiensi memori
+        $data = GempaBumi::whereBetween('tanggal', [$start, $end])
+        ->orderBy('tanggal')
+        ->lazyById(1000, 'id')
+        ->map(function ($item){
+            return [
+                'tanggal' => Carbon::parse($item->tanggal)->format('Y-m-d'),
+                'waktu' => $item->waktu,
+                'waktu_utc' => $item->waktu_utc,
+                'waktu_wita' => $item->waktu_wita,
+                'magnitudo' => $item->magnitudo,
+                'lintang' => $item->lintang,
+                'bujur' => $item->bujur,
+                'jarak' => $item->jarak,
+                'kedalaman' => $item->kedalaman,
+                'dirasakan' => $item->dirasakan,
+                'keterangan' => $item->keterangan,
+            ];
+        });
+
+        // Langsung kirim download response
+        SimpleExcelWriter::streamDownload("Data_Gempa_{$start->format('Ymd')}_{$end->format('Ymd')}.xlsx")
+            ->addHeader($header)
+            ->addRows($data);
+
+        // Jangan gunakan `return` — karena streamDownload sudah handle response
     }
 }

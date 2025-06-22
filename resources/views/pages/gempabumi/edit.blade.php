@@ -62,10 +62,16 @@
                                             <small class="form-text text-muted">Mohon edit waktu secara manual</small>
                                         </div>
                                         <div class="flex-fill">
-                                            <label for="waktuUtc" class="form-label">Waktu UTC</label>
-                                            <input type="text" name="waktuUtc" id="waktuUtc"
+                                            <label for="waktu_utc" class="form-label">Waktu UTC</label>
+                                            <input type="text" name="waktu_utc" id="waktu_utc"
                                                 class="form-control bg-light" disabled placeholder="UTC"
-                                                value="{{ old('waktuUtc', \Carbon\Carbon::parse($datagempa->waktuUtc)->format('H:i:s')) }}">
+                                                value="{{ old('waktu_utc', \Carbon\Carbon::parse($datagempa->waktu_utc)->format('H:i:s')) }}">
+                                        </div>
+                                        <div class="flex-fill">
+                                            <label for="waktu_wita" class="form-label">Waktu WITA</label>
+                                            <input type="text" name="waktu_wita" id="waktu_wita"
+                                                class="form-control bg-light" disabled placeholder="WITA"
+                                                value="{{ old('waktu_wita', \Carbon\Carbon::parse($datagempa->waktu_wita)->format('H:i:s')) }}">
                                         </div>
                                     </div>
 

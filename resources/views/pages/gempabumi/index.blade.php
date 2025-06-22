@@ -36,12 +36,49 @@
                             <div class="card-body">
                                 <div class="row justify-content-between">
                                     <div class="float-left ml-3">
-                                        <a href="{{ route('export.spatie_parametergempa') }}">
-                                            <div class="btn btn-sm btn-outline-success btn-icon mx-2">
-                                                <i class="fa-solid fa-file-excel"> </i><span> Download Semua Data</span>
+
+                                        <!-- Tombol Collapse -->
+                                        <button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseEditForm" aria-expanded="false"
+                                            aria-controls="collapseEditForm">
+                                            <i class="fa-solid fa-download me-1"></i> Download Data
+                                        </button>
+
+                                        <!-- Konten Collapse -->
+                                        <div class="collapse" id="collapseEditForm">
+                                            <div class="card bg-light shadow rounded p-3">
+                                                <!-- Download Semua Data -->
+                                                <div class="mb-3">
+                                                    <a href="{{ route('export.spatie_parametergempa', ['start' => '1900-01-01', 'end' => now()->format('Y-m-d')]) }}"
+                                                        class="btn btn-outline-success w-100">
+                                                        <i class="fa-solid fa-file-excel"></i> Export Semua Data
+                                                    </a>
+
+                                                </div>
+
+                                                <hr>
+
+                                                <!-- Form Export Berdasarkan Tanggal -->
+                                                <form action="{{ route('export.spatie_parametergempa') }}" method="GET"
+                                                    class="row g-2 align-items-end">
+                                                    <div class="col-md-5">
+                                                        <label class="form-label">Dari Tanggal</label>
+                                                        <input type="date" name="start" class="form-control" required>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label class="form-label">Sampai Tanggal</label>
+                                                        <input type="date" name="end" class="form-control" required>
+                                                    </div>
+                                                    <div class="col-md-2 text-end">
+                                                        <button type="submit" class="btn btn-success w-100">
+                                                            <i class="fa-solid fa-download me-1"></i>
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </div>
-                                        </a>
+                                        </div>
                                     </div>
+
 
                                     <div class="float-right mr-3">
                                         <form method="GET" action="{{ route('gempabumi.index') }}">
@@ -62,11 +99,12 @@
                                             <th>Tanggal</th>
                                             <th>Waktu (WIB)</th>
                                             <th>Waktu (UTC)</th>
-                                            <th>Magnitudo</th>
-                                            <th>Bujur</th>
+                                            <th>Waktu (WITA)</th>
                                             <th>Lintang</th>
-                                            <th>Jarak</th>
+                                            <th>Bujur</th>
+                                            <th>Magnitudo</th>
                                             <th>Kedalaman (Km)</th>
+                                            <th>Jarak</th>
                                             <th>Dirasakan</th>
                                             <th>Keterangan</th>
                                             <th>Aksi</th>
@@ -79,12 +117,13 @@
                                                 <td>{{ $no++ }}.</td>
                                                 <td>{{ $data->tanggal }}</td>
                                                 <td>{{ $data->waktu }}</td>
-                                                <td>{{ $data->waktuUtc }}</td>
-                                                <td>{{ $data->magnitudo }}</td>
-                                                <td>{{ $data->bujur }}</td>
+                                                <td>{{ $data->waktu_utc }}</td>
+                                                <td>{{ $data->waktu_wita }}</td>
                                                 <td>{{ $data->lintang }}</td>
-                                                <td>{{ $data->jarak }}</td>
+                                                <td>{{ $data->bujur }}</td>
+                                                <td>{{ $data->magnitudo }}</td>
                                                 <td>{{ $data->kedalaman }}</td>
+                                                <td>{{ $data->jarak }}</td>
                                                 <td>{{ $data->dirasakan }}</td>
                                                 <td>{!! $data->keterangan !!}</td>
                                                 <td>

@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->date('tanggal');
             $table->time('waktu');
-            $table->time('waktuUtc');
-            $table->string('magnitudo');
+            $table->time('waktu_utc');
+            $table->time('waktu_wita');
             $table->string('lintang');
             $table->string('bujur');
-            $table->string('jarak');
+            $table->string('magnitudo');
             $table->string('kedalaman');
+            $table->string('jarak');
             $table->string('dirasakan')->nullable();
             $table->string('keterangan')->nullable();
             $table->timestamps();

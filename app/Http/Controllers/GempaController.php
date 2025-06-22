@@ -39,8 +39,13 @@ class GempaController extends Controller
             $data['waktu'] = Carbon::createFromFormat('H:i:s', $data['waktu'])->format('H:i:s');
 
             // Generate waktuUtc dari waktu (dalam zona WIB → UTC, minus 7 jam)
-            $data['waktuUtc'] = \Carbon\Carbon::createFromFormat('H:i:s', $data['waktu'])
+            $data['waktu_utc'] = \Carbon\Carbon::createFromFormat('H:i:s', $data['waktu'])
                 ->subHours(7)
+                ->format('H:i:s');
+
+            // Generate waktu_wita dari waktu (dalam zona WITB → WITA, plus 1 jam)
+            $data['waktu_wita'] = \Carbon\Carbon::createFromFormat('H:i:s', $data['waktu'])
+                ->addHours(1)
                 ->format('H:i:s');
 
             // Konversi lintang
@@ -81,9 +86,14 @@ class GempaController extends Controller
             // Konversi tanggal dan waktu
             // $data['tanggal'] = Carbon::createFromFormat('d/m/Y', $data['tanggal'])->format('Y-m-d');
             $data['waktu'] = Carbon::createFromFormat('H:i:s', $data['waktu'])->format('H:i:s');
-            // Generate waktuUtc dari waktu (dalam zona WIB → UTC, minus 7 jam)
-            $data['waktuUtc'] = \Carbon\Carbon::createFromFormat('H:i:s', $data['waktu'])
+            // Generate waktu_utc dari waktu (dalam zona WIB → UTC, minus 7 jam)
+            $data['waktu_utc'] = \Carbon\Carbon::createFromFormat('H:i:s', $data['waktu'])
                 ->subHours(7)
+                ->format('H:i:s');
+
+            // Generate waktu_wita dari waktu (dalam zona WITB → WITA, plus 1 jam)
+            $data['waktu_wita'] = \Carbon\Carbon::createFromFormat('H:i:s', $data['waktu'])
+                ->addHours(1)
                 ->format('H:i:s');
 
             $data['keterangan'] = Purifier::clean($request->input('keterangan'));

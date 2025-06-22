@@ -24,12 +24,13 @@ class StoreGempabumiRequest extends FormRequest
         return [
             'tanggal' => 'required|date_format:d-M-y',
             'waktu' => 'required|date_format:H:i:s',
-            'waktuUtc' => '',
-            'magnitudo' => 'required|string',
-            'lintang' => 'required|string',
+            'waktu_utc' => '',
+            'waktu_wita' => '',
             'bujur' => 'required|string',
-            'jarak' => 'required|string',
+            'lintang' => 'required|string',
+            'magnitudo' => 'required|string',
             'kedalaman' => 'required|string',
+            'jarak' => 'required|string',
             'dirasakan' => '',
             'keterangan' => '',
         ];
