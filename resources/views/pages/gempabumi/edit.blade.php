@@ -25,103 +25,145 @@
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Logbook Gempabumi</h2>
-                <div class="card bg-secondary">
+                <h2 class="section-title">Parameter Gempabumi Kalimantan dan Sekitarnya</h2>
+                <div class="card bg-light shadow-sm border-0">
                     <form id="editGempaForm" action="{{ route('gempabumi.update', $datagempa) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="card-header">
-                            <h4>Edit Data</h4>
+
+                        <div class="card-header bg-info text-white">
+                            <h4 class="mb-0">Edit Data</h4>
                         </div>
+
                         <div class="card-body">
-                            <div class="form-row d-flex justify-content-between">
-                                <div class="form-group col-md-5 me-4">
-                                    <label>Tanggal</label>
-                                    <input type="date" name="tanggal" class="form-control"
-                                        value="{{ old('tanggal', $datagempa->tanggal->format('Y-m-d')) }}">
+                            <div class="row g-3">
+                                {{-- Tanggal --}}
+                                <div class="col-md-6">
+                                    <label for="tanggal" class="form-label mb-4">Tanggal</label>
+                                    <div class="input-group">
+                                        <input type="date" name="tanggal" class="form-control rounded-0 py-2"
+                                            {{-- Persegi, padding agar tombol lebih tinggi --}}
+                                            value="{{ old('tanggal', $datagempa->tanggal->format('Y-m-d')) }}">
+                                    </div>
                                     @error('tanggal')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group col-md-5">
-                                    <label>Waktu</label>
-                                    <input type="text" name="waktu" class="form-control" placeholder="Contoh: 06:21:17"
-                                        value="{{ old('waktu', \Carbon\Carbon::parse($datagempa->waktu)->format('H:i:s')) }} ">
+
+                                {{-- Waktu & Waktu UTC --}}
+                                <div class="col-md-6 mb-3">
+                                    <label for="waktu" class="form-label">Waktu</label>
+                                    <div class="d-flex flex-column flex-md-row gap-2 mb-3">
+                                        <div class="flex-fill">
+                                            <label for="waktu" class="form-label">Waktu (WIB)</label>
+                                            <input type="text" name="waktu" id="waktu" class="form-control"
+                                                placeholder="06:21:17"
+                                                value="{{ old('waktu', \Carbon\Carbon::parse($datagempa->waktu)->format('H:i:s')) }}">
+                                            <small class="form-text text-muted">Mohon edit waktu secara manual</small>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <label for="waktuUtc" class="form-label">Waktu UTC</label>
+                                            <input type="text" name="waktuUtc" id="waktuUtc"
+                                                class="form-control bg-light" disabled placeholder="UTC"
+                                                value="{{ old('waktuUtc', \Carbon\Carbon::parse($datagempa->waktuUtc)->format('H:i:s')) }}">
+                                        </div>
+                                    </div>
+
                                     @error('waktu')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                    @error('waktuUtc')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="magnitudo">Magnitudo</label>
+                                    <input id="magnitudo" type="text"
+                                        class="form-control @error('magnitudo') is-invalid @enderror" name="magnitudo"
+                                        value="{{ old('magnitudo', $datagempa->magnitudo) }}">
+                                    @error('magnitudo')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="bujur" class="form-label">Bujur</label>
+                                    <input id="bujur" type="text"
+                                        class="form-control @error('bujur') is-invalid @enderror" name="bujur"
+                                        value="{{ old('bujur', $datagempa->bujur) }}">
+                                    @error('bujur')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="lintang" class="form-label">Lintang</label>
+                                    <input id="lintang" type="text"
+                                        class="form-control @error('lintang') is-invalid @enderror" name="lintang"
+                                        value="{{ old('lintang', $datagempa->lintang) }}">
+                                    @error('lintang')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="jarak" class="form-label">Jarak</label>
+                                    <input id="jarak" type="text"
+                                        class="form-control @error('jarak') is-invalid @enderror" name="jarak"
+                                        value="{{ old('jarak', $datagempa->jarak) }}">
+                                    @error('jarak')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="kedalaman" class="form-label">Kedalaman</label>
+                                    <input id="kedalaman" type="text"
+                                        class="form-control @error('kedalaman') is-invalid @enderror" name="kedalaman"
+                                        value="{{ old('kedalaman', $datagempa->kedalaman) }}">
+                                    @error('kedalaman')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-12 mb-3">
+                                    <label for="dirasakan" class="form-label d-block">Dirasakan</label>
+                                    <div class="selectgroup selectgroup-pills">
+                                        <label class="selectgroup-item me-3">
+                                            <input type="radio" name="dirasakan" value="DIRASAKAN"
+                                                class="selectgroup-input" @if (old('dirasakan') == 'DIRASAKAN' || $datagempa->dirasakan == 'DIRASAKAN') checked @endif>
+                                            <span class="selectgroup-button">DIRASAKAN</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="dirasakan" value="TIDAK DIRASAKAN"
+                                                class="selectgroup-input" @if (old('dirasakan') == 'TIDAK DIRASAKAN' || $datagempa->dirasakan == 'TIDAK DIRASAKAN') checked @endif>
+                                            <span class="selectgroup-button">TIDAK DIRASAKAN</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="keterangan" class="form-label">Keterangan</label>
+                                    <input id="keterangan" type="hidden" name="keterangan"
+                                        value="{{ old('keterangan', $datagempa->keterangan) }}">
+                                    <trix-editor input="keterangan"
+                                        class="trix-content bg-white border rounded"></trix-editor>
+                                    @error('keterangan')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>Magnitudo</label>
-                                <input id="magnitudo" type="text"
-                                    class="form-control @error('magnitudo') is-invalid @enderror" name="magnitudo"
-                                    value="{{ old('magnitudo', $datagempa->magnitudo) }}">
-                                @error('magnitudo')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Bujur</label>
-                                <input id="bujur" type="text"
-                                    class="form-control @error('bujur') is-invalid @enderror" name="bujur"
-                                    value="{{ old('bujur', $datagempa->bujur) }}">
-                                @error('bujur')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Lintang</label>
-                                <input id="lintang" type="text"
-                                    class="form-control @error('lintang') is-invalid @enderror" name="lintang"
-                                    value="{{ old('lintang', $datagempa->lintang) }}">
-                                @error('lintang')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Jarak</label>
-                                <input id="jarak" type="text"
-                                    class="form-control @error('jarak') is-invalid @enderror" name="jarak"
-                                    value="{{ old('jarak', $datagempa->jarak) }}">
-                                @error('jarak')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Kedalaman</label>
-                                <input id="kedalaman" type="text"
-                                    class="form-control @error('kedalaman') is-invalid @enderror" name="kedalaman"
-                                    value="{{ old('kedalaman', $datagempa->kedalaman) }}">
-                                @error('kedalaman')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
+
                         </div>
-                        <div class=" text-right mr-4">
-                            <button class="btn btn-primary">Submit</button>
+
+                        <div class="card-footer d-flex justify-content-between px-4 py-3">
+                            <a href="{{ route('gempabumi.index') }}" class="btn btn-outline-danger">Cancel</a>
+                            <button class="btn btn-primary px-4">Simpan</button>
                         </div>
                     </form>
-                    <div class="card-footer text-right">
-                        <a href="{{ route('gempabumi.index') }}">
-                            <button class="btn btn-danger">Cancel</button>
-                        </a>
-                    </div>
                 </div>
+
             </div>
         </section>
     </div>

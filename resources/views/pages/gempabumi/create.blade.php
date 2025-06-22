@@ -141,8 +141,14 @@
                 return;
             }
 
+
+
+            // const regex =
+            //     /Mag:(?<magnitudo>[\d.]+),\s*(?<tanggal>\d{2}-\w{3}-\d{2})\s+(?<waktu>\d{2}:\d{2}:\d{2})\s+WIB,\s*Lok:\s*(?<lintang>[\d.\-]+\s*(LU|LS))\s*[-–]\s*(?<bujur>[\d.\-]+\s*(BT|BB))\s+\((?<jarak>[^)]+)\),\s*Kedlmn:\s*(?<kedalaman>\d+\s*Km)\s*::(?<sumber>.+)$/i;
+
             const regex =
-                /Mag:(?<magnitudo>[\d.]+),\s*(?<tanggal>\d{2}-\w{3}-\d{2})\s+(?<waktu>[\d:]+)\s+WIB,\s*Lok:(?<lintang>[\d.\-]+\s*[LU]+),(?<bujur>[\d.\-]+\s*[BT]+)\s+\((?<jarak>[^)]+)\),\s*Kedlmn:(?<kedalaman>\d+\s*Km)\s*::(?<sumber>.+)$/;
+                /Mag:(?<magnitudo>[\d.]+),\s*(?<tanggal>\d{2}-\w{3}-\d{2})\s+(?<waktu>\d{2}:\d{2}:\d{2})\s+WIB,\s*Lok:\s*(?<lintang>[\d.\-]+\s*(LU|LS))\s*[,–-]\s*(?<bujur>[\d.\-]+\s*(BT|BB))\s*\((?<jarak>[^)]+)\),\s*Kedlmn:\s*(?<kedalaman>\d+\s)Km\s*::(?<sumber>.+)$/i;
+
 
             const match = input.match(regex);
 
@@ -184,7 +190,7 @@
                             <div class="col-md-6 mb-2">
                                 <i class="bi bi-graph-down me-2"></i>
                                 <strong>Kedalaman</strong><br>
-                                ${kedalaman}
+                                ${kedalaman} Km
                             </div>
                             <div class="col-12 mt-2">
                                 <i class="bi bi-geo-alt-fill me-2 text-danger"></i>
@@ -234,22 +240,6 @@
                 }
             ).addTo(window.gempaMap);
 
-            const data = {
-                "type": "FeatureCollection",
-                "features": [{
-                    "type": "Feature",
-                    "properties": {
-                        "name": "Sesar Dummy"
-                    },
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": [
-                            [117.1, -1.5],
-                            [117.5, -1.9]
-                        ]
-                    }
-                }]
-            };
 
             // // Tambahkan layer sesar lokal
             // fetch("/fault/sesar_kalimantan.geojson")

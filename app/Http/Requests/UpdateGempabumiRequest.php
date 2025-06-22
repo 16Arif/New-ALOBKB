@@ -24,11 +24,14 @@ class UpdateGempabumiRequest extends FormRequest
         return [
             'tanggal' => 'required|date',
             'waktu' => 'required|date_format:H:i:s',
+            'waktuUtc' => '',
             'magnitudo' => 'required|string',
             'lintang' => 'required|string',
             'bujur' => 'required|string',
             'jarak' => 'required|string',
             'kedalaman' => 'required|string',
+            'dirasakan' => '',
+            'keterangan' => '',
         ];
     }
 }

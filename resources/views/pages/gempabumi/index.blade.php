@@ -11,7 +11,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Data Gempabumi</h1>
+                <h1>Stageof Balikpapan</h1>
 
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
@@ -20,6 +20,7 @@
                 </div>
             </div>
             <div class="section-body">
+                <h2 class="section-title">Parameter Gempabumi Kalimantan dan Sekitarnya</h2>
                 <div class="row">
                     <div class="col-12">
 
@@ -30,7 +31,7 @@
                     <div class="col-12">
                         <div class="card ">
                             <div class="card-header">
-                                <h4>Rekapitulasi Parameter Gempabumi Kalimantan</h4>
+                                <h4>Semua Data</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row justify-content-between">
@@ -59,12 +60,16 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Tanggal</th>
-                                            <th>Waktu</th>
+                                            <th>Waktu (WIB)</th>
+                                            <th>Waktu (UTC)</th>
                                             <th>Magnitudo</th>
                                             <th>Bujur</th>
                                             <th>Lintang</th>
                                             <th>Jarak</th>
                                             <th>Kedalaman (Km)</th>
+                                            <th>Dirasakan</th>
+                                            <th>Keterangan</th>
+                                            <th>Aksi</th>
                                         </tr>
                                         @php
                                             $no = 1;
@@ -74,11 +79,14 @@
                                                 <td>{{ $no++ }}.</td>
                                                 <td>{{ $data->tanggal }}</td>
                                                 <td>{{ $data->waktu }}</td>
+                                                <td>{{ $data->waktuUtc }}</td>
                                                 <td>{{ $data->magnitudo }}</td>
                                                 <td>{{ $data->bujur }}</td>
                                                 <td>{{ $data->lintang }}</td>
                                                 <td>{{ $data->jarak }}</td>
                                                 <td>{{ $data->kedalaman }}</td>
+                                                <td>{{ $data->dirasakan }}</td>
+                                                <td>{!! $data->keterangan !!}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
 
