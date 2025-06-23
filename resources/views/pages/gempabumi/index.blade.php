@@ -80,11 +80,13 @@
                                         <div class="mb-3">
                                             <button id="toggleSelection" class="btn btn-primary">Pilih</button>
                                             <button id="cancelSelection" class="btn btn-secondary d-none">Batal</button>
-                                            <button id="generateInfografis" class="btn btn-success d-none">Generate
+                                            <button id="generateInfografis" class="btn btn-success d-none">Buat
                                                 Infografis</button>
+
                                             <button id="hapusData" class="btn btn-danger d-none">Hapus Data</button>
                                         </div>
                                     </div>
+
 
 
                                     <div class="float-right mr-3">
@@ -120,37 +122,37 @@
                                         @php
                                             $no = 1;
                                         @endphp
-                                        @foreach ($datagempa as $data)
+                                        @foreach ($datagempa as $gempa)
                                             <tr>
                                                 <td class="checkbox-column d-none">
-                                                    <input type="checkbox" class="select-row" value="{{ $data->id }}">
+                                                    <input type="checkbox" class="select-row" value="{{ $gempa->id }}">
                                                 </td>
                                                 <td>{{ $no++ }}.</td>
-                                                <td>{{ $data->tanggal }}</td>
-                                                <td>{{ $data->waktu }}</td>
-                                                <td>{{ $data->waktu_utc }}</td>
-                                                <td>{{ $data->waktu_wita }}</td>
-                                                <td>{{ $data->lintang }}</td>
-                                                <td>{{ $data->bujur }}</td>
-                                                <td>{{ $data->magnitudo }}</td>
-                                                <td>{{ $data->kedalaman }}</td>
-                                                <td>{{ $data->jarak }}</td>
-                                                <td>{{ $data->dirasakan }}</td>
-                                                <td>{!! $data->keterangan !!}</td>
+                                                <td>{{ $gempa->tanggal }}</td>
+                                                <td>{{ $gempa->waktu }}</td>
+                                                <td>{{ $gempa->waktu_utc }}</td>
+                                                <td>{{ $gempa->waktu_wita }}</td>
+                                                <td>{{ $gempa->lintang }}</td>
+                                                <td>{{ $gempa->bujur }}</td>
+                                                <td>{{ $gempa->magnitudo }}</td>
+                                                <td>{{ $gempa->kedalaman }}</td>
+                                                <td>{{ $gempa->jarak }}</td>
+                                                <td>{{ $gempa->dirasakan }}</td>
+                                                <td>{!! $gempa->keterangan !!}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
 
-                                                        <a href="{{ route('gempabumi.edit', $data->id) }}">
+                                                        <a href="{{ route('gempabumi.edit', $gempa->id) }}">
                                                             <div class="btn btn-sm btn-info btn-icon">
                                                                 <i class="fas fa-edit"></i>
                                                             </div>
                                                         </a>
-                                                        <form action="{{ route('gempabumi.destroy', $data->id) }}"
+                                                        <form action="{{ route('gempabumi.destroy', $gempa->id) }}"
                                                             method="POST" class="ml-2">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button class="btn btn-sm btn-danger btn-icon"
-                                                                onclick="return confirmDelete({{ $data->id }})">
+                                                                onclick="return confirmDelete({{ $gempa->id }})">
                                                                 <i class="fas fa-trash"></i>
                                                             </button>
                                                         </form>
@@ -172,6 +174,10 @@
             </div>
         </section>
     </div>
+
+    @include('components.gempa.infografis-batch')
+
+
 @endsection
 
 @push('scripts')
@@ -218,6 +224,8 @@
         });
 
 
+
+
         // untuk hapus data
 
         document.getElementById("hapusData").addEventListener("click", function() {
@@ -254,6 +262,47 @@
                 .catch(error => {
                     console.error(error);
                     alert("Terjadi kesalahan saat menghapus data.");
+                });
+        });
+    </script>
+    {{-- // generate multiple infografis --}}
+    <script>
+        document.getElementById("generateInfografis").addEventListener("click", function() {
+            const selectedIds = Array.from(document.querySelectorAll(".select-row:checked"))
+                .map(cb => cb.value);
+
+            if (selectedIds.length === 0) {
+                alert("Pilih data gempa terlebih dahulu!");
+                return;
+            }
+
+            // Tampilkan loading
+            document.getElementById("modal-infografis-body").innerHTML =
+                "<p class='text-muted'>Memuat infografis...</p>";
+
+            // Kirim data via AJAX
+            fetch("{{ route('gempabumi.previewInfografis') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        id: selectedIds
+                    })
+                })
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById("modal-infografis-body").innerHTML = html;
+
+                    // Tampilkan modal
+                    const modal = new bootstrap.Modal(document.getElementById('modalInfografis'));
+                    modal.show();
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById("modal-infografis-body").innerHTML =
+                        "<p class='text-danger'>Gagal memuat infografis.</p>";
                 });
         });
     </script>

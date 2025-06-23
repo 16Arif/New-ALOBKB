@@ -127,4 +127,14 @@ class GempaController extends Controller
             ]);
         }
 
+        public function generateInfografis(Request $request)
+        {
+            $ids = $request->input('id', []);
+            $datagempa = GempaBumi::whereIn('id', $ids)->get();
+
+            return view('pages.gempabumi.index', [
+                'datagempa' => $datagempa
+            ]);
+        }
+
 }

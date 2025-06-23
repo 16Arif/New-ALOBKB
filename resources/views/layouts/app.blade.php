@@ -68,6 +68,8 @@
             {{-- alert --}}
             @include('layouts.alert')
 
+
+
             <!-- Footer -->
             @include('components.footer')
         </div>
