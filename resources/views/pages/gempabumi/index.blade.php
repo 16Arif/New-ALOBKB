@@ -80,8 +80,13 @@
                                         <div class="mb-3">
                                             <button id="toggleSelection" class="btn btn-primary">Pilih</button>
                                             <button id="cancelSelection" class="btn btn-secondary d-none">Batal</button>
-                                            <button id="generateInfografis" class="btn btn-success d-none">Buat
+                                            <button id="generateInfografis" class="btn btn-success d-none mb-2">Buat
                                                 Infografis</button>
+                                            <form id="infografisForm" action="{{ route('gempabumi.infografiss') }}"
+                                                method="POST" target="_blank">
+                                                @csrf
+                                                <input type="hidden" name="ids" id="selectedIdsInput">
+                                            </form>
 
                                             <button id="hapusData" class="btn btn-danger d-none">Hapus Data</button>
                                         </div>
@@ -175,8 +180,6 @@
         </section>
     </div>
 
-    @include('components.gempa.infografis-batch')
-
 
 @endsection
 
@@ -264,46 +267,19 @@
                     alert("Terjadi kesalahan saat menghapus data.");
                 });
         });
-    </script>
-    {{-- // generate multiple infografis --}}
-    <script>
+
+
         document.getElementById("generateInfografis").addEventListener("click", function() {
             const selectedIds = Array.from(document.querySelectorAll(".select-row:checked"))
                 .map(cb => cb.value);
 
             if (selectedIds.length === 0) {
-                alert("Pilih data gempa terlebih dahulu!");
+                alert("Pilih setidaknya satu data!");
                 return;
             }
 
-            // Tampilkan loading
-            document.getElementById("modal-infografis-body").innerHTML =
-                "<p class='text-muted'>Memuat infografis...</p>";
-
-            // Kirim data via AJAX
-            fetch("{{ route('gempabumi.previewInfografis') }}", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    },
-                    body: JSON.stringify({
-                        id: selectedIds
-                    })
-                })
-                .then(res => res.text())
-                .then(html => {
-                    document.getElementById("modal-infografis-body").innerHTML = html;
-
-                    // Tampilkan modal
-                    const modal = new bootstrap.Modal(document.getElementById('modalInfografis'));
-                    modal.show();
-                })
-                .catch(err => {
-                    console.error(err);
-                    document.getElementById("modal-infografis-body").innerHTML =
-                        "<p class='text-danger'>Gagal memuat infografis.</p>";
-                });
+            document.getElementById("selectedIdsInput").value = selectedIds.join(",");
+            document.getElementById("infografisForm").submit();
         });
     </script>
 @endpush

@@ -127,14 +127,18 @@ class GempaController extends Controller
             ]);
         }
 
-        public function generateInfografis(Request $request)
+        public function infografiss(Request $request)
         {
-            $ids = $request->input('id', []);
-            $datagempa = GempaBumi::whereIn('id', $ids)->get();
+            \Carbon\Carbon::setLocale('id');
 
-            return view('pages.gempabumi.index', [
-                'datagempa' => $datagempa
-            ]);
+            $ids = explode(',', $request->ids);
+            $data = GempaBumi::whereIn('id', $ids)->get();
+            $startDate = $data->min('tanggal');
+            $endDate = $data->max('tanggal');
+
+
+            return view('pages.gempabumi.infografis', compact('data','startDate','endDate'));
         }
+
 
 }
