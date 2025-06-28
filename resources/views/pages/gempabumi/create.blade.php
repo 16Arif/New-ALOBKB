@@ -296,11 +296,10 @@
 
             document.getElementById("createButton").classList.remove("d-none");
 
-
-            // Layer Sesar
             tambahLayerSesar();
-
         }
+
+
 
 
         // untuk menjalankan button store data ke database
