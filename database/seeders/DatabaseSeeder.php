@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\InatewsCodeSeeder;
+use Database\Seeders\InatewsEquipmentSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\GempaBumiSeeder;
 use Database\Seeders\LogbookGempaSeeder;
@@ -23,7 +25,9 @@ class DatabaseSeeder extends Seeder
             LogbookGempaSeeder::class,
             LogbookPetirSeeder::class,
             LogbookPeralatanSeeder::class,
+            InatewsEquipmentSeeder::class,
+            InatewsCodeSeeder::class,
+            InatewsInformationSeeder::class
         ]);
-
     }
 }

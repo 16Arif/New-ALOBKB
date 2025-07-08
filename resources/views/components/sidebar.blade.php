@@ -42,11 +42,21 @@
                 <a class="nav-link" href="{{ route('gempabumi.index') }}"><i
                         class="fa-solid fa-rectangle-list"></i><span>Rekapitulasi Gempa</span></a>
             </li>
-
             <li class="{{ Request::is('gempabumi/infografiss') ? 'active' : '' }}">
                 <a class="nav-link"><i class="fa-solid fa-list-ol"></i><span>
                         Peta Kegempaan</span></a>
             </li>
+            <li class="menu-header">Data Peralatan</li>
+            <li class="{{ Request::is('inatewsequipment') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('inatewsequipment.index') }}"><i
+                        class="fa-solid fa-rectangle-list"></i><span>Data Site Ina-TEWS</span></a>
+            </li>
+            <li class="menu-header">Preventive Maintanance</li>
+            <li class="{{ Request::is('pm-inatews') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('pm-inatews.index') }}"><i
+                        class="fa-solid fa-rectangle-list"></i><span>PM Ina-TEWS</span></a>
+            </li>
+
         </ul>
 
         <ul class="sidebar-menu mt-4">

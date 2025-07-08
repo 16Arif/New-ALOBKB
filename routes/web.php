@@ -9,13 +9,16 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\GempaController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PetagempaController;
+use App\Http\Controllers\Pm_inatewsController;
 use App\Http\Controllers\UserprofileController;
 use App\Http\Controllers\ImageprofileController;
+use App\Http\Controllers\InatewscodeController;
 use App\Http\Controllers\LogbookgempaController;
 use App\Http\Controllers\LogbookpetirController;
+use App\Http\Controllers\InatewsequipmentController;
+use App\Http\Controllers\InatewsinformationController;
 use App\Http\Controllers\LogbookperalatanController;
-use App\Http\Controllers\Settings\PasswordController;
+use App\Models\InatewsCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,14 +38,16 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('logbookperalatan', LogbookperalatanController::class);
     Route::resource('logbookgempa', LogbookgempaController::class);
     Route::resource('gempabumi', GempaController::class);
+    Route::resource('inatewscode', InatewscodeController::class);
+    Route::resource('inatewsinformation', InatewsinformationController::class);
+    Route::resource('inatewsequipment', InatewsequipmentController::class);
+    Route::resource('pm-inatews', Pm_inatewsController::class);
     Route::delete('/gempabumi-batch', [GempaController::class, 'destroyBatch'])->name('gempabumi.destroyBatch');
     Route::post('/gempabumi/infografiss', [GempaController::class, 'infografiss'])->name('gempabumi.infografiss');
-
-
     Route::resource('download', PdfController::class);
     Route::get('export/spatie_petir', [ExportController::class, 'spatie_petir'])->name('export.spatie_petir');
     Route::get('export/spatie_peralatan', [ExportController::class, 'spatie_peralatan'])
-                ->name('export.spatie_peralatan');
+        ->name('export.spatie_peralatan');
     Route::get('export/spatie_gempa', [ExportController::class, 'spatie_gempa'])->name('export.spatie_gempa');
     Route::get('/export/spatie_parametergempa', [ExportController::class, 'spatie_parametergempa'])->name('export.spatie_parametergempa');
     Route::resource('profile', UserprofileController::class)->except('index', 'show', 'create', 'store', 'destroy');
@@ -56,10 +61,9 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('user', UserController::class);
 });
 
+
 Route::middleware(['guest'])->group(function () {
     Route::get('/', function () {
         return view('pages.auth.login');
     });
 });
-
-
