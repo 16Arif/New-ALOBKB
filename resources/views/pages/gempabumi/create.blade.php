@@ -41,10 +41,15 @@
                             <div class="mb-4">
                                 <label for="infoText" class="form-label fw-medium text-center w-100">Format Parameter
                                     Gempa</label>
-                                <h6 class="text-center mx-auto mb-3 text-info" style="width: 70%;">
+                                <h6 class="text-center mx-auto mb-3 text-dark" style="width: 70%;">
                                     Contoh: Info Gempa Mag:3.2, 08-Jun-25 00:00:16 WIB, Lok:0.68 LU,118.62 BT (141 km
                                     TimurLaut BONTANG-KALTIM), Kedlmn:6 Km ::BMKG-BKB
                                 </h6>
+                                <h6 class="text-center mx-auto mb-3 text-danger" style="width: 70%;">
+                                    Mohon sesuaikan waktu dalam WIB
+                                </h6>
+                                
+                                
                                 <textarea id="infoText" rows="4" class="form-control mx-auto" style="width: 70%"
                                     placeholder="Masukkan teks info gempa..."></textarea>
                             </div>
@@ -142,13 +147,8 @@
             }
 
 
-
-            // const regex =
-            //     /Mag:(?<magnitudo>[\d.]+),\s*(?<tanggal>\d{2}-\w{3}-\d{2})\s+(?<waktu>\d{2}:\d{2}:\d{2})\s+WIB,\s*Lok:\s*(?<lintang>[\d.\-]+\s*(LU|LS))\s*[-–]\s*(?<bujur>[\d.\-]+\s*(BT|BB))\s+\((?<jarak>[^)]+)\),\s*Kedlmn:\s*(?<kedalaman>\d+\s*Km)\s*::(?<sumber>.+)$/i;
-
-            const regex =
+ const regex =
                 /Mag:(?<magnitudo>[\d.]+),\s*(?<tanggal>\d{2}-\w{3}-\d{2})\s+(?<waktu>\d{2}:\d{2}:\d{2})\s+WIB,\s*Lok:\s*(?<lintang>[\d.\-]+\s*(LU|LS))\s*[,–-]\s*(?<bujur>[\d.\-]+\s*(BT|BB))\s*\((?<jarak>[^)]+)\),\s*Kedlmn:\s*(?<kedalaman>\d+\s)Km\s*::(?<sumber>.+)$/i;
-
 
             const match = input.match(regex);
 
