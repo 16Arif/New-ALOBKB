@@ -66,7 +66,136 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-
+                            <div class="form-group">
+                                <label for="th_install" class="form-label">Tahun Installasi</label>
+                                <input id="th_install" type="date" name="th_install" value="{{ old('th_install') }}"
+                                    class="form-control @error('th_install') is-invalid @enderror">
+                                @error('th_install')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="alamat_site" class="form-label">Alamat Site</label>
+                                <input id="alamat_site" type="text" name="alamat_site" value="{{ old('alamat_site') }}"
+                                    class="form-control @error('alamat_site') is-invalid @enderror">
+                                @error('alamat_site')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="kel_site" class="form-label">Keluharan Siite</label>
+                                <input id="kel_site" type="text" name="kel_site" value="{{ old('kel_site') }}"
+                                    class="form-control @error('kel_site') is-invalid @enderror">
+                                @error('kel_site')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="kec_site" class="form-label">Kecamatan Site</label>
+                                <input id="kec_site" type="text" name="kec_site" value="{{ old('kec_site') }}"
+                                    class="form-control @error('kec_site') is-invalid @enderror">
+                                @error('kec_site')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="kota" class="form-label">Kota Site</label>
+                                <input id="kota" type="text" name="kota" value="{{ old('kota') }}"
+                                    class="form-control @error('kota') is-invalid @enderror">
+                                @error('kota')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="prov" class="form-label">Provinsi Site</label>
+                                <input id="prov" type="text" name="prov" value="{{ old('prov') }}"
+                                    class="form-control @error('prov') is-invalid @enderror">
+                                @error('prov')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="pic_site" class="form-label">Pic di Site</label>
+                                <input id="pic_site" type="text" name="pic_site" value="{{ old('pic_site') }}"
+                                    class="form-control @error('pic_site') is-invalid @enderror">
+                                @error('pic_site')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="kontak_pic" class="form-label">Kontak Pic</label>
+                                <input id="kontak_pic" type="text" name="kontak_pic" value="{{ old('kontak_pic') }}"
+                                    class="form-control @error('kontak_pic') is-invalid @enderror">
+                                @error('kontak_pic')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="upt" class="form-label">UPT</label>
+                                <input id="upt" type="text" name="upt" value="{{ old('upt') }}"
+                                    class="form-control @error('upt') is-invalid @enderror">
+                                @error('upt')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="alamat_upt" class="form-label">Alamat UPT</label>
+                                <input id="alamat_upt" type="text" name="alamat_upt" value="{{ old('alamat_upt') }}"
+                                    class="form-control @error('alamat_upt') is-invalid @enderror">
+                                @error('alamat_upt')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="kel_upt" class="form-label">Kelurahan UPT</label>
+                                <input id="kel_upt" type="text" name="kel_upt" value="{{ old('kel_upt') }}"
+                                    class="form-control @error('kel_upt') is-invalid @enderror">
+                                @error('kel_upt')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="kec_upt" class="form-label">Kecamatan UPT</label>
+                                <input id="kec_upt" type="text" name="kec_upt" value="{{ old('kec_upt') }}"
+                                    class="form-control @error('kec_upt') is-invalid @enderror">
+                                @error('kec_upt')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="kota_upt" class="form-label">Kota UPT</label>
+                                <input id="kota_upt" type="text" name="kota_upt" value="{{ old('kota_upt') }}"
+                                    class="form-control @error('kota_upt') is-invalid @enderror">
+                                @error('kota_upt')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="jab_pic_upt" class="form-label">Jabatan PIC UPT</label>
+                                <input id="jab_pic_upt" type="text" name="jab_pic_upt"
+                                    value="{{ old('jab_pic_upt') }}"
+                                    class="form-control @error('jab_pic_upt') is-invalid @enderror">
+                                @error('jab_pic_upt')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="pic_upt" class="form-label">PIC UPT</label>
+                                <input id="pic_upt" type="text" name="pic_upt" value="{{ old('pic_upt') }}"
+                                    class="form-control @error('pic_upt') is-invalid @enderror">
+                                @error('pic_upt')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="kontak_pic_upt" class="form-label">Kontak PIC UPT</label>
+                                <input id="kontak_pic_upt" type="text" name="kontak_pic_upt"
+                                    value="{{ old('kontak_pic_upt') }}"
+                                    class="form-control @error('kontak_pic_upt') is-invalid @enderror">
+                                @error('kontak_pic_upt')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between">
                         <a href="{{ route('inatewsequipment.index') }}" class="btn btn-outline-danger">Cancel</a>

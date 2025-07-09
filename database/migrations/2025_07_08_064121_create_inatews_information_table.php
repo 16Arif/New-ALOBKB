@@ -16,6 +16,22 @@ return new class extends Migration
             $table->string('lat');
             $table->string('long');
             $table->string('elevasi');
+            $table->date('th_install');
+            $table->string('alamat_site');
+            $table->string('kel_site');
+            $table->string('kec_site');
+            $table->string('kota');
+            $table->string('prov');
+            $table->string('pic_site');
+            $table->string('kontak_pic');
+            $table->string('upt');
+            $table->string('alamat_upt');
+            $table->string('kel_upt');
+            $table->string('kec_upt');
+            $table->string('kota_upt');
+            $table->string('jab_pic_upt');
+            $table->string('pic_upt');
+            $table->string('kontak_pic_upt');
             $table->timestamps();
         });
     }

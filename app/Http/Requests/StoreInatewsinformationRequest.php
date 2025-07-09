@@ -25,6 +25,22 @@ class StoreInatewsinformationRequest extends FormRequest
             'lat' => 'required',
             'long' => 'required',
             'elevasi' => 'required',
+            'th_install' => 'required',
+            'alamat_site' => 'required',
+            'kel_site' => 'required',
+            'kec_site' => 'required',
+            'kota' => 'required',
+            'prov' => 'required',
+            'pic_site' => 'required',
+            'kontak_pic' => 'required',
+            'upt' => 'required',
+            'alamat_upt' => 'required',
+            'kel_upt' => 'required',
+            'kec_upt' => 'required',
+            'kota_upt' => 'required',
+            'jab_pic_upt' => 'required',
+            'pic_upt' => 'required',
+            'kontak_pic_upt' => 'required'
         ];
     }
 }
