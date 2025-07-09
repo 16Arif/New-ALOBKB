@@ -106,6 +106,16 @@
                                         </form>
                                     </div>
                                 </div>
+                                <form method="GET" action="{{ route('gempabumi.index') }}" class="mb-3">
+                                    <label for="per_page">Tampilkan:</label>
+                                    <select name="per_page" id="per_page" onchange="this.form.submit()">
+                                        <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+                                        <option value="30" {{ request('per_page') == 30 ? 'selected' : '' }}>30</option>
+                                        <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
+                                        <option value="all" {{ request('per_page') == 'all' ? 'selected' : '' }}>Semua
+                                        </option>
+                                    </select>
+                                </form>
                                 <div class="table-responsive mt-3">
                                     <table class="table-striped table">
                                         <tr>
@@ -121,18 +131,16 @@
                                             <th>Kedalaman (Km)</th>
                                             <th>Jarak</th>
                                             <th>Dirasakan</th>
-                                            <th>Keterangan</th>
                                             <th>Aksi</th>
                                         </tr>
-                                        @php
-                                            $no = 1;
-                                        @endphp
-                                        @foreach ($datagempa as $gempa)
+
+                                        @forelse ($datagempa as $index => $gempa)
                                             <tr>
                                                 <td class="checkbox-column d-none">
                                                     <input type="checkbox" class="select-row" value="{{ $gempa->id }}">
                                                 </td>
-                                                <td>{{ $no++ }}.</td>
+                                                <td>{{ isset($gempa->firstItem) ? $datagempa->firstItem() + $index : $index + 1 }}
+                                                </td>
                                                 <td>{{ $gempa->tanggal }}</td>
                                                 <td>{{ $gempa->waktu }}</td>
                                                 <td>{{ $gempa->waktu_utc }}</td>
@@ -143,7 +151,6 @@
                                                 <td>{{ $gempa->kedalaman }}</td>
                                                 <td>{{ $gempa->jarak }}</td>
                                                 <td>{{ $gempa->dirasakan }}</td>
-                                                <td>{!! $gempa->keterangan !!}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
 
@@ -165,13 +172,19 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center">Tidak ada data.</td>
+                                            </tr>
+                                        @endforelse
 
                                     </table>
                                 </div>
-                                <div class="float-right mt-3">
-                                    {{ $datagempa->withQueryString()->links() }}
-                                </div>
+                                @if (!request()->has('per_page') || request('per_page') !== 'all')
+                                    <div class="mt-3">
+                                        {{ $datagempa->links() }}
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

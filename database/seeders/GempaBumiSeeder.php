@@ -14,6 +14,6 @@ class GempaBumiSeeder extends Seeder
      */
     public function run(): void
     {
-        GempaBumi::factory(10)->create();
+        GempaBumi::factory(55)->create();
     }
 }
