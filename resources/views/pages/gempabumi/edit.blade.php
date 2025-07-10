@@ -83,21 +83,14 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label" for="magnitudo">Magnitudo</label>
-                                    <input id="magnitudo" type="text"
-                                        class="form-control @error('magnitudo') is-invalid @enderror" name="magnitudo"
-                                        value="{{ old('magnitudo', $datagempa->magnitudo) }}">
-                                    @error('magnitudo')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                
 
                                 <div class="col-md-6 mb-3">
                                     <label for="bujur" class="form-label">Bujur</label>
                                     <input id="bujur" type="text"
                                         class="form-control @error('bujur') is-invalid @enderror" name="bujur"
                                         value="{{ old('bujur', $datagempa->bujur) }}">
+                                        <p class="text-muted">Contoh : 116.12 untuk BT dan -0.12 untuk BB</p>
                                     @error('bujur')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -108,32 +101,43 @@
                                     <input id="lintang" type="text"
                                         class="form-control @error('lintang') is-invalid @enderror" name="lintang"
                                         value="{{ old('lintang', $datagempa->lintang) }}">
+                                        <p class="text-muted">Contoh : 0.12 untuk LU dan -0.12 untuk LS</p>
                                     @error('lintang')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-1">
+                                    <label class="form-label" for="magnitudo">Magnitudo</label>
+                                    <input id="magnitudo" type="text"
+                                        class="form-control @error('magnitudo') is-invalid @enderror" name="magnitudo"
+                                        value="{{ old('magnitudo', $datagempa->magnitudo) }}">
+                                    @error('magnitudo')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6 mb-1">
                                     <label for="jarak" class="form-label">Jarak</label>
                                     <input id="jarak" type="text"
                                         class="form-control @error('jarak') is-invalid @enderror" name="jarak"
                                         value="{{ old('jarak', $datagempa->jarak) }}">
+                                         <p class="text-muted">Contoh : 10 Km Timur Laut Sangata</p>
                                     @error('jarak')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-1">
                                     <label for="kedalaman" class="form-label">Kedalaman</label>
                                     <input id="kedalaman" type="text"
                                         class="form-control @error('kedalaman') is-invalid @enderror" name="kedalaman"
                                         value="{{ old('kedalaman', $datagempa->kedalaman) }}">
+                                        <p class="text-muted">Cukup nilai 10 tanpa satuan, untuk kedalaman 10Km</p>
                                     @error('kedalaman')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="col-12 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label for="dirasakan" class="form-label d-block">Dirasakan</label>
                                     <div class="selectgroup selectgroup-pills">
                                         <label class="selectgroup-item me-3">

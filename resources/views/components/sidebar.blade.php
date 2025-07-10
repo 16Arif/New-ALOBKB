@@ -36,15 +36,15 @@
             <li class="menu-header">Gempabumi</li>
             <li class="{{ Request::is('gempabumi/create') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('gempabumi.create') }}"><i
-                        class="fa-solid fa-panorama"></i><span>Buat Info Gempa</span></a>
+                        class="fas fa-solid fa-panorama"></i><span>Buat Info Gempa</span></a>
             </li>
             <li class="{{ Request::is('gempabumi') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('gempabumi.index') }}"><i
-                        class="fa-solid fa-rectangle-list"></i><span>Rekapitulasi Gempa</span></a>
+                        class="fas fa-solid fa-rectangle-list"></i><span>Data Gempa</span></a>
             </li>
 
             <li class="{{ Request::is('gempabumi/infografiss') ? 'active' : '' }}">
-                <a class="nav-link"><i class="fa-solid fa-list-ol"></i><span>
+                <a class="nav-link"><i class="fas fa-solid fa-list-ol"></i><span>
                         Peta Kegempaan</span></a>
             </li>
         </ul>

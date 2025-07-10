@@ -152,4 +152,10 @@ class GempaController extends Controller
 
         return view('pages.gempabumi.infografis', compact('data', 'startDate', 'endDate'));
     }
+
+    public function createOnedata()
+    {
+        return view('pages.gempabumi.createOnedata',  ['type_menu' => '']);
+    }
+
 }

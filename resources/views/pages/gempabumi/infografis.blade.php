@@ -188,7 +188,7 @@
                                             </div>
                                         @endfor
                                         <div class="d-flex align-items-center gap-1 ml-2 mx-2">
-                                            <img src="{{ asset('img/white-star.png') }}" width="14"
+                                            <img src="{{ asset('img/red-star.png') }}" width="14"
                                                 alt="bintang putih"> Dirasakan
                                         </div>
                                         <div class="d-flex align-items-center gap-1 mx-2">
@@ -272,7 +272,7 @@
         }).addTo(map);
 
         const starIcon = L.icon({
-            iconUrl: '{{ asset('img/white-star.png') }}', // <- pastikan file ini ada
+            iconUrl: '{{ asset('img/red-star.png') }}', // <- pastikan file ini ada
             iconSize: [24, 24],
             iconAnchor: [12, 12],
             popupAnchor: [0, -10]
@@ -296,7 +296,18 @@
             L.marker([{{ $lat }}, {{ $lng }}], { icon: starIcon })
                 .addTo(map)
                 .bindPopup(`{!! $popup !!}`);
+        @elseif (strtoupper(trim($gempa->dirasakan)) === 'TIDAK DIRASAKAN')
+            L.circleMarker([{{ $lat }}, {{ $lng }}], {
+                radius: getRadiusByMagnitude({{ $gempa->magnitudo }}),
+                fillColor: getColorByDepth({{ $kedalaman }}),
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            }).addTo(map)
+            .bindPopup(`{!! $popup !!}`);
         @else
+    // Jika ada status lain, tetap tampilkan sebagai circleMarker (opsional)
             L.circleMarker([{{ $lat }}, {{ $lng }}], {
                 radius: getRadiusByMagnitude({{ $gempa->magnitudo }}),
                 fillColor: getColorByDepth({{ $kedalaman }}),

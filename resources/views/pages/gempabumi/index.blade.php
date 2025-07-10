@@ -14,17 +14,21 @@
                 <h1>Stageof Balikpapan</h1>
 
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Gempabumi</a></div>
-                    <div class="breadcrumb-item">Parameter Gempa</div>
+                    <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
+                    <div class="breadcrumb-item"><a href="#">Kelola Data Gempabumi</a></div>
                 </div>
             </div>
             <div class="section-body">
                 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
                     <h2 class="section-title">Parameter Gempabumi Kalimantan dan Sekitarnya</h2>
                     <!-- Tombol Collapse -->
-                    <button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseEditForm" aria-expanded="false" aria-controls="collapseEditForm">
+                    <button id="toggleDownloadBtn"
+                            class="btn btn-primary mb-3"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseEditForm"
+                            aria-expanded="false"
+                            aria-controls="collapseEditForm">
                         <i class="fa-solid fa-download me-1"></i> Download Data
                     </button>
                 </div>
@@ -70,13 +74,11 @@
                         <div class="card ">
                             <div class="card-header">
                                 <h4>Semua Data</h4>
+                                <a href="{{ route('gempabumi.custom.create')}}" class="btn btn-primary">Tambah Data</a>
                             </div>
                             <div class="card-body">
                                 <div class="row justify-content-between">
                                     <div class="float-left ml-3">
-
-
-
                                         <div class="mb-3">
                                             <button id="toggleSelection" class="btn btn-primary">Pilih</button>
                                             <button id="cancelSelection" class="btn btn-secondary d-none">Batal</button>
@@ -91,6 +93,7 @@
                                             <button id="hapusData" class="btn btn-danger d-none">Hapus Data</button>
                                         </div>
                                     </div>
+                                    
 
 
 
@@ -106,7 +109,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <form method="GET" action="{{ route('gempabumi.index') }}" class="mb-3">
+                                <form method="GET" action="{{ route('gempabumi.index') }}" class="mb-3 float-right mr-1">
                                     <label for="per_page">Tampilkan:</label>
                                     <select name="per_page" id="per_page" onchange="this.form.submit()">
                                         <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
@@ -281,6 +284,10 @@
                 });
         });
 
+        
+
+
+        // untuk generate infografis dengan banyak data 
 
         document.getElementById("generateInfografis").addEventListener("click", function() {
             const selectedIds = Array.from(document.querySelectorAll(".select-row:checked"))
@@ -294,5 +301,19 @@
             document.getElementById("selectedIdsInput").value = selectedIds.join(",");
             document.getElementById("infografisForm").submit();
         });
-    </script>
+  
+            // {{-- untuk animasi button download  --}}
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleBtn = document.getElementById('toggleDownloadBtn');
+            const collapseTarget = document.getElementById('collapseEditForm');
+
+            collapseTarget.addEventListener('shown.bs.collapse', () => {
+                toggleBtn.innerHTML = '<i class="fa-solid fa-xmark me-1"></i> Tutup Download';
+            });
+
+            collapseTarget.addEventListener('hidden.bs.collapse', () => {
+                toggleBtn.innerHTML = '<i class="fa-solid fa-download me-1"></i> Download Data';
+            });
+        });
+        </script>
 @endpush

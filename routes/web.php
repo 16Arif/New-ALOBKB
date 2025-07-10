@@ -35,10 +35,14 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('logbookperalatan', LogbookperalatanController::class);
     Route::resource('logbookgempa', LogbookgempaController::class);
     Route::resource('gempabumi', GempaController::class);
+    Route::prefix('gempabumi/custom')->name('gempabumi.custom.')->group(function () {
+        Route::get('/create', [GempaController::class, 'createOnedata'])->name('create');
+        Route::post('/store', [GempaController::class, 'storeOnedata'])->name('store');
+    });
+
+
     Route::delete('/gempabumi-batch', [GempaController::class, 'destroyBatch'])->name('gempabumi.destroyBatch');
     Route::post('/gempabumi/infografiss', [GempaController::class, 'infografiss'])->name('gempabumi.infografiss');
-
-
     Route::resource('download', PdfController::class);
     Route::get('export/spatie_petir', [ExportController::class, 'spatie_petir'])->name('export.spatie_petir');
     Route::get('export/spatie_peralatan', [ExportController::class, 'spatie_peralatan'])

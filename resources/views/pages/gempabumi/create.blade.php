@@ -41,6 +41,7 @@
                             <div class="mb-4">
                                 <label for="infoText" class="form-label fw-medium text-center w-100">Format Parameter
                                     Gempa</label>
+                                    <p class="fw-medium text-center">Teks Berikut Sesuai Dengan Info Dari EXDX</p>
                                 <h6 class="text-center mx-auto mb-3 text-dark" style="width: 70%;">
                                     Contoh: Info Gempa Mag:3.2, 08-Jun-25 00:00:16 WIB, Lok:0.68 LU,118.62 BT (141 km
                                     TimurLaut BONTANG-KALTIM), Kedlmn:6 Km ::BMKG-BKB
@@ -60,7 +61,7 @@
                                 <button class="btn btn-danger d-none mx-2" id="resetButton" onclick="resetForm()"><i
                                         class="fa-solid fa-arrow-rotate-right"></i></button>
 
-                                <button class="btn btn-success" onclick="generateInfographic()">Buat Infografis</button>
+                                <button class="btn btn-primary" onclick="generateInfographic()">Buat Infografis</button>
 
                             </div>
 
