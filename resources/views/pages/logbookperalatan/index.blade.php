@@ -20,56 +20,74 @@
                 </div>
             </div>
             <div class="section-body">
-                <h2 class="section-title">Logbook Peralatan</h2>
-                <div class="row">
-                    <div class="col-12">
-                        {{-- @include('layouts.alert') --}}
+
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+                    <h2 class="section-title ">Logbook Peralatan</h2>
+                    <button id="toggleDownloadBtn" class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseEditForm" aria-expanded="false" aria-controls="collapseEditForm">
+                        <i class="fa-solid fa-download me-1"></i> Download Data
+                    </button>
+                </div>
+                <div class="row ml-1">
+                    <div class=" float-right">
+                        <!-- Konten Collapse -->
+                        <div class="collapse" id="collapseEditForm">
+                            <div class="card bg-light shadow rounded p-3">
+                                <!-- Download Semua Data -->
+                                <div class="mb-3">
+                                    <a href="{{ route('export.spatie_peralatan', ['start' => '1900-01-01', 'end' => now()->format('Y-m-d')]) }}"
+                                        class="btn btn-outline-success w-100">
+                                        <i class="fa-solid fa-file-excel"></i> Export Semua Data
+                                    </a>
+                                </div>
+                                <hr>
+
+                                <!-- Form Export Berdasarkan Tanggal -->
+                                <form action="{{ route('export.spatie_peralatan') }}" method="GET"
+                                    class="row g-2 align-items-end">
+                                    <div class="col-md-5">
+                                        <label class="form-label">Dari Tanggal</label>
+                                        <input type="date" name="start" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label class="form-label">Sampai Tanggal</label>
+                                        <input type="date" name="end" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-2 text-end">
+                                        <button type="submit" class="btn btn-success w-100">
+                                            <i class="fa-solid fa-download me-1"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Semua Data</h4>
-                                <div class="section-header-button">
-                                    <a href="{{ route('logbookperalatan.create') }}" class="btn btn-sm btn-primary">Tambah
-                                        Data</a>
-                                </div>
+                                <h3>Data Logbook Peralatan</h3>
                             </div>
+
                             <div class="card-body">
-                                <div class="float-left">
-                                    <a href="{{ route('export.spatie_peralatan') }}">
-                                        <div class="btn btn-sm btn-outline-success btn-icon mx-2">
-                                            <i class="fa-solid fa-file-excel"> </i><span> Download Semua Data</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                {{-- <a href="{{ route('download.index') }}"  target="_blank">
-                                    <div class="btn btn-sm btn-info btn-icon mx-2">
-                                        <i class="fa-solid fa-file-pdf"> </i><span> Download Semua Data</span>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <div class="section-header-button">
+                                        <a href="{{ route('logbookperalatan.create') }}"
+                                            class="btn btn-sm btn-primary">Tambah
+                                            Data</a>
                                     </div>
-                                </a> --}}
-                                {{-- <div class="float-left">
-                                    <select class="form-control selectric">
-                                        <option>Action For Selected</option>
-                                        <option>Move to Draft</option>
-                                        <option>Move to Pending</option>
-                                        <option>Delete Pemanently</option>
-                                    </select>
-                                </div> --}}
-                                <div class="float-right">
+
                                     <form method="GET" action="{{ route('logbookperalatan.index') }}">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search" name="search"
-                                                value="{{ request('search') }}">
+                                            <input type="text" class="form-control" placeholder="Cari On Duty"
+                                                name="search" value="{{ request('search') }}" autocomplete="off">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
-
-                                <div class="clearfix mb-3"></div>
 
                                 <div class="table-responsive">
                                     <table class="table-striped table">
@@ -78,30 +96,8 @@
                                             <th>Tanggal</th>
                                             <th>Jam Dinas</th>
                                             <th>On Duty</th>
-                                            <th>Kehadiran</th>
-                                            <th>Finger Print</th>
-                                            <th>TDS</th>
-                                            <th>NextStorm</th>
-                                            <th>Obs NexStorm 4</th>
-                                            <th>CMSS</th>
-                                            <th>Monitoring Sensor</th>
-                                            <th>Accelerograph</th>
-                                            <th>WRS NG</th>
-                                            <th>Integrasi Data</th>
-                                            <th>Seiscomp4</th>
-                                            <th>PC Magnet</th>
-                                            <th>Monitor Zoom</th>
-                                            <th>Internet Operasional (Lintasarta)</th>
-                                            <th>Internet Lokal (SG4-Balikpapan)</th>
-                                            <th>Shakemap</th>
-                                            <th>Seiscomp Regional</th>
-                                            <th>PC QC Seiscomp</th>
-                                            <th>Monitor SIMAP</th>
-                                            <th>PC WorkStation SIMAP</th>
-                                            <th>BKB Server</th>
-                                            <th>Penakar Hujan</th>
-                                            <th>Radio SSB</th>
-                                            <th>created_at</th>
+                                            <th>Keterangan</th>
+                                            <th></th>
                                         </tr>
                                         @php
                                             $no = 1;
@@ -113,6 +109,7 @@
                                                 </td>
                                                 <td>{{ $lbp->jam }} WITA
                                                 </td>
+
                                                 <td>
                                                     <ul>
                                                         <li>{{ $lbp->onduty1 }}</li>
@@ -120,77 +117,8 @@
                                                         <li>{{ $lbp->onduty3 }}</li>
                                                     </ul>
                                                 </td>
-                                                </td>
-                                                <td>{{ $lbp->kehadiran }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->fingerprint }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->tds }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->nexstorm }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->obs_nexstorm }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->cmss }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->monitoring }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->acc }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->wrsng }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->integrasi_data }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->seiscomp4 }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->pc_magnet }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->monitor_zoom }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->internet_ops }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->internet_lokal }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->shakemap }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->seiscomp_reg }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->qc_seiscomp }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->monitor_simap }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->ws_simap }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->bkb_server }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->penakar_hujan }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->radio_ssb }}
-                                                </td>
+                                                <td class="col-md-4">{!! $lbp->note !!}</td>
 
-                                                <td>{{ $lbp->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
                                                         <a href="{{ route('logbookperalatan.show', $lbp->id) }}"
@@ -244,5 +172,19 @@
             var result = confirm("Are you sure you want to delete this data?");
             return result;
         }
+
+        // {{-- untuk animasi button download  --}}
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleBtn = document.getElementById('toggleDownloadBtn');
+            const collapseTarget = document.getElementById('collapseEditForm');
+
+            collapseTarget.addEventListener('shown.bs.collapse', () => {
+                toggleBtn.innerHTML = '<i class="fa-solid fa-xmark me-1"></i> Tutup Download';
+            });
+
+            collapseTarget.addEventListener('hidden.bs.collapse', () => {
+                toggleBtn.innerHTML = '<i class="fa-solid fa-download me-1"></i> Download Data';
+            });
+        });
     </script>
 @endpush

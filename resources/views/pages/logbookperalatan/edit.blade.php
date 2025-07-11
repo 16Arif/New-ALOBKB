@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 @endpush
 
 @section('main')
@@ -18,26 +21,34 @@
             <div class="section-header">
                 <h1>Stasiun Geofisika Balikpapan</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Kelola Logbook Peralatan</a></div>
-                    <div class="breadcrumb-item">Edit Data Logbook Peralatan</div>
+                    <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('logbookperalatan.index') }}">Kelola Logbook
+                            Peralatan</a></div>
+                    <div class="breadcrumb-item">Edit Data</div>
                 </div>
             </div>
 
             <div class="section-body">
                 <h2 class="section-title">Logbook Peralatan</h2>
+                <div class="text-right">
+
+                </div>
                 <div class="card">
-                    <form action="{{ route('logbookperalatan.update', $logbookperalatan) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="card-header">
-                            <h4> Edit Data</h4>
-                        </div>
-                        <div class="card-body">
+                    <div class="card-header d-flex justify-content-between">
+                        <h4> Edit Data</h4>
+                        <a href="{{ route('logbookperalatan.index') }}">
+                            <button class="btn btn-danger">Batal</button>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('logbookperalatan.update', $logbookperalatan) }}" method="POST">
+                            @csrf
+                            @method('PUT')
                             <div class="form-group">
-                                <label>Tanggal</label>
-                                <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                    name="tanggal" autofocus value="{{ old('tanggal', $logbookperalatan->tanggal) }}">
+                                <label>Tanggal<span class="text-danger">*</span></label>
+                                <input type="date" id="tanggal"
+                                    class="form-control @error('tanggal') is-invalid @enderror" name="tanggal"
+                                    value="{{ old('tanggal', $logbookperalatan->tanggal) }}" autocomplete="off" required>
                                 @error('tanggal')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -45,7 +56,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Jam Dinas</label>
+                                <label class="form-label">Jam Dinas<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('jam') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="jam" value="07.00" class="selectgroup-input"
@@ -78,7 +89,7 @@
                                 <div class="row">
 
                                     <div class="col-lg-4">
-                                        <label>On Duty 1</label>
+                                        <label>On Duty 1<span class="text-danger">*</span></label>
                                         <select class="form-control @error('onduty1') is-invalid @enderror" name="onduty1">
                                             <option value="">{{ old('onduty1', $logbookperalatan->onduty1) }}
                                             </option>
@@ -123,32 +134,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group ">
-                                <label class="form-label">Kehadiran</label>
-                                <div class="selectgroup w-100 @error('kehadiran') is-invalid @enderror">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kehadiran" value="HADIR" class="selectgroup-input "
-                                            @if (old('kehadiran') == 'HADIR' || $logbookperalatan->kehadiran == 'HADIR') checked @endif>
-                                        <span class="selectgroup-button ">HADIR</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kehadiran" value="TIDAK HADIR" class="selectgroup-input"
-                                            @if (old('kehadiran') == 'TIDAK HADIR' || $logbookperalatan->kehadiran == 'TIDAK HADIR') checked @endif>
-                                        <span class="selectgroup-button">TIDAK HADIR</span>
-                                    </label>
-                                </div>
-                                @error('kehadiran')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
                             <div class="form-group">
-                                <label class="form-label">Finger Print</label>
+                                <label class="form-label">Finger Print<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('fingerprint') is-invalid @enderror">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="fingerprint" value="BAIK"
-                                            class="selectgroup-input" @if (old('fingerprint') == 'BAIK' || $logbookperalatan->fingerprint == 'BAIK') checked @endif>
+                                        <input type="radio" name="fingerprint" value="BAIK" class="selectgroup-input"
+                                            @if (old('fingerprint') == 'BAIK' || $logbookperalatan->fingerprint == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
@@ -169,7 +160,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">TDS</label>
+                                <label class="form-label">TDS<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('tds') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="tds" value="BAIK" class="selectgroup-input"
@@ -194,7 +185,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">NexStorm</label>
+                                <label class="form-label">NexStorm<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('nexstorm') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="nexstorm" value="BAIK" class="selectgroup-input"
@@ -219,7 +210,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">OBS NexStorm</label>
+                                <label class="form-label">OBS NexStorm<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('obs_nexstorm') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="obs_nexstorm" value="BAIK"
@@ -244,7 +235,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">CMSS</label>
+                                <label class="form-label">CMSS<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('cmss') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="cmss" value="BAIK" class="selectgroup-input"
@@ -269,7 +260,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Monitoring Sensor</label>
+                                <label class="form-label">Monitoring Sensor<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('monitoring') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitoring" value="BAIK" class="selectgroup-input"
@@ -294,7 +285,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Accelerograph</label>
+                                <label class="form-label">Accelerograph<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('acc') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="acc" value="BAIK" class="selectgroup-input"
@@ -319,7 +310,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">WRS NG</label>
+                                <label class="form-label">WRS NG<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('wrsng') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="wrsng" value="BAIK" class="selectgroup-input"
@@ -344,7 +335,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Integrasi Data</label>
+                                <label class="form-label">Integrasi Data<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('integrasi_data') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="integrasi_data" value="BAIK"
@@ -369,7 +360,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">seiscomp4</label>
+                                <label class="form-label">Seiscomp<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('seiscomp4') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="seiscomp4" value="BAIK" class="selectgroup-input"
@@ -394,7 +385,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">PC Magnet</label>
+                                <label class="form-label">PC Magnet<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('pc_magnet') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="pc_magnet" value="BAIK" class="selectgroup-input"
@@ -419,7 +410,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Monitor ZOOM</label>
+                                <label class="form-label">Monitor ZOOM<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('monitor_zoom') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitor_zoom" value="BAIK"
@@ -444,7 +435,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Internet Operasional Lintasarta</label>
+                                <label class="form-label">Internet Operasional Seiscomp<span
+                                        class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('internet_ops') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="internet_ops" value="BAIK"
@@ -469,7 +461,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Internet Lokal SG4-Balikpapan</label>
+                                <label class="form-label">Internet Lokal SG4-Balikpapan<span
+                                        class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('internet_lokal') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="internet_lokal" value="BAIK"
@@ -494,7 +487,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Shakemap</label>
+                                <label class="form-label">Shakemap<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('shakemap') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="shakemap" value="BAIK" class="selectgroup-input"
@@ -519,7 +512,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Seiscomp Regional</label>
+                                <label class="form-label">Seiscomp Regional<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('seiscomp_reg') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="seiscomp_reg" value="BAIK"
@@ -544,7 +537,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">PC QC Seiscomp</label>
+                                <label class="form-label">PC QC Seiscomp<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('qc_seiscomp') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="qc_seiscomp" value="BAIK"
@@ -569,7 +562,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Monitor SIMAP</label>
+                                <label class="form-label">Monitor SIMAP<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('monitor_simap') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="monitor_simap" value="BAIK"
@@ -594,7 +587,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">PC WorkStation SIMAP</label>
+                                <label class="form-label">PC WorkStation SIMAP<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('ws_simap') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="ws_simap" value="BAIK" class="selectgroup-input"
@@ -619,7 +612,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">BKB Server</label>
+                                <label class="form-label">BKB Server<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('bkb_server') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="bkb_server" value="BAIK" class="selectgroup-input"
@@ -644,7 +637,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Penakar Hujan</label>
+                                <label class="form-label">Penakar Hujan<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('penakar_hujan') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="penakar_hujan" value="BAIK"
@@ -669,7 +662,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Radio SSB</label>
+                                <label class="form-label">Radio SSB<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('radio_ssb') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="radio_ssb" value="BAIK" class="selectgroup-input"
@@ -699,16 +692,12 @@
                                     value="{{ old('note', $logbookperalatan->note) }}">
                                 <trix-editor input="note"></trix-editor>
                             </div>
-                        </div>
-                        <div class="card-footer text-right">
-                            <button class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                    <div class="card-footer text-right">
-                        <a href="{{ route('logbookperalatan.index') }}">
-                            <button class="btn btn-danger">Cancel</button>
-                        </a>
                     </div>
+                    <div class="card-footer text-right">
+                        <button class="btn btn-primary">Simpan Perubahan</button>
+                    </div>
+                    </form>
+
                 </div>
 
 
@@ -732,8 +721,15 @@
     <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
 
     <script>
-        document.addEventListener('trix-file-accept', function(e)) {
+        document.addEventListener('trix-file-accept', function(e) {
             e.preventDefault();
-        }
+        });
+    </script>
+
+    <script>
+        flatpickr("#tanggal", {
+            dateFormat: "Y-m-d", // atau sesuai format yang kamu mau
+            allowInput: true
+        });
     </script>
 @endpush

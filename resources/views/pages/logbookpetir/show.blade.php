@@ -116,10 +116,7 @@
                 </ol>
             </td>
         </tr>
-        <tr>
-            <td>4. Kehadiran</td>
-            <td>{{ $logbookpetir->kehadiran }}</td>
-        </tr>
+
         <tr>
             <td>5. Pengamatan</td>
             <td>

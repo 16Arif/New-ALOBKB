@@ -25,7 +25,8 @@ class StoreLogbookperalatanRequest extends FormRequest
             'tanggal' => 'required',
             'jam' => 'required',
             'onduty1' => 'required',
-            'kehadiran' => 'required|in:HADIR,TIDAK HADIR',
+            'onduty2' => 'nullable',
+            'onduty3' => 'nullable',
             'fingerprint' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'tds' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'nexstorm' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
@@ -48,6 +49,7 @@ class StoreLogbookperalatanRequest extends FormRequest
             'bkb_server' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'penakar_hujan' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'radio_ssb' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
+            'note' => 'nullable',
         ];
     }
 }

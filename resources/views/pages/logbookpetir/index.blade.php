@@ -21,46 +21,63 @@
                 </div>
             </div>
             <div class="section-body">
-                <h2 class="section-title">Logbook Petir</h2>
-                <div class="row">
-                    <div class="col-12">
-                        {{-- @include('layouts.alert') --}}
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+                    <h2 class="section-title ">Logbook Peralatan</h2>
+                    <button id="toggleDownloadBtn" class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseEditForm" aria-expanded="false" aria-controls="collapseEditForm">
+                        <i class="fa-solid fa-download me-1"></i> Download Data
+                    </button>
+                </div>
+                <div class="row ml-1">
+                    <div class=" float-right">
+                        <!-- Konten Collapse -->
+                        <div class="collapse" id="collapseEditForm">
+                            <div class="card bg-light shadow rounded p-3">
+                                <!-- Download Semua Data -->
+                                <div class="mb-3">
+                                    <a href="{{ route('export.spatie_petir', ['start' => '1900-01-01', 'end' => now()->format('Y-m-d')]) }}"
+                                        class="btn btn-outline-success w-100">
+                                        <i class="fa-solid fa-file-excel"></i> Export Semua Data
+                                    </a>
+                                </div>
+                                <hr>
+
+                                <!-- Form Export Berdasarkan Tanggal -->
+                                <form action="{{ route('export.spatie_petir') }}" method="GET"
+                                    class="row g-2 align-items-end">
+                                    <div class="col-md-5">
+                                        <label class="form-label">Dari Tanggal</label>
+                                        <input type="date" name="start" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label class="form-label">Sampai Tanggal</label>
+                                        <input type="date" name="end" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-2 text-end">
+                                        <button type="submit" class="btn btn-success w-100">
+                                            <i class="fa-solid fa-download me-1"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Semua Data</h4>
+                                <h3>Data Logbook Petir</h3>
                                 <div class="section-header-button">
-                                    <a href="{{ route('logbookpetir.create') }}" class="btn btn-primary">Tambah Data</a>
+
                                 </div>
                             </div>
                             <div class="card-body">
-                                {{-- <div class="float-left">
-
-                                    <a href="{{ route('download.index') }}" target="_blank">
-                                        <div class="btn btn-sm btn-outline-info btn-icon mx-2">
-                                            <i class="fa-solid fa-file-pdf"> </i><span> Download Semua Data</span>
-                                        </div>
-                                    </a>
-
-                                </div> --}}
                                 <div class="float-left">
-                                    <a href="{{ route('export.spatie_petir') }}">
-                                        <div class="btn btn-sm btn-outline-success btn-icon mx-2">
-                                            <i class="fa-solid fa-file-excel"> </i><span> Download Semua Data</span>
-                                        </div>
-                                    </a>
+                                    <a href="{{ route('logbookpetir.create') }}" class="btn btn-sm btn-primary">Tambah
+                                        Data</a>
                                 </div>
-                                {{-- <div class="float-left">
-                                    <select class="form-control selectric">
-                                        <option>Action For Selected</option>
-                                        <option>Move to Draft</option>
-                                        <option>Move to Pending</option>
-                                        <option>Delete Pemanently</option>
-                                    </select>
-                                </div> --}}
+
                                 <div class="float-right">
                                     <form method="GET" action="{{ route('logbookpetir.index') }}">
                                         <div class="input-group">
@@ -82,15 +99,7 @@
                                             <th>Tanggal</th>
                                             <th>Jam Dinas</th>
                                             <th>On Duty</th>
-                                            <th>Kehadiran</th>
-                                            <th>Pengamatan 1</th>
-                                            <th>Pengamatan 2</th>
-                                            <th>Pengamatan 3</th>
-                                            <th>Pengamatan 4</th>
-                                            <th>Pengamatan 5</th>
-                                            <th>Pengamatan 6</th>
-                                            <th>Kondisi</th>
-                                            <th>Created_at</th>
+                                            <th></th>
                                         </tr>
                                         @php
                                             $no = 1;
@@ -111,32 +120,7 @@
 
                                                     </ul>
                                                 </td>
-                                                <td>{{ $lbp->kehadiran }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->pengamatan1 }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->pengamatan2 }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->pengamatan3 }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->pengamatan4 }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->pengamatan5 }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->pengamatan6 }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->kondisi }}
-                                                </td>
-                                                <td>
-                                                    {{ $lbp->created_at }}
-                                                </td>
+
                                                 <td>
                                                     <div class="d-flex justify-content-center">
                                                         <a href="{{ route('logbookpetir.show', $lbp->id) }}"
@@ -192,5 +176,19 @@
             var result = confirm("Are you sure you want to delete this data?");
             return result;
         }
+
+        // {{-- untuk animasi button download  --}}
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleBtn = document.getElementById('toggleDownloadBtn');
+            const collapseTarget = document.getElementById('collapseEditForm');
+
+            collapseTarget.addEventListener('shown.bs.collapse', () => {
+                toggleBtn.innerHTML = '<i class="fa-solid fa-xmark me-1"></i> Tutup Download';
+            });
+
+            collapseTarget.addEventListener('hidden.bs.collapse', () => {
+                toggleBtn.innerHTML = '<i class="fa-solid fa-download me-1"></i> Download Data';
+            });
+        });
     </script>
 @endpush

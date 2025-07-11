@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('export/spatie_petir', [ExportController::class, 'spatie_petir'])->name('export.spatie_petir');
     Route::get('export/spatie_peralatan', [ExportController::class, 'spatie_peralatan'])
                 ->name('export.spatie_peralatan');
-    Route::get('export/spatie_gempa', [ExportController::class, 'spatie_gempa'])->name('export.spatie_gempa');
+    Route::get('/export/spatie_gempa', [ExportController::class, 'spatie_gempa'])->name('export.spatie_gempa');
     Route::get('/export/spatie_parametergempa', [ExportController::class, 'spatie_parametergempa'])->name('export.spatie_parametergempa');
     Route::resource('profile', UserprofileController::class)->except('index', 'show', 'create', 'store', 'destroy');
     Route::resource('imageprofile', ImageprofileController::class);

@@ -36,8 +36,51 @@ class LogbookpetirController extends Controller
 
     public function store(StoreLogbookpetirRequest $request)
     {
-        $data = $request->all();
-        LogbookPetir::create($data);
+        $data = $request->validated();
+        $presets = match ($data['jam']) {
+            '01.00' => [
+                'pengamatan1' => 'Pengamatan LD jam 02.00',
+                'pengamatan2' => 'Pengamatan LD jam 03.00',
+                'pengamatan3' => 'Pengamatan LD jam 04.00',
+                'pengamatan4' => 'Pengamatan LD jam 05.00',
+                'pengamatan5' => 'Pengamatan LD jam 06.00',
+                'pengamatan6' => 'Pengamatan LD jam 07.00',
+                'kondisi'     => 'BAIK',
+            ],
+            '07.00' => [
+                'pengamatan1' => 'Pengamatan LD jam 08.00',
+                'pengamatan2' => 'Pengamatan LD jam 09.00',
+                'pengamatan3' => 'Pengamatan LD jam 10.00',
+                'pengamatan4' => 'Pengamatan LD jam 11.00',
+                'pengamatan5' => 'Pengamatan LD jam 12.00',
+                'pengamatan6' => 'Pengamatan LD jam 13.00',
+                'kondisi'     => 'BAIK',
+            ],
+            '13.00' => [
+                'pengamatan1' => 'Pengamatan LD jam 14.00',
+                'pengamatan2' => 'Pengamatan LD jam 15.00',
+                'pengamatan3' => 'Pengamatan LD jam 16.00',
+                'pengamatan4' => 'Pengamatan LD jam 17.00',
+                'pengamatan5' => 'Pengamatan LD jam 18.00',
+                'pengamatan6' => 'Pengamatan LD jam 19.00',
+                'kondisi'     => 'BAIK',
+            ],
+            '19.00' => [
+                'pengamatan1' => 'Pengamatan LD jam 20.00',
+                'pengamatan2' => 'Pengamatan LD jam 21.00',
+                'pengamatan3' => 'Pengamatan LD jam 22.00',
+                'pengamatan4' => 'Pengamatan LD jam 23.00',
+                'pengamatan5' => 'Pengamatan LD jam 00.00',
+                'pengamatan6' => 'Pengamatan LD jam 01.00',
+                'kondisi'     => 'BAIK',
+            ],
+            default => [],
+        };
+
+        // Gabungkan input user + preset otomatis
+        $finalData = array_merge($data, $presets);
+
+        LogbookPetir::create($finalData);
         return redirect()->route('logbookpetir.index')->with('success', 'Data Logbook Petir Successfully Created');
     }
 

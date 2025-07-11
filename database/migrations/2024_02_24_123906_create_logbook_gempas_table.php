@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('onduty1');
             $table->string('onduty2')->nullable();
             $table->string('onduty3')->nullable();
-            $table->string('kehadiran');
             $table->string('kegiatan1');
             $table->string('kegiatan2');
             $table->string('monitoring1');

@@ -118,10 +118,6 @@
             </td>
         </tr>
         <tr>
-            <td>4. Kehadiran</td>
-            <td>{{ $logbookgempa->kehadiran }}</td>
-        </tr>
-        <tr>
             <td>5. Monitoring</td>
             <td>
                 <ul>

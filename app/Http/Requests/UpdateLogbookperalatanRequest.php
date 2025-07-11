@@ -26,12 +26,11 @@ class UpdateLogbookperalatanRequest extends FormRequest
     {
 
         return [
-            'tanggal' => 'required',
+            'tanggal' => 'required|date',
             'jam' => 'required',
             'onduty1' => 'required',
-            'onduty2' => '',
-            'onduty3' => '',
-            'kehadiran' => 'required|in:HADIR,TIDAK HADIR',
+            'onduty2' => 'nullable',
+            'onduty3' => 'nullable',
             'fingerprint' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'tds' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'nexstorm' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
@@ -54,7 +53,7 @@ class UpdateLogbookperalatanRequest extends FormRequest
             'bkb_server' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'penakar_hujan' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'radio_ssb' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
-            'note' => '',
+            'note' => 'nullable',
         ];
     }
 }

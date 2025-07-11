@@ -65,8 +65,53 @@ class LogbookgempaController extends Controller
 
     public function store(StoreLogbookgempaRequest $request)
     {
-        $data = $request->all();
-        LogbookGempa::create($data);
+        $data = $request->validated();
+        // Preset berdasarkan jam dinas
+        $presets = match ($data['jam']) {
+            '07.00' => [
+                'kegiatan1'   => 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc',
+                'kegiatan2'   => 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2',
+                'monitoring1' => 'Observasi Seiscomp4 jam 08.00-11.00 WITA',
+                'berita1'     => 'Kirim Berita CMSS jam 03.00 GMT',
+                'monitoring2' => 'Observasi Seiscomp4 jam 11.00-14.30 WITA',
+                'berita2'     => 'Kirim Berita CMSS jam 06.00 GMT',
+                'kondisi'     => 'BAIK',
+            ],
+            '13.00' => [
+                'kegiatan1'   => 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc',
+                'kegiatan2'   => 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2',
+                'monitoring1' => 'Observasi Seiscomp4 jam 14.00-17.00 WITA',
+                'berita1'     => 'Kirim Berita CMSS jam 09.00 GMT',
+                'monitoring2' => 'Observasi Seiscomp4 jam 17.00-20.30 WITA',
+                'berita2'     => 'Kirim Berita CMSS jam 12.00 GMT',
+                'kondisi'     => 'BAIK',
+            ],
+            '19.00' => [
+                'kegiatan1'   => 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc',
+                'kegiatan2'   => 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2',
+                'monitoring1' => 'Observasi Seiscomp4 jam 20.00-23.00 WITA',
+                'berita1'     => 'Kirim Berita CMSS jam 15.00 GMT',
+                'monitoring2' => 'Observasi Seiscomp4 jam 23.00-02.30 WITA',
+                'berita2'     => 'Kirim Berita CMSS jam 18.00 GMT',
+                'kondisi'     => 'BAIK',
+            ],
+            '01.00' => [
+                'kegiatan1'   => 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc',
+                'kegiatan2'   => 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2',
+                'monitoring1' => 'Observasi Seiscomp4 jam 02.00-05.00 WITA',
+                'berita1'     => 'Kirim Berita CMSS jam 21.00 GMT',
+                'monitoring2' => 'Observasi Seiscomp4 jam 05.00-08.30 WITA',
+                'berita2'     => 'Kirim Berita CMSS jam 00.00 GMT',
+                'kondisi'     => 'BAIK',
+            ],
+            default => [],
+        };
+
+        // Gabungkan input user + preset otomatis
+        $finalData = array_merge($data, $presets);
+
+        LogbookGempa::create($finalData);
+
         return redirect()->route('logbookgempa.index')->with('success', 'Data Logbook Gempabumi Berhasil Ditambahkan');
     }
 
@@ -80,7 +125,50 @@ class LogbookgempaController extends Controller
     public function update(UpdateLogbookgempaRequest $request, LogbookGempa $logbookgempa)
     {
         $data = $request->validated();
-        $logbookgempa->update($data);
+
+        // Update otomatis sesuai jam dinas
+        $presets = match ($data['jam']) {
+            '07.00' => [
+                'kegiatan1'   => 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc',
+                'kegiatan2'   => 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2',
+                'monitoring1' => 'Observasi Seiscomp4 jam 08.00-11.00 WITA',
+                'berita1'     => 'Kirim Berita CMSS jam 03.00 GMT',
+                'monitoring2' => 'Observasi Seiscomp4 jam 11.00-14.30 WITA',
+                'berita2'     => 'Kirim Berita CMSS jam 06.00 GMT',
+                'kondisi'     => 'BAIK',
+            ],
+            '13.00' => [
+                'kegiatan1'   => 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc',
+                'kegiatan2'   => 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2',
+                'monitoring1' => 'Observasi Seiscomp4 jam 14.00-17.00 WITA',
+                'berita1'     => 'Kirim Berita CMSS jam 09.00 GMT',
+                'monitoring2' => 'Observasi Seiscomp4 jam 17.00-20.30 WITA',
+                'berita2'     => 'Kirim Berita CMSS jam 12.00 GMT',
+                'kondisi'     => 'BAIK',
+            ],
+            '19.00' => [
+                'kegiatan1'   => 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc',
+                'kegiatan2'   => 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2',
+                'monitoring1' => 'Observasi Seiscomp4 jam 20.00-23.00 WITA',
+                'berita1'     => 'Kirim Berita CMSS jam 15.00 GMT',
+                'monitoring2' => 'Observasi Seiscomp4 jam 23.00-02.30 WITA',
+                'berita2'     => 'Kirim Berita CMSS jam 18.00 GMT',
+                'kondisi'     => 'BAIK',
+            ],
+            '01.00' => [
+                'kegiatan1'   => 'Serah Terima Kehadiran, Cek Peralatan, Ceklist Acc',
+                'kegiatan2'   => 'Monitoring GFZ, Index3.txt, WRS NG, WAG, SLMON2',
+                'monitoring1' => 'Observasi Seiscomp4 jam 02.00-05.00 WITA',
+                'berita1'     => 'Kirim Berita CMSS jam 21.00 GMT',
+                'monitoring2' => 'Observasi Seiscomp4 jam 05.00-08.30 WITA',
+                'berita2'     => 'Kirim Berita CMSS jam 00.00 GMT',
+                'kondisi'     => 'BAIK',
+            ],
+            default => [],
+        };
+
+        $logbookgempa->update(array_merge($data, $presets));
+
         return redirect()->route('logbookgempa.index')->with('success', 'Logbook Gempabumi Berhasil Diperbaharui');
     }
 

@@ -201,13 +201,8 @@
 
     <h6>Catatan </h6>
     <p>{!! $logbookperalatan->note !!}</p>
-
-    {{-- <!-- Tanda Tangan -->
-    <div class="signature">
-        <p>Mengetahui,</p>
-        <p>Kepala Stasiun Geofisika Balikpapan</p>
-        <p class="nama">Rasmid, M.Si</p>
-    </div> --}}
+    <br>
+    {{-- <!-- Tanda Tangan --> --}}
     <table>
         <tr>
             <th></th>

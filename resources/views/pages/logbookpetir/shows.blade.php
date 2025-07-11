@@ -94,10 +94,6 @@
                         <td>{{ $lbp->onduty3 ?? '-' }}</td>
                     </tr>
                     <tr>
-                        <td>4. Kehadiran</td>
-                        <td>{{ $lbp->kehadiran }}</td>
-                    </tr>
-                    <tr>
                         <td>5. Pengamatan</td>
                         <td>{{ $lbp->pengamatan1 }}</td>
                     </tr>

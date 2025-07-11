@@ -22,7 +22,6 @@ class LogbookgempaFactory extends Factory
             'onduty1' => $this->faker->word(),
             'onduty2' => $this->faker->word(),
             'onduty3' => $this->faker->word(),
-            'kehadiran' => $this->faker->randomElement(['HADIR', 'TIDAK HADIR']),
             'kegiatan1' => $this->faker->text(),
             'kegiatan2' => $this->faker->text(),
             'monitoring1' => $this->faker->randomElement(['Observasi Seiscomp4 jam 08.00-11.00 WITA', 'Observasi Seiscomp4 jam 14.00-17.00 WITA', 'Observasi Seiscomp4 jam 20.00-23.00 WITA', 'Observasi Seiscomp4 jam 02.00-05.00 WITA']),

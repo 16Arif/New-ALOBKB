@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 @endpush
 
 @section('main')
@@ -35,9 +39,10 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Tanggal</label>
-                                <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                    name="tanggal" value="{{ old('tanggal', $logbookpetir->tanggal) }}">
+                                <label>Tanggal<span class="text-danger">*</span> </label>
+                                <input type="date" id="tanggal"
+                                    class="form-control @error('tanggal') is-invalid @enderror" name="tanggal"
+                                    value="{{ old('tanggal', $logbookpetir->tanggal) }}">
                                 @error('tanggal')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -45,7 +50,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Jam Dinas</label>
+                                <label class="form-label">Jam Dinas<span class="text-danger">*</span> </label>
                                 <div class="selectgroup w-100 @error('jam') is-invalid @enderror">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="jam" value="07.00" class="selectgroup-input"
@@ -77,7 +82,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <label>On Duty 1</label>
+                                        <label>On Duty 1<span class="text-danger">*</span> </label>
                                         <select class="form-control @error('onduty1') is-invalid @enderror" name="onduty1">
                                             <option value="">{{ old('onduty1', $logbookpetir->onduty1) }}</option>
                                             @foreach ($users as $user)
@@ -122,186 +127,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Kehadiran</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kehadiran" value="HADIR" class="selectgroup-input"
-                                            @if (old('kehadiran') == 'HADIR' || $logbookpetir->kehadiran == 'HADIR') checked @endif>
-                                        <span class="selectgroup-button">HADIR</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kehadiran" value="TIDAK HADIR" class="selectgroup-input"
-                                            @if (old('kehadiran') == 'TIDAK HADIR' || $logbookpetir->kehadiran == 'TIDAK HADIR') checked @endif>
-                                        <span class="selectgroup-button">TIDAK HADIR</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Pengamatan 1</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan1" value="Pengamatan LD jam 08.00"
-                                            class="selectgroup-input" @if (old('pengamatan1') == 'Pengamatan LD jam 08.00' || $logbookpetir->pengamatan1 == 'Pengamatan LD jam 08.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 08.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan1" value="Pengamatan LD jam 14.00"
-                                            class="selectgroup-input" @if (old('pengamatan1') == 'Pengamatan LD jam 14.00' || $logbookpetir->pengamatan1 == 'Pengamatan LD jam 14.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 14.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan1" value="Pengamatan LD jam 20.00"
-                                            class="selectgroup-input" @if (old('pengamatan1') == 'Pengamatan LD jam 20.00' || $logbookpetir->pengamatan1 == 'Pengamatan LD jam 20.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 20.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan1" value="Pengamatan LD jam 02.00"
-                                            class="selectgroup-input" @if (old('pengamatan1') == 'Pengamatan LD jam 02.00' || $logbookpetir->pengamatan1 == 'Pengamatan LD jam 02.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 02.00</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Pengamatan 2</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan2" value="Pengamatan LD jam 09.00"
-                                            class="selectgroup-input" @if (old('pengamatan2') == 'Pengamatan LD jam 09.00' || $logbookpetir->pengamatan2 == 'Pengamatan LD jam 09.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 09.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan2" value="Pengamatan LD jam 15.00"
-                                            class="selectgroup-input" @if (old('pengamatan2') == 'Pengamatan LD jam 15.00' || $logbookpetir->pengamatan2 == 'Pengamatan LD jam 15.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 15.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan2" value="Pengamatan LD jam 21.00"
-                                            class="selectgroup-input" @if (old('pengamatan2') == 'Pengamatan LD jam 21.00' || $logbookpetir->pengamatan2 == 'Pengamatan LD jam 21.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 21.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan2" value="Pengamatan LD jam 03.00"
-                                            class="selectgroup-input" @if (old('pengamatan2') == 'Pengamatan LD jam 03.00' || $logbookpetir->pengamatan2 == 'Pengamatan LD jam 03.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 03.00</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Pengamatan 3</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan3" value="Pengamatan LD jam 10.00"
-                                            class="selectgroup-input" @if (old('pengamatan3') == 'Pengamatan LD jam 10.00' || $logbookpetir->pengamatan3 == 'Pengamatan LD jam 10.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 10.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan3" value="Pengamatan LD jam 16.00"
-                                            class="selectgroup-input" @if (old('pengamatan3') == 'Pengamatan LD jam 16.00' || $logbookpetir->pengamatan3 == 'Pengamatan LD jam 16.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 16.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan3" value="Pengamatan LD jam 22.00"
-                                            class="selectgroup-input" @if (old('pengamatan3') == 'Pengamatan LD jam 22.00' || $logbookpetir->pengamatan3 == 'Pengamatan LD jam 22.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 22.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan3" value="Pengamatan LD jam 04.00"
-                                            class="selectgroup-input" @if (old('pengamatan3') == 'Pengamatan LD jam 04.00' || $logbookpetir->pengamatan3 == 'Pengamatan LD jam 04.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 04.00</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Pengamatan 4</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan4" value="Pengamatan LD jam 11.00"
-                                            class="selectgroup-input" @if (old('pengamatan4') == 'Pengamatan LD jam 11.00' || $logbookpetir->pengamatan4 == 'Pengamatan LD jam 11.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 11.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan4" value="Pengamatan LD jam 17.00"
-                                            class="selectgroup-input" @if (old('pengamatan4') == 'Pengamatan LD jam 17.00' || $logbookpetir->pengamatan4 == 'Pengamatan LD jam 17.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 17.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan4" value="Pengamatan LD jam 23.00"
-                                            class="selectgroup-input" @if (old('pengamatan4') == 'Pengamatan LD jam 23.00' || $logbookpetir->pengamatan4 == 'Pengamatan LD jam 23.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 23.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan4" value="Pengamatan LD jam 05.00"
-                                            class="selectgroup-input" @if (old('pengamatan4') == 'Pengamatan LD jam 05.00' || $logbookpetir->pengamatan4 == 'Pengamatan LD jam 05.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 05.00</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Pengamatan 5</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan5" value="Pengamatan LD jam 12.00"
-                                            class="selectgroup-input" @if (old('pengamatan5') == 'Pengamatan LD jam 12.00' || $logbookpetir->pengamatan5 == 'Pengamatan LD jam 12.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 12.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan5" value="Pengamatan LD jam 18.00"
-                                            class="selectgroup-input" @if (old('pengamatan5') == 'Pengamatan LD jam 18.00' || $logbookpetir->pengamatan5 == 'Pengamatan LD jam 18.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 18.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan5" value="Pengamatan LD jam 00.00"
-                                            class="selectgroup-input" @if (old('pengamatan5') == 'Pengamatan LD jam 00.00' || $logbookpetir->pengamatan5 == 'Pengamatan LD jam 00.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 00.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan5" value="Pengamatan LD jam 06.00"
-                                            class="selectgroup-input" @if (old('pengamatan5') == 'Pengamatan LD jam 06.00' || $logbookpetir->pengamatan5 == 'Pengamatan LD jam 06.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 06.00</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Pengamatan 6</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan6" value="Pengamatan LD jam 13.00"
-                                            class="selectgroup-input" @if (old('pengamatan6') == 'Pengamatan LD jam 13.00' || $logbookpetir->pengamatan6 == 'Pengamatan LD jam 13.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 13.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan6" value="Pengamatan LD jam 19.00"
-                                            class="selectgroup-input" @if (old('pengamatan6') == 'Pengamatan LD jam 19.00' || $logbookpetir->pengamatan6 == 'Pengamatan LD jam 19.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 19.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan6" value="Pengamatan LD jam 01.00"
-                                            class="selectgroup-input" @if (old('pengamatan6') == 'Pengamatan LD jam 01.00' || $logbookpetir->pengamatan6 == 'Pengamatan LD jam 01.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 01.00</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="pengamatan6" value="Pengamatan LD jam 07.00"
-                                            class="selectgroup-input" @if (old('pengamatan6') == 'Pengamatan LD jam 07.00' || $logbookpetir->pengamatan6 == 'Pengamatan LD jam 07.00') checked @endif>
-                                        <span class="selectgroup-button">Pengamatan LD jam 07.00</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Kondisi</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi" value="BAIK" class="selectgroup-input"
-                                            @if (old('kondisi') == 'BAIK' || $logbookpetir->kondisi == 'BAIK') checked @endif>
-                                        <span class="selectgroup-button">BAIK</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="kondisi" value="TIDAK BAIK"
-                                            class="selectgroup-input" @if (old('kondisi') == 'TIDAK BAIK' || $logbookpetir->kondisi == 'TIDAK BAIK') checked @endif>
-                                        <span class="selectgroup-button">TIDAK BAIK</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label>Catatan</label>
                                 <input id="note" type="hidden" name="note"
                                     value="{{ old('note', $logbookpetir->note) }}">
@@ -338,4 +163,15 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
+    <script>
+        document.addEventListener('trix-file-accept', function(e) {
+            e.preventDefault();
+        });
+    </script>
+    <script>
+        flatpickr("#tanggal", {
+            dateFormat: "Y-m-d", // atau sesuai format yang kamu mau
+            allowInput: true
+        });
+    </script>
 @endpush
