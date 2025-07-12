@@ -22,9 +22,9 @@
                 <h1>Stasiun Geofisika Balikpapan</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('logbookperalatan.index') }}">Kelola Logbook
+                    <div class="breadcrumb-item"><a href="{{ route('logbookperalatan.index') }}">Logbook
                             Peralatan</a></div>
-                    <div class="breadcrumb-item">Edit Data</div>
+                    <div class="breadcrumb-item">Edit Data Logbook Peralatan</div>
                 </div>
             </div>
 

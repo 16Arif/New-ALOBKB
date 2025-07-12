@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('pengamatan4');
             $table->string('pengamatan5');
             $table->string('pengamatan6');
+            $table->string('pengamatan7');
             $table->string('kondisi');
             $table->string('note')->nullable();
             $table->timestamps();

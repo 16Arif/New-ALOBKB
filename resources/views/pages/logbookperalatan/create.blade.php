@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Data Logbook Peralatan')
+@section('title', 'Tambah Data Logbook Peralatan')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -21,10 +21,10 @@
                 <h1>Stasiun Geofisika Balikpapan</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('logbookperalatan.index') }}">Kelola Logbook
+                    <div class="breadcrumb-item"><a href="{{ route('logbookperalatan.index') }}">Logbook
                             Peralatan</a>
                     </div>
-                    <div class="breadcrumb-item">Tambah Data</div>
+                    <div class="breadcrumb-item">Tambah Data Logbook Peralatan</div>
                 </div>
             </div>
 
@@ -698,7 +698,7 @@
                             </div>
                     </div>
                     <div class="card-footer text-right">
-                        <button class="btn btn-primary">Submit</button>
+                        <button class="btn btn-primary">Simpan</button>
                     </div>
                     </form>
                 </div>

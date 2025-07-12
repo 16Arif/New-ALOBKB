@@ -23,7 +23,8 @@
                 <h1>Stasiun Geofisika Balikpapan</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('logbookpetir.index') }}">Manage Logbook Petir</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('logbookpetir.index') }}">Logbook Petir</a>
+                    </div>
                     <div class="breadcrumb-item">Edit Data Logbook Petir</div>
                 </div>
             </div>
@@ -134,12 +135,12 @@
                             </div>
                         </div>
                         <div class=" text-right mr-4">
-                            <button class="btn btn-primary">Submit</button>
+                            <button class="btn btn-primary">Simpan Perubahan</button>
                         </div>
                     </form>
                     <div class="card-footer text-right">
                         <a href="{{ route('logbookpetir.index') }}">
-                            <button class="btn btn-danger">Cancel</button>
+                            <button class="btn btn-danger">Batalkan</button>
                         </a>
                     </div>
                 </div>

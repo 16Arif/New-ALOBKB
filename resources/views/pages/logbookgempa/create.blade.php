@@ -22,8 +22,8 @@
             <div class="section-header">
                 <h1>Stasiun Geofisika Balikpapan</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Manage Logbook Gempabumi</a></div>
+                    <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('logbookgempa.index') }}">Logbook Gempa</a></div>
                     <div class="breadcrumb-item">Tambah Data Logbook Gempabumi</div>
                 </div>
             </div>
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                             <div class="card-footer text-right">
-                                <button class="btn btn-primary">Submit</button>
+                                <button class="btn btn-primary">Simpan</button>
                             </div>
                     </form>
                 </div>

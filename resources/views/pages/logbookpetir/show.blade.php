@@ -127,6 +127,7 @@
                     <li>{{ $logbookpetir->pengamatan4 }}</li>
                     <li>{{ $logbookpetir->pengamatan5 }}</li>
                     <li>{{ $logbookpetir->pengamatan6 }}</li>
+                    <li>{{ $logbookpetir->pengamatan7 }}</li>
                 </ul>
             </td>
         </tr>

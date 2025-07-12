@@ -45,6 +45,7 @@ class LogbookpetirController extends Controller
                 'pengamatan4' => 'Pengamatan LD jam 05.00',
                 'pengamatan5' => 'Pengamatan LD jam 06.00',
                 'pengamatan6' => 'Pengamatan LD jam 07.00',
+                'pengamatan7' => 'Pengamatan LD jam 08.00',
                 'kondisi'     => 'BAIK',
             ],
             '07.00' => [
@@ -54,6 +55,7 @@ class LogbookpetirController extends Controller
                 'pengamatan4' => 'Pengamatan LD jam 11.00',
                 'pengamatan5' => 'Pengamatan LD jam 12.00',
                 'pengamatan6' => 'Pengamatan LD jam 13.00',
+                'pengamatan7' => 'Pengamatan LD jam 14.00',
                 'kondisi'     => 'BAIK',
             ],
             '13.00' => [
@@ -63,6 +65,7 @@ class LogbookpetirController extends Controller
                 'pengamatan4' => 'Pengamatan LD jam 17.00',
                 'pengamatan5' => 'Pengamatan LD jam 18.00',
                 'pengamatan6' => 'Pengamatan LD jam 19.00',
+                'pengamatan7' => 'Pengamatan LD jam 20.00',
                 'kondisi'     => 'BAIK',
             ],
             '19.00' => [
@@ -72,6 +75,7 @@ class LogbookpetirController extends Controller
                 'pengamatan4' => 'Pengamatan LD jam 23.00',
                 'pengamatan5' => 'Pengamatan LD jam 00.00',
                 'pengamatan6' => 'Pengamatan LD jam 01.00',
+                'pengamatan7' => 'Pengamatan LD jam 02.00',
                 'kondisi'     => 'BAIK',
             ],
             default => [],

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Data Logbook Petir')
+@section('title', 'Tambah Data Logbook Petir')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -20,9 +20,9 @@
             <div class="section-header">
                 <h1>Stasiun Geofisika Balikpapan</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Manage Logbook Petir</a></div>
-                    <div class="breadcrumb-item">Add New Data Logbook Petir</div>
+                    <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('logbookpetir.index') }}">Logbook Petir</a></div>
+                    <div class="breadcrumb-item">Tambah Data Logbook Petir</div>
                 </div>
             </div>
 
@@ -135,7 +135,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-right">
-                            <button class="btn btn-primary">Submit</button>
+                            <button class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>

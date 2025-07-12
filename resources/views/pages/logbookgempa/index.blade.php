@@ -14,8 +14,7 @@
                 <h1>Stasiun Geofisika Balikpapan</h1>
 
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Logbook</a></div>
+                    <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
                     <div class="breadcrumb-item">Logbook Gempa</div>
                 </div>
             </div>
@@ -24,7 +23,7 @@
                     <h2 class="section-title ">Logbook Gempa</h2>
                     <button id="toggleDownloadBtn" class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseEditForm" aria-expanded="false" aria-controls="collapseEditForm">
-                        <i class="fa-solid fa-download me-1"></i> Download Data
+                        <i class="fa-solid fa-download me-1"></i> Unduh Data
                     </button>
                 </div>
                 <div class="row ml-1">
@@ -36,7 +35,7 @@
                                 <div class="mb-3">
                                     <a href="{{ route('export.spatie_gempa', ['start' => '1900-01-01', 'end' => now()->format('Y-m-d')]) }}"
                                         class="btn btn-outline-success w-100">
-                                        <i class="fa-solid fa-file-excel"></i> Export Semua Data
+                                        <i class="fa-solid fa-file-excel"></i> Simpan Semua Data
                                     </a>
                                 </div>
                                 <hr>
@@ -180,11 +179,11 @@
             const collapseTarget = document.getElementById('collapseEditForm');
 
             collapseTarget.addEventListener('shown.bs.collapse', () => {
-                toggleBtn.innerHTML = '<i class="fa-solid fa-xmark me-1"></i> Tutup Download';
+                toggleBtn.innerHTML = '<i class="fa-solid fa-xmark me-1"></i> Batalkan';
             });
 
             collapseTarget.addEventListener('hidden.bs.collapse', () => {
-                toggleBtn.innerHTML = '<i class="fa-solid fa-download me-1"></i> Download Data';
+                toggleBtn.innerHTML = '<i class="fa-solid fa-download me-1"></i> Unduh Data';
             });
         });
     </script>
