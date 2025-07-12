@@ -43,39 +43,42 @@
                         <form action="{{ route('inatewsinformation.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="lat" class="form-label">Latitude</label>
+                                <label for="lat" class="form-label">Latitude<span class="text-danger">*</span></label>
                                 <input id="lat" type="text" name="lat" value="{{ old('lat') }}"
-                                    class="form-control @error('lat') is-invalid @enderror">
+                                    class="form-control @error('lat') is-invalid @enderror" autocomplete="off" required>
                                 @error('lat')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="long" class="form-label">Longitude</label>
+                                <label for="long" class="form-label">Longitude<span class="text-danger">*</span></label>
                                 <input id="long" type="text" name="long" value="{{ old('long') }}"
-                                    class="form-control @error('long') is-invalid @enderror">
+                                    class="form-control @error('long') is-invalid @enderror" autocomplete="off" required>
                                 @error('long')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="elevasi" class="form-label">Elevasi</label>
+                                <label for="elevasi" class="form-label">Elevasi<span class="text-danger">*</span></label>
                                 <input id="elevasi" type="text" name="elevasi" value="{{ old('elevasi') }}"
-                                    class="form-control @error('elevasi') is-invalid @enderror">
+                                    class="form-control @error('elevasi') is-invalid @enderror" autocomplete="off" required>
                                 @error('elevasi')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="th_install" class="form-label">Tahun Installasi</label>
+                                <label for="th_install" class="form-label">Tahun Installasi<span
+                                        class="text-danger">*</span></label>
                                 <input id="th_install" type="date" name="th_install" value="{{ old('th_install') }}"
-                                    class="form-control @error('th_install') is-invalid @enderror">
+                                    class="form-control @error('th_install') is-invalid @enderror" autocomplete="off"
+                                    required>
                                 @error('th_install')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="alamat_site" class="form-label">Alamat Site</label>
+                                <label for="alamat_site" class="form-label">Alamat Site<span
+                                        class="text-danger">*</span></label>
                                 <input id="alamat_site" type="text" name="alamat_site" value="{{ old('alamat_site') }}"
                                     class="form-control @error('alamat_site') is-invalid @enderror">
                                 @error('alamat_site')
@@ -83,7 +86,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="kel_site" class="form-label">Keluharan Siite</label>
+                                <label for="kel_site" class="form-label">Keluharan Siite<span
+                                        class="text-danger">*</span></label>
                                 <input id="kel_site" type="text" name="kel_site" value="{{ old('kel_site') }}"
                                     class="form-control @error('kel_site') is-invalid @enderror">
                                 @error('kel_site')
@@ -91,7 +95,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="kec_site" class="form-label">Kecamatan Site</label>
+                                <label for="kec_site" class="form-label">Kecamatan Site<span
+                                        class="text-danger">*</span></label>
                                 <input id="kec_site" type="text" name="kec_site" value="{{ old('kec_site') }}"
                                     class="form-control @error('kec_site') is-invalid @enderror">
                                 @error('kec_site')
@@ -99,7 +104,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="kota" class="form-label">Kota Site</label>
+                                <label for="kota" class="form-label">Kota Site<span
+                                        class="text-danger">*</span></label>
                                 <input id="kota" type="text" name="kota" value="{{ old('kota') }}"
                                     class="form-control @error('kota') is-invalid @enderror">
                                 @error('kota')
@@ -107,7 +113,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="prov" class="form-label">Provinsi Site</label>
+                                <label for="prov" class="form-label">Provinsi Site<span
+                                        class="text-danger">*</span></label>
                                 <input id="prov" type="text" name="prov" value="{{ old('prov') }}"
                                     class="form-control @error('prov') is-invalid @enderror">
                                 @error('prov')
@@ -115,7 +122,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="pic_site" class="form-label">Pic di Site</label>
+                                <label for="pic_site" class="form-label">Pic di Site<span
+                                        class="text-danger">*</span></label>
                                 <input id="pic_site" type="text" name="pic_site" value="{{ old('pic_site') }}"
                                     class="form-control @error('pic_site') is-invalid @enderror">
                                 @error('pic_site')
@@ -123,7 +131,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="kontak_pic" class="form-label">Kontak Pic</label>
+                                <label for="kontak_pic" class="form-label">Kontak Pic<span
+                                        class="text-danger">*</span></label>
                                 <input id="kontak_pic" type="text" name="kontak_pic" value="{{ old('kontak_pic') }}"
                                     class="form-control @error('kontak_pic') is-invalid @enderror">
                                 @error('kontak_pic')
@@ -131,7 +140,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="upt" class="form-label">UPT</label>
+                                <label for="upt" class="form-label">UPT<span class="text-danger">*</span></label>
                                 <input id="upt" type="text" name="upt" value="{{ old('upt') }}"
                                     class="form-control @error('upt') is-invalid @enderror">
                                 @error('upt')
@@ -139,7 +148,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="alamat_upt" class="form-label">Alamat UPT</label>
+                                <label for="alamat_upt" class="form-label">Alamat UPT<span
+                                        class="text-danger">*</span></label>
                                 <input id="alamat_upt" type="text" name="alamat_upt" value="{{ old('alamat_upt') }}"
                                     class="form-control @error('alamat_upt') is-invalid @enderror">
                                 @error('alamat_upt')
@@ -147,7 +157,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="kel_upt" class="form-label">Kelurahan UPT</label>
+                                <label for="kel_upt" class="form-label">Kelurahan UPT<span
+                                        class="text-danger">*</span></label>
                                 <input id="kel_upt" type="text" name="kel_upt" value="{{ old('kel_upt') }}"
                                     class="form-control @error('kel_upt') is-invalid @enderror">
                                 @error('kel_upt')
@@ -155,7 +166,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="kec_upt" class="form-label">Kecamatan UPT</label>
+                                <label for="kec_upt" class="form-label">Kecamatan UPT<span
+                                        class="text-danger">*</span></label>
                                 <input id="kec_upt" type="text" name="kec_upt" value="{{ old('kec_upt') }}"
                                     class="form-control @error('kec_upt') is-invalid @enderror">
                                 @error('kec_upt')
@@ -163,7 +175,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="kota_upt" class="form-label">Kota UPT</label>
+                                <label for="kota_upt" class="form-label">Kota UPT<span
+                                        class="text-danger">*</span></label>
                                 <input id="kota_upt" type="text" name="kota_upt" value="{{ old('kota_upt') }}"
                                     class="form-control @error('kota_upt') is-invalid @enderror">
                                 @error('kota_upt')
@@ -171,7 +184,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="jab_pic_upt" class="form-label">Jabatan PIC UPT</label>
+                                <label for="jab_pic_upt" class="form-label">Jabatan PIC UPT<span
+                                        class="text-danger">*</span></label>
                                 <input id="jab_pic_upt" type="text" name="jab_pic_upt"
                                     value="{{ old('jab_pic_upt') }}"
                                     class="form-control @error('jab_pic_upt') is-invalid @enderror">
@@ -180,7 +194,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="pic_upt" class="form-label">PIC UPT</label>
+                                <label for="pic_upt" class="form-label">PIC UPT<span
+                                        class="text-danger">*</span></label>
                                 <input id="pic_upt" type="text" name="pic_upt" value="{{ old('pic_upt') }}"
                                     class="form-control @error('pic_upt') is-invalid @enderror">
                                 @error('pic_upt')
@@ -188,7 +203,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="kontak_pic_upt" class="form-label">Kontak PIC UPT</label>
+                                <label for="kontak_pic_upt" class="form-label">Kontak PIC UPT<span
+                                        class="text-danger">*</span></label>
                                 <input id="kontak_pic_upt" type="text" name="kontak_pic_upt"
                                     value="{{ old('kontak_pic_upt') }}"
                                     class="form-control @error('kontak_pic_upt') is-invalid @enderror">
@@ -227,5 +243,12 @@
         document.addEventListener('trix-file-accept', function(e)) {
             e.preventDefault();
         }
+    </script>
+
+    <script>
+        flatpickr("#th_install", {
+            dateFormat: "Y-m-d", // atau sesuai format yang kamu mau
+            allowInput: true
+        });
     </script>
 @endpush

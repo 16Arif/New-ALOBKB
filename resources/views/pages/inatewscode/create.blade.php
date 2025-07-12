@@ -46,7 +46,8 @@
                             <div class="form-group">
                                 <label for="kode_site" class="form-label">Kode Site</label>
                                 <input id="kode_site" type="text" name="kode_site" value="{{ old('kode_site') }}"
-                                    class="form-control @error('kode_Site') is-invalid @enderror">
+                                    autocomplete="off" class="form-control @error('kode_Site') is-invalid @enderror"
+                                    required>
                                 @error('kode_site')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -54,7 +55,8 @@
                             <div class="form-group">
                                 <label for="nama_site" class="form-label">Nama Site</label>
                                 <input id="nama_site" type="text" name="nama_site" value="{{ old('nama_site') }}"
-                                    class="form-control @error('nama_site') is-invalid @enderror">
+                                    autocomplete="off" class="form-control @error('nama_site') is-invalid @enderror"
+                                    required>
                                 @error('nama_site')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror

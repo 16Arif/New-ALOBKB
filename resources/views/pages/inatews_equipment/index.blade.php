@@ -45,7 +45,7 @@
                                                     <th scope="col">No</th>
                                                     <th scope="col">Kode Site</th>
                                                     <th scope="col">Nama Site</th>
-                                                    <th scope="col">Aksi</th>
+                                                    <th scope="col"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -105,7 +105,7 @@
                                                     <th scope="col">Latitude</th>
                                                     <th scope="col">Longitude</th>
                                                     <th scope="col">Elevasi</th>
-                                                    <th scope="col">Aksi</th>
+                                                    <th scope="col"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -120,6 +120,11 @@
                                                         </td>
                                                         <td>
                                                             <div class="row">
+                                                                <a href="">
+                                                                    <div class="btn btn-sm btn-success btn-icon mx-2">
+                                                                        <i class="fas fa-eye"></i>
+                                                                    </div>
+                                                                </a>
                                                                 <a
                                                                     href="{{ route('inatewsinformation.edit', $datainfo->id) }}">
                                                                     <div class="btn btn-sm btn-info btn-icon">
@@ -170,7 +175,7 @@
                                                     <th scope="col">Tipe Seismograph</th>
                                                     <th scope="col">S/N Seismograph</th>
                                                     <th scope="col">Tanggal Installasi Seismograph</th>
-                                                    <th scope="col">Aksi</th>
+                                                    <th scope="col"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -183,10 +188,15 @@
                                                         </td>
                                                         <td>{{ $dataE->sn_seismo }}
                                                         </td>
-                                                        <td>{{ $dataE->tanggalinstall_seismo }}
+                                                        <td>{{ $dataE->tglinstall_seismo }}
                                                         </td>
                                                         <td>
                                                             <div class="d-flex gap-1 justify-content-center">
+                                                                <a href="">
+                                                                    <div class="btn btn-sm btn-success btn-icon mx-2">
+                                                                        <i class="fas fa-eye"></i>
+                                                                    </div>
+                                                                </a>
                                                                 <a href="{{ route('inatewsequipment.edit', $dataE->id) }}">
                                                                     <div class="btn btn-sm btn-info btn-icon">
                                                                         <i class="fas fa-edit"></i>
@@ -194,7 +204,7 @@
                                                                 </a>
                                                                 <form
                                                                     action="{{ route('inatewsequipment.destroy', $dataE->id) }}"
-                                                                    method="POST" class="ml-2">
+                                                                    method="POST" class="mx-2">
                                                                     <input type="hidden" name="_method" value="DELETE">
                                                                     <input type="hidden" name="_token"
                                                                         value="{{ csrf_token() }}">

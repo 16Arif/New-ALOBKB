@@ -47,7 +47,9 @@
 
         gtag('config', 'UA-94034622-3');
     </script>
-
+    {{-- untuk date picker --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <!-- END GA -->
 </head>

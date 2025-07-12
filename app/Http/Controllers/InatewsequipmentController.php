@@ -38,7 +38,7 @@ class InatewsequipmentController extends Controller
     {
         $data = $request->all();
         InatewsEquipment::create($data);
-        return redirect()->route('inatewsequipment.index')->with('success', 'Data Kode Site InaTEWS Berhasil Ditambahkan');
+        return redirect()->route('inatewsequipment.index')->with('success', 'Data Kode InaTEWS Berhasil Ditambahkan');
     }
 
     public function edit($id)
@@ -51,12 +51,12 @@ class InatewsequipmentController extends Controller
     {
         $data = $request->validated();
         $inatewsequipment->update($data);
-        return redirect()->route('inatewsequipment.index')->with('success', 'Data Kode Site InaTEWS Berhasil Diperbaharui');
+        return redirect()->route('inatewsequipment.index')->with('success', 'Data Site InaTEWS Berhasil Diperbaharui');
     }
 
     public function destroy(InatewsEquipment $inatewsequipment)
     {
         $inatewsequipment->delete();
-        return redirect()->route('inatewsequipment.index')->with('success', 'Data Kode Site InaTEWS Berhasil Dihapus');
+        return redirect()->route('inatewsequipment.index')->with('success', 'Data Site InaTEWS Berhasil Dihapus');
     }
 }

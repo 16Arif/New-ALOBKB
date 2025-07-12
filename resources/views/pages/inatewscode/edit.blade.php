@@ -39,7 +39,8 @@
                                 <label class="form-label">Kode Site</label>
                                 <input id="kode_site" type="text" name="kode_site"
                                     value="{{ old('kode_site', $inatewscode->kode_site) }}"
-                                    class="form-control @error('kode_site') is-invalid @enderror">
+                                    class="form-control @error('kode_site') is-invalid @enderror" autocomplete="off"
+                                    required>
                                 @error('kode_site')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -48,7 +49,8 @@
                                 <label class="form-label">Nama Site</label>
                                 <input id="nama_site" type="text" name="nama_site"
                                     value="{{ old('nama_site', $inatewscode->nama_site) }}"
-                                    class="form-control @error('nama_site') is-invalid @enderror">
+                                    class="form-control @error('nama_site') is-invalid @enderror" autocomplete="off"
+                                    required>
                                 @error('nama_site')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
