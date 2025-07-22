@@ -190,7 +190,41 @@ class ExportController extends Controller
         SimpleExcelWriter::streamDownload("Data_Gempa_{$start->format('Ymd')}_{$end->format('Ymd')}.xlsx")
             ->addHeader($header)
             ->addRows($data);
+    }
 
-        // Jangan gunakan `return` — karena streamDownload sudah handle response
+    public function spatie_parametergempa_csv(Request $request)
+    {
+        $request->validate([
+            'start' => 'required|date',
+            'end' => 'required|date|after_or_equal:start',
+        ]);
+
+        $start = Carbon::parse($request->start)->startOfDay();
+        $end = Carbon::parse($request->end)->endOfDay();
+
+        // Lazy load untuk efisiensi memori
+        $data = GempaBumi::whereBetween('tanggal', [$start, $end])
+            ->orderBy('tanggal')
+            ->lazyById(1000, 'id')
+            ->map(function ($item) {
+                return [
+                    'tanggal' => Carbon::parse($item->tanggal)->format('Y-m-d'),
+                    'waktu' => $item->waktu,
+                    'waktu_utc' => $item->waktu_utc,
+                    'waktu_wita' => $item->waktu_wita,
+                    'magnitudo' => $item->magnitudo,
+                    'lintang' => $item->lintang,
+                    'bujur' => $item->bujur,
+                    'jarak' => $item->jarak,
+                    'kedalaman' => $item->kedalaman,
+                    'dirasakan' => $item->dirasakan,
+                    'keterangan' => $item->keterangan,
+                ];
+            });
+
+        // Langsung kirim download response
+        SimpleExcelWriter::streamDownload("Data_Gempa_{$start->format('Ymd')}_{$end->format('Ymd')}.csv")
+            // ->noHeaderRow()
+            ->addRows($data);
     }
 }

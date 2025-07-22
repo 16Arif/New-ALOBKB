@@ -38,6 +38,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('gempabumi/custom')->name('gempabumi.custom.')->group(function () {
         Route::get('/create', [GempaController::class, 'createOnedata'])->name('create');
         Route::post('/store', [GempaController::class, 'storeOnedata'])->name('store');
+        Route::get('/showImport', [GempaController::class, 'showImport'])->name('showImport');
+        Route::post('/importCsv', [GempaController::class, 'importCsv'])->name('importCsv');
     });
 
 
@@ -46,9 +48,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('download', PdfController::class);
     Route::get('export/spatie_petir', [ExportController::class, 'spatie_petir'])->name('export.spatie_petir');
     Route::get('export/spatie_peralatan', [ExportController::class, 'spatie_peralatan'])
-                ->name('export.spatie_peralatan');
+        ->name('export.spatie_peralatan');
     Route::get('/export/spatie_gempa', [ExportController::class, 'spatie_gempa'])->name('export.spatie_gempa');
     Route::get('/export/spatie_parametergempa', [ExportController::class, 'spatie_parametergempa'])->name('export.spatie_parametergempa');
+    Route::get('/export/spatie_parametergempa_csv', [ExportController::class, 'spatie_parametergempa_csv'])->name('export.spatie_parametergempa_csv');
     Route::resource('profile', UserprofileController::class)->except('index', 'show', 'create', 'store', 'destroy');
     Route::resource('imageprofile', ImageprofileController::class);
     Route::get('about', AboutController::class)->name('about');
@@ -65,5 +68,3 @@ Route::middleware(['guest'])->group(function () {
         return view('pages.auth.login');
     });
 });
-
-

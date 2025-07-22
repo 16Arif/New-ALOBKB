@@ -19,7 +19,7 @@
                 <h1>Stasiun Geofisika Balikpapan</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('gempabumi.index')}}">Kelola Data Gempabumi</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('gempabumi.index') }}">Kelola Data Gempabumi</a></div>
                     <div class="breadcrumb-item">Tambah Data Gempabumi</div>
                 </div>
             </div>
@@ -44,18 +44,22 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="tanggal" class="form-label">Tanggal <span class="text-danger">*</span></label>
-                                <input type="date" id="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ old('tanggal') ? \Carbon\Carbon::parse(old('tanggal'))->format('d-M-y') : '' }}" name="tanggal" required>
+                                <input type="date" id="tanggal"
+                                    class="form-control @error('tanggal') is-invalid @enderror"
+                                    value="{{ old('tanggal') ? \Carbon\Carbon::parse(old('tanggal'))->format('d-M-y') : '' }}"
+                                    name="tanggal" autocomplete="off" required>
                                 @error('tanggal')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-                        
+
                             <div class="form-group">
                                 <label>Waktu (WIB)<span class="text-danger">*</span></label>
-                                <input type="time" step="1"  class="form-control @error('waktu') is-invalid @enderror"
-                                    name="waktu" value="{{ old('waktu') }}" required>
+                                <input type="time" step="1"
+                                    class="form-control @error('waktu') is-invalid @enderror" name="waktu"
+                                    value="{{ old('waktu') }}" required>
                                 @error('waktu')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -66,7 +70,7 @@
                                 <label>Lintang<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('lintang') is-invalid @enderror"
                                     name="lintang" value="{{ old('lintang') }}" required>
-                                    <p class="text-muted">Contoh : 0.12 untuk LU dan -0.12 untuk LS</p>
+                                <p class="text-muted">Contoh : 0.12 untuk LU dan -0.12 untuk LS</p>
                                 @error('lintang')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -77,7 +81,7 @@
                                 <label>Bujur<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('bujur') is-invalid @enderror"
                                     name="bujur" value="{{ old('bujur') }}" required>
-                                    <p class="text-muted">Contoh : 116.12 untuk BT dan -0.12 untuk BB</p>
+                                <p class="text-muted">Contoh : 116.12 untuk BT dan -0.12 untuk BB</p>
                                 @error('bujur')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -88,7 +92,7 @@
                                 <label>Magnitudo<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('magnitudo') is-invalid @enderror"
                                     name="magnitudo" value="{{ old('magnitudo') }}" required>
-                                    
+
                                 @error('magnitudo')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -99,7 +103,7 @@
                                 <label>Kedalaman<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('kedalaman') is-invalid @enderror"
                                     name="kedalaman" value="{{ old('kedalaman') }}" required>
-                                    <p class="text-muted">Cukup nilai 10 tanpa satuan, untuk kedalaman 10Km</p>
+                                <p class="text-muted">Cukup nilai 10 tanpa satuan, untuk kedalaman 10Km</p>
                                 @error('kedalaman')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -110,44 +114,42 @@
                                 <label>Jarak Lokasi<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('jarak') is-invalid @enderror"
                                     name="jarak" value="{{ old('jarak') }}" required>
-                                    <p class="text-muted">Contoh : 10 Km Timur Laut Sangata</p>
+                                <p class="text-muted">Contoh : 10 Km Timur Laut Sangata</p>
                                 @error('jarak')
-                                    <div class="invalid-feedback" >
+                                    <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                    <label class="form-label">Dirasakan</label>
-                                    <div class="selectgroup w-100 @error('dirasakan') is-invalid @enderror">
-                                        <label class="selectgroup-item">
-                                            <input type="radio" name="dirasakan" value="DIRASAKAN"
-                                                class="selectgroup-input"
-                                                @if (old('dirasakan') == 'DIRASAKAN') checked @endif>
-                                            <span class="selectgroup-button">DIRASAKAN</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                            <input type="radio" name="dirasakan" value="TIDAK DIRASAKAN"
-                                                class="selectgroup-input"
-                                                @if (old('dirasakan') == 'TIDAK DIRASAKAN') checked @endif>
-                                            <span class="selectgroup-button">TIDAK DIRASAKAN</span>
-                                        </label>
+                                <label class="form-label">Dirasakan</label>
+                                <div class="selectgroup w-100 @error('dirasakan') is-invalid @enderror">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="dirasakan" value="DIRASAKAN" class="selectgroup-input"
+                                            @if (old('dirasakan') == 'DIRASAKAN') checked @endif>
+                                        <span class="selectgroup-button">DIRASAKAN</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="dirasakan" value="TIDAK DIRASAKAN"
+                                            class="selectgroup-input" @if (old('dirasakan') == 'TIDAK DIRASAKAN') checked @endif>
+                                        <span class="selectgroup-button">TIDAK DIRASAKAN</span>
+                                    </label>
+                                </div>
+                                @error('dirasakan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
                                     </div>
-                                    @error('dirasakan')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
+                                @enderror
                             </div>
-                            <div class="form-group">
-                                    <label>Keterangan</label>
-                                    <input id="keterangan" type="hidden" name="keterangan" value="{{ old('keterangan') }}">
-                                    <trix-editor input="keterangan"></trix-editor>
-                                </div>
-                            <div class="card-footer text-right">
-                                <button class="btn btn-primary">Submit</button>
-                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Keterangan</label>
+                            <input id="keterangan" type="hidden" name="keterangan" value="{{ old('keterangan') }}">
+                            <trix-editor input="keterangan"></trix-editor>
+                        </div>
+                        <div class="card-footer text-right">
+                            <button class="btn btn-primary">Submit</button>
+                        </div>
                     </form>
                 </div>
 
@@ -177,16 +179,14 @@
         }
     </script>
 
-    // untuk form tanggal 
+    // untuk form tanggal
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
-    flatpickr("#tanggal", {
-        dateFormat: "d-M-y", // atau sesuai format yang kamu mau
-        allowInput: true
-    });
+        flatpickr("#tanggal", {
+            dateFormat: "d-M-y", // atau sesuai format yang kamu mau
+            allowInput: true
+        });
     </script>
-
-
 @endpush

@@ -62,7 +62,7 @@ class LogbookperalatanController extends Controller
     {
         $data = $request->all();
         LogbookPeralatan::create($data);
-        return redirect()->route('logbookperalatan.index')->with('success', 'Data Logbook Peralatan Successfully Created');
+        return redirect()->route('logbookperalatan.index')->with('success', 'Data Logbook Peralatan Berhasil Ditambahkan');
     }
 
     public function edit($id)
@@ -76,13 +76,13 @@ class LogbookperalatanController extends Controller
     {
         $data = $request->validated();
         $logbookperalatan->update($data);
-        return redirect()->route('logbookperalatan.index')->with('success', 'Logbook Peralatan Successfully Updated');
+        return redirect()->route('logbookperalatan.index')->with('success', 'Logbook Peralatan Berhasil Diperbarui');
     }
 
 
     public function destroy(LogbookPeralatan $logbookperalatan)
     {
         $logbookperalatan->delete();
-        return redirect()->route('logbookperalatan.index')->with('success', 'Data Logbook Peralatan Successfully Deleted');
+        return redirect()->route('logbookperalatan.index')->with('success', 'Data Logbook Peralatan Berhasil Dihapus');
     }
 }

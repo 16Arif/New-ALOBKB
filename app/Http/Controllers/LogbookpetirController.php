@@ -85,7 +85,7 @@ class LogbookpetirController extends Controller
         $finalData = array_merge($data, $presets);
 
         LogbookPetir::create($finalData);
-        return redirect()->route('logbookpetir.index')->with('success', 'Data Logbook Petir Successfully Created');
+        return redirect()->route('logbookpetir.index')->with('success', 'Data Logbook Petir Berhasil Ditambahkan');
     }
 
     public function edit($id)
@@ -171,13 +171,13 @@ class LogbookpetirController extends Controller
         $finalData = array_merge($data, $presets);
 
         $logbookpetir->update($finalData);
-        return redirect()->route('logbookpetir.index')->with('success', 'logbookpetir Successfully Updated');
+        return redirect()->route('logbookpetir.index')->with('success', 'logbookpetir Berhasil Diperbarui');
     }
 
 
     public function destroy(LogbookPetir $logbookpetir)
     {
         $logbookpetir->delete();
-        return redirect()->route('logbookpetir.index')->with('success', 'Data Logbook Petir Successfully Deleted');
+        return redirect()->route('logbookpetir.index')->with('success', 'Data Logbook Petir Berhasil Dihapus');
     }
 }
