@@ -19,7 +19,7 @@ class LogbookgempaController extends Controller
                     ->where('onduty1', 'like', '%' . $search . '%')
                     ->orWhere('onduty2', 'like', '%' . $search . '%')
                     ->orWhere('onduty3', 'like', '%' . $search . '%')
-                    ->orWhere('kehadiran', 'like', '%' . $search . '%');
+                    ->orWhere('note', 'like', '%' . $search . '%');
             })
             ->orderBy('id', 'desc')
             ->paginate(10);
