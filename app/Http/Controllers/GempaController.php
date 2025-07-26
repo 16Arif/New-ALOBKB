@@ -12,6 +12,9 @@ use App\Http\Requests\StoreGempabumiRequest;
 use App\Http\Requests\UpdateGempabumiRequest;
 use Mews\Purifier\Facades\Purifier;
 use Spatie\SimpleExcel\SimpleExcelReader;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+
 
 class GempaController extends Controller
 {
@@ -157,10 +160,6 @@ class GempaController extends Controller
         return view('pages.gempabumi.createOnedata',  ['type_menu' => '']);
     }
 
-    public function showImport()
-    {
-        return view('pages.gempabumi.import-gempabumi');
-    }
 
     public function importCsv(Request $request)
     {
@@ -168,8 +167,13 @@ class GempaController extends Controller
             'file' => 'required|file|mimes:csv,txt',
         ]);
 
-        $path = $request->file('file')->storeAs('uploads', 'import.csv');
+        // Simpan file dengan nama acak untuk menghindari konflik dan error permission
+        $path = $request->file('file')->store('uploads');
 
+        // Ambil path penuh dengan aman
+        $fullPath = Storage::path($path);
+
+        // Header yang diharapkan
         $expectedHeaders = [
             'tanggal',
             'waktu',
@@ -184,35 +188,22 @@ class GempaController extends Controller
             'keterangan',
         ];
 
-        $reader = SimpleExcelReader::create(storage_path("app/{$path}"));
+        try {
+            $reader = SimpleExcelReader::create($fullPath);
+            $headers = array_map('strtolower', array_map('trim', $reader->getHeaders()));
 
-        // ✅ Ambil 1 baris pertama untuk cek struktur
-        $headers = $reader->getHeaders();
+            if ($headers !== $expectedHeaders) {
+                return back()->with('error', 'Format CSV tidak sesuai. Pastikan kolom sesuai urutan dan nama.');
+            }
 
-        // Normalisasi agar cocok
-        $headers = array_map(fn($h) => strtolower(trim($h)), $headers);
+            $reader->getRows()->each(function (array $row) {
+                GempaBumi::create($row);
+            });
 
-        if ($headers !== $expectedHeaders) {
-            return back()->with('error', 'Format CSV tidak sesuai. Pastikan kolom data sesuai dengan data pada web.');
+            return back()->with('success', 'Data berhasil diimport.');
+        } catch (\Exception $e) {
+            Log::error('Import CSV error: ' . $e->getMessage());
+            return back()->with('error', 'Terjadi kesalahan saat membaca file.');
         }
-
-        // ✅ Jika valid, baru proses data
-        $reader->getRows()->each(function (array $row) {
-            GempaBumi::create([
-                'tanggal' => $row['tanggal'],
-                'waktu' => $row['waktu'],
-                'waktu_utc' => $row['waktu_utc'],
-                'waktu_wita' => $row['waktu_wita'],
-                'magnitudo' => $row['magnitudo'],
-                'lintang' => $row['lintang'],
-                'bujur' => $row['bujur'],
-                'jarak' => $row['jarak'],
-                'kedalaman' => $row['kedalaman'],
-                'dirasakan' => $row['dirasakan'],
-                'keterangan' => $row['keterangan'],
-            ]);
-        });
-
-        return back()->with('success', 'Data berhasil diimport.');
     }
 }
