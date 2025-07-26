@@ -108,6 +108,7 @@
                                 </button>
                             </div>
                             <div class="card-body">
+                                {{-- pilih data  --}}
                                 <div class="row justify-content-between">
                                     <div class="float-left ml-3">
                                         <div class="mb-3">
@@ -183,6 +184,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                {{-- pilihan jumlah tampilan data  --}}
                                 <div class="text-muted float-right">
                                     Menampilkan {{ is_countable($datagempa) ? count($datagempa) : $datagempa->total() }}
                                     data
@@ -214,8 +217,6 @@
                                     </select>
                                 </form>
 
-
-
                                 <div class="table-responsive mt-3">
                                     <table class="table-striped table">
                                         <tr>
@@ -242,7 +243,7 @@
                                                     <input type="checkbox" class="select-row"
                                                         value="{{ $gempa->id }}">
                                                 </td>
-                                                <td>{{ isset($gempa->firstItem) ? $datagempa->firstItem() + $index : $index + 1 }}
+                                                <td>{{ method_exists($datagempa, 'firstItem') ? $datagempa->firstItem() + $index : $index + 1 }}
                                                 </td>
                                                 <td>{{ $gempa->tanggal }}</td>
                                                 <td>{{ $gempa->waktu }}</td>
@@ -277,7 +278,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="4" class="text-center">Tidak ada data.</td>
+                                                <td colspan="4" class="text-center">Tidak ada data ditemukan.</td>
                                             </tr>
                                         @endforelse
 

@@ -98,12 +98,11 @@
                                             <th>Keterangan</th>
                                             <th></th>
                                         </tr>
-                                        @php
-                                            $no = 1;
-                                        @endphp
-                                        @foreach ($logbookperalatans as $lbp)
+
+
+                                        @forelse ($logbookperalatans as $index => $lbp)
                                             <tr>
-                                                <td>{{ $no++ }}.</td>
+                                                <td>{{ $logbookperalatans->firstItem() + $index }}</td>
                                                 <td>{{ $lbp->tanggal }}
                                                 </td>
                                                 <td>{{ $lbp->jam }} WITA
@@ -144,7 +143,11 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="5" class="text-center">Tidak ada data ditemukan.</td>
+                                            </tr>
+                                        @endforelse
 
                                     </table>
                                 </div>

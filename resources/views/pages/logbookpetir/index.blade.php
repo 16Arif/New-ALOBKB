@@ -100,12 +100,11 @@
                                             <th>On Duty</th>
                                             <th></th>
                                         </tr>
-                                        @php
-                                            $no = 1;
-                                        @endphp
-                                        @foreach ($logbookpetirs as $lbp)
+
+                                        @forelse ($logbookpetirs as $index => $lbp)
                                             <tr>
-                                                <td>{{ $no++ }}.</td>
+                                                <td>{{ $logbookpetirs->firstItem() + $index }}</td>
+                                                </td>
                                                 <td>{{ $lbp->tanggal }}
                                                 </td>
                                                 <td>
@@ -148,7 +147,11 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center">Tidak ada data ditemukan.</td>
+                                            </tr>
+                                        @endforelse
 
                                     </table>
                                 </div>

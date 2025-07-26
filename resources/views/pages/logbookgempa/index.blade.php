@@ -98,12 +98,9 @@
                                             <th class="col-md-4">Keterangan</th>
                                             <th></th>
                                         </tr>
-                                        @php
-                                            $no = 1;
-                                        @endphp
-                                        @foreach ($logbookgempas as $lpg)
+                                        @forelse ($logbookgempas as $index => $lpg)
                                             <tr>
-                                                <td>{{ $no++ }}.</td>
+                                                <td>{{ $logbookgempas->firstItem() + $index }}</td>
                                                 <td>{{ $lpg->tanggal }}
                                                 </td>
                                                 <td>{{ $lpg->jam }} WITA
@@ -144,7 +141,11 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="5" class="text-center">Tidak ada data ditemukan.</td>
+                                            </tr>
+                                        @endforelse
 
                                     </table>
                                 </div>

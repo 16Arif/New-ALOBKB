@@ -16,7 +16,7 @@ class LogbookpetirController extends Controller
     public function index(Request $request)
     {
 
-        $logbookpetirs = DB::table('logbook_petirs')
+        $logbookpetirs = LogbookPetir::query()
             ->when($request->input('search'), function ($query, $search) {
                 return $query->where('onduty1', 'like', '%' . $search . '%')
                     ->orWhere('onduty2', 'like', '%' . $search . '%')

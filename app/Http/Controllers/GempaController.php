@@ -18,7 +18,7 @@ class GempaController extends Controller
 
     public function index(Request $request)
     {
-        // Gunakan default perPage dari dropdown, tapi biarkan filter berdiri sendiri
+
         $perPage = $request->get('per_page', 10);
 
         $query = DB::table('gempa_bumis')
