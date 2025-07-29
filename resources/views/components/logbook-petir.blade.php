@@ -2,14 +2,14 @@
     // Mendapatkan waktu saat ini
     $currentTime = now()->timezone('Asia/Makassar');
     // Menentukan batas waktu hingga jam 14:00 WITA
-    $cutoffTime1 = now()->timezone('Asia/Makassar')->setHour(14)->setMinute(0)->setSecond(0);
-    $cutoffTime2 = now()->timezone('Asia/Makassar')->setHour(20)->setMinute(0)->setSecond(0);
+    $cutoffTime1 = now()->timezone('Asia/Makassar')->setHour(14)->setMinute(30)->setSecond(0);
+    $cutoffTime2 = now()->timezone('Asia/Makassar')->setHour(20)->setMinute(30)->setSecond(0);
 @endphp
 
 @if ($currentTime->lessThan($cutoffTime1))
     @php
         $timeRangeStart = \Carbon\Carbon::createFromTime(8, 0, 0, 'Asia/Makassar');
-        $timeRangeEnd = \Carbon\Carbon::createFromTime(14, 0, 0, 'Asia/Makassar');
+        $timeRangeEnd = \Carbon\Carbon::createFromTime(14, 30, 0, 'Asia/Makassar');
         $dataInRange = false;
 
         // Periksa apakah ada data antara pukul 22.38 dan 22.45 WITA
@@ -60,7 +60,7 @@
     {{-- Tampilkan data sebelum pukul 20.00 WITA --}}
     @php
         $timeRangeStart = \Carbon\Carbon::createFromTime(14, 0, 0, 'Asia/Makassar');
-        $timeRangeEnd = \Carbon\Carbon::createFromTime(20, 0, 0, 'Asia/Makassar');
+        $timeRangeEnd = \Carbon\Carbon::createFromTime(20, 30, 0, 'Asia/Makassar');
         $dataInRange = false;
 
         // Periksa apakah ada data antara pukul 22.38 dan 22.45 WITA
@@ -110,7 +110,7 @@
 @else
     @php
         $timeRangeStart = \Carbon\Carbon::createFromTime(20, 0, 0, 'Asia/Makassar');
-        $timeRangeEnd = \Carbon\Carbon::createFromTime(8, 0, 0, 'Asia/Makassar');
+        $timeRangeEnd = \Carbon\Carbon::createFromTime(8, 30, 0, 'Asia/Makassar');
         // Check if $timeRangeEnd is before $timeRangeStart
         if ($timeRangeEnd->lt($timeRangeStart)) {
             // If $timeRangeEnd is before $timeRangeStart, add one day

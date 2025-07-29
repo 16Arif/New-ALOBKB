@@ -1,3 +1,3 @@
   <div class="simple-footer">
-      Copyright &copy; ALO BKB 2024
+      Copyright &copy; ALO BKB 2025
   </div>

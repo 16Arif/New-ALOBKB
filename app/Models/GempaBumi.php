@@ -13,7 +13,22 @@ class GempaBumi extends Model
     ];
 
     protected $casts = [
-    'tanggal' => 'date',
+        'tanggal' => 'date',
     ];
 
+
+    // app/Models/GempaBumi.php
+
+    public function getFormattedLintangAttribute()
+    {
+        $value = floatval(str_replace(',', '.', $this->lintang));
+        $arah = $value < 0 ? 'LS' : 'LU';
+        return abs($value) . '° ' . $arah;
+    }
+
+    public function getFormattedBujurAttribute()
+    {
+        $value = floatval(str_replace(',', '.', $this->bujur));
+        return abs($value) . '° BT';
+    }
 }

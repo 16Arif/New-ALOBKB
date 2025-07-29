@@ -24,7 +24,7 @@ class GempaController extends Controller
 
         $perPage = $request->get('per_page', 10);
 
-        $query = DB::table('gempa_bumis')
+        $query = GempaBumi::query()
             ->when($request->filled('filter_start') && $request->filled('filter_end'), function ($q) use ($request) {
                 return $q->whereBetween('tanggal', [$request->filter_start, $request->filter_end]);
             })
@@ -147,7 +147,7 @@ class GempaController extends Controller
         \Carbon\Carbon::setLocale('id');
 
         $ids = explode(',', $request->ids);
-        $data = GempaBumi::whereIn('id', $ids)->get();
+        $data = GempaBumi::whereIn('id', $ids)->orderBy('tanggal', 'desc')->orderBy('waktu', 'desc')->get();
         $startDate = $data->min('tanggal');
         $endDate = $data->max('tanggal');
 

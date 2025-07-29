@@ -31,8 +31,8 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="card-header bg-info text-white">
-                            <h4 class="mb-0">Edit Data</h4>
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0 text-white">Edit Data</h4>
                         </div>
 
                         <div class="card-body">
@@ -83,14 +83,14 @@
                                     @enderror
                                 </div>
 
-                                
+
 
                                 <div class="col-md-6 mb-3">
                                     <label for="bujur" class="form-label">Bujur</label>
                                     <input id="bujur" type="text"
                                         class="form-control @error('bujur') is-invalid @enderror" name="bujur"
                                         value="{{ old('bujur', $datagempa->bujur) }}">
-                                        <p class="text-muted">Contoh : 116.12 untuk BT dan -0.12 untuk BB</p>
+                                    <p class="text-muted">Contoh : 116.12 untuk BT dan -0.12 untuk BB</p>
                                     @error('bujur')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -101,7 +101,7 @@
                                     <input id="lintang" type="text"
                                         class="form-control @error('lintang') is-invalid @enderror" name="lintang"
                                         value="{{ old('lintang', $datagempa->lintang) }}">
-                                        <p class="text-muted">Contoh : 0.12 untuk LU dan -0.12 untuk LS</p>
+                                    <p class="text-muted">Contoh : 0.12 untuk LU dan -0.12 untuk LS</p>
                                     @error('lintang')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -120,7 +120,7 @@
                                     <input id="jarak" type="text"
                                         class="form-control @error('jarak') is-invalid @enderror" name="jarak"
                                         value="{{ old('jarak', $datagempa->jarak) }}">
-                                         <p class="text-muted">Contoh : 10 Km Timur Laut Sangata</p>
+                                    <p class="text-muted">Contoh : 10 Km Timur Laut Sangata</p>
                                     @error('jarak')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -131,7 +131,7 @@
                                     <input id="kedalaman" type="text"
                                         class="form-control @error('kedalaman') is-invalid @enderror" name="kedalaman"
                                         value="{{ old('kedalaman', $datagempa->kedalaman) }}">
-                                        <p class="text-muted">Cukup nilai 10 tanpa satuan, untuk kedalaman 10Km</p>
+                                    <p class="text-muted">Cukup nilai 10 tanpa satuan, untuk kedalaman 10Km</p>
                                     @error('kedalaman')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -168,7 +168,7 @@
                         </div>
 
                         <div class="card-footer d-flex justify-content-between px-4 py-3">
-                            <a href="{{ route('gempabumi.index') }}" class="btn btn-outline-danger">Cancel</a>
+                            <a href="{{ route('gempabumi.index') }}" class="btn btn-outline-danger">Batalkan</a>
                             <button class="btn btn-primary px-4">Simpan</button>
                         </div>
                     </form>

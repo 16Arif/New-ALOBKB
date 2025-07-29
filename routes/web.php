@@ -15,6 +15,7 @@ use App\Http\Controllers\ImageprofileController;
 use App\Http\Controllers\LogbookgempaController;
 use App\Http\Controllers\LogbookpetirController;
 use App\Http\Controllers\LogbookperalatanController;
+use App\Http\Controllers\NarasigempaController;
 use App\Http\Controllers\Settings\PasswordController;
 
 /*
@@ -37,11 +38,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('gempabumi', GempaController::class);
     Route::prefix('gempabumi/custom')->name('gempabumi.custom.')->group(function () {
         Route::get('/create', [GempaController::class, 'createOnedata'])->name('create');
-        Route::post('/store', [GempaController::class, 'storeOnedata'])->name('store');
         Route::get('/showImport', [GempaController::class, 'showImport'])->name('showImport');
         Route::post('/importCsv', [GempaController::class, 'importCsv'])->name('importCsv');
     });
-
+    Route::resource('narasigempa', NarasigempaController::class);
+    Route::get('/narasigempa/create/{id}', [NarasigempaController::class, 'createWithId'])->name('narasigempa.createWithId');
 
     Route::delete('/gempabumi-batch', [GempaController::class, 'destroyBatch'])->name('gempabumi.destroyBatch');
     Route::post('/gempabumi/infografiss', [GempaController::class, 'infografiss'])->name('gempabumi.infografiss');

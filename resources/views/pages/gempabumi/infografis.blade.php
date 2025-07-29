@@ -132,14 +132,23 @@
                                         <h5 class="text-dark mb-1 fw-semibold">Peta Seismisitas Kalimantan dan Sekitarnya
                                         </h5>
                                         <h6 class="text-dark mb-1">Stasiun Geofisika Balikpapan</h6>
-                                        <p class="text-dark mb-0">
-                                            Periode
-                                            {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }} –
-                                            {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d F Y') }}
-                                        </p>
+
+                                        @if ($startDate == $endDate)
+                                            <p class="text-dark mb-0">
+                                                Tanggal:
+                                                {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }}
+                                            </p>
+                                        @else
+                                            <p class="text-dark mb-0">
+                                                Periode:
+                                                {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }} –
+                                                {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d F Y') }}
+                                            </p>
+                                        @endif
 
                                     </div>
                                 </div>
+
 
                                 <!-- MAP -->
                                 <div id="map-container" class="d-flex justify-content-center">
@@ -188,8 +197,8 @@
                                             </div>
                                         @endfor
                                         <div class="d-flex align-items-center gap-1 ml-2 mx-2">
-                                            <img src="{{ asset('img/red-star.png') }}" width="14"
-                                                alt="bintang putih"> Dirasakan
+                                            <img src="{{ asset('img/red-star.png') }}" width="14" alt="bintang putih">
+                                            Dirasakan
                                         </div>
                                         <div class="d-flex align-items-center gap-1 mx-2">
                                             <svg width="20" height="10">
@@ -219,15 +228,17 @@
 
                 {{-- INFOGRAFIS --}}
                 <div class="row">
-                    @foreach ($data as $gempa)
+                    @foreach ($data as $index => $gempa)
                         @php
                             $color =
                                 $gempa->magnitudo >= 5 ? 'danger' : ($gempa->magnitudo >= 3 ? 'warning' : 'success');
+                            $nomor = $index + 1;
                         @endphp
                         <div class="col-md-6 col-lg-4 mb-4">
                             <div class="card card-gempa shadow-sm border-start border-4 border-{{ $color }}">
                                 <div class="card-body">
-                                    <h5 class="card-title text-{{ $color }}">M{{ $gempa->magnitudo }}</h5>
+                                    <h5 class="card-title text-{{ $color }}">#{{ $nomor }} —
+                                        M{{ $gempa->magnitudo }}</h5>
                                     <p class="card-text mb-1"><strong>Tanggal:</strong> {{ $gempa->tanggal }}</p>
                                     <p class="card-text mb-1"><strong>Waktu (WIB):</strong> {{ $gempa->waktu }}</p>
                                     <p class="card-text mb-1"><strong>Lokasi:</strong> {{ $gempa->lintang }},

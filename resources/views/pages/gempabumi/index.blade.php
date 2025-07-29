@@ -234,7 +234,7 @@
                                             <th>Kedalaman (Km)</th>
                                             <th>Jarak</th>
                                             <th>Dirasakan</th>
-                                            <th>Aksi</th>
+                                            <th></th>
                                         </tr>
 
                                         @forelse ($datagempa as $index => $gempa)
@@ -249,31 +249,55 @@
                                                 <td>{{ $gempa->waktu }}</td>
                                                 <td>{{ $gempa->waktu_utc }}</td>
                                                 <td>{{ $gempa->waktu_wita }}</td>
-                                                <td>{{ $gempa->lintang }}</td>
-                                                <td>{{ $gempa->bujur }}</td>
+                                                <td>{{ $gempa->formatted_lintang }}</td>
+                                                <td>{{ $gempa->formatted_bujur }}</td>
                                                 <td>{{ $gempa->magnitudo }}</td>
                                                 <td>{{ $gempa->kedalaman }}</td>
                                                 <td>{{ $gempa->jarak }}</td>
                                                 <td>{{ $gempa->dirasakan }}</td>
                                                 <td>
-                                                    <div class="d-flex justify-content-center">
-
-                                                        <a href="{{ route('gempabumi.edit', $gempa->id) }}">
-                                                            <div class="btn btn-sm btn-info btn-icon">
-                                                                <i class="fas fa-edit"></i>
-                                                            </div>
-                                                        </a>
-                                                        <form action="{{ route('gempabumi.destroy', $gempa->id) }}"
-                                                            method="POST" class="ml-2">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button class="btn btn-sm btn-danger btn-icon"
-                                                                onclick="return confirmDelete({{ $gempa->id }})">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </form>
-
+                                                    <div class="dropdown text-end">
+                                                        <button class="btn btn-light border shadow-sm" type="button"
+                                                            id="dropdownMenu{{ $gempa->id }}"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm animate__animated animate__fadeIn"
+                                                            aria-labelledby="dropdownMenu{{ $gempa->id }}">
+                                                            @if ($gempa->dirasakan == 'DIRASAKAN')
+                                                                <li>
+                                                                    <a class="dropdown-item text-success "
+                                                                        href="{{ route('narasigempa.createWithId', $gempa->id) }}">
+                                                                        <i
+                                                                            class="fa-solid fa-file-lines me-2 text-success ml-1"></i>
+                                                                        Buat Narasi
+                                                                    </a>
+                                                                </li>
+                                                            @endif
+                                                            <li>
+                                                                <a class="dropdown-item text-info "
+                                                                    href="{{ route('gempabumi.edit', $gempa->id) }}">
+                                                                    <i
+                                                                        class="fa-solid fa-pen-to-square me-2 text-info ml-1"></i>
+                                                                    Edit
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <form
+                                                                    action="{{ route('gempabumi.destroy', $gempa->id) }}"
+                                                                    method="POST"
+                                                                    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="dropdown-item btn-sm text-danger">
+                                                                        <i class="fa-solid fa-trash me-2"></i> Hapus
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
                                                     </div>
+
                                                 </td>
                                             </tr>
                                         @empty
