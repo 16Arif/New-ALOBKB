@@ -77,7 +77,7 @@
                                         <p>
                                             Hari
                                             <strong>{{ \Carbon\Carbon::parse($gempa->tanggal)->translatedFormat('l, d F Y') }}</strong>
-                                            pukul <strong>{{ $gempa->waktu_wita }} WITA</strong>, wilayah
+                                            pukul <strong>{{ $gempa->waktu }} WIB</strong>, wilayah
                                             <span contenteditable="true" class="editable-input"
                                                 style="background-color: #d1d1d1">Biduk-Biduk</span>
                                             diguncang
@@ -150,7 +150,10 @@
                                         <p>
                                             Hingga hari
                                             {{ \Carbon\Carbon::parse($gempa->tanggal)->translatedFormat('l, d F Y') }}
-                                            pukul <span contenteditable="true" class="editable-input">07.00 WITA</span>,
+                                            pukul <span contenteditable="true" class="editable-input"
+                                                style="background-color: #d1d1d1">{{ \Carbon\Carbon::parse($gempa->waktu)->addHour()->format('H:i') }}
+                                                WIB
+                                            </span>,
                                             hasil monitoring <span contenteditable="true" class="editable-input"
                                                 style="background-color: #d1d1d1">belum
                                                 menunjukkan adanya aktivitas gempabumi susulan (aftershock)</span>.

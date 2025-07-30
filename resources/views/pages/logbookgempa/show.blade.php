@@ -100,15 +100,21 @@
     <img src="img\kop-gempa.png" alt="Logo" style="height: 120px; width: 100%">
     <table>
         <tr>
-            <td>1. Tanggal Dinas</td>
-            <td>{{ $logbookgempa->tanggal }}</td>
+            <td>Hari, Tanggal Dinas</td>
+            <td>{{ \Carbon\Carbon::parse($logbookgempa->tanggal)->translatedFormat('l, d F Y') }}</td>
         </tr>
         <tr>
-            <td>2. Jam Dinas</td>
-            <td>{{ $logbookgempa->jam }} WITA</td>
+            <td>Jam Dinas</td>
+            @php
+                use Carbon\Carbon;
+
+                $start = Carbon::createFromFormat('H.i', $logbookgempa->jam);
+                $end = $start->copy()->addHours(7)->addMinutes(30);
+            @endphp
+            <td>{{ $start->format('H.i') }} - {{ $end->format('H.i') }} WITA</td>
         </tr>
         <tr>
-            <td>3. On Duty</td>
+            <td>On Duty</td>
             <td>
                 <ol>
                     <li>{{ $logbookgempa->onduty1 }}</li>
@@ -118,7 +124,7 @@
             </td>
         </tr>
         <tr>
-            <td>5. Monitoring</td>
+            <td>Aktifitas</td>
             <td>
                 <ul>
                     <li>{{ $logbookgempa->kegiatan1 }}</li>
@@ -131,7 +137,7 @@
             </td>
         </tr>
         <tr>
-            <td>6. Catatan</td>
+            <td>Tugas Tambahan</td>
             <td>
                 <article>
                     {!! $logbookgempa->note !!}
@@ -139,27 +145,7 @@
             </article>
         </tr>
     </table>
-    {{-- <p id="mengetahui">Mengetahui,</p>
-    <p id="kpg">Kepala Stasiun Geofisika Balikpapan</p>
-    <p id="nama-kpg">Rasmid, M.Si</p> --}}
 
-    <table>
-        <tr>
-            <th></th>
-            <th>Kepala UPT</th>
-            <th style="width: 30%">Koordinator OPS</th>
-        </tr>
-        <tr>
-            <td>Paraf</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Nama</td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
 
 </body>
 

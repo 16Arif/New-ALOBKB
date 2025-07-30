@@ -96,18 +96,26 @@
 </head>
 
 <body>
+
+
     <img src="img\kop-petir.png" alt="Logo" style="height: 120px; width: 100%">
     <table>
         <tr>
-            <td>1. Tanggal Dinas</td>
-            <td>{{ $logbookpetir->tanggal }}</td>
+            <td>Hari, Tanggal Dinas</td>
+            <td>{{ \Carbon\Carbon::parse($logbookpetir->tanggal)->translatedFormat('l, d F Y') }}</td>
         </tr>
         <tr>
-            <td>2. Jam Dinas</td>
-            <td>{{ $logbookpetir->jam }} WITA</td>
+            <td>Jam Dinas</td>
+            @php
+                use Carbon\Carbon;
+
+                $start = Carbon::createFromFormat('H.i', $logbookpetir->jam);
+                $end = $start->copy()->addHours(7)->addMinutes(30);
+            @endphp
+            <td>{{ $start->format('H.i') }} - {{ $end->format('H.i') }} WITA</td>
         </tr>
         <tr>
-            <td>3. On Duty</td>
+            <td>On Duty</td>
             <td>
                 <ol>
                     <li>{{ $logbookpetir->onduty1 }}</li>
@@ -116,9 +124,8 @@
                 </ol>
             </td>
         </tr>
-
         <tr>
-            <td>5. Pengamatan</td>
+            <td>Aktifitas</td>
             <td>
                 <ul>
                     <li>{{ $logbookpetir->pengamatan1 }}</li>
@@ -132,7 +139,7 @@
             </td>
         </tr>
         <tr>
-            <td>6. Catatan</td>
+            <td>Tugas Tambahan</td>
             <td>
                 <article>
                     {!! $logbookpetir->note !!}
@@ -140,27 +147,7 @@
             </article>
         </tr>
     </table>
-    {{-- <p id="mengetahui">Mengetahui,</p>
-    <p id="kpg">Kepala Stasiun Geofisika Balikpapan</p>
-    <p id="nama-kpg">Rasmid, M.Si</p> --}}
 
-    <table>
-        <tr>
-            <th></th>
-            <th>Kepala UPT</th>
-            <th style="width: 30%">Koordinator OPS</th>
-        </tr>
-        <tr>
-            <td>Paraf</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Nama</td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
 
 
 </body>

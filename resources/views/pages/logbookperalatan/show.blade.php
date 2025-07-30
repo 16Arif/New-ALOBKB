@@ -108,15 +108,21 @@
 
     <table>
         <tr>
-            <td>Tanggal Dinas</td>
-            <td>{{ $logbookperalatan->tanggal }}</td>
+            <td>Hari, Tanggal Dinas</td>
+            <td>{{ \Carbon\Carbon::parse($logbookperalatan->tanggal)->translatedFormat('l, d F Y') }}</td>
         </tr>
         <tr>
             <td>Jam Dinas</td>
-            <td>{{ $logbookperalatan->jam }} WITA</td>
+            @php
+                use Carbon\Carbon;
+
+                $start = Carbon::createFromFormat('H.i', $logbookperalatan->jam);
+                $end = $start->copy()->addHours(7)->addMinutes(30);
+            @endphp
+            <td>{{ $start->format('H.i') }} - {{ $end->format('H.i') }} WITA</td>
         </tr>
         <tr>
-            <td>Pegawai Dinas</td>
+            <td>On Duty</td>
             <td>
                 <ol>
                     <li>{{ $logbookperalatan->onduty1 }}</li>
@@ -199,27 +205,7 @@
         <!-- Tambahkan data lainnya -->
     </table>
 
-    <h6>Catatan </h6>
-    <p>{!! $logbookperalatan->note !!}</p>
-    <br>
-    {{-- <!-- Tanda Tangan --> --}}
-    <table>
-        <tr>
-            <th></th>
-            <th>Kepala UPT</th>
-            <th style="width: 30%">Koordinator OPS</th>
-        </tr>
-        <tr>
-            <td>Paraf</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Nama</td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
+
 
 
 </body>

@@ -35,7 +35,10 @@ class LogbookperalatanController extends Controller
         // Tentukan nama file berdasarkan tanggal atau ID
         $tanggal = date('Y-m-d', strtotime($logbookperalatan->tanggal)); // Sesuaikan dengan field tanggal di database
         $jam = date('H-i', strtotime($logbookperalatan->jam)); // Format HH-MM-SS
-        $namaFile = "LogbookPeralatan_{$tanggal}_{$jam}.pdf"; // Nama file yang akan diunduh
+        $onduty1 = $logbookperalatan->onduty1;
+        $onduty2 = $logbookperalatan->onduty2;
+        $onduty3 = $logbookperalatan->onduty3;
+        $namaFile = "LogbookPeralatan_{$tanggal}_{$jam}_{$onduty1}_{$onduty2}_{$onduty3}.pdf"; // Nama file yang akan diunduh
 
         // Inisialisasi mPDF
         $mpdf = new \Mpdf\Mpdf();

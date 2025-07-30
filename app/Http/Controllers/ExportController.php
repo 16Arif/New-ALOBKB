@@ -48,7 +48,7 @@ class ExportController extends Controller
                 ];
             });
 
-        SimpleExcelWriter::streamDownload("logbook_petir_{$start}_to_{$end}.xlsx")
+        SimpleExcelWriter::streamDownload("logbook_petirs_{$start}_to_{$end}.xlsx")
             ->addRows($rows);
     }
 

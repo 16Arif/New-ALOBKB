@@ -103,7 +103,10 @@ class LogbookpetirController extends Controller
         // Tentukan nama file berdasarkan tanggal atau ID
         $tanggal = date('Y-m-d', strtotime($logbookpetir->tanggal)); // Sesuaikan dengan field tanggal di database
         $jam = date('H-i', strtotime($logbookpetir->jam)); // Format HH-MM-SS
-        $namaFile = "LogbookPetir_{$tanggal}_{$jam}.pdf"; // Nama file yang akan diunduh
+        $onduty1 = $logbookpetir->onduty1;
+        $onduty2 = $logbookpetir->onduty2;
+        $onduty3 = $logbookpetir->onduty3;
+        $namaFile = "LogbookPetir_{$tanggal}_{$jam}_{$onduty1}_{$onduty2}_{$onduty3}.pdf"; // Nama file yang akan diunduh
 
         // Inisialisasi mPDF
         $mpdf = new \Mpdf\Mpdf();
