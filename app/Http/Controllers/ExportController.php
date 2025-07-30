@@ -182,7 +182,7 @@ class ExportController extends Controller
                     'jarak' => $item->jarak,
                     'kedalaman' => $item->kedalaman,
                     'dirasakan' => $item->dirasakan,
-                    'keterangan' => $item->keterangan,
+                    'keterangan' => strip_tags($item->keterangan ?? ''),
                 ];
             });
 
@@ -218,7 +218,7 @@ class ExportController extends Controller
                     'jarak' => $item->jarak,
                     'kedalaman' => $item->kedalaman,
                     'dirasakan' => $item->dirasakan,
-                    'keterangan' => $item->keterangan,
+                    'keterangan' => strip_tags($item->keterangan ?? ''),
                 ];
             });
 
