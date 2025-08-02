@@ -6,42 +6,6 @@
     <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /> />
-
-    <style>
-        .legend-gempa {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-            z-index: 999;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 4px;
-            gap: 6px;
-        }
-
-        .legend-icon-red {
-            width: 14px;
-            height: 14px;
-            background-color: red;
-            border-radius: 50%;
-            border: 2px solid white;
-        }
-
-        .legend-line {
-            width: 20px;
-            height: 2px;
-            background-color: #8A2D3B;
-            border: 1px dashed #8A2D3B;
-        }
-    </style>
 @endpush
 
 @section('main')
@@ -110,38 +74,22 @@
                                 <div id="infografisBody" class="card border-info mx-auto" style="max-width: 700px;">
 
                                     <!-- Header Info Gempa -->
-                                    <div class="card-header d-flex justify-content-center align-items-center p-3 rounded-top"
-                                        style="background-color: #8bacd1;">
+                                    <div class="card-header d-flex justify-content-between align-items-center p-3 rounded-top"
+                                        style="background-color: #fff6e8;">
                                         <img src="/img/logo-bmkg.png" alt="Logo BMKG" style="height: 48px;" class="mx-5">
                                         <div class="text-end">
-
-                                            <h5 class="text-dark mb-1 fw-semibold">Info Gempabumi Kalimantan
-                                            </h5>
-                                            <h6 class="text-dark mb-1">Stasiun Geofisika Balikpapan</h6>
-
+                                            <h4 class="fw-semibold text-dark">Info Gempabumi Kalimantan</h4>
+                                            <h5 class="small">Stasiun Geofisika
+                                                Balikpapan</h5>
                                         </div>
                                     </div>
 
-                                    <div id="map" style="height: 500px; overflow: hidden; opacity: 0.7;">
-                                        <div class="legend-gempa">
-                                            <div class="legend-item">
-                                                <div class="legend-icon-red"></div>
-                                                <span>Titik Pusat Gempa</span>
-                                            </div>
-                                            <div class="legend-item">
-                                                <svg width="20" height="10">
-                                                    <line x1="0" y1="5" x2="20" y2="5"
-                                                        stroke="#A16D28" stroke-width="2" stroke-dasharray="5,5" />
-                                                </svg>
-                                                <span>Garis Sesar</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- <small class="text-muted">
+                                    <div id="map" style="height: 500px; overflow: hidden;"></div>
+                                    <small class="text-muted">
                                         Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ" — disesuaikan untuk
                                         keperluan infografis Stasiun
                                         Geofisika Balikpapan
-                                    </small> --}}
+                                    </small>
 
                                     <div class="" id="parameterOutput"></div>
                                 </div>
@@ -228,31 +176,31 @@
                 <div class="d-flex flex-wrap w-100">
                     <!-- Kolom Magnitudo -->
                     <div class=" text-white text-center d-flex flex-column justify-content-center align-items-center p-4" style="width: 25%; background-color: #CB0404;">
-                       <h4 class="text-uppercase fw-bold" style="font-weight: 900;">Magnitudo</h4>
-                       <h1 class="display-3 fw-bold mb-0" style="font-weight: 900;">${magnitudo}</h1>
+                        <small class="text-uppercase fw-bold">Magnitudo</small>
+                        <h1 class="display-4 fw-bold mb-0">${magnitudo}</h1>
                     </div>
 
-                   <!-- Kolom Informasi Detail -->
-                    <div class="p-4 text-dark" style="width: 75%; background-color: #8bacd1;">
+                    <!-- Kolom Informasi Detail -->
+                    <div class="p-4" style="width: 75%; background-color: #f8f6ef;">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-2">
                                 <i class="bi bi-calendar-event me-2"></i>
-                                <h5 class="d-inline">Waktu:</h5>
-                                <h6 class="ms-1 fw-semibold">${tanggal} <br> ${waktu} WIB</h6>
+                                <strong>Waktu</strong><br>
+                                ${tanggal} ${waktu} WIB
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-2">
                                 <i class="bi bi-graph-down me-2"></i>
-                                <h5 class="d-inline">Kedalaman:</h5>
-                                <h6 class="ms-1 fw-semibold">${kedalaman} Km</h6>
+                                <strong>Kedalaman</strong><br>
+                                ${kedalaman} Km
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 mt-2">
                                 <i class="bi bi-geo-alt-fill me-2 text-danger"></i>
-                                <h5 class="d-inline">Lokasi:</h5>
-                                <h6 class="ms-1 fw-semibold">${lintang}, ${bujur} <br> ${jarak}</h6>
+                                <strong>Lokasi</strong><br>
+                                ${lintang}, ${bujur}<br>
+                                ${jarak}
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- Footer -->
@@ -282,23 +230,41 @@
                 window.gempaMap.invalidateSize();
             }, 200);
 
-            // esri lama 
-            // L.tileLayer(
-            //     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}", {
-            //         // attribution: "Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ",
-            //         maxZoom: 29,
-            //     }
-            // ).addTo(window.gempaMap);
+            // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            //     attribution: '&copy; OpenStreetMap contributors',
+            // }).addTo(window.gempaMap);
 
-            // kontur + nama kota 
-
-            L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-                maxZoom: 17,
-                attribution: 'Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap (CC-BY-SA)'
-            }).addTo(window.gempaMap);
+            L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}", {
+                    // attribution: "Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ",
+                    maxZoom: 29,
+                }
+            ).addTo(window.gempaMap);
 
 
+            // // Tambahkan layer sesar lokal
+            // fetch("/fault/sesar_kalimantan.geojson")
+            //     .then((res) => res.json())
+            //     .then((data) => {
+            //         // Simpan ke window agar bisa dihapus sementara
+            //         window.layerSesar = L.geoJSON(data, {
+            //             style: {
+            //                 color: "#8A2D3B",
+            //                 weight: 2,
+            //                 dashArray: "4, 4",
+            //             },
+            //             onEachFeature: function(feature, layer) {
+            //                 if (feature.properties && feature.properties.name) {
+            //                     layer.bindPopup("Sesar: " + feature.properties.name);
+            //                 }
+            //             },
+            //         });
 
+            //         window.layerSesar.addTo(window.gempaMap);
+            //     })
+            //     .catch((err) => {
+            //         console.error("Gagal memuat sesar:", err);
+            //     });
 
 
             const redIcon = L.divIcon({
@@ -402,10 +368,9 @@
                 .then((data) => {
                     window.layerSesar = L.geoJSON(data, {
                         style: {
-                            color: "#B22222",
+                            color: "#8A2D3B",
                             weight: 2,
                             dashArray: "4, 4",
-                            opacity: 1
                         },
                         onEachFeature: function(feature, layer) {
                             if (feature.properties && feature.properties.name) {
