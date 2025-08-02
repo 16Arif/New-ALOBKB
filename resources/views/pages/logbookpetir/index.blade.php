@@ -98,7 +98,7 @@
                                             <th>Tanggal</th>
                                             <th>Jam Dinas</th>
                                             <th>On Duty</th>
-                                            <th></th>
+                                            <th>Tugas Tambahan</th>
                                         </tr>
 
                                         @forelse ($logbookpetirs as $index => $lbp)
@@ -115,10 +115,9 @@
                                                         <li>{{ $lbp->onduty1 }}</li>
                                                         <li>{{ $lbp->onduty2 }}</li>
                                                         <li>{{ $lbp->onduty3 }}</li>
-
                                                     </ul>
                                                 </td>
-
+                                                <td class="col-md-4">{!! $lbp->note !!}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
                                                         <a href="{{ route('logbookpetir.show', $lbp->id) }}"

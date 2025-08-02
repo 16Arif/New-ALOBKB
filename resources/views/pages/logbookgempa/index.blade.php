@@ -95,7 +95,7 @@
                                             <th>Tanggal</th>
                                             <th>Jam Dinas</th>
                                             <th>On Duty</th>
-                                            <th class="col-md-4">Keterangan</th>
+                                            <th class="col-md-4">Tugas Tambahan</th>
                                             <th></th>
                                         </tr>
                                         @forelse ($logbookgempas as $index => $lpg)
@@ -112,7 +112,7 @@
                                                         <li>{{ $lpg->onduty3 }}</li>
                                                     </ul>
                                                 </td>
-                                                <td>{{ $lpg->note }}
+                                                <td>{!! $lpg->note !!}
                                                 </td>
 
                                                 <td>

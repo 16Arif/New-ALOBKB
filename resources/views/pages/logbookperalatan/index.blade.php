@@ -95,7 +95,7 @@
                                             <th>Tanggal</th>
                                             <th>Jam Dinas</th>
                                             <th>On Duty</th>
-                                            <th>Keterangan</th>
+                                            <th>Tugas Tambahan</th>
                                             <th></th>
                                         </tr>
 
