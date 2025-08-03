@@ -277,9 +277,10 @@
         }
 
 
-        L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}", {
-            // attribution: "Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ",
-            maxZoom: 9,
+        L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+            maxZoom: 17,
+            opacity: 0.7,
+            attribution: 'Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap (CC-BY-SA)'
         }).addTo(map);
 
         const starIcon = L.icon({
@@ -350,15 +351,16 @@
 
     <script>
         // Load file geojson sesar Kalimantan
-        fetch('/fault/sesar_kalimantan.geojson')
+        fetch('/fault/sesar_indonesia.geojson')
             .then(response => response.json())
             .then(data => {
                 const faultLine = L.geoJSON(data, {
                     style: function(feature) {
                         return {
-                            color: '#A16D28',
+                            color: '#393E46',
                             weight: 2,
-                            dashArray: '5,5'
+                            dashArray: "4, 4",
+                            opacity: 1
                         };
                     },
                     onEachFeature: function(feature, layer) {

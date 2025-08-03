@@ -66,7 +66,7 @@
                             </div>
                             <div class="card-body">
                                 <div class=" shadow-sm  mb-4">
-                                    <div class=" px-4 py-4">
+                                    <div class=" px-4 py-4" id="narrationText">
                                         <h5 class="text-dark fw-bold mb-3">
                                             GEMPABUMI TEKTONIK M={{ $gempa->magnitudo }} MENGGUNCANG WILAYAH
                                             <span contenteditable="true" class="editable-input"
@@ -181,6 +181,13 @@
                                             <p class="fw-bold">Rasmid, M.Si</p>
                                         </div>
                                     </div>
+
+
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <button onclick="copyNarration()" class="btn btn-primary mb-3 ">
+                                        <i class="fas fa-copy"></i> Salin Narasi
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -223,6 +230,30 @@
             };
 
             document.getElementById('mmi-description').innerText = description[level] || '';
+        }
+    </script>
+
+    <script>
+        function copyNarration() {
+            const range = document.createRange();
+            const narration = document.getElementById("narrationText");
+
+            range.selectNode(narration);
+            window.getSelection().removeAllRanges(); // clear any current selection
+            window.getSelection().addRange(range);
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    alert('✅ Narasi berhasil disalin ke clipboard.');
+                } else {
+                    alert('❌ Gagal menyalin narasi.');
+                }
+            } catch (err) {
+                alert('❌ Browser tidak mendukung fitur salin otomatis.');
+            }
+
+            window.getSelection().removeAllRanges(); // clear selection
         }
     </script>
 @endpush

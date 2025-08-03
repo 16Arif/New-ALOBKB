@@ -59,7 +59,7 @@
             <div class="section-body">
                 <div class="row">
                     <div class="col-12">
-                        <div class="container bg-white rounded shadow p-4 my-2 ">
+                        <div class="container rounded shadow p-4 my-2 " style="background-color: rgb(98, 116, 143)">
 
                             <!-- Header -->
                             <div class="text-center mb-4">
@@ -68,16 +68,17 @@
                                     <h1 class="h4 mt-4 fw-bold text-dark">
                                         Generator Infografis Gempabumi BMKG-BKB
                                     </h1>
-                                    <p class="text-muted mt-2">Masukkan informasi gempa dari BMKG dan buat infografis secara
+                                    <p class="text-white mt-2">Masukkan informasi gempa dari BMKG dan buat infografis secara
                                         otomatis</p>
                                 </div>
                             </div>
 
                             <!-- Input -->
                             <div class="mb-4">
-                                <label for="infoText" class="form-label fw-medium text-center w-100">Format Parameter
+                                <label for="infoText" class="form-label fw-medium text-center w-100 text-white">Format
+                                    Parameter
                                     Gempa</label>
-                                <p class="fw-medium text-center">Teks Berikut Sesuai Dengan Info Dari EXDX</p>
+                                <p class="fw-medium text-center text-white">Teks Berikut Sesuai Dengan Info Dari EXDX</p>
                                 <h6 class="text-center mx-auto mb-3 text-dark" style="width: 70%;">
                                     Contoh: Info Gempa Mag:3.2, 08-Jun-25 00:00:16 WIB, Lok:0.68 LU,118.62 BT (141 km
                                     TimurLaut BONTANG-KALTIM), Kedlmn:6 Km ::BMKG-BKB
@@ -111,7 +112,7 @@
 
                                     <!-- Header Info Gempa -->
                                     <div class="card-header d-flex justify-content-center align-items-center p-3 rounded-top"
-                                        style="background-color: #8bacd1;">
+                                        style="background-color: #ffffff;">
                                         <img src="/img/logo-bmkg.png" alt="Logo BMKG" style="height: 48px;" class="mx-5">
                                         <div class="text-end">
 
@@ -122,7 +123,7 @@
                                         </div>
                                     </div>
 
-                                    <div id="map" style="height: 500px; overflow: hidden; opacity: 0.7;">
+                                    <div id="map" style="height: 500px; overflow: hidden;">
                                         <div class="legend-gempa">
                                             <div class="legend-item">
                                                 <div class="legend-icon-red"></div>
@@ -148,7 +149,7 @@
                                 <div class="justify-content-center">
 
 
-                                    <button class="btn btn-info d-none" id="saveButton" onclick="saveAsImage()"><i
+                                    <button class="btn btn-info d-none mx-4" id="saveButton" onclick="saveAsImage()"><i
                                             class="fa-solid fa-download"></i> Simpan
                                         Gambar</button>
 
@@ -233,7 +234,7 @@
                     </div>
 
                    <!-- Kolom Informasi Detail -->
-                    <div class="p-4 text-dark" style="width: 75%; background-color: #8bacd1;">
+                    <div class="p-4 text-dark" style="width: 75%; background-color: #ffffff;">
                         <div class="row">
                             <div class="col-md-6">
                                 <i class="bi bi-calendar-event me-2"></i>
@@ -290,12 +291,34 @@
             //     }
             // ).addTo(window.gempaMap);
 
-            // kontur + nama kota 
+            // kontur + nama kota
 
             L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
                 maxZoom: 17,
+                opacity: 0.7,
                 attribution: 'Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap (CC-BY-SA)'
             }).addTo(window.gempaMap);
+
+
+            // Base map kontur
+            // L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}', {
+            //     maxZoom: 16,
+            //     attribution: 'Tiles courtesy of the U.S. Geological Survey'
+            // }).addTo(window.gempaMap);
+
+            // // Overlay label nama kota
+            // L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+            //     attribution: '&copy; CartoDB',
+            //     subdomains: 'abcd',
+            //     pane: 'overlayPane'
+            // }).addTo(window.gempaMap);
+
+
+
+
+
+
+
 
 
 
@@ -303,10 +326,26 @@
 
             const redIcon = L.divIcon({
                 className: 'custom-icon',
-                html: '<div style="width: 20px; height: 20px; background-color: red; border-radius: 70%; border: 3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.5);"></div>',
-                iconSize: [30, 30],
-                iconAnchor: [10, 10]
+                html: `
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <!-- r4: Lingkaran luar paling besar -->
+                        <circle cx="60" cy="60" r="60" fill="rgba(182, 25, 13, 0.1)" />
+
+                        <!-- r3: Lingkaran luar kedua -->
+                        <circle cx="60" cy="60" r="30" fill="rgba(182, 25, 13, 0.2)" />
+
+                        <!-- r2: Lingkaran putih di tengah -->
+                        <circle cx="60" cy="60" r="8" fill="white" />
+
+                        <!-- r1: Lingkaran merah solid sebagai titik pusat -->
+                        <circle cx="60" cy="60" r="7" fill="rgb(182, 25, 13)" />
+                    </svg>
+                `,
+                iconSize: [100, 100],
+                iconAnchor: [50, 50], // agar titik pusat tepat di koordinat
             });
+
+
 
             L.marker([latFix, lonFix], {
                     icon: redIcon
@@ -397,12 +436,12 @@
         }
 
         function tambahLayerSesar() {
-            fetch("/fault/sesar_kalimantan.geojson")
+            fetch("/fault/sesar_indonesia.geojson")
                 .then((res) => res.json())
                 .then((data) => {
                     window.layerSesar = L.geoJSON(data, {
                         style: {
-                            color: "#B22222",
+                            color: "#393E46",
                             weight: 2,
                             dashArray: "4, 4",
                             opacity: 1
