@@ -79,8 +79,8 @@
 
                                     <form method="GET" action="{{ route('logbookperalatan.index') }}">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Cari On Duty"
-                                                name="search" value="{{ request('search') }}" autocomplete="off">
+                                            <input type="text" class="form-control" placeholder="Cari" name="search"
+                                                value="{{ request('search') }}" autocomplete="off">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>
@@ -151,7 +151,7 @@
 
                                     </table>
                                 </div>
-                                <div class="float-right mt-3">
+                                <div class="d-flex justify-content-center mt-3">
                                     {{ $logbookperalatans->withQueryString()->links() }}
                                 </div>
                             </div>

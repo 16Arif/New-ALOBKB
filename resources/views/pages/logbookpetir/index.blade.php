@@ -80,7 +80,7 @@
                                 <div class="float-right">
                                     <form method="GET" action="{{ route('logbookpetir.index') }}">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search" name="search"
+                                            <input type="text" class="form-control" placeholder="Cari" name="search"
                                                 value="{{ request('search') }}">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
@@ -99,6 +99,7 @@
                                             <th>Jam Dinas</th>
                                             <th>On Duty</th>
                                             <th>Tugas Tambahan</th>
+                                            <th></th>
                                         </tr>
 
                                         @forelse ($logbookpetirs as $index => $lbp)
@@ -154,7 +155,7 @@
 
                                     </table>
                                 </div>
-                                <div class="float-right mt-3">
+                                <div class="d-flex justify-content-center mt-3">
                                     {{ $logbookpetirs->withQueryString()->links() }}
                                 </div>
                             </div>

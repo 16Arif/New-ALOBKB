@@ -44,18 +44,15 @@
                             </div>
                             <div class="card-body">
                                 <!-- Ringkasan Data Gempa -->
-                                <div class="card mb-4">
-                                    <div class="card-body">
-                                        <h5 class="card-title text-danger">Magnitudo {{ $gempa->magnitudo }}</h5>
-                                        <p><strong>Tanggal & Waktu:</strong> {{ $gempa->tanggal }} {{ $gempa->waktu }} WIB
-                                        </p>
-                                        <p><strong>Lokasi:</strong> {{ $gempa->formatted_lintang }},
-                                            {{ $gempa->formatted_bujur }}</p>
-                                        <p><strong>Kedalaman:</strong> {{ $gempa->kedalaman }} Km</p>
-                                        <p><strong>Jarak & Wilayah:</strong> {{ $gempa->jarak }}</p>
-                                        <p><strong>Dirasakan:</strong> {{ $gempa->dirasakan }}</p>
-                                    </div>
-                                </div>
+                                <h5 class="card-title text-danger">Magnitudo {{ $gempa->magnitudo }}</h5>
+                                <p><strong>Tanggal & Waktu:</strong> {{ $gempa->tanggal->format('d-m-Y') }}
+                                    {{ $gempa->waktu }} WIB
+                                </p>
+                                <p><strong>Lokasi:</strong> {{ $gempa->formatted_lintang }},
+                                    {{ $gempa->formatted_bujur }}</p>
+                                <p><strong>Kedalaman:</strong> {{ $gempa->kedalaman }} Km</p>
+                                <p><strong>Jarak & Wilayah:</strong> {{ $gempa->jarak }}</p>
+                                <p><strong>Dirasakan:</strong> {{ $gempa->dirasakan }}</p>
                             </div>
                         </div>
                     </div>

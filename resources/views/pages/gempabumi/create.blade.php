@@ -132,7 +132,7 @@
                                             <div class="legend-item">
                                                 <svg width="20" height="10">
                                                     <line x1="0" y1="5" x2="20" y2="5"
-                                                        stroke="#A16D28" stroke-width="2" stroke-dasharray="5,5" />
+                                                        stroke="#393E46" stroke-width="2" stroke-dasharray="5,5" />
                                                 </svg>
                                                 <span>Garis Sesar</span>
                                             </div>
@@ -314,35 +314,33 @@
             // }).addTo(window.gempaMap);
 
 
-
-
-
-
-
-
-
-
-
-
             const redIcon = L.divIcon({
                 className: 'custom-icon',
                 html: `
-                    <svg width="120" height="120" viewBox="0 0 120 120">
-                        <!-- r4: Lingkaran luar paling besar -->
-                        <circle cx="60" cy="60" r="60" fill="rgba(182, 25, 13, 0.1)" />
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <defs>
+                                <!-- Radial gradient dari putih ke merah -->
+                                <radialGradient id="gradient-r3" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="white" stop-opacity="0.2"/>
+                                    <stop offset="100%" stop-color="rgb(182, 25, 13)" stop-opacity="0.2"/>
+                                </radialGradient>
+                            </defs>
 
-                        <!-- r3: Lingkaran luar kedua -->
-                        <circle cx="60" cy="60" r="30" fill="rgba(182, 25, 13, 0.2)" />
+                            <!-- r4: Lingkaran luar paling besar -->
+                            <circle cx="60" cy="60" r="60" fill="rgba(182, 25, 13, 0.1)" />
 
-                        <!-- r2: Lingkaran putih di tengah -->
-                        <circle cx="60" cy="60" r="8" fill="white" />
+                            <!-- r3: Lingkaran dengan gradasi -->
+                            <circle cx="60" cy="60" r="30" fill="url(#gradient-r3)" />
 
-                        <!-- r1: Lingkaran merah solid sebagai titik pusat -->
-                        <circle cx="60" cy="60" r="7" fill="rgb(182, 25, 13)" />
-                    </svg>
-                `,
+                            <!-- r2: Lingkaran putih di tengah -->
+                            <circle cx="60" cy="60" r="8" fill="white" />
+
+                            <!-- r1: Titik pusat merah -->
+                            <circle cx="60" cy="60" r="7" fill="rgb(182, 25, 13)" />
+                        </svg>
+                    `,
                 iconSize: [100, 100],
-                iconAnchor: [50, 50], // agar titik pusat tepat di koordinat
+                iconAnchor: [50, 50],
             });
 
 

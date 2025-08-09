@@ -13,7 +13,7 @@ class LogbookgempaController extends Controller
 {
     public function index(Request $request)
     {
-        $logbookgempas = DB::table('logbook_gempas')
+        $logbookgempas = LogbookGempa::query()
             ->when($request->input('search'), function ($query, $search) {
                 return $query
                     ->where('onduty1', 'like', '%' . $search . '%')

@@ -79,8 +79,8 @@
                                     <div class="float-right">
                                         <form method="GET" action="{{ route('logbookgempa.index') }}">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Cari On Duty"
-                                                    name="search" autocomplete="off" value="{{ request('search') }}">
+                                                <input type="text" class="form-control" placeholder="Cari" name="search"
+                                                    autocomplete="off" value="{{ request('search') }}">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                                 </div>
@@ -149,7 +149,7 @@
 
                                     </table>
                                 </div>
-                                <div class="float-right mt-3">
+                                <div class="d-flex justify-content-center mt-3">
                                     {{ $logbookgempas->withQueryString()->links() }}
                                 </div>
                             </div>

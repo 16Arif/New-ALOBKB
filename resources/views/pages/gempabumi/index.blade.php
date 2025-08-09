@@ -172,7 +172,7 @@
                                             </button>
                                             <form method="GET" action="{{ route('gempabumi.index') }}">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder="Search"
+                                                    <input type="text" class="form-control" placeholder="Cari"
                                                         name="search" value="{{ request('search') }}">
                                                     <div class="input-group-append">
                                                         <button class="btn btn-primary"><i
@@ -245,7 +245,7 @@
                                                 </td>
                                                 <td>{{ method_exists($datagempa, 'firstItem') ? $datagempa->firstItem() + $index : $index + 1 }}
                                                 </td>
-                                                <td>{{ $gempa->tanggal }}</td>
+                                                <td>{{ $gempa->tanggal->format('Y-m-d') }}</td>
                                                 <td>{{ $gempa->waktu }}</td>
                                                 <td>{{ $gempa->waktu_utc }}</td>
                                                 <td>{{ $gempa->waktu_wita }}</td>
@@ -309,7 +309,7 @@
                                     </table>
                                 </div>
                                 @if (!request()->has('per_page') || request('per_page') !== 'all')
-                                    <div class="mt-3">
+                                    <div class="mt-3 d-flex justify-content-center">
                                         {{ $datagempa->links() }}
                                     </div>
                                 @endif
