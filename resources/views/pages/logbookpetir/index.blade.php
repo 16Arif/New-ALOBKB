@@ -77,7 +77,7 @@
                                         Data</a>
                                 </div>
 
-                                <div class="float-right">
+                                <div class="float-right mb-3">
                                     <form method="GET" action="{{ route('logbookpetir.index') }}">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Cari" name="search"
@@ -88,9 +88,6 @@
                                         </div>
                                     </form>
                                 </div>
-
-                                <div class="clearfix mb-3"></div>
-
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
@@ -98,7 +95,7 @@
                                             <th>Tanggal</th>
                                             <th>Jam Dinas</th>
                                             <th>On Duty</th>
-                                            <th>Tugas Tambahan</th>
+                                            <th class="col-md-4">Tugas Tambahan</th>
                                             <th></th>
                                         </tr>
 
@@ -118,7 +115,7 @@
                                                         <li>{{ $lbp->onduty3 }}</li>
                                                     </ul>
                                                 </td>
-                                                <td class="col-md-4">{!! $lbp->note !!}</td>
+                                                <td>{!! $lbp->note !!}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
                                                         <a href="{{ route('logbookpetir.show', $lbp->id) }}"

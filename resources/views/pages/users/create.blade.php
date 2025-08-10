@@ -37,7 +37,7 @@
                             <div class="form-group">
                                 <label>Name</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name">
+                                    name="name" value="{{ old('name') }}">
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -47,7 +47,7 @@
                             <div class="form-group">
                                 <label>Username</label>
                                 <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                    name="username">
+                                    name="username" value="{{ old('username') }}">
                                 @error('username')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -57,7 +57,7 @@
                             <div class="form-group">
                                 <label>Email</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email">
+                                    name="email" value="{{ old('email') }}">
                                 @error('email')
                                     {{ $message }}
                                 @enderror
@@ -85,15 +85,18 @@
                                 <label class="form-label">Roles</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="ADMIN" class="selectgroup-input">
+                                        <input type="radio" name="roles" value="ADMIN" class="selectgroup-input"
+                                            @if (old('roles') == 'ADMIN') checked @endif>
                                         <span class="selectgroup-button">ADMIN</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="OBSERVER" class="selectgroup-input">
+                                        <input type="radio" name="roles" value="OBSERVER" class="selectgroup-input"
+                                            @if (old('roles') == 'OBSERVER') checked @endif>
                                         <span class="selectgroup-button">OBSERVER</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="TEKNISI" class="selectgroup-input">
+                                        <input type="radio" name="roles" value="TEKNISI" class="selectgroup-input"
+                                            @if (old('roles') == 'TEKNISI') checked @endif>
                                         <span class="selectgroup-button">TEKNISI</span>
                                     </label>
                                 </div>

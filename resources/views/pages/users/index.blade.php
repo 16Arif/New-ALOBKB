@@ -9,6 +9,11 @@
 
 @section('main')
     <div class="main-content">
+        <div class="row">
+            <div class="col-12">
+                @include('layouts.alert')
+            </div>
+        </div>
         <section class="section">
             <div class="section-header">
                 <h1>Users</h1>
@@ -20,11 +25,7 @@
                 </div>
             </div>
             <div class="section-body">
-                <div class="row">
-                    <div class="col-12">
-                        @include('layouts.alert')
-                    </div>
-                </div>
+
 
                 <div class="row mt-4">
                     <div class="col-12">
@@ -49,7 +50,7 @@
                                 <div class="float-right">
                                     <form method="GET" action="{{ route('user.index') }}">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search" name="username">
+                                            <input type="text" class="form-control" placeholder="Cari" name="username">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>
@@ -103,7 +104,7 @@
 
                                     </table>
                                 </div>
-                                <div class="float-right mt-3">
+                                <div class="d-flex justify-content-center mt-3">
                                     {{ $users->withQueryString()->links() }}
                                 </div>
                             </div>
