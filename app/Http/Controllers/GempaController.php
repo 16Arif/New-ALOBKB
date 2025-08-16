@@ -161,48 +161,68 @@ class GempaController extends Controller
     }
 
 
-    public function importCsv(Request $request)
+    public function importExcel(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|mimes:csv,txt',
+            'file' => 'required|file|mimes:xlsx,xls',
         ]);
 
-        // Simpan file dengan nama acak untuk menghindari konflik dan error permission
         $path = $request->file('file')->store('uploads');
-
-        // Ambil path penuh dengan aman
         $fullPath = Storage::path($path);
 
-        // Header yang diharapkan
+        // Header yang diharapkan (key => nama database)
         $expectedHeaders = [
-            'tanggal',
-            'waktu',
-            'waktu_utc',
-            'waktu_wita',
-            'magnitudo',
-            'lintang',
-            'bujur',
-            'jarak',
-            'kedalaman',
-            'dirasakan',
-            'keterangan',
+            'tanggal'       => 'tanggal',
+            'waktu'   => 'waktu',
+            'waktu (utc)'   => 'waktu_utc',
+            'waktu (wita)'  => 'waktu_wita',
+            'magnitudo'     => 'magnitudo',
+            'lintang'       => 'lintang',
+            'bujur'         => 'bujur',
+            'jarak'         => 'jarak',
+            'kedalaman'     => 'kedalaman',
+            'dirasakan'     => 'dirasakan',
+            'keterangan'    => 'keterangan',
         ];
 
         try {
             $reader = SimpleExcelReader::create($fullPath);
-            $headers = array_map('strtolower', array_map('trim', $reader->getHeaders()));
+            $headersFromFile = array_map('strtolower', array_map('trim', $reader->getHeaders()));
 
-            if ($headers !== $expectedHeaders) {
-                return back()->with('error', 'Format CSV tidak sesuai. Pastikan kolom sesuai urutan dan nama.');
+            // Cek apakah semua kolom yang dibutuhkan ada
+            $missingHeaders = array_diff(array_keys($expectedHeaders), $headersFromFile);
+            if (!empty($missingHeaders)) {
+                return back()->with('error', 'Format Excel tidak sesuai. Kolom hilang: ' . implode(', ', $missingHeaders));
             }
 
-            $reader->getRows()->each(function (array $row) {
-                GempaBumi::create($row);
+            $inserted = 0;
+            $skipped = 0;
+
+            $reader->getRows()->each(function (array $row) use ($expectedHeaders, &$inserted, &$skipped) {
+                // Mapping nama kolom file -> field DB
+                $data = [];
+                foreach ($expectedHeaders as $headerName => $dbField) {
+                    $data[$dbField] = $row[$headerName] ?? null;
+                }
+
+                // Cek duplikat
+                $exists = GempaBumi::where('tanggal', $data['tanggal'])
+                    ->where('magnitudo', $data['magnitudo'])
+                    ->where('lintang', $data['lintang'])
+                    ->where('bujur', $data['bujur'])
+                    ->exists();
+
+                if (!$exists) {
+                    GempaBumi::create($data);
+                    $inserted++;
+                } else {
+                    $skipped++;
+                }
             });
 
-            return back()->with('success', 'Data berhasil diimport.');
+            return back()->with('success', "Import selesai. {$inserted} data ditambahkan, {$skipped} duplikat di-skip.");
         } catch (\Exception $e) {
-            Log::error('Import CSV error: ' . $e->getMessage());
+            Log::error('Import Excel error: ' . $e->getMessage());
             return back()->with('error', 'Terjadi kesalahan saat membaca file.');
         }
     }

@@ -153,17 +153,17 @@ class ExportController extends Controller
 
         // Header kolom
         $header = [
-            'Tanggal',
-            'Waktu (WIB)',
-            'Waktu (UTC)',
-            'Waktu (WITA)',
-            'Magnitudo',
-            'Lintang',
-            'Bujur',
-            'Jarak',
-            'Kedalaman (Km)',
-            'Dirasakan',
-            'Keterangan'
+            'tanggal',
+            'waktu',
+            'waktu (utc)',
+            'waktu (wita)',
+            'magnitudo',
+            'lintang',
+            'bujur',
+            'jarak',
+            'kedalaman',
+            'dirasakan',
+            'keterangan',
         ];
 
         // Lazy load untuk efisiensi memori

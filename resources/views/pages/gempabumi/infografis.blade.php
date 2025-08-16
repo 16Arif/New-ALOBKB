@@ -132,19 +132,21 @@
                                         <h5 class="text-dark mb-1 fw-semibold">Peta Seismisitas Kalimantan dan Sekitarnya
                                         </h5>
                                         <h6 class="text-dark mb-1">Stasiun Geofisika Balikpapan</h6>
-
-                                        @if ($startDate == $endDate)
-                                            <p class="text-dark mb-0">
-                                                Tanggal:
-                                                {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }}
-                                            </p>
-                                        @else
-                                            <p class="text-dark mb-0">
-                                                Periode:
-                                                {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }} –
-                                                {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d F Y') }}
-                                            </p>
-                                        @endif
+                                        <span contenteditable="true" class="editable-input"
+                                            style="background-color: #d1d1d1">
+                                            @if ($startDate == $endDate)
+                                                <p class="text-dark mb-0">
+                                                    Tanggal:
+                                                    {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }}
+                                                </p>
+                                            @else
+                                                <p class="text-dark mb-0">
+                                                    Periode:
+                                                    {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }} –
+                                                    {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d F Y') }}
+                                                </p>
+                                            @endif
+                                        </span>
 
                                     </div>
                                 </div>
@@ -267,12 +269,12 @@
         const map = L.map('map').setView([0.5, 117.5], 6);
 
         function getRadiusByMagnitude(mag) {
-            if (mag <= 1) return 2;
-            if (mag <= 2) return 3;
-            if (mag <= 3) return 5;
-            if (mag <= 4) return 7;
-            if (mag <= 5) return 9;
-            if (mag <= 6) return 11;
+            if (mag <= 1) return 1;
+            if (mag <= 2) return 2;
+            if (mag <= 3) return 3;
+            if (mag <= 4) return 5;
+            if (mag <= 5) return 7;
+            if (mag <= 6) return 9;
             return 12;
         }
 

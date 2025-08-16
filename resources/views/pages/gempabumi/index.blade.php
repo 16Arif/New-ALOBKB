@@ -28,7 +28,7 @@
                     </button>
                 </div>
                 <div class="row ml-1">
-                    <div class=" float-right">
+                    <div class=" float-right mx-3">
                         <!-- Konten Collapse -->
                         <div class="collapse row" id="collapseEditForm">
                             <div class="card bg-light shadow rounded p-3 mr-3">
@@ -60,7 +60,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="card bg-light shadow rounded p-3">
+                            {{-- <div class="card bg-light shadow rounded p-3">
                                 <p class="text-center">Unduh Data CSV</p>
                                 <!-- Download Semua Data -->
                                 <div class="mb-3">
@@ -90,7 +90,7 @@
                                     </div>
                                 </form>
 
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                                 <a href="{{ route('gempabumi.custom.create') }}" class="btn btn-primary mr-2">Tambah
                                     Data</a>
                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#importModal">
-                                    <i class="fa-solid fa-upload me-1"></i> Import CSV
+                                    <i class="fa-solid fa-upload me-1"></i> Import Excel
                                 </button>
                             </div>
                             <div class="card-body">

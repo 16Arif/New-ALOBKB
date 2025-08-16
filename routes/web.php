@@ -39,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('gempabumi/custom')->name('gempabumi.custom.')->group(function () {
         Route::get('/create', [GempaController::class, 'createOnedata'])->name('create');
         Route::get('/showImport', [GempaController::class, 'showImport'])->name('showImport');
-        Route::post('/importCsv', [GempaController::class, 'importCsv'])->name('importCsv');
+        Route::post('/importExcel', [GempaController::class, 'importExcel'])->name('importExcel');
     });
     Route::resource('narasigempa', NarasigempaController::class);
     Route::get('/narasigempa/create/{id}', [NarasigempaController::class, 'createWithId'])->name('narasigempa.createWithId');
