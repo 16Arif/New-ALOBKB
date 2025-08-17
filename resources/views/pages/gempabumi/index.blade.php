@@ -21,27 +21,32 @@
             <div class="section-body">
                 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
                     <h2 class="section-title">Parameter Gempabumi Kalimantan dan Sekitarnya</h2>
-                    <!-- Tombol Collapse -->
-                    <button id="toggleDownloadBtn" class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseEditForm" aria-expanded="false" aria-controls="collapseEditForm">
-                        <i class="fa-solid fa-download me-1"></i> Unduh Data
-                    </button>
+                    <div>
+                        <!-- Tombol Collapse -->
+                        <button id="toggleDownloadBtn" class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseEditForm" aria-expanded="false" aria-controls="collapseEditForm">
+                            <i class="fa-solid fa-download me-1"></i> Unduh Data
+                        </button>
+                        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#importModal">
+                            <i class="fa-solid fa-upload me-1"></i> Import Data
+                        </button>
+                    </div>
                 </div>
-                <div class="row ml-1">
-                    <div class=" float-right mx-3">
+                <div class="row justify-content-end">
+                    <div class="col-md-4">
                         <!-- Konten Collapse -->
-                        <div class="collapse row" id="collapseEditForm">
-                            <div class="card bg-light shadow rounded p-3 mr-3">
-                                <p class="text-center">Unduh Data Excel</p>
+                        <div class="collapse" id="collapseEditForm">
+                            <div class="card bg-light shadow rounded p-3">
+                                <p class="text-center">Simpan Data (Excel)</p>
                                 <!-- Download Semua Data -->
                                 <div class="mb-3">
                                     <a href="{{ route('export.spatie_parametergempa', ['start' => '1900-01-01', 'end' => now()->format('Y-m-d')]) }}"
                                         class="btn btn-outline-success w-100">
-                                        <i class="fa-solid fa-file-excel"></i> Export Semua Data
+                                        <i class="fa-solid fa-file-excel"></i> Simpan Semua Data
                                     </a>
                                 </div>
                                 <hr>
-
+                                <span class="mb-2">Atau simpan data periode tertentu:</span>
                                 <!-- Form Export Berdasarkan Tanggal -->
                                 <form action="{{ route('export.spatie_parametergempa') }}" method="GET"
                                     class="row g-2 align-items-end">
@@ -103,9 +108,7 @@
                                 <h4>Semua Data</h4>
                                 <a href="{{ route('gempabumi.custom.create') }}" class="btn btn-primary mr-2">Tambah
                                     Data</a>
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#importModal">
-                                    <i class="fa-solid fa-upload me-1"></i> Import Excel
-                                </button>
+
                             </div>
                             <div class="card-body">
                                 {{-- pilih data  --}}

@@ -21,16 +21,22 @@
             <div class="section-body">
                 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
                     <h2 class="section-title ">Logbook Gempa</h2>
-                    <button id="toggleDownloadBtn" class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseEditForm" aria-expanded="false" aria-controls="collapseEditForm">
-                        <i class="fa-solid fa-download me-1"></i> Unduh Data
-                    </button>
+                    <div>
+                        <button id="toggleDownloadBtn" class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseEditForm" aria-expanded="false" aria-controls="collapseEditForm">
+                            <i class="fa-solid fa-download me-1"></i> Unduh Data
+                        </button>
+                        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#importModalGempa">
+                            <i class="fa-solid fa-upload me-1"></i> Import Data
+                        </button>
+                    </div>
                 </div>
-                <div class="row ml-1">
-                    <div class=" float-right">
+                <div class="row justify-content-end">
+                    <div class=" col-md-4">
                         <!-- Konten Collapse -->
                         <div class="collapse" id="collapseEditForm">
                             <div class="card bg-light shadow rounded p-3">
+                                <p class="text-center">Simpan Data (Excel)</p>
                                 <!-- Download Semua Data -->
                                 <div class="mb-3">
                                     <a href="{{ route('export.spatie_gempa', ['start' => '1900-01-01', 'end' => now()->format('Y-m-d')]) }}"
@@ -39,6 +45,7 @@
                                     </a>
                                 </div>
                                 <hr>
+                                <span class="mb-2">Atau simpan data periode tertentu:</span>
 
                                 <!-- Form Export Berdasarkan Tanggal -->
                                 <form action="{{ route('export.spatie_gempa') }}" method="GET"
@@ -159,6 +166,7 @@
             </div>
         </section>
     </div>
+    @include('components.modal-import-logbookgempa')
 @endsection
 
 @push('scripts')
@@ -186,6 +194,11 @@
             collapseTarget.addEventListener('hidden.bs.collapse', () => {
                 toggleBtn.innerHTML = '<i class="fa-solid fa-download me-1"></i> Unduh Data';
             });
+        });
+
+        //modal import data 
+        document.getElementById('importModalGempa').addEventListener('hidden.bs.modal', function() {
+            this.querySelector('form').reset();
         });
     </script>
 @endpush

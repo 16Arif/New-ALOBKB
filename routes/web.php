@@ -12,6 +12,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PetagempaController;
 use App\Http\Controllers\UserprofileController;
 use App\Http\Controllers\ImageprofileController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\LogbookgempaController;
 use App\Http\Controllers\LogbookpetirController;
 use App\Http\Controllers\LogbookperalatanController;
@@ -47,12 +48,19 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/gempabumi-batch', [GempaController::class, 'destroyBatch'])->name('gempabumi.destroyBatch');
     Route::post('/gempabumi/infografiss', [GempaController::class, 'infografiss'])->name('gempabumi.infografiss');
     Route::resource('download', PdfController::class);
+    // export data 
     Route::get('export/spatie_petir', [ExportController::class, 'spatie_petir'])->name('export.spatie_petir');
     Route::get('export/spatie_peralatan', [ExportController::class, 'spatie_peralatan'])
         ->name('export.spatie_peralatan');
     Route::get('/export/spatie_gempa', [ExportController::class, 'spatie_gempa'])->name('export.spatie_gempa');
     Route::get('/export/spatie_parametergempa', [ExportController::class, 'spatie_parametergempa'])->name('export.spatie_parametergempa');
-    Route::get('/export/spatie_parametergempa_csv', [ExportController::class, 'spatie_parametergempa_csv'])->name('export.spatie_parametergempa_csv');
+
+    // import data 
+    Route::post('import/spatie_petir', [ImportController::class, 'spatie_petir'])->name('import.spatie_petir');
+    Route::post('import/spatie_gempa', [ImportController::class, 'spatie_gempa'])->name('import.spatie_gempa');
+    Route::post('import/spatie_peralatan', [ImportController::class, 'spatie_peralatan'])->name('import.spatie_peralatan');
+
+
     Route::resource('profile', UserprofileController::class)->except('index', 'show', 'create', 'store', 'destroy');
     Route::resource('imageprofile', ImageprofileController::class);
     Route::get('about', AboutController::class)->name('about');

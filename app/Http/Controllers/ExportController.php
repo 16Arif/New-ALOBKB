@@ -17,128 +17,133 @@ class ExportController extends Controller
     public function spatie_petir(Request $request)
 
     {
-        $request->validate([
-            'start' => 'required|date',
-            'end'   => 'required|date|after_or_equal:start',
+        // ✅ Validasi input lebih ringkas + custom pesan error opsional
+        $validated = $request->validate([
+            'start' => ['required', 'date'],
+            'end'   => ['required', 'date', 'after_or_equal:start'],
         ]);
 
-        $start = $request->start;
-        $end = $request->end;
-
-        $rows = [];
-
-        LogbookPetir::whereBetween('tanggal', [$start, $end])
-            ->orderBy('tanggal')
-            ->lazyById(2000, 'id')
-            ->each(function ($logbook) use (&$rows) {
-                $rows[] = [
-                    'Tanggal'       => $logbook->tanggal,
-                    'Jam'           => $logbook->jam . ' WITA',
-                    'On Duty 1'     => $logbook->onduty1,
-                    'On Duty 2'     => $logbook->onduty2,
-                    'On Duty 3'     => $logbook->onduty3,
-                    'Pengamatan 1'  => $logbook->pengamatan1,
-                    'Pengamatan 2'  => $logbook->pengamatan2,
-                    'Pengamatan 3'  => $logbook->pengamatan3,
-                    'Pengamatan 4'  => $logbook->pengamatan4,
-                    'Pengamatan 5'  => $logbook->pengamatan5,
-                    'Pengamatan 6'  => $logbook->pengamatan6,
-                    'Kondisi'       => $logbook->kondisi,
-                    'Catatan'       => strip_tags($logbook->note),
-                ];
-            });
+        $start = $validated['start'];
+        $end   = $validated['end'];
 
         SimpleExcelWriter::streamDownload("logbook_petirs_{$start}_to_{$end}.xlsx")
-            ->addRows($rows);
+            ->addRows(
+                LogbookPetir::query()
+                    ->whereBetween('tanggal', [$start, $end])
+                    ->orderBy('tanggal')
+                    ->cursor() // membaca baris demi baris
+                    ->map(function ($logbook) {
+                        return [
+                            'tanggal'       => $logbook->tanggal,
+                            'jam (wita)'           => $logbook->jam,
+                            'on duty 1'     => $logbook->onduty1,
+                            'on duty 2'     => $logbook->onduty2,
+                            'on duty 3'     => $logbook->onduty3,
+                            'pengamatan 1'  => $logbook->pengamatan1,
+                            'pengamatan 2'  => $logbook->pengamatan2,
+                            'pengamatan 3'  => $logbook->pengamatan3,
+                            'pengamatan 4'  => $logbook->pengamatan4,
+                            'pengamatan 5'  => $logbook->pengamatan5,
+                            'pengamatan 6'  => $logbook->pengamatan6,
+                            'pengamatan 7'  => $logbook->pengamatan7,
+                            'kondisi'       => $logbook->kondisi,
+                            'tugas tambahan'       => strip_tags($logbook->note),
+                        ];
+                    })
+            );
     }
-
-
-
-    public function spatie_peralatan(Request $request)
-    {
-        $request->validate([
-            'start' => 'required|date',
-            'end'   => 'required|date|after_or_equal:start',
-        ]);
-
-        $start = $request->start;
-        $end = $request->end;
-
-        $rows = [];
-
-        LogbookPeralatan::whereBetween('tanggal', [$start, $end])
-            ->orderBy('tanggal')
-            ->lazyById(2000, 'id')
-            ->each(function ($logbookperalatan) use (&$rows) {
-                $rows[] = [
-                    'Tanggal'       => $logbookperalatan->tanggal,
-                    'Jam'           => $logbookperalatan->jam . ' WITA',
-                    'On Duty'       => implode(', ', array_filter([$logbookperalatan->onduty1, $logbookperalatan->onduty2, $logbookperalatan->onduty3])),
-                    'Fingerprint' => $logbookperalatan->fingerprint,
-                    'TDS' => $logbookperalatan->tds,
-                    'Nexstorm' => $logbookperalatan->nextorm,
-                    'Obs Nexstorm' => $logbookperalatan->obs_nexstorm,
-                    'CMSS' => $logbookperalatan->cmss,
-                    'Monitoring' => $logbookperalatan->monitoring,
-                    'Accelerograf' => $logbookperalatan->acc,
-                    'WRS NG' => $logbookperalatan->wrsng,
-                    'Integrasi Data' => $logbookperalatan->integrasi_data,
-                    'Seiscomp' => $logbookperalatan->seiscomp4,
-                    'PC Magnet' => $logbookperalatan->pc_magnet,
-                    'Monitor Zoom' => $logbookperalatan->monitor_zoom,
-                    'Internet Ops' => $logbookperalatan->internet_ops,
-                    'Internet Lokal' => $logbookperalatan->internet_lokal,
-                    'Shakemap' => $logbookperalatan->shakemap,
-                    'Seiscomp Regional' => $logbookperalatan->seiscomp_reg,
-                    'PC QC Seiscomp' => $logbookperalatan->qc_seiscomp,
-                    'Monitor Simap' => $logbookperalatan->monitor_simap,
-                    'PC Workstation Simap' => $logbookperalatan->ws_simap,
-                    'BKB Server' => $logbookperalatan->bkb_server,
-                    'Penakar Hujan' => $logbookperalatan->penakar_hujan,
-                    'Radio SSB' => $logbookperalatan->radio_ssb,
-                    'Catatan'          => strip_tags($logbookperalatan->note),
-                ];
-            });
-
-        SimpleExcelWriter::streamDownload("logbookperalatan_{$start}_to_{$end}.xlsx")
-            ->addRows($rows);
-    }
-
     public function spatie_gempa(Request $request)
-    {
 
-        $request->validate([
-            'start' => 'required|date',
-            'end'   => 'required|date|after_or_equal:start',
+    {
+        // ✅ Validasi input lebih ringkas + custom pesan error opsional
+        $validated = $request->validate([
+            'start' => ['required', 'date'],
+            'end'   => ['required', 'date', 'after_or_equal:start'],
         ]);
 
-        $start = $request->start;
-        $end = $request->end;
-
-        $rows = [];
-
-        LogbookGempa::whereBetween('tanggal', [$start, $end])
-            ->orderBy('tanggal')
-            ->lazyById(2000, 'id')
-            ->each(function ($logbookgempa) use (&$rows) {
-                $rows[] = [
-                    'Tanggal'       => $logbookgempa->tanggal,
-                    'Jam'           => $logbookgempa->jam . ' WITA',
-                    'On Duty'       => implode(', ', array_filter([$logbookgempa->onduty1, $logbookgempa->onduty2, $logbookgempa->onduty3])),
-                    'Kegiatan 1'    => $logbookgempa->kegiatan1,
-                    'Kegiatan 2'    => $logbookgempa->kegiatan2,
-                    'Monitoring 1'  => $logbookgempa->monitoring1,
-                    'Berita 1'      => $logbookgempa->berita1,
-                    'Monitoring 2'  => $logbookgempa->monitoring2,
-                    'Berita 2'      => $logbookgempa->berita2,
-                    'Kondisi'       => $logbookgempa->kondisi,
-                    'Catatan'          => $logbookgempa->note,
-                ];
-            });
+        $start = $validated['start'];
+        $end   = $validated['end'];
 
         SimpleExcelWriter::streamDownload("logbookgempa_{$start}_to_{$end}.xlsx")
-            ->addRows($rows);
+            ->addRows(
+                LogbookGempa::query()
+                    ->whereBetween('tanggal', [$start, $end])
+                    ->orderBy('tanggal')
+                    ->cursor() // membaca baris demi baris
+                    ->map(function ($logbookgempa) {
+                        return [
+                            'tanggal'       => $logbookgempa->tanggal,
+                            'jam (wita)'           => $logbookgempa->jam,
+                            'on duty 1'     => $logbookgempa->onduty1,
+                            'on duty 2'     => $logbookgempa->onduty2,
+                            'on duty 3'     => $logbookgempa->onduty3,
+                            'kegiatan 1'    => $logbookgempa->kegiatan1,
+                            'kegiatan 2'    => $logbookgempa->kegiatan2,
+                            'monitoring 1'  => $logbookgempa->monitoring1,
+                            'berita 1'      => $logbookgempa->berita1,
+                            'monitoring 2'  => $logbookgempa->monitoring2,
+                            'berita 2'      => $logbookgempa->berita2,
+                            'kondisi'       => $logbookgempa->kondisi,
+                            'tugas tambahan'       => strip_tags($logbookgempa->note),
+                        ];
+                    })
+            );
     }
+
+    public function spatie_peralatan(Request $request)
+
+    {
+        // ✅ Validasi input lebih ringkas + custom pesan error opsional
+        $validated = $request->validate([
+            'start' => ['required', 'date'],
+            'end'   => ['required', 'date', 'after_or_equal:start'],
+        ]);
+
+        $start = $validated['start'];
+        $end   = $validated['end'];
+
+        SimpleExcelWriter::streamDownload("logbookperalatan_{$start}_to_{$end}.xlsx")
+            ->addRows(
+                LogbookPeralatan::query()
+                    ->whereBetween('tanggal', [$start, $end])
+                    ->orderBy('tanggal')
+                    ->cursor() // membaca baris demi baris
+                    ->map(function ($logbookperalatan) {
+                        return [
+                            'tanggal'       => $logbookperalatan->tanggal,
+                            'jam (wita)'           => $logbookperalatan->jam,
+                            'on duty 1'     => $logbookperalatan->onduty1,
+                            'on duty 2'     => $logbookperalatan->onduty2,
+                            'on duty 3'     => $logbookperalatan->onduty3,
+                            'fingerprint' => $logbookperalatan->fingerprint,
+                            'tds' => $logbookperalatan->tds,
+                            'nexstorm' => $logbookperalatan->nexstorm,
+                            'obs nexstorm' => $logbookperalatan->obs_nexstorm,
+                            'cmss' => $logbookperalatan->cmss,
+                            'monitoring' => $logbookperalatan->monitoring,
+                            'accelerograf' => $logbookperalatan->acc,
+                            'wrs ng' => $logbookperalatan->wrsng,
+                            'integrasi data' => $logbookperalatan->integrasi_data,
+                            'seiscomp' => $logbookperalatan->seiscomp4,
+                            'pc magnet' => $logbookperalatan->pc_magnet,
+                            'monitor zoom' => $logbookperalatan->monitor_zoom,
+                            'internet ops' => $logbookperalatan->internet_ops,
+                            'internet lokal' => $logbookperalatan->internet_lokal,
+                            'shakemap' => $logbookperalatan->shakemap,
+                            'seiscomp regional' => $logbookperalatan->seiscomp_reg,
+                            'pc qc seiscomp' => $logbookperalatan->qc_seiscomp,
+                            'monitor simap' => $logbookperalatan->monitor_simap,
+                            'pc workstation simap' => $logbookperalatan->ws_simap,
+                            'bkb server' => $logbookperalatan->bkb_server,
+                            'penakar hujan' => $logbookperalatan->penakar_hujan,
+                            'radio ssb' => $logbookperalatan->radio_ssb,
+                            'tugas tambahan'       => strip_tags($logbookperalatan->note),
+                        ];
+                    })
+            );
+    }
+
+
 
     public function spatie_parametergempa(Request $request)
     {
