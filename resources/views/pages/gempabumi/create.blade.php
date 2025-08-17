@@ -41,6 +41,23 @@
             background-color: #8A2D3B;
             border: 1px dashed #8A2D3B;
         }
+
+        @keyframes glow {
+
+            0%,
+            50%,
+            100% {
+                box-shadow: 0 0 5px #28a745, 0 0 15px #28a745, 0 0 30px #28a745;
+            }
+
+            50% {
+                box-shadow: 0 0 2px #28a745, 0 0 5px #28a745, 0 0 10px #28a745;
+            }
+        }
+
+        .glow {
+            animation: glow 1s infinite;
+        }
     </style>
 @endpush
 
@@ -155,7 +172,7 @@
 
 
                                     {{-- bagian untuk simpan data ke database --}}
-                                    <button class="btn btn-success d-none" id="createButton" onclick="submitForm()"><i
+                                    <button class="btn btn-success d-none glow" id="createButton" onclick="submitForm()"><i
                                             class="fa-solid fa-save"></i>
                                         Simpan
                                         Data</button>

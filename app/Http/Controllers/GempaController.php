@@ -30,8 +30,19 @@ class GempaController extends Controller
             })
             ->when($request->filled('search'), function ($q) use ($request) {
                 return $q->where('jarak', 'like', '%' . $request->search . '%');
-            })
-            ->orderBy('id', 'desc');
+            });
+
+        // 🔽 Sorting pakai switch
+        switch ($request->get('sort')) {
+            case 'tanggal_asc':
+                $query->orderBy('tanggal', 'asc');
+                break;
+            case 'tanggal_desc':
+                $query->orderBy('tanggal', 'desc');
+                break;
+            default:
+                $query->orderBy('id', 'desc'); // default: terbaru
+        }
 
         if ($perPage === 'all') {
             $datagempa = $query->get();

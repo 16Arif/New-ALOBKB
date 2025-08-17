@@ -16,15 +16,30 @@ class LogbookperalatanController extends Controller
     public function index(Request $request)
     {
 
-        $logbookperalatans = DB::table('logbook_peralatans')
-            ->when($request->input('search'), function ($query, $search) {
-                return $query->where('onduty1', 'like', '%' . $search . '%')
-                    ->orWhere('onduty2', 'like', '%' . $search . '%')
-                    ->orWhere('onduty3', 'like', '%' . $search . '%')
-                    ->orWhere('note', 'like', '%' . $search . '%');
-            })
-            ->orderBy('id', 'desc')
-            ->paginate(10);
+        $query = LogbookPeralatan::query();
+        // pencarian
+        if ($request->filled('search')) {
+            $query->where('tanggal', 'like', "%{$request->search}%")
+                ->orWhere('jam', 'like', "%{$request->search}%")
+                ->orWhere('onduty1', 'like', "%{$request->search}%")
+                ->orWhere('onduty2', 'like', "%{$request->search}%")
+                ->orWhere('note', 'like', "%{$request->search}%")
+                ->orWhere('onduty3', 'like', "%{$request->search}%");
+        }
+
+        // sorting
+        switch ($request->sort) {
+            case 'tanggal_asc':
+                $query->orderBy('tanggal', 'asc');
+                break;
+            case 'tanggal_desc':
+                $query->orderBy('tanggal', 'desc');
+                break;
+            default:
+                $query->orderBy('id', 'desc'); // default terbaru
+        }
+
+        $logbookperalatans = $query->paginate(10);
         return view('pages.logbookperalatan.index', compact('logbookperalatans'));
     }
     public function show($id)

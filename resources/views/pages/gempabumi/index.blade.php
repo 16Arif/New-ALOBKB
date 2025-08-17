@@ -128,7 +128,37 @@
 
                                             <button id="hapusData" class="btn btn-danger d-none">Hapus Data</button>
                                         </div>
+
+                                        <!-- Dropdown Urutkan -->
+                                        <div class="dropdown">
+                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                                id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-sort"></i> Urutkan
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('gempabumi.index', array_merge(request()->query(), ['sort' => 'id_desc'])) }}">
+                                                        Data Terbaru
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('gempabumi.index', array_merge(request()->query(), ['sort' => 'tanggal_asc'])) }}">
+                                                        Tanggal (Terlama)
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('gempabumi.index', array_merge(request()->query(), ['sort' => 'tanggal_desc'])) }}">
+                                                        Tanggal (Terbaru)
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
+
+
 
                                     <!-- Form Filter Rentang Tanggal -->
                                     <div class="collapse mt-3 col-md-6" id="collapseFilterForm">
@@ -165,9 +195,11 @@
                                         </div>
                                     </div>
 
-
+                                    {{-- button filter dan pencarian  --}}
                                     <div class="float-right mr-4">
                                         <div class="row">
+
+
                                             <button id="toggleFilterBtn" class="btn btn-warning mr-3" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#collapseFilterForm"
                                                 aria-expanded="false" aria-controls="collapseFilterForm">

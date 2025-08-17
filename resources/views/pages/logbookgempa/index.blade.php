@@ -82,6 +82,34 @@
                                     <div class="section-header-button">
                                         <a href="{{ route('logbookgempa.create') }}" class="btn btn-sm btn-primary">Tambah
                                             Data</a>
+
+                                        <!-- Dropdown Urutkan -->
+                                        <div class="dropdown my-3">
+                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                                id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-sort"></i> Urutkan
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('logbookgempa.index', array_merge(request()->query(), ['sort' => 'id_desc'])) }}">
+                                                        Data Terbaru
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('logbookgempa.index', array_merge(request()->query(), ['sort' => 'tanggal_asc'])) }}">
+                                                        Tanggal (Terlama)
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('logbookgempa.index', array_merge(request()->query(), ['sort' => 'tanggal_desc'])) }}">
+                                                        Tanggal (Terbaru)
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="float-right">
                                         <form method="GET" action="{{ route('logbookgempa.index') }}">

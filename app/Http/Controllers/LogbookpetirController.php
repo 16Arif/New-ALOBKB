@@ -15,16 +15,29 @@ class LogbookpetirController extends Controller
 {
     public function index(Request $request)
     {
+        $query = LogbookPetir::query();
+        // pencarian
+        if ($request->filled('search')) {
+            $query->where('tanggal', 'like', "%{$request->search}%")
+                ->orWhere('jam', 'like', "%{$request->search}%")
+                ->orWhere('onduty1', 'like', "%{$request->search}%")
+                ->orWhere('onduty2', 'like', "%{$request->search}%")
+                ->orWhere('onduty3', 'like', "%{$request->search}%");
+        }
 
-        $logbookpetirs = LogbookPetir::query()
-            ->when($request->input('search'), function ($query, $search) {
-                return $query->where('onduty1', 'like', '%' . $search . '%')
-                    ->orWhere('onduty2', 'like', '%' . $search . '%')
-                    ->orWhere('onduty3', 'like', '%' . $search . '%')
-                    ->orWhere('note', 'like', '%' . $search . '%');
-            })
-            ->orderBy('id', 'desc')
-            ->paginate(10);
+        // sorting
+        switch ($request->sort) {
+            case 'tanggal_asc':
+                $query->orderBy('tanggal', 'asc');
+                break;
+            case 'tanggal_desc':
+                $query->orderBy('tanggal', 'desc');
+                break;
+            default:
+                $query->orderBy('id', 'desc'); // default terbaru
+        }
+
+        $logbookpetirs = $query->paginate(10);
         return view('pages.logbookpetir.index', compact('logbookpetirs'));
     }
 

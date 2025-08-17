@@ -82,18 +82,52 @@
                                 <div class="float-left">
                                     <a href="{{ route('logbookpetir.create') }}" class="btn btn-sm btn-primary">Tambah
                                         Data</a>
+
+                                    <!-- Dropdown Urutkan -->
+                                    <div class="dropdown my-3 mb-2">
+                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                            id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-sort"></i> Urutkan
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('logbookpetir.index', array_merge(request()->query(), ['sort' => 'id_desc'])) }}">
+                                                    Data Terbaru
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('logbookpetir.index', array_merge(request()->query(), ['sort' => 'tanggal_asc'])) }}">
+                                                    Tanggal (Terlama)
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('logbookpetir.index', array_merge(request()->query(), ['sort' => 'tanggal_desc'])) }}">
+                                                    Tanggal (Terbaru)
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
                                 </div>
 
                                 <div class="float-right mb-3">
                                     <form method="GET" action="{{ route('logbookpetir.index') }}">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Cari" name="search"
-                                                value="{{ request('search') }}">
+                                                value="{{ request('search') }}" autocomplete="off">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>
                                         </div>
                                     </form>
+
+
+
+
+
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table-striped table">
