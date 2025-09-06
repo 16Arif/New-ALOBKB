@@ -37,7 +37,7 @@
                             <div class="form-group">
                                 <label>Tanggal</label>
                                 <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                    name="tanggal" value="{{ old('tanggal', $logbookgempa->tanggal) }}">
+                                    name="tanggal" id="tanggal" value="{{ old('tanggal', $logbookgempa->tanggal) }}">
                                 @error('tanggal')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -158,4 +158,10 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
+    <script>
+        flatpickr("#tanggal", {
+            dateFormat: "Y-m-d", // atau sesuai format yang kamu mau
+            allowInput: true
+        });
+    </script>
 @endpush
