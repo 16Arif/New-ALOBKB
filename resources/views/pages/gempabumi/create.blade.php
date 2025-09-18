@@ -58,6 +58,30 @@
         .glow {
             animation: glow 1s infinite;
         }
+
+        /* panah instruksi save  */
+        .arrow-wave {
+            display: inline-block;
+            font-size: 2rem;
+            animation: wave 1s infinite;
+        }
+
+        @keyframes wave {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(10px);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 @endpush
 
@@ -122,8 +146,18 @@
 
                             <!-- Output -->
                             <div id="infografisCard" class="d-none text-center w-100">
-                                <div class="bg-info text-white fw-bold p-4 text-center mb-5">
-                                    Hasil Infografis Gempa
+                                <div class="bg-info text-white fw-bold p-4 text-center mb-3">
+                                    <h6>
+                                        Hasil Infografis Gempa
+                                    </h6>
+                                </div>
+
+                                <div class="text-white fw-bold p-2 text-center mb-5" style="background-color: #b71c1c;">
+                                    <span class="arrow-wave">⬇️</span>
+
+                                    Jangan Lupa Simpan Data
+
+                                    <span class="arrow-wave">⬇️</span>
                                 </div>
                                 <div id="infografisBody" class="card border-info mx-auto" style="max-width: 700px;">
 
@@ -332,33 +366,18 @@
 
 
             const redIcon = L.divIcon({
-                className: 'custom-icon',
+                className: '',
                 html: `
-                        <svg width="120" height="120" viewBox="0 0 120 120">
-                            <defs>
-                                <!-- Radial gradient dari putih ke merah -->
-                                <radialGradient id="gradient-r3" cx="50%" cy="50%" r="50%">
-                                    <stop offset="0%" stop-color="white" stop-opacity="0.2"/>
-                                    <stop offset="100%" stop-color="rgb(182, 25, 13)" stop-opacity="0.2"/>
-                                </radialGradient>
-                            </defs>
-
-                            <!-- r4: Lingkaran luar paling besar -->
-                            <circle cx="60" cy="60" r="60" fill="rgba(182, 25, 13, 0.1)" />
-
-                            <!-- r3: Lingkaran dengan gradasi -->
-                            <circle cx="60" cy="60" r="30" fill="url(#gradient-r3)" />
-
-                            <!-- r2: Lingkaran putih di tengah -->
-                            <circle cx="60" cy="60" r="8" fill="white" />
-
-                            <!-- r1: Titik pusat merah -->
-                            <circle cx="60" cy="60" r="7" fill="rgb(182, 25, 13)" />
-                        </svg>
-                    `,
-                iconSize: [100, 100],
-                iconAnchor: [50, 50],
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                    <circle cx="60" cy="60" r="60" fill="rgba(182,25,13,0.1)" />
+                    <circle cx="60" cy="60" r="30" fill="rgba(182,25,13,0.2)" />
+                    <circle cx="60" cy="60" r="8" fill="white" />
+                    <circle cx="60" cy="60" r="7" fill="rgb(182,25,13)" />
+                    </svg>`,
+                iconSize: [120, 120], // harus sama dengan svg width/height
+                iconAnchor: [60, 60] // setengah dari ukuran → pusat tepat di koordinat
             });
+
 
 
 
@@ -366,6 +385,8 @@
                     icon: redIcon
                 }).addTo(window.gempaMap)
                 .bindPopup(`<strong>Gempa ${magnitudo}</strong><br>${jarak}<br>Kedalaman ${kedalaman} Km`);
+
+
 
             // Tampilkan kartu
             card.classList.remove("d-none");
@@ -386,6 +407,14 @@
             document.getElementById("createButton").classList.remove("d-none");
 
             tambahLayerSesar();
+
+
+            //  Scroll otomatis ke bawah setelah generate
+            setTimeout(() => {
+                document.getElementById("infografisCard").scrollIntoView({
+                    behavior: "smooth" // animasi halus
+                });
+            }, 300);
         }
 
 
