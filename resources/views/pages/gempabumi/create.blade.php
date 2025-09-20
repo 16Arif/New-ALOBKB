@@ -167,9 +167,9 @@
                                         <img src="/img/logo-bmkg.png" alt="Logo BMKG" style="height: 48px;" class="mx-5">
                                         <div class="text-end">
 
-                                            <h5 class="text-dark mb-1 fw-semibold">Info Gempabumi Kalimantan
+                                            <h5 class="text-dark mb-1 fw-semibold">INFORMASI GEMPABUMI WILAYAH KALIMANTAN
                                             </h5>
-                                            <h6 class="text-dark mb-1">Stasiun Geofisika Balikpapan</h6>
+                                            <h6 class="text-dark mb-1">STASIUN GEOFISIKA BALIKPAPAN</h6>
 
                                         </div>
                                     </div>
@@ -309,7 +309,7 @@
 
                 <!-- Footer -->
                 <div class="d-flex justify-content-between align-items-center px-3 py-2 text-white" style="background-color: #002147;">
-                    <span><i class="bi bi-instagram"></i> @stageofbalikpapan</span>
+                    <span><i class="bi bi-instagram"></i> stageof.balikpapan.bmkg</span>
                     <span><i class="bi bi-heart-fill text-danger"></i> Stasiun Geofisika Balikpapan</span>
                     <span><i class="bi bi-whatsapp"></i> 0811-5926-543</span>
                 </div>

@@ -70,7 +70,7 @@
                                                 style="background-color: #d1d1d1">BIDUK-BIDUK</span>
                                         </h5>
 
-                                        <h6 class="fw-semibold mb-2">Kejadian dan Parameter Gempabumi</h6>
+                                        <h6 class="fw-semibold mb-2">KEJADIAN DAN PARAMETER GEMPABUMI</h6>
                                         <p>
                                             Hari
                                             <strong>{{ \Carbon\Carbon::parse($gempa->tanggal)->translatedFormat('l, d F Y') }}</strong>
@@ -92,7 +92,7 @@
                                             <strong>{{ $gempa->kedalaman }} km</strong>.
                                         </p>
 
-                                        <h6 class="fw-semibold mb-2">Jenis dan Mekanisme Gempabumi</h6>
+                                        <h6 class="fw-semibold mb-2">JENIS DAN MEKANISME GEMPABUMI</h6>
                                         <p>
                                             Dengan memperhatikan lokasi episenter dan kedalaman hiposenternya, gempabumi
                                             yang terjadi merupakan jenis
@@ -104,7 +104,7 @@
                                                 Aktif</span>.
                                         </p>
 
-                                        <h6 class="fw-semibold mb-2">Dampak Gempabumi</h6>
+                                        <h6 class="fw-semibold mb-2">DAMPAK GEMPABUMI</h6>
                                         <p>
                                             Berdasarkan laporan masyarakat, gempabumi ini dirasakan di
                                             <span contenteditable="true" class="editable-input"
@@ -143,7 +143,7 @@
                                         </p>
 
 
-                                        <h6 class="fw-semibold mb-2">Gempabumi Susulan</h6>
+                                        <h6 class="fw-semibold mb-2">GEMPABUMI SUSULAN</h6>
                                         <p>
                                             Hingga hari
                                             {{ \Carbon\Carbon::parse($gempa->tanggal)->translatedFormat('l, d F Y') }}
@@ -156,7 +156,7 @@
                                                 menunjukkan adanya aktivitas gempabumi susulan (aftershock)</span>.
                                         </p>
 
-                                        <h6 class="fw-semibold mb-2">Rekomendasi</h6>
+                                        <h6 class="fw-semibold mb-2">REKOMENDASI</h6>
                                         <p>
                                             Kepada masyarakat di wilayah {{ $gempa->wilayah }} dan sekitarnya dihimbau agar
                                             tetap tenang dan tidak terpengaruh
