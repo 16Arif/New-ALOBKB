@@ -446,7 +446,7 @@
         function saveAsImage() {
             const card = document.getElementById("infografisBody");
 
-            // Sembunyikan garis sesar
+            // // Sembunyikan garis sesar
             if (window.layerSesar && window.gempaMap.hasLayer(window.layerSesar)) {
                 window.gempaMap.removeLayer(window.layerSesar);
             }
@@ -478,6 +478,7 @@
                 });
             }, 300); // jeda sedikit untuk memastikan DOM update
         }
+
 
         function tambahLayerSesar() {
             fetch("/fault/sesar_indonesia.geojson")

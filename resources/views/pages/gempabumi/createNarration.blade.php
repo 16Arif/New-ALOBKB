@@ -59,18 +59,19 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Narasi Gempabumi</h4>
+                                <h4>Narasi Gempa bumi</h4>
                             </div>
                             <div class="card-body">
                                 <div class=" shadow-sm  mb-4">
                                     <div class=" px-4 py-4" id="narrationText">
                                         <h5 class="text-dark fw-bold mb-3">
-                                            GEMPABUMI TEKTONIK M={{ $gempa->magnitudo }} MENGGUNCANG WILAYAH
+                                            *GEMPA BUMI TEKTONIK M{{ $gempa->magnitudo }} DIRASAKAN DI
                                             <span contenteditable="true" class="editable-input"
-                                                style="background-color: #d1d1d1">BIDUK-BIDUK</span>
+                                                style="background-color: #d1d1d1">BIDUK-BIDUK, BERAU, KALIMANTAN
+                                                TIMUR*</span>
                                         </h5>
-
-                                        <h6 class="fw-semibold mb-2">KEJADIAN DAN PARAMETER GEMPABUMI</h6>
+                                        <br>
+                                        <h6 class="fw-semibold mb-2">*Kejadian dan Parameter Gempa Bumi*</h6>
                                         <p>
                                             Hari
                                             <strong>{{ \Carbon\Carbon::parse($gempa->tanggal)->translatedFormat('l, d F Y') }}</strong>
@@ -78,23 +79,22 @@
                                             <span contenteditable="true" class="editable-input"
                                                 style="background-color: #d1d1d1">Biduk-Biduk</span>
                                             diguncang
-                                            gempabumi tektonik. Hasil analisis BMKG menunjukkan bahwa gempabumi memiliki
-                                            parameter
-                                            <strong>M={{ $gempa->magnitudo }}</strong>.
-                                            Episenter gempabumi terletak <span contenteditable="true" class="editable-input"
-                                                style="background-color: #d1d1d1">di darat / di laut</span> pada
-                                            koordinat
+                                            gempa bumi tektonik. Hasil analisis BMKG menunjukkan bahwa gempa bumi memiliki
+                                            parameter dengan magnitudo
+                                            <strong>{{ $gempa->magnitudo }}</strong>.
+                                            Episenter gempabumi terletak pada koordinat
                                             <strong>{{ $gempa->formatted_lintang }} dan
                                                 {{ $gempa->formatted_bujur }}</strong>
                                             , atau tepatnya
-                                            berlokasi
-                                            <strong>{{ $gempa->jarak }}</strong> pada kedalaman
+                                            berlokasi <span contenteditable="true" class="editable-input"
+                                                style="background-color: #d1d1d1">di darat / di laut</span>
+                                            pada jarak <strong>{{ $gempa->jarak }}</strong> pada kedalaman
                                             <strong>{{ $gempa->kedalaman }} km</strong>.
                                         </p>
 
-                                        <h6 class="fw-semibold mb-2">JENIS DAN MEKANISME GEMPABUMI</h6>
+                                        <h6 class="fw-semibold mb-2">*Jenis dan Mekanisme Gempa Bumi*</h6>
                                         <p>
-                                            Dengan memperhatikan lokasi episenter dan kedalaman hiposenternya, gempabumi
+                                            Dengan memperhatikan lokasi episenter dan kedalaman hiposenternya, gempa bumi
                                             yang terjadi merupakan jenis
                                             gempabumi <span contenteditable="true" class="editable-input"
                                                 style="background-color: #d1d1d1">kedalaman
@@ -104,9 +104,9 @@
                                                 Aktif</span>.
                                         </p>
 
-                                        <h6 class="fw-semibold mb-2">DAMPAK GEMPABUMI</h6>
+                                        <h6 class="fw-semibold mb-2">*Dampak Gempa Bumi*</h6>
                                         <p>
-                                            Berdasarkan laporan masyarakat, gempabumi ini dirasakan di
+                                            Berdasarkan laporan masyarakat, gempa bumi ini dirasakan di
                                             <span contenteditable="true" class="editable-input"
                                                 style="background-color: #d1d1d1">Sangata</span>
                                             dengan intensitas
@@ -143,30 +143,37 @@
                                         </p>
 
 
-                                        <h6 class="fw-semibold mb-2">GEMPABUMI SUSULAN</h6>
+                                        <h6 class="fw-semibold mb-2">*Gempa Bumi Susulan*</h6>
                                         <p>
-                                            Hingga hari
-                                            {{ \Carbon\Carbon::parse($gempa->tanggal)->translatedFormat('l, d F Y') }}
+                                            Hingga
+                                            {{-- hari
+                                            {{ \Carbon\Carbon::parse($gempa->tanggal)->translatedFormat('l, d F Y') }} --}}
                                             pukul <span contenteditable="true" class="editable-input"
                                                 style="background-color: #d1d1d1">{{ \Carbon\Carbon::parse($gempa->waktu)->addHour()->format('H:i') }}
                                                 WIB
                                             </span>,
                                             hasil monitoring <span contenteditable="true" class="editable-input"
                                                 style="background-color: #d1d1d1">belum
-                                                menunjukkan adanya aktivitas gempabumi susulan (aftershock)</span>.
+                                                menunjukkan adanya aktivitas gempa bumi susulan (aftershock)</span>.
                                         </p>
 
-                                        <h6 class="fw-semibold mb-2">REKOMENDASI</h6>
+                                        <h6 class="fw-semibold mb-2">*Rekomendasi*</h6>
                                         <p>
                                             Kepada masyarakat di wilayah {{ $gempa->wilayah }} dan sekitarnya dihimbau agar
                                             tetap tenang dan tidak terpengaruh
-                                            oleh isu yang tidak dapat dipertanggungjawabkan.
+                                            oleh isu yang tidak dapat dipertanggungjawabkan kebenarannya.
+                                            Agar menghindari dari
+                                            bangunan yang retak atau rusak diakibatkan oleh gempa bumi. Periksa dan
+                                            pastikan bangunan tempat tinggal anda cukup tahan gempa bumi, ataupun
+                                            tidak ada kerusakan akibat getaran gempa bumi yang membahayakan
+                                            kestabilan bangunan sebelum anda kembali ke dalam rumah.
+                                            <br>
                                             Pastikan informasi resmi hanya bersumber dari BMKG yang disebarkan melalui kanal
                                             komunikasi resmi yang telah
                                             terverifikasi
                                             (<a href="https://www.instagram.com/infoBMKG" target="_blank">@infoBMKG</a>,
                                             <a href="https://twitter.com/infoBMKG" target="_blank">@infoBMKG</a>,
-                                            <a href="http://www.bmkg.go.id" target="_blank">www.bmkg.go.id</a>,
+                                            <a href="http://www.bmkg.go.id" target="_blank">http://www.bmkg.go.id</a>,
                                             <a href="https://inatews.bmkg.go.id" target="_blank">inatews.bmkg.go.id</a>,
                                             Mobile Apps: <strong>wrs-bmkg</strong> / <strong>infobmkg</strong>).
                                         </p>
