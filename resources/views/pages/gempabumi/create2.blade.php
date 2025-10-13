@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Buat Infografis Gempabumi')
+@section('title', 'create2 Buat Infografis Gempabumi')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
@@ -33,13 +33,6 @@
             background-color: red;
             border-radius: 50%;
             border: 2px solid white;
-        }
-
-        .legend-line {
-            width: 20px;
-            height: 2px;
-            background-color: #8A2D3B;
-            border: 1px dashed #8A2D3B;
         }
 
         @keyframes glow {
@@ -235,13 +228,70 @@
 @endsection
 
 @push('scripts')
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://unpkg.com/leaflet-image/leaflet-image.js"></script>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    {{--  Fungsi untuk reset form dan submit --}}
+    <script>
+        function submitForm() {
+            document.getElementById('gempaForm').submit();
+        }
+
+        function resetForm() {
+            document.getElementById("infoText").value = "";
+            document.getElementById("parameterOutput").innerHTML = "";
+            document.getElementById("infografisCard").classList.add("d-none");
+            document.getElementById("resetButton").classList.add("d-none");
+            document.getElementById("saveButton").classList.add("d-none");
+            document.getElementById("createButton").classList.add("d-none");
+
+            if (window.gempaMap) {
+                window.gempaMap.remove();
+                window.gempaMap = null;
+            }
+        }
+    </script>
+
 
     <script>
-        function generateInfographic() {
+        function tambahLayerSesar(map) {
+            fetch('/fault/sesar_indonesia.geojson')
+                .then(response => response.json())
+                .then(data => {
+                    // Gunakan renderer canvas, bukan SVG
+                    const canvasRenderer = L.canvas({
+                        padding: 0.5
+                    });
+                    L.geoJSON(data, {
+                        renderer: canvasRenderer,
+                        style: {
+                            color: '#393E46',
+                            weight: 2,
+                            dashArray: '5,5',
+                            opacity: 0.8
+                        },
+                        onEachFeature: (feature, layer) => {
+                            if (feature.properties && feature.properties.name) {
+                                layer.bindPopup(`Sesar: ${feature.properties.name}`);
+                            }
+                        }
+                    }).addTo(map);
+                })
+                .catch(error => console.error('Gagal memuat sesar:', error));
+        }
+    </script>
+
+
+
+
+
+    {{--  Fungsi utama generateInfographic --}}
+    <script>
+        async function generateInfographic() {
+
+
             const input = document.getElementById("infoText").value.trim();
             const output = document.getElementById("parameterOutput");
             const card = document.getElementById("infografisCard");
@@ -251,7 +301,6 @@
                 return;
             }
 
-
             const regex =
                 /Mag:(?<magnitudo>[\d.]+),\s*(?<tanggal>\d{2}-\w{3}-\d{2})\s+(?<waktu>\d{2}:\d{2}:\d{2})\s+WIB,\s*Lok:\s*(?<lintang>[\d.\-]+\s*(LU|LS))\s*[,–-]\s*(?<bujur>[\d.\-]+\s*(BT|BB))\s*\((?<jarak>[^)]+)\),\s*Kedlmn:\s*(?<kedalaman>\d+\s)Km\s*::(?<sumber>.+)$/i;
 
@@ -259,8 +308,7 @@
 
             if (!match || !match.groups) {
                 output.innerHTML =
-                    `<div class="text-danger">Format tidak sesuai. Harap ikuti contoh: <br><code>Info Gempa Mag:3.2, 08-Jun-25 00:00:16 WIB, Lok:0.68 LU,118.62 BT (141 km TimurLaut BONTANG-KALTIM), Kedlmn:6 Km ::BMKG-BKB</code></div>`;
-                // Jangan tampilkan output card dan tombol
+                    `<div class="text-danger">Format tidak sesuai. Harap ikuti contoh:<br><code>Info Gempa Mag:3.2, 08-Jun-25 00:00:16 WIB, Lok:0.68 LU,118.62 BT (141 km TimurLaut BONTANG-KALTIM), Kedlmn:6 Km ::BMKG-BKB</code></div>`;
                 card.classList.remove("d-none");
                 return;
             }
@@ -272,19 +320,64 @@
                 lintang,
                 bujur,
                 jarak,
-                kedalaman,
-                sumber
+                kedalaman
             } = match.groups;
 
+            // parsing koordinat
+            const lat = parseFloat(lintang.replace(/[^\d.-]/g, ''));
+            const lon = parseFloat(bujur.replace(/[^\d.-]/g, ''));
+            const latFix = /LU/.test(lintang) ? lat : -lat;
+            const lonFix = /BT/.test(bujur) ? lon : -lon;
+
+            // reset map jika sudah ada
+            if (window.gempaMap) {
+                window.gempaMap.remove();
+            }
+
+            // buat peta utama
+            // window.gempaMap = L.map('map').setView([latFix, lonFix], 7);
+            window.gempaMap = L.map('map', {
+                preferCanvas: true
+            }).setView([lat, lon], 7);
+
+
+            L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                maxZoom: 17,
+                opacity: 0.7,
+                attribution: '© OpenTopoMap'
+            }).addTo(window.gempaMap);
+
+            // tambah marker gempa
+            const redIcon = L.divIcon({
+                className: '',
+                html: `
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="60" fill="rgba(182,25,13,0.1)" />
+                        <circle cx="60" cy="60" r="30" fill="rgba(182,25,13,0.2)" />
+                        <circle cx="60" cy="60" r="8" fill="white" />
+                        <circle cx="60" cy="60" r="7" fill="rgb(182,25,13)" />
+                    </svg>`,
+                iconSize: [120, 120],
+                iconAnchor: [60, 60]
+            });
+
+            L.marker([latFix, lonFix], {
+                    icon: redIcon
+                })
+                .addTo(window.gempaMap)
+                .bindPopup(`<strong>Gempa ${magnitudo}</strong><br>${jarak}<br>Kedalaman ${kedalaman} Km`);
+
+            // pastikan ukuran peta sudah valid
+            setTimeout(() => window.gempaMap.invalidateSize(), 200);
+
+
+            // tampilkan output parameter
             output.innerHTML = `
                 <div class="d-flex flex-wrap w-100">
-                    <!-- Kolom Magnitudo -->
-                    <div class=" text-white text-center d-flex flex-column justify-content-center align-items-center p-4" style="width: 25%; background-color: #CB0404;">
-                       <h4 class="text-uppercase fw-bold" style="font-weight: 900;">Magnitudo</h4>
-                       <h1 class="display-3 fw-bold mb-0" style="font-weight: 900;">${magnitudo}</h1>
+                    <div class="text-white text-center d-flex flex-column justify-content-center align-items-center p-4" style="width: 25%; background-color: #CB0404;">
+                        <h4 class="fw-bold text-uppercase">Magnitudo</h4>
+                        <h1 class="display-3 fw-bold mb-0">${magnitudo}</h1>
                     </div>
-
-                   <!-- Kolom Informasi Detail -->
                     <div class="p-4 text-dark" style="width: 75%; background-color: #ffffff;">
                         <div class="row">
                             <div class="col-md-6">
@@ -300,101 +393,29 @@
                             <div class="col-12">
                                 <i class="bi bi-geo-alt-fill me-2 text-danger"></i>
                                 <h5 class="d-inline">Lokasi:</h5>
-                                <h6 class="ms-1 fw-semibold">${lintang}, ${bujur} <br> ${jarak}</h6>
+                                <h6 class="ms-1 fw-semibold">${lintang}, ${bujur}<br>${jarak}</h6>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-                <!-- Footer -->
                 <div class="d-flex justify-content-between align-items-center px-3 py-2 text-white" style="background-color: #002147;">
                     <span><i class="bi bi-instagram"></i> stageof.balikpapan.bmkg</span>
                     <span><i class="bi bi-heart-fill text-danger"></i> Stasiun Geofisika Balikpapan</span>
                     <span><i class="bi bi-whatsapp"></i> 0811-5926-543</span>
-                </div>
-            `;
+                </div>`;
 
-
-            // Map
-            const lat = parseFloat(lintang.replace(/[^\d.-]/g, ''));
-            const lon = parseFloat(bujur.replace(/[^\d.-]/g, ''));
-
-            const latFix = /LU/.test(lintang) ? lat : -lat;
-            const lonFix = /BT/.test(bujur) ? lon : -lon;
-
-            if (window.gempaMap) {
-                window.gempaMap.remove();
-            }
-
-            window.gempaMap = L.map('map').setView([latFix, lonFix], 7);
-
-            // Paksa peta menghitung ulang ukuran (fix blank/grey bug)
-            setTimeout(() => {
-                window.gempaMap.invalidateSize();
-            }, 200);
-
-            // esri lama 
-            // L.tileLayer(
-            //     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}", {
-            //         // attribution: "Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ",
-            //         maxZoom: 29,
-            //     }
-            // ).addTo(window.gempaMap);
-
-            // kontur + nama kota
-
-            L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-                maxZoom: 17,
-                opacity: 0.7,
-                attribution: 'Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap (CC-BY-SA)'
-            }).addTo(window.gempaMap);
-
-
-            // Base map kontur
-            // L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}', {
-            //     maxZoom: 16,
-            //     attribution: 'Tiles courtesy of the U.S. Geological Survey'
-            // }).addTo(window.gempaMap);
-
-            // // Overlay label nama kota
-            // L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
-            //     attribution: '&copy; CartoDB',
-            //     subdomains: 'abcd',
-            //     pane: 'overlayPane'
-            // }).addTo(window.gempaMap);
-
-
-            const redIcon = L.divIcon({
-                className: '',
-                html: `
-                    <svg width="120" height="120" viewBox="0 0 120 120">
-                    <circle cx="60" cy="60" r="60" fill="rgba(182,25,13,0.1)" />
-                    <circle cx="60" cy="60" r="30" fill="rgba(182,25,13,0.2)" />
-                    <circle cx="60" cy="60" r="8" fill="white" />
-                    <circle cx="60" cy="60" r="7" fill="rgb(182,25,13)" />
-                    </svg>`,
-                iconSize: [120, 120], // harus sama dengan svg width/height
-                iconAnchor: [60, 60] // setengah dari ukuran → pusat tepat di koordinat
+            tambahLayerSesar(window.gempaMap).then(() => {
+                console.log('Layer sesar sudah siap');
             });
 
 
-
-
-            L.marker([latFix, lonFix], {
-                    icon: redIcon
-                }).addTo(window.gempaMap)
-                .bindPopup(`<strong>Gempa ${magnitudo}</strong><br>${jarak}<br>Kedalaman ${kedalaman} Km`);
-
-
-
-            // Tampilkan kartu
+            // tampilkan tombol & card
             card.classList.remove("d-none");
             document.getElementById("resetButton").classList.remove("d-none");
             document.getElementById("saveButton").classList.remove("d-none");
             document.getElementById("createButton").classList.remove("d-none");
 
-            // untuk store data ke database
+            // isi form untuk database
             document.getElementById("inputMagnitudo").value = magnitudo;
             document.getElementById("inputTanggal").value = tanggal;
             document.getElementById("inputWaktu").value = waktu;
@@ -403,105 +424,65 @@
             document.getElementById("inputJarak").value = jarak;
             document.getElementById("inputKedalaman").value = kedalaman;
 
-
-            document.getElementById("createButton").classList.remove("d-none");
-
-            tambahLayerSesar();
-
-
-            //  Scroll otomatis ke bawah setelah generate
+            // scroll ke bawah
             setTimeout(() => {
                 document.getElementById("infografisCard").scrollIntoView({
-                    behavior: "smooth" // animasi halus
+                    behavior: "smooth"
                 });
             }, 300);
         }
+    </script>
 
-
-
-
-        // untuk menjalankan button store data ke database
-        function submitForm() {
-            document.getElementById('gempaForm').submit();
+    <script>
+        function tambahLayerSesar(map) {
+            return fetch('/fault/sesar_indonesia.geojson')
+                .then(res => res.json())
+                .then(data => {
+                    L.geoJSON(data, {
+                        style: {
+                            color: '#393E46',
+                            weight: 2,
+                            dashArray: '5,5'
+                        }
+                    }).addTo(map);
+                });
         }
+    </script>
 
 
-
-
-        function resetForm() {
-            document.getElementById("infoText").value = "";
-            document.getElementById("parameterOutput").innerHTML = "";
-            document.getElementById("infografisCard").classList.add("d-none");
-            document.getElementById("resetButton").classList.add("d-none");
-            document.getElementById("saveButton").classList.add("d-none");
-            document.getElementById("createButton").classList.add("d-none");
-
-
-            if (window.gempaMap) {
-                window.gempaMap.remove();
-                window.gempaMap = null;
-            }
-        }
-
+    {{-- function untuk screenshoot infografis --}}
+    <script>
         function saveAsImage() {
             const card = document.getElementById("infografisBody");
 
-            // // Sembunyikan garis sesar
-            if (window.layerSesar && window.gempaMap.hasLayer(window.layerSesar)) {
-                window.gempaMap.removeLayer(window.layerSesar);
+            // Ambil tanggal dari input tersembunyi form
+            const tanggalRaw = document.getElementById("inputTanggal").value || "";
+
+            // Parsing tanggal: contoh "08-Jun-25" → "25jun08"
+            let formattedDate = "unknown";
+            const match = tanggalRaw.match(/(\d{2})-(\w{3})-(\d{2})/);
+            if (match) {
+                const [_, day, month, year] = match;
+                formattedDate = `${year.toLowerCase()}${month.toLowerCase()}${day}`;
             }
 
-            // Tunggu sejenak agar layer sesar hilang dari DOM
+            // Tunggu sedikit agar layer sesar benar-benar dirender
             setTimeout(() => {
                 html2canvas(card, {
-                    useCORS: true,
-                    backgroundColor: null,
-                    scale: 2 // resolusi tinggi
-                }).then(canvas => {
-                    const link = document.createElement("a");
-                    link.download = "infografis-gempa.png";
-                    link.href = canvas.toDataURL("image/png");
-                    link.click();
-
-                    // Tampilkan kembali layer sesar
-                    if (window.layerSesar) {
-                        window.layerSesar.addTo(window.gempaMap);
-                    }
-                }).catch(err => {
-                    alert("Gagal menyimpan gambar. Periksa konsol.");
-                    console.error(err);
-
-                    // Pastikan layer sesar dikembalikan meskipun gagal
-                    if (window.layerSesar) {
-                        window.layerSesar.addTo(window.gempaMap);
-                    }
-                });
-            }, 300); // jeda sedikit untuk memastikan DOM update
-        }
-
-
-        function tambahLayerSesar() {
-            fetch("/fault/sesar_indonesia.geojson")
-                .then((res) => res.json())
-                .then((data) => {
-                    window.layerSesar = L.geoJSON(data, {
-                        style: {
-                            color: "#393E46",
-                            weight: 2,
-                            dashArray: "4, 4",
-                            opacity: 1
-                        },
-                        onEachFeature: function(feature, layer) {
-                            if (feature.properties && feature.properties.name) {
-                                layer.bindPopup("Sesar: " + feature.properties.name);
-                            }
-                        },
+                        useCORS: true,
+                        backgroundColor: null,
+                        scale: 2
+                    })
+                    .then(canvas => {
+                        const link = document.createElement("a");
+                        link.download = `infografis-gempa-${formattedDate}.png`;
+                        link.href = canvas.toDataURL("image/png");
+                        link.click();
+                    })
+                    .catch(err => {
+                        console.error("Gagal menyimpan gambar:", err);
                     });
-                    window.layerSesar.addTo(window.gempaMap);
-                })
-                .catch((err) => {
-                    console.error("Gagal memuat sesar:", err);
-                });
+            }, 500);
         }
     </script>
 @endpush
