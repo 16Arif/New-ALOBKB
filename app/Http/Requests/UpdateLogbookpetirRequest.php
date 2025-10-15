@@ -27,6 +27,8 @@ class UpdateLogbookpetirRequest extends FormRequest
             'onduty1' => 'required|string',
             'onduty2' => 'nullable|string',
             'onduty3' => 'nullable|string',
+            'onduty4' => 'nullable|string',
+            'onduty5' => 'nullable|string',
             'note'    => 'nullable|string'
         ];
     }

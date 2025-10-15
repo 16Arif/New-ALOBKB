@@ -31,6 +31,8 @@ class UpdateLogbookperalatanRequest extends FormRequest
             'onduty1' => 'required',
             'onduty2' => 'nullable',
             'onduty3' => 'nullable',
+            'onduty4' => 'nullable',
+            'onduty5' => 'nullable',
             'fingerprint' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'tds' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',
             'nexstorm' => 'required|in:BAIK,TIDAK BAIK,TIDAK AKTIF',

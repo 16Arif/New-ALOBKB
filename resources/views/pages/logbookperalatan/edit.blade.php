@@ -88,7 +88,7 @@
                             <div class="form-group">
                                 <div class="row">
 
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-4 mb-2">
                                         <label>On Duty 1<span class="text-danger">*</span></label>
                                         <select class="form-control @error('onduty1') is-invalid @enderror" name="onduty1">
                                             <option value="">{{ old('onduty1', $logbookperalatan->onduty1) }}
@@ -106,7 +106,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-4 mb-2">
                                         <label>On Duty 2</label>
                                         <select class="form-control" name="onduty2">
                                             <option value="">{{ old('onduty2', $logbookperalatan->onduty2) }}
@@ -119,7 +119,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-4 mb-2">
                                         <label>On Duty 3</label>
                                         <select class="form-control" name="onduty3">
                                             <option value="">{{ old('onduty3', $logbookperalatan->onduty3) }}
@@ -132,14 +132,40 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <div class="col-lg-4 mb-2">
+                                        <label>On Duty 4</label>
+                                        <select class="form-control" name="onduty4">
+                                            <option value="">{{ old('onduty4', $logbookperalatan->onduty4) }}
+                                            </option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->name }}"
+                                                    {{ old('onduty4', $logbookperalatan->onduty4) == $user->name ? 'selected' : '' }}>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4 mb-2">
+                                        <label>On Duty 5</label>
+                                        <select class="form-control" name="onduty5">
+                                            <option value="">{{ old('onduty5', $logbookperalatan->onduty5) }}
+                                            </option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->name }}"
+                                                    {{ old('onduty5', $logbookperalatan->onduty5) == $user->name ? 'selected' : '' }}>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Finger Print<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('fingerprint') is-invalid @enderror">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="fingerprint" value="BAIK" class="selectgroup-input"
-                                            @if (old('fingerprint') == 'BAIK' || $logbookperalatan->fingerprint == 'BAIK') checked @endif>
+                                        <input type="radio" name="fingerprint" value="BAIK"
+                                            class="selectgroup-input" @if (old('fingerprint') == 'BAIK' || $logbookperalatan->fingerprint == 'BAIK') checked @endif>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
