@@ -24,7 +24,9 @@ class LogbookperalatanController extends Controller
                 ->orWhere('onduty1', 'like', "%{$request->search}%")
                 ->orWhere('onduty2', 'like', "%{$request->search}%")
                 ->orWhere('note', 'like', "%{$request->search}%")
-                ->orWhere('onduty3', 'like', "%{$request->search}%");
+                ->orWhere('onduty3', 'like', "%{$request->search}%")
+                ->orWhere('onduty4', 'like', "%{$request->search}%")
+                ->orWhere('onduty5', 'like', "%{$request->search}%");
         }
 
         // sorting

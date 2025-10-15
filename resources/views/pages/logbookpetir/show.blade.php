@@ -121,6 +121,8 @@
                     <li>{{ $logbookpetir->onduty1 }}</li>
                     <li>{{ $logbookpetir->onduty2 }}</li>
                     <li>{{ $logbookpetir->onduty3 }}</li>
+                    <li>{{ $logbookpetir->onduty4 }}</li>
+                    <li>{{ $logbookpetir->onduty5 }}</li>
                 </ol>
             </td>
         </tr>

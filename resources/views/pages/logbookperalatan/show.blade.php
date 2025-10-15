@@ -128,6 +128,8 @@
                     <li>{{ $logbookperalatan->onduty1 }}</li>
                     <li>{{ $logbookperalatan->onduty2 }}</li>
                     <li>{{ $logbookperalatan->onduty3 }}</li>
+                    <li>{{ $logbookperalatan->onduty4 }}</li>
+                    <li>{{ $logbookperalatan->onduty5 }}</li>
                 </ol>
             </td>
         </tr>

@@ -84,10 +84,10 @@
                             <div class="form-group">
                                 <div class="row">
 
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-4 mb-3">
                                         <label>On Duty 1<span class="text-danger">*</span></label>
                                         <select class="form-control @error('onduty1') is-invalid @enderror" name="onduty1">
-                                            <option value="">-- Select User --</option>
+                                            <option value="">-- Pilih Petugas --</option>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->name }}"
                                                     {{ old('onduty1') == $user->name ? 'selected' : '' }}>
@@ -101,10 +101,10 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-4 mb-3">
                                         <label>On Duty 2</label>
                                         <select class="form-control " name="onduty2">
-                                            <option value="">-- Select User --</option>
+                                            <option value="">-- Pilih Petugas --</option>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->name }}"
                                                     {{ old('onduty2') == $user->name ? 'selected' : '' }}>
@@ -113,10 +113,10 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-4 mb-3">
                                         <label>On Duty 3</label>
                                         <select class="form-control " name="onduty3">
-                                            <option value="">-- Select User --</option>
+                                            <option value="">-- Pilih Petugas --</option>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->name }}"
                                                     {{ old('onduty3') == $user->name ? 'selected' : '' }}>
@@ -125,6 +125,38 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <div class="col-lg-4 mb-3" id="onduty4-wrapper" style="display: none;">
+                                        <label>On Duty 4</label>
+                                        <select class="form-control" name="onduty4">
+                                            <option value="">-- Pilih Petugas --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->name }}"
+                                                    {{ old('onduty4') == $user->name ? 'selected' : '' }}>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    {{-- On Duty 5 (Tersembunyi) --}}
+                                    <div class="col-lg-4 mb-3" id="onduty5-wrapper" style="display: none;">
+                                        <label>On Duty 5</label>
+                                        <select class="form-control" name="onduty5">
+                                            <option value="">-- Pilih Petugas --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->name }}"
+                                                    {{ old('onduty5') == $user->name ? 'selected' : '' }}>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <button type="button" class="btn btn-sm btn-info" id="add-onduty-btn">+ Tambah
+                                            Petugas</button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -132,8 +164,9 @@
                                 <label class="form-label">Finger Print<span class="text-danger">*</span></label>
                                 <div class="selectgroup w-100 @error('fingerprint') is-invalid @enderror">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="fingerprint" value="BAIK" class="selectgroup-input"
-                                            @if (old('fingerprint') == 'BAIK') checked @endif checked>
+                                        <input type="radio" name="fingerprint" value="BAIK"
+                                            class="selectgroup-input" @if (old('fingerprint') == 'BAIK') checked @endif
+                                            checked>
                                         <span class="selectgroup-button">BAIK</span>
                                     </label>
                                     <label class="selectgroup-item">
@@ -731,8 +764,35 @@
 
     <script>
         flatpickr("#tanggal", {
-            dateFormat: "Y-m-d", // atau sesuai format yang kamu mau
+            dateFormat: "Y-m-d",
             allowInput: true
+        });
+    </script>
+
+    <script>
+        // Memastikan DOM sudah termuat sepenuhnya
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const btn = document.getElementById('add-onduty-btn');
+            const onduty4Wrapper = document.getElementById('onduty4-wrapper');
+            const onduty5Wrapper = document.getElementById('onduty5-wrapper');
+
+            // Counter untuk melacak field mana yang akan ditampilkan berikutnya
+            let nextOnduty = 4;
+
+            btn.addEventListener('click', function() {
+                if (nextOnduty === 4) {
+                    // Tampilkan field onduty 4
+                    onduty4Wrapper.style.display = 'block';
+                    nextOnduty++; // Naikkan counter ke 5
+                } else if (nextOnduty === 5) {
+                    // Tampilkan field onduty 5
+                    onduty5Wrapper.style.display = 'block';
+                    // Sembunyikan tombol karena sudah maksimal
+                    btn.style.display = 'none';
+                }
+            });
+
         });
     </script>
 @endpush

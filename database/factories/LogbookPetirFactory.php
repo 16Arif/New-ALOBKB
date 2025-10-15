@@ -22,6 +22,8 @@ class LogbookpetirFactory extends Factory
             'onduty1' => $this->faker->name(),
             'onduty2' => $this->faker->name(),
             'onduty3' => $this->faker->name(),
+            'onduty4' => $this->faker->name(),
+            'onduty5' => $this->faker->name(),
             'pengamatan1' => $this->faker->randomElement(['Pengamatan LD jam 02.00', 'Pengamatan LD jam 08.00', 'Pengamatan LD jam 14.00', 'Pengamatan LD jam 20.00']),
             'pengamatan2' => $this->faker->randomElement(['Pengamatan LD jam 03.00', 'Pengamatan LD jam 09.00', 'Pengamatan LD jam 15.00', 'Pengamatan LD jam 21.00']),
             'pengamatan3' => $this->faker->randomElement(['Pengamatan LD jam 04.00', 'Pengamatan LD jam 10.00', 'Pengamatan LD jam 16.00', 'Pengamatan LD jam 22.00']),

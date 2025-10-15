@@ -23,6 +23,8 @@ class LogbookperalatanFactory extends Factory
             'onduty1' => $this->faker->word(),
             'onduty2' => $this->faker->word(),
             'onduty3' => $this->faker->word(),
+            'onduty4' => $this->faker->word(),
+            'onduty5' => $this->faker->word(),
             'fingerprint' => $this->faker->randomElement(['BAIK', 'TIDAK BAIK', 'TIDAK AKTIF']),
             'tds' => $this->faker->randomElement(['BAIK', 'TIDAK BAIK', 'TIDAK AKTIF']),
             'nexstorm' => $this->faker->randomElement(['BAIK', 'TIDAK BAIK', 'TIDAK AKTIF']),

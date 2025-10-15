@@ -120,6 +120,8 @@
                     <li>{{ $logbookgempa->onduty1 }}</li>
                     <li>{{ $logbookgempa->onduty2 }}</li>
                     <li>{{ $logbookgempa->onduty3 }}</li>
+                    <li>{{ $logbookgempa->onduty4 }}</li>
+                    <li>{{ $logbookgempa->onduty5 }}</li>
                 </ol>
             </td>
         </tr>
