@@ -433,7 +433,7 @@
 
                 // === TAMBAHAN BARU: Hitung dan tambahkan arah untuk 3 kecamatan teratas ===
                 const finalNearestList = nearestDistricts.map(district => {
-                    const bearing = turf.bearing(earthquakePoint, district.centroid);
+                    const bearing = turf.bearing(district.centroid, earthquakePoint);
                     const direction = bearingToDirection(bearing);
                     return {
                         ...district,
@@ -533,18 +533,22 @@
                 let locationHtml = '';
                 if (analysisResult && analysisResult.nearest.length > 0) {
 
-                    const nearestHtml = analysisResult.nearest.map(loc =>
-                        // Tampilkan juga properti 'loc.direction' yang baru
-                        `<strong>${loc.distance.toFixed(2)} km arah ${loc.direction}</strong> Kec. ${loc.district} (Kota/Kab ${loc.regency})`
-                    ).join('<br>'); // Beri sedikit jarak antar baris
+                    const nearestHtml = analysisResult.nearest.map(loc => {
+                        const distance = loc.distance.toFixed(2);
+                        const direction = loc
+                            .direction; // Data arah mata angin yang benar dari 'analyzeAffectedArea'
+                        const district = loc.district;
+                        const regency = loc.regency;
+                        return `<strong>${distance} km arah ${direction}</strong> Kec. ${district} ( ${regency})`;
+                    }).join('<br>');
 
                     locationHtml = `
-                        <div class="col-12 mt-2">
-                            <i class="bi bi-compass me-2 text-success"></i>
-                            <h6 class="d-inline">Kecamatan Terdekat dari Pusat Gempa:</h6>
-                            <div class="ms-4 fw-semibold" style="line-height: 1.5;">${nearestHtml}</div>
-                            </div>
-                    `;
+                <div class="col-12 mt-2">
+                    <i class="bi bi-compass me-2 text-success"></i>
+                    <h6 class="d-inline">Kecamatan Terdekat dari Pusat Gempa:</h6>
+                    <div class="ms-4 fw-semibold" style="line-height: 1.6;">${nearestHtml}</div>
+                </div>
+            `;
                 } else {
                     locationHtml =
                         `<div class="col-12 mt-2"><i class="bi bi-exclamation-triangle-fill me-2 text-warning"></i><h6 class="d-inline">Informasi Wilayah Tidak Tersedia</h6></div>`;
