@@ -76,6 +76,49 @@
                 opacity: 1;
             }
         }
+
+        /* css untuk modal salin gambar */
+        .modal-overlay {
+            display: none;
+            /* Tersembunyi secara default */
+            position: fixed;
+            z-index: 1050;
+            /* Pastikan di atas elemen lain */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+            max-width: 720px;
+            /* Sedikit lebih besar dari infografis */
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .modal-close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .modal-close-button:hover,
+        .modal-close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 @endpush
 
@@ -167,13 +210,18 @@
                                     <div class="" id="parameterOutput"></div>
                                 </div>
                                 <div class="justify-content-center">
-                                    <button class="btn btn-info d-none mx-4" id="saveButton" onclick="saveAsImage()">
+                                    <button class="btn btn-info d-none mx-2" id="saveButton" onclick="saveAsImage()">
                                         <span class="spinner-border spinner-border-sm d-none" role="status"
                                             aria-hidden="true"></span>
                                         <span class="button-text"><i class="fa-solid fa-download"></i> Simpan Gambar</span>
                                     </button>
-                                    <button class="btn btn-success d-none glow" id="createButton" onclick="submitForm()"><i
-                                            class="fa-solid fa-save"></i> Simpan Data</button>
+                                    <button class="btn btn-warning d-none mx-2" id="copyButton" onclick="prepareForCopy()">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status"
+                                            aria-hidden="true"></span>
+                                        <span class="button-text"><i class="fa-solid fa-copy"></i> Salin Gambar</span>
+                                    </button>
+                                    <button class="btn btn-success d-none glow mx-2" id="createButton"
+                                        onclick="submitForm()"><i class="fa-solid fa-save"></i> Simpan Data</button>
                                     <form id="gempaForm" method="POST" action="{{ route('gempabumi.store') }}">
                                         @csrf
                                         <input type="hidden" name="magnitudo" id="inputMagnitudo">
@@ -191,6 +239,18 @@
                 </div>
             </div>
         </section>
+    </div>
+
+    <div id="imageModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close-button">&times;</span>
+            <p style="text-align: center; font-weight: bold;">Gambar Siap Disalin</p>
+            <img src="" id="modalImage" style="max-width: 100%; border: 1px solid #ddd;" />
+            <p style="text-align: center; margin-top: 15px; font-size: 0.9rem;">
+                <strong>Desktop:</strong> Klik kanan > "Salin Gambar"<br>
+                <strong>Ponsel:</strong> Tekan dan tahan > "Salin Gambar"
+            </p>
+        </div>
     </div>
 @endsection
 
@@ -213,6 +273,7 @@
             document.getElementById("infografisCard").classList.add("d-none");
             document.getElementById("resetButton").classList.add("d-none");
             document.getElementById("saveButton").classList.add("d-none");
+            document.getElementById("copyButton").classList.add("d-none");
             document.getElementById("createButton").classList.add("d-none");
             if (window.gempaMap) {
                 window.gempaMap.remove();
@@ -252,7 +313,19 @@
                 .catch(error => console.error('Gagal memuat sesar:', error));
         }
 
-
+        /**
+         * Mengubah sudut derajat (bearing) menjadi 8 arah mata angin.
+         * @param {number} bearing - Sudut dalam derajat (-180 hingga 180).
+         * @returns {string} - Teks arah mata angin (e.g., "Tenggara").
+         */
+        function bearingToDirection(bearing) {
+            const directions = ['Utara', 'Timur Laut', 'Timur', 'Tenggara', 'Selatan', 'Barat Daya', 'Barat', 'Barat Laut'];
+            // Ubah rentang -180/180 menjadi 0-360 derajat
+            const degree = (bearing + 360) % 360;
+            // Tentukan segmen 45 derajat mana yang cocok
+            const index = Math.floor((degree + 22.5) / 45) % 8;
+            return directions[index];
+        }
 
         // =================================================================
         // === FUNGSI BARU: Untuk mencari kecamatan berdasarkan koordinat ===
@@ -261,65 +334,51 @@
         // Hapus fungsi getProvinceCode() yang lama. Ganti analyzeAffectedArea() dengan yang ini.
 
         async function analyzeAffectedArea(lat, lon) {
-            // Langkah 1: Tentukan radius pencarian dari episenter gempa
-            const searchRadiusKm = 50; // Jarak dalam KM untuk "melirik" provinsi tetangga
-
+            const searchRadiusKm = 50;
             const earthquakePoint = turf.point([lon, lat]);
             const searchArea = turf.buffer(earthquakePoint, searchRadiusKm, {
                 units: 'kilometers'
             });
-
             const provinceBounds = [{
                     code: '61',
                     bounds: [108.5, -3.5, 114.0, 2.2]
-                }, // Kalbar [minLon, minLat, maxLon, maxLat]
-                {
+                }, {
                     code: '62',
                     bounds: [110.7, -3.6, 116.0, 1.7]
-                }, // Kalteng
+                },
                 {
                     code: '63',
                     bounds: [114.3, -4.2, 116.6, -1.3]
-                }, // Kalsel
-                {
+                }, {
                     code: '64',
                     bounds: [113.8, -2.6, 119.0, 2.4]
-                }, // Kaltim
+                },
                 {
                     code: '65',
                     bounds: [114.6, 1.3, 118.1, 4.2]
-                }, // Kaltara
-                {
+                }, {
                     code: '72',
                     bounds: [119.3, -3.8, 124.5, 2.0]
-                }, // Sulteng
+                },
                 {
                     code: '76',
                     bounds: [118.7, -3.6, 120.0, -0.7]
-                } // Sulbar
+                }
             ];
 
             let primaryProvinceCode = null;
             const candidateProvinces = [];
-
-            // Langkah 2: Identifikasi semua provinsi yang relevan (yang di dalam dan yang di dekatnya)
             for (const province of provinceBounds) {
                 const provincePolygon = turf.bboxPolygon(province.bounds);
-
-                // Cek apakah titik gempa ada di dalam provinsi ini
                 if (turf.booleanPointInPolygon(earthquakePoint, provincePolygon)) {
                     primaryProvinceCode = province.code;
                 }
-
-                // Cek apakah area pencarian bersinggungan dengan provinsi ini
                 if (turf.booleanIntersects(searchArea, provincePolygon)) {
                     candidateProvinces.push(province.code);
                 }
             }
 
-            // Jika tidak ada kandidat sama sekali (jauh di laut), kembalikan hasil kosong
             if (candidateProvinces.length === 0) {
-                console.log('Gempa berada di luar cakupan semua provinsi.');
                 return {
                     containing: {
                         district: "Luar Cakupan Wilayah",
@@ -330,20 +389,15 @@
             }
 
             try {
-                // Langkah 3: Ambil semua file GeoJSON dari provinsi kandidat secara paralel
-                const fetchPromises = candidateProvinces.map(code =>
-                    fetch(`/districts/id${code}_district.geojson`).then(res => res.json())
-                );
+                const fetchPromises = candidateProvinces.map(code => fetch(`/districts/id${code}_district.geojson`)
+                    .then(res => res.json()));
                 const allGeojsonData = await Promise.all(fetchPromises);
-
-                // Langkah 4: Gabungkan semua feature (desa) dari semua file menjadi satu array besar
                 const allFeatures = allGeojsonData.flatMap(data => data.features);
 
                 let containingDistrict = null;
                 const allDistances = [];
 
                 for (const feature of allFeatures) {
-                    // Cek wilayah terdampak HANYA jika berasal dari provinsi utama
                     if (primaryProvinceCode && feature.properties.province_code === `id${primaryProvinceCode}`) {
                         if (!containingDistrict && turf.booleanPointInPolygon(earthquakePoint, feature.geometry)) {
                             containingDistrict = {
@@ -352,7 +406,6 @@
                             };
                         }
                     }
-
                     const centroid = turf.centroid(feature.geometry);
                     const distance = turf.distance(earthquakePoint, centroid, {
                         units: 'kilometers'
@@ -360,11 +413,11 @@
                     allDistances.push({
                         district: feature.properties.district,
                         regency: feature.properties.regency,
-                        distance: distance
+                        distance: distance,
+                        centroid: centroid // Penting: simpan centroid untuk perhitungan arah
                     });
                 }
 
-                // Proses pengelompokan dan pengurutan kecamatan unik (tetap sama seperti sebelumnya)
                 const districtMap = new Map();
                 for (const item of allDistances) {
                     const key = `${item.district}|${item.regency}`;
@@ -372,13 +425,26 @@
                         districtMap.set(key, item);
                     }
                 }
+
                 const uniqueDistricts = Array.from(districtMap.values());
                 uniqueDistricts.sort((a, b) => a.distance - b.distance);
+
                 const nearestDistricts = uniqueDistricts.slice(0, 3);
+
+                // === TAMBAHAN BARU: Hitung dan tambahkan arah untuk 3 kecamatan teratas ===
+                const finalNearestList = nearestDistricts.map(district => {
+                    const bearing = turf.bearing(earthquakePoint, district.centroid);
+                    const direction = bearingToDirection(bearing);
+                    return {
+                        ...district,
+                        direction: direction
+                    }; // Tambahkan properti 'direction'
+                });
+                // =======================================================================
 
                 return {
                     containing: containingDistrict,
-                    nearest: nearestDistricts,
+                    nearest: finalNearestList, // Kembalikan daftar yang sudah ada arahnya
                 };
 
             } catch (error) {
@@ -468,57 +534,57 @@
                 if (analysisResult && analysisResult.nearest.length > 0) {
 
                     const nearestHtml = analysisResult.nearest.map(loc =>
-
-                        `${loc.district} (Kota/Kab ${loc.regency}) : <strong>${loc.distance.toFixed(2)} km</strong>`
-                    ).join('<br>');
+                        // Tampilkan juga properti 'loc.direction' yang baru
+                        `<strong>${loc.distance.toFixed(2)} km arah ${loc.direction}</strong> Kec. ${loc.district} (Kota/Kab ${loc.regency})`
+                    ).join('<br>'); // Beri sedikit jarak antar baris
 
                     locationHtml = `
-                <div class="col-12 mt-2">
-                    <i class="bi bi-geo-fill me-2 text-success"></i>
-                    <h6 class="d-inline">Kecamatan Terdekat dari Pusat Gempa:</h6>
-                    
-                    <div class="ms-4 fw-semibold" style="margin-bottom: 0;">${nearestHtml}</div>
-                </div>
-            `;
+                        <div class="col-12 mt-2">
+                            <i class="bi bi-compass me-2 text-success"></i>
+                            <h6 class="d-inline">Kecamatan Terdekat dari Pusat Gempa:</h6>
+                            <div class="ms-4 fw-semibold" style="line-height: 1.5;">${nearestHtml}</div>
+                            </div>
+                    `;
                 } else {
                     locationHtml =
                         `<div class="col-12 mt-2"><i class="bi bi-exclamation-triangle-fill me-2 text-warning"></i><h6 class="d-inline">Informasi Wilayah Tidak Tersedia</h6></div>`;
                 }
 
                 output.innerHTML = `
-            <div class="d-flex flex-wrap w-100">
-                <div class="text-white text-center d-flex flex-column justify-content-center align-items-center p-4" style="width: 25%; background-color: #CB0404;">
-                    <h4 class="fw-bold text-uppercase" style="font-weight: 900;">Magnitudo</h4>
-                    <h1 class="display-3 fw-bold mb-0" style="font-weight: 900;">${magnitudo}</h1>
-                </div>
-                <div class="p-4 text-dark" style="width: 75%; background-color: #ffffff;">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <i class="bi bi-calendar-event me-2"></i><h6 class="d-inline"> Waktu:</h6>
-                            <h6 class="ms-1 fw-semibold">${tanggal} <br> ${waktu} WIB</h6>
+                    <div class="d-flex flex-wrap w-100">
+                        <div class="text-white text-center d-flex flex-column justify-content-center align-items-center p-4" style="width: 25%; background-color: #CB0404;">
+                            <h4 class="fw-bold text-uppercase" style="font-weight: 900;">Magnitudo</h4>
+                            <h1 class="display-3 fw-bold mb-0" style="font-weight: 900;">${magnitudo}</h1>
                         </div>
-                        <div class="col-5">
-                            <i class="bi bi-geo-alt-fill me-2 text-danger"></i><h6 class="d-inline"> Lokasi:</h6>
-                            <h6 class="ms-1 fw-semibold">${lintang}, ${bujur}<br>${jarak}</h6>
+                        <div class="p-4 text-dark" style="width: 75%; background-color: #ffffff;">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <i class="bi bi-calendar-event me-2"></i><h6 class="d-inline"> Waktu:</h6>
+                                    <h6 class="ms-1 fw-semibold">${tanggal} <br> ${waktu} WIB</h6>
+                                </div>
+                                <div class="col-5">
+                                    <i class="bi bi-geo-alt-fill me-2 text-danger"></i><h6 class="d-inline"> Lokasi:</h6>
+                                    <h6 class="ms-1 fw-semibold">${lintang}, ${bujur}<br>${jarak}</h6>
+                                </div>
+                                <div class="col-md-4">
+                                    <i class="bi bi-graph-down me-2"></i><h6 class="d-inline"> Kedalaman:</h6>
+                                    <h6 class="ms-1 fw-semibold">${kedalaman} Km</h6>
+                                </div>
+                                ${locationHtml}
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <i class="bi bi-graph-down me-2"></i><h6 class="d-inline"> Kedalaman:</h6>
-                            <h6 class="ms-1 fw-semibold">${kedalaman} Km</h6>
-                        </div>
-                        ${locationHtml}
                     </div>
-                </div>
-            </div>
-            <div class="d-flex justify-content-between align-items-center px-3 py-2 text-white" style="background-color: #002147;">
-                <span><i class="bi bi-instagram"></i> stageof.balikpapan.bmkg</span>
-                <span><i class="bi bi-heart-fill text-danger"></i> Stasiun Geofisika Balikpapan</span>
-                <span><i class="bi bi-whatsapp"></i> 0811-5926-543</span>
-            </div>`;
+                    <div class="d-flex justify-content-between align-items-center px-3 py-2 text-white" style="background-color: #002147;">
+                        <span><i class="bi bi-instagram"></i> stageof.balikpapan.bmkg</span>
+                        <span><i class="bi bi-heart-fill text-danger"></i> Stasiun Geofisika Balikpapan</span>
+                        <span><i class="bi bi-whatsapp"></i> 0811-5926-543</span>
+                    </div>`;
 
                 tambahLayerSesar(window.gempaMap);
                 card.classList.remove("d-none");
                 document.getElementById("resetButton").classList.remove("d-none");
                 document.getElementById("saveButton").classList.remove("d-none");
+                document.getElementById("copyButton").classList.remove("d-none");
                 document.getElementById("createButton").classList.remove("d-none");
 
                 document.getElementById("inputMagnitudo").value = magnitudo;
@@ -595,5 +661,65 @@
                     });
             }, 500); // Penundaan singkat untuk render peta
         }
+    </script>
+
+    {{-- ▼▼▼ FUNGSI UNTUK SALIN GAMBAR ▼▼▼ --}}
+    <script>
+        // --- Fungsi baru untuk fitur "Salin Gambar" ---
+        function prepareForCopy() {
+            const card = document.getElementById("infografisBody");
+            const copyBtn = document.getElementById('copyButton');
+            const spinner = copyBtn.querySelector('.spinner-border');
+
+            // Tampilkan loader
+            copyBtn.disabled = true;
+            spinner.classList.remove('d-none');
+
+            html2canvas(card, {
+                    useCORS: true,
+                    backgroundColor: null,
+                    scale: 2
+                })
+                .then(canvas => {
+                    const modal = document.getElementById('imageModal');
+                    const modalImg = document.getElementById('modalImage');
+
+                    // Masukkan gambar hasil render ke dalam modal
+                    modalImg.src = canvas.toDataURL('image/png');
+
+                    // Tampilkan modal
+                    modal.style.display = 'block';
+                })
+                .catch(err => {
+                    console.error("Gagal membuat gambar untuk disalin:", err);
+                    alert("Terjadi kesalahan saat menyiapkan gambar.");
+                })
+                .finally(() => {
+                    // Sembunyikan loader
+                    copyBtn.disabled = false;
+                    spinner.classList.add('d-none');
+                });
+        }
+
+        // --- Logika untuk mengontrol modal (buka/tutup) ---
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const modal = document.getElementById('imageModal');
+            const closeBtn = document.querySelector('.modal-close-button');
+
+            // Fungsi untuk menutup modal
+            function closeModal() {
+                modal.style.display = 'none';
+            }
+
+            // Tutup modal jika tombol close (x) diklik
+            closeBtn.onclick = closeModal;
+
+            // Tutup modal jika area gelap di luar gambar diklik
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    closeModal();
+                }
+            }
+        });
     </script>
 @endpush
