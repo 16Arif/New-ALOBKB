@@ -1,3 +1,5 @@
+{{-- disini user sudah bisa melihat kecamatan terdekat dari pusat gempa --}}
+
 @extends('layouts.app')
 
 @section('title', 'Buat Infografis Gempabumi')

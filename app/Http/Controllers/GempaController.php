@@ -57,7 +57,7 @@ class GempaController extends Controller
 
     public function create()
     {
-        return view('pages.gempabumi.create4',  ['type_menu' => '']);
+        return view('pages.gempabumi.create5',  ['type_menu' => '']);
     }
 
     public function store(StoreGempabumiRequest $request)

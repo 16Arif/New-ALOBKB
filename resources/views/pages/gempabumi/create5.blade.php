@@ -1,4 +1,4 @@
-{{-- disini user dapat klik tombol salin dan muncul pop up untuk copy infografis --}}
+{{-- User dapat membagikan infografis dan teks info gempa melalui tombol bagikan. tombol simpan disesuaikan agar user dapat peringatan dulu sebelum menyimpan data --}}
 
 @extends('layouts.app')
 
@@ -94,7 +94,7 @@
             background-color: rgba(0, 0, 0, 0.8);
         }
 
-        .modal-content {
+        #modal-content-image {
             background-color: #fefefe;
             margin: 5% auto;
             padding: 20px;
@@ -120,6 +120,27 @@
             color: black;
             text-decoration: none;
             cursor: pointer;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+        }
+
+        .reminder-pulse {
+            animation: pulse 2s infinite;
         }
     </style>
 @endpush
@@ -176,18 +197,55 @@
                             </div>
 
                             <div id="infografisCard" class="d-none text-center w-100">
-                                <div class="bg-info text-white fw-bold p-4 text-center mb-3">
+                                <div class="fw-bold p-4 text-center mb-3"
+                                    style="background-color: #f5f7fa; text-decoration-color: black">
                                     <h6>Hasil Infografis Gempa</h6>
                                 </div>
-                                <div class="text-white fw-bold p-2 text-center mb-5" style="background-color: #b71c1c;">
-                                    <span class="arrow-wave">⬇️</span>
-                                    Jangan Lupa Simpan Data
-                                    <span class="arrow-wave">⬇️</span>
+
+                                <div id="reminderText" class="d-none text-white fw-bold reminder-pulse">
+                                    <i class="fa-solid fa-arrow-down"></i> Jangan Lupa Simpan Data <i
+                                        class="fa-solid fa-arrow-down"></i>
                                 </div>
+                                <div class="d-flex justify-content-center my-3" style="gap: 100px;">
+
+                                    <button class="btn btn-info d-none" id="saveButton" onclick="saveAsImage()">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status"
+                                            aria-hidden="true"></span>
+                                        <span class="button-text"><i class="fa-solid fa-download"></i> Simpan
+                                            Gambar</span>
+                                    </button>
+
+                                    <button class="btn btn-success d-none glow" id="createButton" onclick="submitForm()"
+                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        <i class="fa-solid fa-save"></i> Simpan Data
+                                    </button>
+
+                                    <button class="btn btn-warning d-none" id="copyAndShare" onclick="prepareForCopy()">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status"
+                                            aria-hidden="true"></span>
+                                        <span class="button-text"><i class="fa-solid fa-share-alt"></i> Salin &
+                                            Bagikan</span>
+                                    </button>
+
+                                </div>
+
+
+                                <form id="gempaForm" method="POST" action="{{ route('gempabumi.store') }}" class="d-none">
+                                    @csrf
+                                    <input type="hidden" name="magnitudo" id="inputMagnitudo">
+                                    <input type="hidden" name="tanggal" id="inputTanggal">
+                                    <input type="hidden" name="waktu" id="inputWaktu">
+                                    <input type="hidden" name="lintang" id="inputLintang">
+                                    <input type="hidden" name="bujur" id="inputBujur">
+                                    <input type="hidden" name="jarak" id="inputJarak">
+                                    <input type="hidden" name="kedalaman" id="inputKedalaman">
+                                </form>
+
                                 <div id="infografisBody" class="card border-info mx-auto" style="max-width: 700px;">
                                     <div class="card-header d-flex justify-content-center align-items-center p-3 rounded-top"
                                         style="background-color: #ffffff;">
-                                        <img src="/img/logo-bmkg.png" alt="Logo BMKG" style="height: 48px;" class="mx-5">
+                                        <img src="/img/logo-bmkg.png" alt="Logo BMKG" style="height: 48px;"
+                                            class="mx-5">
                                         <div class="text-end">
                                             <h5 class="text-dark mb-1 fw-semibold">INFORMASI GEMPABUMI WILAYAH KALIMANTAN
                                             </h5>
@@ -211,30 +269,7 @@
                                     </div>
                                     <div class="" id="parameterOutput"></div>
                                 </div>
-                                <div class="justify-content-center">
-                                    <button class="btn btn-info d-none mx-2" id="saveButton" onclick="saveAsImage()">
-                                        <span class="spinner-border spinner-border-sm d-none" role="status"
-                                            aria-hidden="true"></span>
-                                        <span class="button-text"><i class="fa-solid fa-download"></i> Simpan Gambar</span>
-                                    </button>
-                                    <button class="btn btn-warning d-none mx-2" id="copyButton" onclick="prepareForCopy()">
-                                        <span class="spinner-border spinner-border-sm d-none" role="status"
-                                            aria-hidden="true"></span>
-                                        <span class="button-text"><i class="fa-solid fa-copy"></i> Salin Gambar</span>
-                                    </button>
-                                    <button class="btn btn-success d-none glow mx-2" id="createButton"
-                                        onclick="submitForm()"><i class="fa-solid fa-save"></i> Simpan Data</button>
-                                    <form id="gempaForm" method="POST" action="{{ route('gempabumi.store') }}">
-                                        @csrf
-                                        <input type="hidden" name="magnitudo" id="inputMagnitudo">
-                                        <input type="hidden" name="tanggal" id="inputTanggal">
-                                        <input type="hidden" name="waktu" id="inputWaktu">
-                                        <input type="hidden" name="lintang" id="inputLintang">
-                                        <input type="hidden" name="bujur" id="inputBujur">
-                                        <input type="hidden" name="jarak" id="inputJarak">
-                                        <input type="hidden" name="kedalaman" id="inputKedalaman">
-                                    </form>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -244,16 +279,20 @@
     </div>
 
     <div id="imageModal" class="modal-overlay">
-        <div class="modal-content">
+        <div class="modal-content" id="modal-content-image">
             <span class="modal-close-button">&times;</span>
-            <p style="text-align: center; font-weight: bold;">Gambar Siap Disalin</p>
-            <img src="" id="modalImage" style="max-width: 100%; border: 1px solid #ddd;" />
-            <p style="text-align: center; margin-top: 15px; font-size: 0.9rem;">
-                <strong>Desktop:</strong> Klik kanan > "Salin Gambar"<br>
-                <strong>Ponsel:</strong> Tekan dan tahan > "Salin Gambar"
-            </p>
+            <p class="modal-title">Siap Dibagikan</p>
+
+            <p class="modal-instructions"><strong>Untuk Gambar:</strong> Klik kanan > "Salin Gambar"</p>
+            <img src="" id="modalImage" class="modal-image-preview" />
+
+            <p class="modal-instructions"><strong>Untuk Teks:</strong></p>
+            <textarea id="modalText" class="modal-textarea" readonly rows="5"></textarea>
+            <button id="copyTextButton" class="btn btn-primary btn-sm mt-2">Salin Teks</button>
         </div>
     </div>
+
+    @include('components.gempa.modal-simpandata')
 @endsection
 
 @push('scripts')
@@ -262,11 +301,21 @@
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://unpkg.com/leaflet-image/leaflet-image.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+    <script>
+        let whatsappTab = null;
+    </script>
 
     {{-- Helper Functions --}}
     <script>
         function submitForm() {
-            document.getElementById('gempaForm').submit();
+            if (imageHasBeenActioned) {
+                // Jika sudah ada aksi, langsung submit form
+                document.getElementById('gempaForm').submit();
+            } else {
+                // Jika belum, panggil dan tampilkan Modal Bootstrap
+                const reminderModal = new bootstrap.Modal(document.getElementById('reminderModal'));
+                reminderModal.show();
+            }
         }
 
         function resetForm() {
@@ -275,13 +324,17 @@
             document.getElementById("infografisCard").classList.add("d-none");
             document.getElementById("resetButton").classList.add("d-none");
             document.getElementById("saveButton").classList.add("d-none");
-            document.getElementById("copyButton").classList.add("d-none");
+            document.getElementById("copyAndShare").classList.add("d-none");
             document.getElementById("createButton").classList.add("d-none");
+            document.getElementById("reminderText").classList.add("d-none");
             if (window.gempaMap) {
                 window.gempaMap.remove();
                 window.gempaMap = null;
             }
         }
+
+        // Variabel penanda untuk melacak aksi pengguna
+        let imageHasBeenActioned = false;
     </script>
 
     {{-- Logic Functions --}}
@@ -472,6 +525,9 @@
             spinner.classList.remove('d-none');
             btnText.textContent = 'Memproses...';
             try {
+                // Reset penanda setiap kali infografis baru dibuat
+                imageHasBeenActioned = false;
+
                 const input = document.getElementById("infoText").value.trim();
                 const output = document.getElementById("parameterOutput");
                 const card = document.getElementById("infografisCard");
@@ -586,8 +642,9 @@
                 card.classList.remove("d-none");
                 document.getElementById("resetButton").classList.remove("d-none");
                 document.getElementById("saveButton").classList.remove("d-none");
-                document.getElementById("copyButton").classList.remove("d-none");
+                document.getElementById("copyAndShare").classList.remove("d-none");
                 document.getElementById("createButton").classList.remove("d-none");
+                document.getElementById("reminderText").classList.remove("d-none");
 
                 document.getElementById("inputMagnitudo").value = magnitudo;
                 document.getElementById("inputTanggal").value = tanggal;
@@ -602,6 +659,9 @@
                         behavior: "smooth"
                     });
                 }, 300);
+
+
+
 
             } catch (error) {
                 console.error("Terjadi error saat generate infografis:", error.message);
@@ -619,6 +679,9 @@
     {{-- Screenshot Function --}}
     <script>
         function saveAsImage() {
+            // Tandai bahwa gambar sudah disimpan
+            imageHasBeenActioned = true;
+
             const card = document.getElementById("infografisBody");
 
             // Ambil elemen tombol
@@ -665,15 +728,14 @@
         }
     </script>
 
-    {{-- ▼▼▼ FUNGSI UNTUK SALIN GAMBAR ▼▼▼ --}}
+    {{-- ▼▼▼ FUNGSI UNTUK  BAGIKAN INFOGRAFIS ▼▼▼ --}}
     <script>
-        // --- Fungsi baru untuk fitur "Salin Gambar" ---
+        // --- Fungsi yang diperbarui untuk menyiapkan modal ---
         function prepareForCopy() {
             const card = document.getElementById("infografisBody");
-            const copyBtn = document.getElementById('copyButton');
+            const copyBtn = document.getElementById('copyAndShare');
             const spinner = copyBtn.querySelector('.spinner-border');
 
-            // Tampilkan loader
             copyBtn.disabled = true;
             spinner.classList.remove('d-none');
 
@@ -685,11 +747,15 @@
                 .then(canvas => {
                     const modal = document.getElementById('imageModal');
                     const modalImg = document.getElementById('modalImage');
+                    const modalTxt = document.getElementById('modalText');
 
-                    // Masukkan gambar hasil render ke dalam modal
+                    // 1. Masukkan gambar hasil render ke dalam modal
                     modalImg.src = canvas.toDataURL('image/png');
 
-                    // Tampilkan modal
+                    // 2. Masukkan teks asli dari input ke dalam textarea modal
+                    modalTxt.value = document.getElementById('infoText').value.trim();
+
+                    // 3. Tampilkan modal
                     modal.style.display = 'block';
                 })
                 .catch(err => {
@@ -697,31 +763,55 @@
                     alert("Terjadi kesalahan saat menyiapkan gambar.");
                 })
                 .finally(() => {
-                    // Sembunyikan loader
                     copyBtn.disabled = false;
                     spinner.classList.add('d-none');
                 });
         }
 
-        // --- Logika untuk mengontrol modal (buka/tutup) ---
+        // --- Logika untuk mengontrol modal dan tombol salin teks ---
         document.addEventListener('DOMContentLoaded', (event) => {
             const modal = document.getElementById('imageModal');
             const closeBtn = document.querySelector('.modal-close-button');
+            const copyTextBtn = document.getElementById('copyTextButton');
+            const modalTxt = document.getElementById('modalText');
 
-            // Fungsi untuk menutup modal
             function closeModal() {
                 modal.style.display = 'none';
             }
 
-            // Tutup modal jika tombol close (x) diklik
             closeBtn.onclick = closeModal;
-
-            // Tutup modal jika area gelap di luar gambar diklik
             window.onclick = function(event) {
                 if (event.target == modal) {
                     closeModal();
                 }
             }
+
+            // Fungsi untuk tombol "Salin Teks"
+            copyTextBtn.onclick = function() {
+                // Gunakan Clipboard API yang modern (berfungsi tanpa HTTPS untuk teks)
+                navigator.clipboard.writeText(modalTxt.value).then(() => {
+                    // Beri umpan balik ke pengguna
+                    const originalText = copyTextBtn.textContent;
+                    copyTextBtn.textContent = 'Tersalin!';
+                    setTimeout(() => {
+                        copyTextBtn.textContent = originalText;
+                    }, 2000); // Kembalikan teks tombol setelah 2 detik
+                }).catch(err => {
+                    console.error('Gagal menyalin teks: ', err);
+                    alert('Gagal menyalin teks. Mungkin browser Anda tidak mendukung fitur ini.');
+                });
+            }
+
+            // Logika untuk modal Peringatan Simpan Data
+            const confirmBtn = document.getElementById('confirmSubmitButton');
+
+            // Kita hanya perlu menangani tombol konfirmasi secara manual
+            if (confirmBtn) {
+                confirmBtn.addEventListener('click', () => {
+                    document.getElementById('gempaForm').submit();
+                });
+            }
         });
     </script>
+    <script></script>
 @endpush

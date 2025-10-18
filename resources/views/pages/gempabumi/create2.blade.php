@@ -1,3 +1,5 @@
+{{-- disini layer sesar sudah tidak bergeser  --}}
+
 @extends('layouts.app')
 
 @section('title', 'create2 Buat Infografis Gempabumi')
