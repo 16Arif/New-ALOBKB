@@ -488,7 +488,7 @@
 
                 // === TAMBAHAN BARU: Hitung dan tambahkan arah untuk 3 kecamatan teratas ===
                 const finalNearestList = nearestDistricts.map(district => {
-                    const bearing = turf.bearing(earthquakePoint, district.centroid);
+                    const bearing = turf.bearing(district.centroid, earthquakePoint);
                     const direction = bearingToDirection(bearing);
                     return {
                         ...district,
@@ -593,7 +593,7 @@
 
                     const nearestHtml = analysisResult.nearest.map(loc =>
                         // Tampilkan juga properti 'loc.direction' yang baru
-                        `<strong>${loc.distance.toFixed(2)} km arah ${loc.direction}</strong> Kec. ${loc.district} (Kota/Kab ${loc.regency})`
+                        `<strong>${loc.distance.toFixed(2)} km ${loc.direction}</strong> Kec. ${loc.district} (${loc.regency})`
                     ).join('<br>'); // Beri sedikit jarak antar baris
 
                     locationHtml = `
