@@ -165,7 +165,7 @@
                             <div class="text-center mb-4">
                                 <div class="d-flex flex-column align-items-center">
                                     <img src="/img/logo-bmkg.png" alt="logo" style="max-height: 100px" />
-                                    <h1 class="h4 mt-4 fw-bold text-dark">Generator Infografis Gempabumi BMKG-BKB</h1>
+                                    <h1 class="h4 mt-4 fw-bold text-dark">Generator Infografis Gempabumi BMKG-BKI</h1>
                                     <p class="text-white mt-2">Masukkan informasi gempa dari BMKG dan buat infografis secara
                                         otomatis</p>
                                 </div>
