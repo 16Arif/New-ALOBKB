@@ -165,7 +165,7 @@
                             <div class="text-center mb-4">
                                 <div class="d-flex flex-column align-items-center">
                                     <img src="/img/logo-bmkg.png" alt="logo" style="max-height: 100px" />
-                                    <h1 class="h4 mt-4 fw-bold text-dark">Generator Infografis Gempabumi BMKG-BKB</h1>
+                                    <h1 class="h4 mt-4 fw-bold text-dark">Generator Infografis Gempabumi BMKG-BKI</h1>
                                     <p class="text-white mt-2">Masukkan informasi gempa dari BMKG dan buat infografis secara
                                         otomatis</p>
                                 </div>
@@ -174,11 +174,16 @@
                             <div class="mb-4">
                                 <label for="infoText" class="form-label fw-medium text-center w-100 text-white">Format
                                     Parameter Gempa</label>
-                                <p class="fw-medium text-center text-white">Teks Berikut Sesuai Dengan Info Dari EXDX</p>
-                                <h6 class="text-center mx-auto mb-3 text-dark" style="width: 70%;">
-                                    Contoh: Info Gempa Mag:3.2, 08-Jun-25 00:00:16 WIB, Lok:0.68 LU,118.62 BT (141 km
-                                    TimurLaut BONTANG-KALTIM), Kedlmn:6 Km ::BMKG-BKB
+                                <p class="fw-medium text-center text-white">Contoh Teks Berikut Sesuai Dengan Info Dari EXDX
+                                </p>
+                                <h6 class="text-center mx-auto mb-3 text-white" style="width: 70%;">
+                                    Info Gempa Mag:3.2, 08-Jun-25 00:00:16 WIB, Lok:0.68 LU,118.62 BT (141 km
+                                    TimurLaut BONTANG-KALTIM), Kedlmn:6 Km ::BMKG-BKI
                                 </h6>
+                                <p class="fw-medium text-center text-white">Atau Format Dari New EXDX</p>
+                                <h6 class="text-center mx-auto mb-3 text-white" style="width: 70%;">Info Gempa Mag: 2.8,
+                                    2025-11-07 05:28:29 WIB, Lok: 3.30 LU - 117.73 BT (16 km Timur
+                                    TARAKAN-KALTARA), Kedalaman: 5 km</h6>
                                 <h6 class="text-center mx-auto mb-3 text-danger" style="width: 70%;">
                                     Mohon sesuaikan waktu dalam WIB
                                 </h6>
@@ -242,14 +247,15 @@
                                 </form>
 
                                 <div id="infografisBody" class="card border-info mx-auto" style="max-width: 700px;">
-                                    <div class="card-header d-flex justify-content-center align-items-center p-3 rounded-top"
-                                        style="background-color: #ffffff;">
-                                        <img src="/img/logo-bmkg.png" alt="Logo BMKG" style="height: 48px;"
-                                            class="mx-5">
-                                        <div class="text-end">
-                                            <h5 class="text-dark mb-1 fw-semibold">INFORMASI GEMPABUMI WILAYAH KALIMANTAN
-                                            </h5>
-                                            <h6 class="text-dark mb-1">STASIUN GEOFISIKA BALIKPAPAN</h6>
+                                    <div class="card-header d-flex justify-content-between align-items-center p-3 rounded-top"
+                                        style="background-color: #e7ebff;">
+                                        <img class="ml-5" src="/img/logo-bmkg.png" alt="Logo BMKG"
+                                            style="height: 65px;">
+                                        <div class="mr-5">
+                                            <h5 class="text-dark mb-1" style="font-weight: 900;">INFORMASI GEMPABUMI
+                                                WILAYAH KALIMANTAN</h5>
+                                            <h5 class="text-dark mb-1 fw-semibold">PUSAT GEMPA REGIONAL XI</h5>
+                                            <p class="text-dark mb-1 fw-normal">STASIUN GEOFISIKA BALIKPAPAN</p>
                                         </div>
                                     </div>
                                     <div id="map" style="height: 500px; overflow: hidden;">
@@ -537,8 +543,10 @@
                     return;
                 }
 
+                // const regex =
+                //     /Mag:(?<magnitudo>[\d.]+),\s*(?<tanggal>\d{2}-\w{3}-\d{2})\s+(?<waktu>\d{2}:\d{2}:\d{2})\s+WIB,\s*Lok:\s*(?<lintang>[\d.\-]+\s*(LU|LS))\s*[,–-]\s*(?<bujur>[\d.\-]+\s*(BT|BB))\s*\((?<jarak>[^)]+)\),\s*Kedlmn:\s*(?<kedalaman>\d+)\s*Km\s*::(?<sumber>.+)$/i;
                 const regex =
-                    /Mag:(?<magnitudo>[\d.]+),\s*(?<tanggal>\d{2}-\w{3}-\d{2})\s+(?<waktu>\d{2}:\d{2}:\d{2})\s+WIB,\s*Lok:\s*(?<lintang>[\d.\-]+\s*(LU|LS))\s*[,–-]\s*(?<bujur>[\d.\-]+\s*(BT|BB))\s*\((?<jarak>[^)]+)\),\s*Kedlmn:\s*(?<kedalaman>\d+)\s*Km\s*::(?<sumber>.+)$/i;
+                    /(?:Info Gempa |Gempa )?Mag:\s*(?<magnitudo>[\d.]+),\s*(?<tanggal>\d{4}-\d{2}-\d{2}|\d{2}-\w{3}-\d{2})\s+(?<waktu>\d{2}:\d{2}:\d{2})\s+WIB,\s*Lok:\s*(?<lintang>[\d.\-]+\s*(LU|LS))\s*[,–-]\s*(?<bujur>[\d.\-]+\s*(BT|BB))\s*\((?<jarak>[^)]+)\),\s*(?:Kedlmn|Kedalaman):\s*(?<kedalaman>\d+)\s*Km(?:\s*::(?<sumber>.+))?$/i;
                 const match = input.match(regex);
 
                 if (!match || !match.groups) {
@@ -614,7 +622,7 @@
                             <h4 class="fw-bold text-uppercase" style="font-weight: 900;">Magnitudo</h4>
                             <h1 class="display-3 fw-bold mb-0" style="font-weight: 900;">${magnitudo}</h1>
                         </div>
-                        <div class="p-4 text-dark" style="width: 75%; background-color: #ffffff;">
+                        <div class="p-4 text-dark" style="width: 75%; background-color: #e7ebff;">
                             <div class="row">
                                 <div class="col-md-3">
                                     <i class="bi bi-calendar-event me-2"></i><h6 class="d-inline"> Waktu:</h6>
