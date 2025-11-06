@@ -174,11 +174,16 @@
                             <div class="mb-4">
                                 <label for="infoText" class="form-label fw-medium text-center w-100 text-white">Format
                                     Parameter Gempa</label>
-                                <p class="fw-medium text-center text-white">Teks Berikut Sesuai Dengan Info Dari EXDX</p>
+                                <p class="fw-medium text-center text-white">Contoh Teks Berikut Sesuai Dengan Info Dari EXDX
+                                </p>
                                 <h6 class="text-center mx-auto mb-3 text-white" style="width: 70%;">
-                                    Contoh: Info Gempa Mag:3.2, 08-Jun-25 00:00:16 WIB, Lok:0.68 LU,118.62 BT (141 km
-                                    TimurLaut BONTANG-KALTIM), Kedlmn:6 Km ::BMKG-PGR XI
+                                    Info Gempa Mag:3.2, 08-Jun-25 00:00:16 WIB, Lok:0.68 LU,118.62 BT (141 km
+                                    TimurLaut BONTANG-KALTIM), Kedlmn:6 Km ::BMKG-BKI
                                 </h6>
+                                <p class="fw-medium text-center text-white">Atau Format Dari New EXDX</p>
+                                <h6 class="text-center mx-auto mb-3 text-white" style="width: 70%;">Info Gempa Mag: 2.8,
+                                    2025-11-07 05:28:29 WIB, Lok: 3.30 LU - 117.73 BT (16 km Timur
+                                    TARAKAN-KALTARA), Kedalaman: 5 km</h6>
                                 <h6 class="text-center mx-auto mb-3 text-danger" style="width: 70%;">
                                     Mohon sesuaikan waktu dalam WIB
                                 </h6>
@@ -538,8 +543,10 @@
                     return;
                 }
 
+                // const regex =
+                //     /Mag:(?<magnitudo>[\d.]+),\s*(?<tanggal>\d{2}-\w{3}-\d{2})\s+(?<waktu>\d{2}:\d{2}:\d{2})\s+WIB,\s*Lok:\s*(?<lintang>[\d.\-]+\s*(LU|LS))\s*[,–-]\s*(?<bujur>[\d.\-]+\s*(BT|BB))\s*\((?<jarak>[^)]+)\),\s*Kedlmn:\s*(?<kedalaman>\d+)\s*Km\s*::(?<sumber>.+)$/i;
                 const regex =
-                    /Mag:(?<magnitudo>[\d.]+),\s*(?<tanggal>\d{2}-\w{3}-\d{2})\s+(?<waktu>\d{2}:\d{2}:\d{2})\s+WIB,\s*Lok:\s*(?<lintang>[\d.\-]+\s*(LU|LS))\s*[,–-]\s*(?<bujur>[\d.\-]+\s*(BT|BB))\s*\((?<jarak>[^)]+)\),\s*Kedlmn:\s*(?<kedalaman>\d+)\s*Km\s*::(?<sumber>.+)$/i;
+                    /(?:Info Gempa |Gempa )?Mag:\s*(?<magnitudo>[\d.]+),\s*(?<tanggal>\d{4}-\d{2}-\d{2}|\d{2}-\w{3}-\d{2})\s+(?<waktu>\d{2}:\d{2}:\d{2})\s+WIB,\s*Lok:\s*(?<lintang>[\d.\-]+\s*(LU|LS))\s*[,–-]\s*(?<bujur>[\d.\-]+\s*(BT|BB))\s*\((?<jarak>[^)]+)\),\s*(?:Kedlmn|Kedalaman):\s*(?<kedalaman>\d+)\s*Km(?:\s*::(?<sumber>.+))?$/i;
                 const match = input.match(regex);
 
                 if (!match || !match.groups) {
