@@ -175,9 +175,9 @@
                                 <label for="infoText" class="form-label fw-medium text-center w-100 text-white">Format
                                     Parameter Gempa</label>
                                 <p class="fw-medium text-center text-white">Teks Berikut Sesuai Dengan Info Dari EXDX</p>
-                                <h6 class="text-center mx-auto mb-3 text-dark" style="width: 70%;">
+                                <h6 class="text-center mx-auto mb-3 text-white" style="width: 70%;">
                                     Contoh: Info Gempa Mag:3.2, 08-Jun-25 00:00:16 WIB, Lok:0.68 LU,118.62 BT (141 km
-                                    TimurLaut BONTANG-KALTIM), Kedlmn:6 Km ::BMKG-BKB
+                                    TimurLaut BONTANG-KALTIM), Kedlmn:6 Km ::BMKG-PGR XI
                                 </h6>
                                 <h6 class="text-center mx-auto mb-3 text-danger" style="width: 70%;">
                                     Mohon sesuaikan waktu dalam WIB
@@ -242,14 +242,15 @@
                                 </form>
 
                                 <div id="infografisBody" class="card border-info mx-auto" style="max-width: 700px;">
-                                    <div class="card-header d-flex justify-content-center align-items-center p-3 rounded-top"
-                                        style="background-color: #ffffff;">
-                                        <img src="/img/logo-bmkg.png" alt="Logo BMKG" style="height: 48px;"
-                                            class="mx-5">
-                                        <div class="text-end">
-                                            <h5 class="text-dark mb-1 fw-semibold">INFORMASI GEMPABUMI WILAYAH KALIMANTAN
-                                            </h5>
-                                            <h6 class="text-dark mb-1">STASIUN GEOFISIKA BALIKPAPAN</h6>
+                                    <div class="card-header d-flex justify-content-between align-items-center p-3 rounded-top"
+                                        style="background-color: #e7ebff;">
+                                        <img class="ml-5" src="/img/logo-bmkg.png" alt="Logo BMKG"
+                                            style="height: 65px;">
+                                        <div class="mr-5">
+                                            <h5 class="text-dark mb-1" style="font-weight: 900;">INFORMASI GEMPABUMI
+                                                WILAYAH KALIMANTAN</h5>
+                                            <h5 class="text-dark mb-1 fw-semibold">PUSAT GEMPA REGIONAL XI</h5>
+                                            <p class="text-dark mb-1 fw-normal">STASIUN GEOFISIKA BALIKPAPAN</p>
                                         </div>
                                     </div>
                                     <div id="map" style="height: 500px; overflow: hidden;">
@@ -488,7 +489,7 @@
 
                 // === TAMBAHAN BARU: Hitung dan tambahkan arah untuk 3 kecamatan teratas ===
                 const finalNearestList = nearestDistricts.map(district => {
-                    const bearing = turf.bearing(earthquakePoint, district.centroid);
+                    const bearing = turf.bearing(district.centroid, earthquakePoint);
                     const direction = bearingToDirection(bearing);
                     return {
                         ...district,
@@ -593,7 +594,7 @@
 
                     const nearestHtml = analysisResult.nearest.map(loc =>
                         // Tampilkan juga properti 'loc.direction' yang baru
-                        `<strong>${loc.distance.toFixed(2)} km arah ${loc.direction}</strong> Kec. ${loc.district} (Kota/Kab ${loc.regency})`
+                        `<strong>${loc.distance.toFixed(2)} km ${loc.direction}</strong> Kec. ${loc.district} (${loc.regency})`
                     ).join('<br>'); // Beri sedikit jarak antar baris
 
                     locationHtml = `
@@ -614,7 +615,7 @@
                             <h4 class="fw-bold text-uppercase" style="font-weight: 900;">Magnitudo</h4>
                             <h1 class="display-3 fw-bold mb-0" style="font-weight: 900;">${magnitudo}</h1>
                         </div>
-                        <div class="p-4 text-dark" style="width: 75%; background-color: #ffffff;">
+                        <div class="p-4 text-dark" style="width: 75%; background-color: #e7ebff;">
                             <div class="row">
                                 <div class="col-md-3">
                                     <i class="bi bi-calendar-event me-2"></i><h6 class="d-inline"> Waktu:</h6>
