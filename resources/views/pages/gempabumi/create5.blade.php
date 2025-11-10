@@ -643,7 +643,7 @@
                     <div class="d-flex justify-content-between align-items-center px-3 py-2 text-white" style="background-color: #002147;">
                         <span><i class="bi bi-instagram"></i> stageof.balikpapan.bmkg</span>
                         <span><i class="bi bi-heart-fill text-danger"></i> Stasiun Geofisika Balikpapan</span>
-                        <span><i class="bi bi-whatsapp"></i> 0811-5926-543</span>
+                        <span><i class="bi bi-facebook"></i> stageof.balikpapan.bmkg</span>
                     </div>`;
 
                 tambahLayerSesar(window.gempaMap);
