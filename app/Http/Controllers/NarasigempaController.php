@@ -16,6 +16,6 @@ class NarasigempaController extends Controller
     public function createWithId($id)
     {
         $gempa = GempaBumi::findOrFail($id);
-        return view('pages.gempabumi.createNarration', compact('gempa'),  ['type_menu' => '']);
+        return view('pages.gempabumi.createNarration2', compact('gempa'),  ['type_menu' => '']);
     }
 }
