@@ -18,6 +18,7 @@ use App\Http\Controllers\LogbookpetirController;
 use App\Http\Controllers\LogbookperalatanController;
 use App\Http\Controllers\NarasigempaController;
 use App\Http\Controllers\Settings\PasswordController;
+use OpenSpout\Common\Entity\Row;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('gempabumi', GempaController::class);
     Route::prefix('gempabumi/custom')->name('gempabumi.custom.')->group(function () {
         Route::get('/create', [GempaController::class, 'createOnedata'])->name('create');
+        Route::get('/create_one_infographic', [GempaController::class, 'createOneInfographic'])->name('createOneInfographic');
         Route::get('/showImport', [GempaController::class, 'showImport'])->name('showImport');
         Route::post('/importExcel', [GempaController::class, 'importExcel'])->name('importExcel');
     });

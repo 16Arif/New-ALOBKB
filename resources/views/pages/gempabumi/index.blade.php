@@ -311,6 +311,13 @@
                                                             @endif
                                                             <li>
                                                                 <a class="dropdown-item text-info "
+                                                                    href="{{ route('gempabumi.custom.createOneInfographic', ['ids' => $gempa->id]) }}">
+                                                                    <i class="fa-solid fa-pen me-2 text-info ml-1"></i>
+                                                                    Buat Infografis
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item text-info "
                                                                     href="{{ route('gempabumi.edit', $gempa->id) }}">
                                                                     <i
                                                                         class="fa-solid fa-pen-to-square me-2 text-info ml-1"></i>

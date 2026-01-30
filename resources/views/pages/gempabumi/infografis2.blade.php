@@ -193,7 +193,7 @@
                                             <span style="color:gold;">●</span> Menengah (60–300 km)
                                         </div>
                                         <div class="d-flex align-items-center gap-1 mx-2">
-                                            <span style="color:green;">●</span> Dalam (> 300 km)
+                                            <span style="color:blue;">●</span> Dalam (> 300 km)
                                         </div>
                                     </div>
 
