@@ -171,6 +171,17 @@ class GempaController extends Controller
         return view('pages.gempabumi.createOnedata',  ['type_menu' => '']);
     }
 
+    public function createOneInfographic(Request $request)
+    {
+        // Mengambil satu ID saja dari request
+        $id = $request->ids;
+
+        // Mencari data atau error 404 jika ID tidak ada
+        $gempa = GempaBumi::findOrFail($id);
+
+        return view('pages.gempabumi.createOneInfographic', compact('gempa'));
+    }
+
 
     public function importExcel(Request $request)
     {

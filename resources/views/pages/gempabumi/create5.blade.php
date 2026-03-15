@@ -1,5 +1,3 @@
-{{-- User dapat membagikan infografis dan teks info gempa melalui tombol bagikan. tombol simpan disesuaikan agar user dapat peringatan dulu sebelum menyimpan data --}}
-
 @extends('layouts.app')
 
 @section('title', 'Buat Infografis Gempabumi')
