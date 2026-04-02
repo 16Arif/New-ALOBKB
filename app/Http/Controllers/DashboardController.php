@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LogbookGempa;
 use App\Models\LogbookPeralatan;
 use App\Models\LogbookPetir;
+use App\Models\GempaBumi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -14,31 +15,30 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        // Data yang sudah ada sebelumnya
+        // 1. Ambil data logbook (catatan petugas)
         $logbookpetirs = LogbookPetir::latest()->get();
-        $logbookgempas = LogbookGempa::latest()->get(); // Ini data logbook (catatan petugas)
+        $logbookgempas = LogbookGempa::latest()->get();
         $logbookperalatans = LogbookPeralatan::latest()->get();
+
         $users = User::paginate(8);
 
-        // DATA BARU: Dari model Gempabumi (Data Teknis)
-        $totalGempabumi = \App\Models\Gempabumi::count();
+        // 2. DATA TEKNIS: Dari model Gempabumi
+        $totalGempabumi = GempaBumi::count();
 
-        // Asumsi: gempa dirasakan ditandai dengan kolom 'dirasakan' yang tidak null atau bernilai true
-        $gempaDirasakan = \App\Models\Gempabumi::whereNotNull('dirasakan')->where('dirasakan', '!=', '')->count();
+        // Hitung gempa dirasakan (filter kolom dirasakan)
+        $gempaDirasakan = GempaBumi::whereNotNull('dirasakan')
+            ->where('dirasakan', '!=', '')
+            ->count();
 
-        // Ambil 1 data gempa terbaru
-        $latestGempa = \App\Models\Gempabumi::latest('id')->first();
+        // Ambil data gempa paling baru berdasarkan ID
+        $latestGempa = GempaBumi::latest('id')->first();
 
-        $firstGempa = \App\Models\Gempabumi::oldest('tanggal')->first();
+        // Ambil data gempa paling awal untuk info "Sejak..."
+        $firstGempa = GempaBumi::oldest('tanggal')->first();
         $tanggalPertama = $firstGempa ? $firstGempa->tanggal : null;
 
-        // Di DashboardController.php
-
-        // Pastikan ini ada di paling atas file controller!
-
-
-        // 1. DATA MINGGUAN
-        $weeklyStats = \App\Models\Gempabumi::select([
+        // 3. STATISTIK GRAFIK (DATA MINGGUAN - 15 Minggu Terakhir)
+        $weeklyStats = GempaBumi::select([
             DB::raw("DATE_FORMAT(tanggal, '%Y-%u') as period"),
             DB::raw("COUNT(*) as total")
         ])
@@ -49,8 +49,8 @@ class DashboardController extends Controller
             ->reverse()
             ->values();
 
-        // 2. DATA BULANAN 
-        $monthlyStats = \App\Models\Gempabumi::select([
+        // 4. STATISTIK GRAFIK (DATA BULANAN - 12 Bulan Terakhir)
+        $monthlyStats = GempaBumi::select([
             DB::raw("DATE_FORMAT(tanggal, '%Y-%m') as period"),
             DB::raw("COUNT(*) as total")
         ])
