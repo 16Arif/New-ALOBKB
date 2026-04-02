@@ -138,19 +138,29 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label for="dirasakan" class="form-label d-block">Dirasakan</label>
+                                    <label for="dirasakan" class="form-label d-block">Status Gempa</label>
+
+                                    <input type="hidden" name="dirasakan" value="">
+
                                     <div class="selectgroup selectgroup-pills">
-                                        <label class="selectgroup-item me-3">
-                                            <input type="radio" name="dirasakan" value="DIRASAKAN"
-                                                class="selectgroup-input" @if (old('dirasakan') == 'DIRASAKAN' || $datagempa->dirasakan == 'DIRASAKAN') checked @endif>
-                                            <span class="selectgroup-button">DIRASAKAN</span>
-                                        </label>
                                         <label class="selectgroup-item">
-                                            <input type="radio" name="dirasakan" value="TIDAK DIRASAKAN"
-                                                class="selectgroup-input" @if (old('dirasakan') == 'TIDAK DIRASAKAN' || $datagempa->dirasakan == 'TIDAK DIRASAKAN') checked @endif>
-                                            <span class="selectgroup-button">TIDAK DIRASAKAN</span>
+                                            <input type="radio" name="dirasakan" value="DIRASAKAN"
+                                                id="radio-dirasakan" class="selectgroup-input"
+                                                {{ (old('dirasakan') ?? $datagempa->dirasakan) == 'DIRASAKAN' ? 'checked' : '' }}>
+                                            <span class="selectgroup-button">
+                                                <i class="fas fa-bullhorn mr-1"></i> DIRASAKAN
+                                            </span>
                                         </label>
+
+                                        {{-- Tombol Batal --}}
+                                        <button type="button" class="btn btn-outline-danger btn-sm ml-3"
+                                            id="btn-batal-dirasakan"
+                                            style="display: {{ (old('dirasakan') ?? $datagempa->dirasakan) == 'DIRASAKAN' ? 'inline-block' : 'none' }};">
+                                            <i class="fas fa-times"></i> Batal
+                                        </button>
                                     </div>
+                                    <small class="text-muted d-block mt-2">Klik "Dirasakan" jika gempa berdampak/dirasakan
+                                        masyarakat.</small>
                                 </div>
 
                                 <div class="col-12">
@@ -199,6 +209,26 @@
             const waktuInput = document.querySelector("input[name='waktu']");
             waktuInput.addEventListener("input", function(e) {
                 this.value = this.value.replace(/[^\d:]/g, '').slice(0, 8); // hanya angka dan :
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            const radio = $('#radio-dirasakan');
+            const btnBatal = $('#btn-batal-dirasakan');
+
+            // Munculkan tombol batal kalau radio dipilih
+            radio.on('change', function() {
+                if ($(this).is(':checked')) {
+                    btnBatal.fadeIn();
+                }
+            });
+
+            // Logika Batal (Kembali ke NULL)
+            btnBatal.on('click', function() {
+                radio.prop('checked', false); // Uncheck radio
+                $(this).fadeOut(); // Sembunyikan tombol batal
             });
         });
     </script>

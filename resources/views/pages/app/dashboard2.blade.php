@@ -155,11 +155,13 @@
                                             <span class="badge badge-info">{{ $latestGempa->kedalaman }} Km</span>
                                         </div>
                                         <div class="col-6">
-                                            <small class="text-muted d-block">Status</small>
-                                            @if ($latestGempa->dirasakan)
-                                                <span class="badge badge-danger">Dirasakan</span>
+                                            @if ($latestGempa->dirasakan == 'DIRASAKAN')
+                                                <small class="text-muted d-block">Status</small>
+                                                {{-- Jika dirasakan, tampilkan badge merah --}}
+                                                <span class="badge badge-danger">DIRASAKAN</span>
                                             @else
-                                                <span class="badge badge-secondary">Siknifikant</span>
+                                                {{-- Jika kosong atau null, tampilkan tanda hubung atau teks muted --}}
+                                                <span class="text-muted small"><em> </em></span>
                                             @endif
                                         </div>
                                     </div>

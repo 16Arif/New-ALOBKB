@@ -123,6 +123,7 @@ class GempaController extends Controller
             ->format('H:i:s');
 
         $data['keterangan'] = Purifier::clean($request->input('keterangan'));
+        $gempabumi->dirasakan = $request->dirasakan;
 
         $gempabumi->update($data);
         return redirect()->route('gempabumi.index')->with('success', 'Data Parameter Gempabumi Berhasil Diperbaharui');
