@@ -163,7 +163,7 @@ class GempaController extends Controller
         $endDate = $data->max('tanggal');
 
 
-        return view('pages.gempabumi.infografis2', compact('data', 'startDate', 'endDate'));
+        return view('pages.gempabumi.infografis3', compact('data', 'startDate', 'endDate'));
     }
 
     public function createOnedata()

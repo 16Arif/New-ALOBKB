@@ -24,19 +24,30 @@
     @if ($dataInRange)
         {{-- Tampilkan data yang ada dalam rentang waktu --}}
         <table class="table">
-            <tr>
-                <th scope="row">Logbook Gempa</th>
-                <td>{{ $logbookgempas[0]->tanggal }}</td>
-                <td>
-                    <ul>
-                        <li>{{ $logbookgempas[0]->onduty1 }}</li>
-                        <li>{{ $logbookgempas[0]->onduty2 }}</li>
-                        <li>{{ $logbookgempas[0]->onduty3 }}</li>
-                    </ul>
-                </td>
-                <td>{{ $logbookgempas[0]->kehadiran }}</td>
-                <td>{{ $logbookgempas[0]->created_at->diffForHumans() }}</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th scope="col">Tipe Logbook</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">On Duty</th>
+                    <th scope="col">Kehadiran</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Logbook Gempa</th>
+                    <td>{{ $logbookgempas[0]->tanggal }}</td>
+                    <td>
+                        <ul>
+                            <li>{{ $logbookgempas[0]->onduty1 }}</li>
+                            <li>{{ $logbookgempas[0]->onduty2 }}</li>
+                            <li>{{ $logbookgempas[0]->onduty3 }}</li>
+                        </ul>
+                    </td>
+                    <td>{{ $logbookgempas[0]->kehadiran }}</td>
+                    <td>{{ $logbookgempas[0]->created_at->diffForHumans() }}</td>
+                </tr>
+            </tbody>
         </table>
     @else
         {{-- Tampilkan pesan bahwa belum ada data --}}

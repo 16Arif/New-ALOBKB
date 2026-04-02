@@ -98,6 +98,37 @@
             /* Outline putih agar tetap terbaca di area hijau */
             pointer-events: none;
         }
+
+        <style>.editable-date-input {
+            display: inline-block;
+            background-color: transparent;
+            /* Membuat background transparan */
+            color: #000;
+            /* Warna teks hitam agar kontras dengan biru muda */
+            padding: 2px 4px;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            /* Border tidak terlihat saat normal */
+            transition: all 0.2s;
+            cursor: text;
+            outline: none;
+        }
+
+        /* Memberi tanda saat user ingin mengedit (Hover) */
+        .editable-date-input:hover {
+            border: 1px dashed rgba(0, 0, 0, 0.3);
+            /* Garis putus-putus tipis saat kursor di atasnya */
+            background-color: rgba(255, 255, 255, 0.2);
+            /* Sedikit kilau putih transparan */
+        }
+
+        /* Saat sedang diketik (Focus) */
+        .editable-date-input:focus {
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid #0d6efd;
+            box-shadow: 0 0 5px rgba(13, 110, 253, 0.2);
+        }
+    </style>
     </style>
 @endpush
 
@@ -143,22 +174,15 @@
                                         <h5 class="text-dark mb-1 fw-semibold">Peta Seismisitas Kalimantan dan Sekitarnya
                                         </h5>
                                         <h6 class="text-dark mb-1">Stasiun Geofisika Balikpapan</h6>
-                                        <span contenteditable="true" class="editable-input"
-                                            style="background-color: #d1d1d1">
-                                            @if ($startDate == $endDate)
-                                                <p class="text-dark mb-0">
-                                                    Tanggal:
-                                                    {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }}
-                                                </p>
-                                            @else
-                                                <p class="text-dark mb-0">
-                                                    Periode:
-                                                    {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }} –
-                                                    {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d F Y') }}
-                                                </p>
-                                            @endif
-                                        </span>
 
+                                        <div contenteditable="true" class="editable-date-input">
+                                            @if ($startDate == $endDate)
+                                                Tanggal: {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }}
+                                            @else
+                                                Periode: {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }}
+                                                – {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d F Y') }}
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
 
@@ -278,7 +302,10 @@
     <script src="https://cdn.jsdelivr.net/npm/leaflet-textpath@1.2.3/leaflet.textpath.min.js"></script>
 
     <script>
-        const map = L.map('map').setView([0.5, 117.5], 6);
+        // PERBAIKAN:
+        const map = L.map('map', {
+            preferCanvas: true // Memaksa semua vektor (sesar & titik) digambar di Canvas
+        }).setView([0.5, 117.5], 6);
 
         function getRadiusByMagnitude(mag) {
             if (mag <= 1) return 1;
@@ -394,11 +421,17 @@
         let faultLayer;
         const zoomThreshold = 8; // Nama sesar muncul saat zoom level 8 ke atas
 
+        // Di dalam script fetch sesar
+        const faultRenderer = L.canvas({
+            padding: 0.5
+        });
+
         // 2. Ambil data GeoJSON
         fetch('/fault/sesar_indonesia.geojson')
             .then(response => response.json())
             .then(data => {
                 faultLayer = L.geoJSON(data, {
+                    renderer: faultRenderer,
                     // Atur tampilan garis sesar (hitam putus-putus)
                     style: function(feature) {
                         return {
@@ -461,24 +494,32 @@
     <script>
         function saveAsImage() {
             const card = document.getElementById("infografis-kegempaan");
+            const saveBtn = document.getElementById('saveButton');
 
-            // Tambahkan class agar hasil tangkapan lebih presisi
-            card.classList.add('shadow');
+            // Nonaktifkan tombol agar tidak double click
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = "Processing...";
 
-            html2canvas(card, {
-                useCORS: true, // jika ada logo eksternal
-                scale: 2, // kualitas gambar
-                backgroundColor: null
-            }).then(canvas => {
-                // Buat link untuk download
-                const link = document.createElement("a");
-                link.download = "Peta_Seismisitas_Kalimantan_dan_Sekitarnya.png";
-                link.href = canvas.toDataURL("image/png");
-                link.click();
-            }).catch(err => {
-                console.error("Gagal menyimpan gambar:", err);
-                alert("Terjadi kesalahan saat menyimpan gambar.");
-            });
+            // BERI JEDA 500ms
+            setTimeout(() => {
+                html2canvas(card, {
+                    useCORS: true,
+                    scale: 2,
+                    backgroundColor: "#ffffff"
+                }).then(canvas => {
+                    const link = document.createElement("a");
+                    link.download = "Peta_Seismisitas_Kalimantan.png";
+                    link.href = canvas.toDataURL("image/png");
+                    link.click();
+
+                    // Kembalikan tombol
+                    saveBtn.disabled = false;
+                    saveBtn.innerHTML = '<i class="fa-solid fa-download"></i> Simpan Gambar';
+                }).catch(err => {
+                    console.error(err);
+                    saveBtn.disabled = false;
+                });
+            }, 500);
         }
     </script>
 @endpush
