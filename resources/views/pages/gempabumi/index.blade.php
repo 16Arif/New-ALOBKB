@@ -27,9 +27,6 @@
                             data-bs-target="#collapseEditForm" aria-expanded="false" aria-controls="collapseEditForm">
                             <i class="fa-solid fa-download me-1"></i> Unduh Data
                         </button>
-                        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#importModal">
-                            <i class="fa-solid fa-upload me-1"></i> Import Data
-                        </button>
                     </div>
                 </div>
                 <div class="row justify-content-end">
@@ -104,33 +101,131 @@
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card ">
-                            <div class="card-header">
-                                <h4>Semua Data</h4>
-                                <a href="{{ route('gempabumi.custom.create') }}" class="btn btn-primary mr-2">Tambah
-                                    Data</a>
+                            <div class="card-header d-flex justify-content-between align-items-center flex-wrap py-3" style="height: auto; min-height: 60px;">
+                                <!-- Kiri: Tombol-tombol Pilihan / Aksi Massal -->
+                                <div class="d-flex align-items-center flex-wrap my-1">
+                                    <button id="toggleSelection" class="btn btn-outline-primary mr-2 mb-1">Pilih</button>
+                                    <button id="cancelSelection" class="btn btn-outline-secondary d-none mr-2 mb-1">Batal</button>
+                                    
+                                    <button id="generateInfografis" class="btn btn-success d-none mr-2 mb-1" disabled>Buat Infografis</button>
+                                    <form id="infografisForm" action="{{ route('gempabumi.infografiss') }}"
+                                        method="POST" target="_blank">
+                                        @csrf
+                                        <input type="hidden" name="ids" id="selectedIdsInput">
+                                    </form>
 
+                                    <!-- Jarak pemisah (ml-sm-4) untuk menghindari salah klik tombol Hapus Data -->
+                                    <button id="hapusData" class="btn btn-danger d-none ml-sm-4 ml-0 mb-1" disabled><i class="fa-solid fa-trash mr-1"></i> Hapus Data</button>
+                                </div>
+
+                                <!-- Tengah: Filter & Pencarian -->
+                                <div class="d-flex align-items-center flex-wrap my-1 mx-md-auto">
+                                    <button id="toggleFilterBtn" class="btn btn-outline-warning mr-2 mb-1" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseFilterForm"
+                                        aria-expanded="false" aria-controls="collapseFilterForm">
+                                        <i class="fa-solid fa-filter me-1"></i> Filter
+                                    </button>
+                                    <form method="GET" action="{{ route('gempabumi.index') }}" class="mb-1">
+                                        {{-- Hidden inputs to preserve active filter parameters --}}
+                                        @if (request('filter_start'))
+                                            <input type="hidden" name="filter_start" value="{{ request('filter_start') }}">
+                                        @endif
+                                        @if (request('filter_end'))
+                                            <input type="hidden" name="filter_end" value="{{ request('filter_end') }}">
+                                        @endif
+                                        @if (request('filter_provinsi'))
+                                            <input type="hidden" name="filter_provinsi" value="{{ request('filter_provinsi') }}">
+                                        @endif
+                                        @if (request('per_page'))
+                                            <input type="hidden" name="per_page" value="{{ request('per_page') }}">
+                                        @endif
+                                        @if (request('sort'))
+                                            <input type="hidden" name="sort" value="{{ request('sort') }}">
+                                        @endif
+
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Cari"
+                                                name="search" value="{{ request('search') }}">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <!-- Kanan: Import & Tambah Data -->
+                                <div class="d-flex align-items-center flex-wrap my-1">
+                                    <button class="btn btn-outline-success mr-2 mb-1" data-bs-toggle="modal" data-bs-target="#importModal">
+                                        <i class="fa-solid fa-upload me-1"></i> Import Data
+                                    </button>
+                                    <a href="{{ route('gempabumi.custom.create') }}" class="btn btn-primary mb-1">Tambah Data</a>
+                                </div>
                             </div>
                             <div class="card-body">
-                                {{-- pilih data  --}}
-                                <div class="row justify-content-between">
-                                    <div class="float-left ml-3">
-                                        <div class="mb-3">
-                                            <button id="toggleSelection" class="btn btn-primary">Pilih</button>
+                                <!-- Form Filter Rentang Tanggal (Rata Tengah tepat di bawah Header) -->
+                                <div class="collapse mt-3" id="collapseFilterForm">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-12 col-lg-10">
+                                            <div class="card bg-light shadow-sm rounded p-3">
+                                                <form method="GET" action="{{ route('gempabumi.index') }}"
+                                                    class="row g-2 align-items-end mb-0" id="filterForm">
+                                                    {{-- Hidden inputs to preserve active search parameters --}}
+                                                    @if (request('search'))
+                                                        <input type="hidden" name="search" value="{{ request('search') }}">
+                                                    @endif
+                                                    @if (request('per_page'))
+                                                        <input type="hidden" name="per_page" value="{{ request('per_page') }}">
+                                                    @endif
+                                                    @if (request('sort'))
+                                                        <input type="hidden" name="sort" value="{{ request('sort') }}">
+                                                    @endif
 
-                                            <button id="cancelSelection" class="btn btn-secondary d-none">Batal</button>
-                                            <button id="generateInfografis" class="btn btn-success d-none mb-2">Buat
-                                                Infografis</button>
-                                            <form id="infografisForm" action="{{ route('gempabumi.infografiss') }}"
-                                                method="POST" target="_blank">
-                                                @csrf
-                                                <input type="hidden" name="ids" id="selectedIdsInput">
-                                            </form>
+                                                    <div class="col-md-3 text-left">
+                                                        <label for="filter_start" class="form-label" style="font-size: 12px; font-weight: 600;">Dari Tanggal</label>
+                                                        <input type="date" id="filter_start" name="filter_start"
+                                                            class="form-control form-control-sm" value="{{ request('filter_start') }}">
+                                                    </div>
+                                                    <div class="col-md-3 text-left">
+                                                        <label for="filter_end" class="form-label" style="font-size: 12px; font-weight: 600;">Sampai Tanggal</label>
+                                                        <input type="date" id="filter_end" name="filter_end"
+                                                            class="form-control form-control-sm" value="{{ request('filter_end') }}">
+                                                    </div>
+                                                    <div class="col-md-3 text-left">
+                                                        <label for="filter_provinsi" class="form-label" style="font-size: 12px; font-weight: 600;">Provinsi</label>
+                                                        <select name="filter_provinsi" id="filter_provinsi" class="form-control form-control-sm">
+                                                            <option value="">Semua Provinsi</option>
+                                                            <option value="KALBAR" {{ request('filter_provinsi') == 'KALBAR' ? 'selected' : '' }}>Kalimantan Barat</option>
+                                                            <option value="KALTENG" {{ request('filter_provinsi') == 'KALTENG' ? 'selected' : '' }}>Kalimantan Tengah</option>
+                                                            <option value="KALSEL" {{ request('filter_provinsi') == 'KALSEL' ? 'selected' : '' }}>Kalimantan Selatan</option>
+                                                            <option value="KALTIM" {{ request('filter_provinsi') == 'KALTIM' ? 'selected' : '' }}>Kalimantan Timur</option>
+                                                            <option value="KALTARA" {{ request('filter_provinsi') == 'KALTARA' ? 'selected' : '' }}>Kalimantan Utara</option>
+                                                            <option value="LAINNYA" {{ request('filter_provinsi') == 'LAINNYA' ? 'selected' : '' }}>Lainnya (Luar Kalimantan)</option>
+                                                        </select>
+                                                    </div>
 
-                                            <button id="hapusData" class="btn btn-danger d-none">Hapus Data</button>
+                                                    <div class="col-md-3 d-flex align-items-end justify-content-between mt-2 mt-md-0">
+                                                        <button type="submit" class="btn btn-sm btn-warning w-100 mr-1">
+                                                            <i class="fa-solid fa-filter me-1"></i> Filter
+                                                        </button>
+                                                        @if (request('filter_start') || request('filter_end') || request('filter_provinsi'))
+                                                            <a href="{{ route('gempabumi.index', ['search' => request('search'), 'per_page' => request('per_page'), 'sort' => request('sort')]) }}"
+                                                                class="btn btn-sm btn-secondary w-100 ml-1">
+                                                                <i class="fa-solid fa-xmark me-1"></i> Reset
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
+                                    </div>
+                                </div>
 
+                                {{-- Urutkan data & per_page (Sejajar & Rapi) --}}
+                                <div class="row justify-content-between align-items-center mb-4 mt-3">
+                                    <!-- Kiri: Dropdown Urutkan & Status Aktif -->
+                                    <div class="col-md-6 d-flex align-items-center flex-wrap">
                                         <!-- Dropdown Urutkan -->
-                                        <div class="dropdown">
+                                        <div class="dropdown mr-3">
                                             <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                                                 id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="fas fa-sort"></i> Urutkan
@@ -156,101 +251,59 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                    </div>
 
-
-
-                                    <!-- Form Filter Rentang Tanggal -->
-                                    <div class="collapse mt-3 col-md-6" id="collapseFilterForm">
-                                        <div class="card bg-light shadow rounded p-3">
-                                            <form method="GET" action="{{ route('gempabumi.index') }}"
-                                                class="row g-2 align-items-end mb-3" id="filterForm">
-                                                <div class="col-md-3">
-                                                    <label for="filter_start">Dari Tanggal</label>
-                                                    <input type="date" id="filter_start" name="filter_start"
-                                                        class="form-control" value="{{ request('filter_start') }}">
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label for="filter_end">Sampai Tanggal</label>
-                                                    <input type="date" id="filter_end" name="filter_end"
-                                                        class="form-control" value="{{ request('filter_end') }}">
-                                                </div>
-
-                                                <div class="col-md-2 d-flex align-items-end">
-                                                    <button type="submit" class="btn btn-warning w-100">
-                                                        <i class="fa-solid fa-filter me-1"></i> Filter
-                                                    </button>
-                                                </div>
-
-                                                @if (request('filter_start') && request('filter_end'))
-                                                    <div class="col-md-2 d-flex align-items-end">
-                                                        <a href="{{ route('gempabumi.index') }}"
-                                                            class="btn btn-sm btn-secondary w-100">
-                                                            <i class="fa-solid fa-xmark me-1"></i> Hapus Filter
-                                                        </a>
-                                                    </div>
-                                                @endif
-                                            </form>
-
+                                        <!-- Keterangan Sorting Aktif -->
+                                        <div class="text-muted mb-0" style="font-size: 13px;">
+                                            <i class="fa-solid fa-circle-info mr-1 text-primary"></i>
+                                            Urutan aktif: <strong>
+                                                @switch(request('sort'))
+                                                    @case('tanggal_asc')
+                                                        Tanggal (Terlama)
+                                                        @break
+                                                    @case('tanggal_desc')
+                                                        Tanggal (Terbaru)
+                                                        @break
+                                                    @default
+                                                        Data Terbaru
+                                                @endswitch
+                                            </strong>
                                         </div>
                                     </div>
 
-                                    {{-- button filter dan pencarian  --}}
-                                    <div class="float-right mr-4">
-                                        <div class="row">
-
-
-                                            <button id="toggleFilterBtn" class="btn btn-warning mr-3" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#collapseFilterForm"
-                                                aria-expanded="false" aria-controls="collapseFilterForm">
-                                                <i class="fa-solid fa-filter me-1"></i> Filter
-                                            </button>
-                                            <form method="GET" action="{{ route('gempabumi.index') }}">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder="Cari"
-                                                        name="search" value="{{ request('search') }}">
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-primary"><i
-                                                                class="fas fa-search"></i></button>
-                                                    </div>
-                                                </div>
-                                            </form>
-
+                                    <!-- Kanan: Tampilkan per_page & Info Data -->
+                                    <div class="col-md-6 d-flex justify-content-md-end justify-content-start align-items-center flex-wrap mt-2 mt-md-0">
+                                        <div class="text-muted mr-3 mb-0">
+                                            Menampilkan {{ is_countable($datagempa) ? count($datagempa) : $datagempa->total() }} data
                                         </div>
+                                        <form method="GET" action="{{ route('gempabumi.index') }}" class="mb-0 d-flex align-items-center">
+                                            <label for="per_page" class="mb-0 mr-2">Tampilkan:</label>
+
+                                            {{-- Hidden inputs to preserve filters --}}
+                                            @if (request('filter_start'))
+                                                <input type="hidden" name="filter_start" value="{{ request('filter_start') }}">
+                                            @endif
+                                            @if (request('filter_end'))
+                                                <input type="hidden" name="filter_end" value="{{ request('filter_end') }}">
+                                            @endif
+                                            @if (request('filter_provinsi'))
+                                                <input type="hidden" name="filter_provinsi" value="{{ request('filter_provinsi') }}">
+                                            @endif
+                                            @if (request('search'))
+                                                <input type="hidden" name="search" value="{{ request('search') }}">
+                                            @endif
+                                            @if (request('sort'))
+                                                <input type="hidden" name="sort" value="{{ request('sort') }}">
+                                            @endif
+
+                                            <select name="per_page" id="per_page" class="form-control form-control-sm d-inline-block" style="width: auto;" onchange="this.form.submit()">
+                                                <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+                                                <option value="30" {{ request('per_page') == 30 ? 'selected' : '' }}>30</option>
+                                                <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
+                                                <option value="all" {{ request('per_page') == 'all' ? 'selected' : '' }}>Semua</option>
+                                            </select>
+                                        </form>
                                     </div>
                                 </div>
-
-                                {{-- pilihan jumlah tampilan data  --}}
-                                <div class="text-muted float-right">
-                                    Menampilkan {{ is_countable($datagempa) ? count($datagempa) : $datagempa->total() }}
-                                    data
-                                </div>
-                                <form method="GET" action="{{ route('gempabumi.index') }}"
-                                    class="mb-3 float-right mr-1">
-                                    <label for="per_page">Tampilkan:</label>
-
-                                    {{-- Tambahkan hidden input agar filter tetap terbawa --}}
-                                    @if (request('filter_start'))
-                                        <input type="hidden" name="filter_start" value="{{ request('filter_start') }}">
-                                    @endif
-                                    @if (request('filter_end'))
-                                        <input type="hidden" name="filter_end" value="{{ request('filter_end') }}">
-                                    @endif
-                                    @if (request('search'))
-                                        <input type="hidden" name="search" value="{{ request('search') }}">
-                                    @endif
-
-                                    <select name="per_page" id="per_page" onchange="this.form.submit()">
-                                        <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10
-                                        </option>
-                                        <option value="30" {{ request('per_page') == 30 ? 'selected' : '' }}>30
-                                        </option>
-                                        <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50
-                                        </option>
-                                        <option value="all" {{ request('per_page') == 'all' ? 'selected' : '' }}>Semua
-                                        </option>
-                                    </select>
-                                </form>
 
                                 <div class="table-responsive mt-3">
                                     <table class="table-striped table">
@@ -391,15 +444,27 @@
             checkboxCols.forEach(el => el.classList.remove("d-none"));
             cancelBtn.classList.remove("d-none");
             toggleBtn.classList.add("d-none");
+            
+            // Tampilkan tombol Buat Infografis dan Hapus Data dalam keadaan disabled
+            generateBtn.classList.remove("d-none");
+            generateBtn.disabled = true;
+            deleteBtn.classList.remove("d-none");
+            deleteBtn.disabled = true;
         });
 
         cancelBtn.addEventListener("click", () => {
             checkboxCols.forEach(el => el.classList.add("d-none"));
             cancelBtn.classList.add("d-none");
             toggleBtn.classList.remove("d-none");
+            
+            // Sembunyikan dan disable kembali tombol aksi
             generateBtn.classList.add("d-none");
+            generateBtn.disabled = true;
             deleteBtn.classList.add("d-none");
+            deleteBtn.disabled = true;
+            
             checkboxes.forEach(cb => cb.checked = false);
+            document.getElementById("selectAll").checked = false;
         });
 
         checkboxes.forEach(cb => {
@@ -408,9 +473,10 @@
                     .querySelectorAll(".select-row:checked").length;
                 document.getElementById("selectAll").checked = allChecked;
 
+                // Aktifkan tombol jika ada checkbox yang dicentang
                 const anyChecked = document.querySelectorAll(".select-row:checked").length > 0;
-                generateBtn.classList.toggle("d-none", !anyChecked);
-                deleteBtn.classList.toggle("d-none", !anyChecked);
+                generateBtn.disabled = !anyChecked;
+                deleteBtn.disabled = !anyChecked;
             });
         });
 
@@ -421,10 +487,10 @@
                 cb.checked = checked;
             });
 
-            // Tampilkan tombol jika ada checkbox yang dicentang
+            // Aktifkan tombol jika ada checkbox yang dicentang
             const anyChecked = document.querySelectorAll(".select-row:checked").length > 0;
-            generateBtn.classList.toggle("d-none", !anyChecked);
-            deleteBtn.classList.toggle("d-none", !anyChecked);
+            generateBtn.disabled = !anyChecked;
+            deleteBtn.disabled = !anyChecked;
         });
 
         // Tombol Filter Collapse
