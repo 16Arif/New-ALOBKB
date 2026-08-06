@@ -17,3 +17,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# AI Rules & Issues
+AI_RULES.md
+issue.md
