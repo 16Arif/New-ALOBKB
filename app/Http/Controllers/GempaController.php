@@ -31,45 +31,36 @@ class GempaController extends Controller
             ->when($request->filled('filter_provinsi'), function ($q) use ($request) {
                 $prov = $request->filter_provinsi;
                 
-                $provConfigs = [
-                    'KALBAR' => [
-                        'lon' => [108.6778437, 114.2226404],
-                        'lat' => [-3.0679185, 2.081301]
-                    ],
-                    'KALTENG' => [
-                        'lon' => [110.7344788, 115.8472204],
-                        'lat' => [-3.5436071999999, 0.77783320000003]
-                    ],
-                    'KALSEL' => [
-                        'lon' => [114.3466009, 116.5589314],
-                        'lat' => [-4.744813, -1.3150398]
-                    ],
-                    'KALTIM' => [
-                        'lon' => [113.8359449, 118.9891203],
-                        'lat' => [-2.4051928, 2.6263416]
-                    ],
-                    'KALTARA' => [
-                        'lon' => [114.5895385, 117.9859339],
-                        'lat' => [1.0437294000001, 4.4083033000001]
-                    ]
+                $provMap = [
+                    'KALBAR' => '61',
+                    'KALTENG' => '62',
+                    'KALSEL' => '63',
+                    'KALTIM' => '64',
+                    'KALTARA' => '65',
                 ];
 
-                if (isset($provConfigs[$prov])) {
-                    $config = $provConfigs[$prov];
-                    return $q->whereRaw('CAST(bujur AS DOUBLE) BETWEEN ? AND ?', $config['lon'])
-                             ->whereRaw('CAST(lintang AS DOUBLE) BETWEEN ? AND ?', $config['lat']);
+                if (isset($provMap[$prov])) {
+                    $kodeProv = $provMap[$prov];
+                    return $q->whereRaw("ST_Contains(
+                        (SELECT geom FROM provinsi_borders WHERE kode_prov = ? LIMIT 1),
+                        ST_GeomFromText(CONCAT('POINT(', CAST(bujur AS DOUBLE), ' ', CAST(lintang AS DOUBLE), ')'))
+                    )", [$kodeProv]);
                 } elseif ($prov === 'LAINNYA') {
-                    return $q->where(function ($sub) use ($provConfigs) {
-                        foreach ($provConfigs as $config) {
-                            $sub->where(function ($coord) use ($config) {
-                                $coord->whereRaw('NOT (CAST(bujur AS DOUBLE) BETWEEN ? AND ? AND CAST(lintang AS DOUBLE) BETWEEN ? AND ?)', [
-                                    $config['lon'][0], $config['lon'][1],
-                                    $config['lat'][0], $config['lat'][1]
-                                ]);
-                            });
-                        }
-                    });
+                    return $q->whereRaw("NOT EXISTS (
+                        SELECT 1 FROM provinsi_borders 
+                        WHERE ST_Contains(
+                            provinsi_borders.geom,
+                            ST_GeomFromText(CONCAT('POINT(', CAST(gempa_bumis.bujur AS DOUBLE), ' ', CAST(gempa_bumis.lintang AS DOUBLE), ')'))
+                        )
+                    )");
                 }
+            })
+            ->when($request->filled('filter_kab_kota'), function ($q) use ($request) {
+                $kodeKk = $request->filter_kab_kota;
+                return $q->whereRaw("ST_Contains(
+                    (SELECT geom FROM kab_kota_borders WHERE kode_kk = ? LIMIT 1),
+                    ST_GeomFromText(CONCAT('POINT(', CAST(bujur AS DOUBLE), ' ', CAST(lintang AS DOUBLE), ')'))
+                )", [$kodeKk]);
             })
             ->when($request->filled('search'), function ($q) use ($request) {
                 return $q->where('jarak', 'like', '%' . $request->search . '%');
@@ -93,7 +84,13 @@ class GempaController extends Controller
             $datagempa = $query->paginate($perPage)->appends($request->query());
         }
 
-        return view('pages.gempabumi.index', compact('datagempa'), ['type_menu' => '']);
+        $listKabKota = DB::table('kab_kota_borders')
+            ->select('kode_kk', 'nama_kab_kota', 'kode_prov')
+            ->orderBy('nama_kab_kota', 'asc')
+            ->get()
+            ->groupBy('kode_prov');
+
+        return view('pages.gempabumi.index', compact('datagempa', 'listKabKota'), ['type_menu' => '']);
     }
 
 
@@ -207,11 +204,19 @@ class GempaController extends Controller
     public function destroyBatch(Request $request)
     {
         $ids = $request->id;
+        $confirmation = $request->input('confirmation');
 
         if (!is_array($ids)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Format ID tidak sesuai.'
+            ]);
+        }
+
+        if ($confirmation !== 'Saya yakin menghapus data gempa yang dipilih') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Konfirmasi kalimat tidak valid.'
             ]);
         }
 
