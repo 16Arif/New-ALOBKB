@@ -219,7 +219,7 @@
                                     </button>
 
                                     <button class="btn btn-success d-none glow" id="createButton" onclick="submitForm()"
-                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        data-toggle="modal" data-target="#staticBackdrop">
                                         <i class="fa-solid fa-save"></i> Simpan Data
                                     </button>
 

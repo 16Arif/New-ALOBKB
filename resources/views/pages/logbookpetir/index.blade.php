@@ -23,11 +23,11 @@
                 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
                     <h2 class="section-title ">Logbook Petir</h2>
                     <div class="float-left">
-                        <button id="toggleDownloadBtn" class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseEditForm" aria-expanded="false" aria-controls="collapseEditForm">
+                        <button id="toggleDownloadBtn" class="btn btn-primary mb-3" type="button" data-toggle="collapse"
+                            data-target="#collapseEditForm" aria-expanded="false" aria-controls="collapseEditForm">
                             <i class="fa-solid fa-download me-1"></i> Unduh Data
                         </button>
-                        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#importModalPetir">
+                        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#importModalPetir">
                             <i class="fa-solid fa-upload me-1"></i> Import Data
                         </button>
                     </div>
@@ -86,7 +86,7 @@
                                     <!-- Dropdown Urutkan -->
                                     <div class="dropdown my-3 mb-2">
                                         <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                            id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            id="sortDropdown" data-toggle="dropdown" aria-expanded="false">
                                             <i class="fas fa-sort"></i> Urutkan
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="sortDropdown">
@@ -218,23 +218,22 @@
             return result;
         }
 
-        // {{-- untuk animasi button download  --}}
-        document.addEventListener("DOMContentLoaded", function() {
-            const toggleBtn = document.getElementById('toggleDownloadBtn');
-            const collapseTarget = document.getElementById('collapseEditForm');
+        // {{-- untuk animasi button download & modal import --}}
+        $(document).ready(function() {
+            const toggleBtn = $('#toggleDownloadBtn');
+            const collapseTarget = $('#collapseEditForm');
 
-            collapseTarget.addEventListener('shown.bs.collapse', () => {
-                toggleBtn.innerHTML = '<i class="fa-solid fa-xmark me-1"></i> Batalkan';
+            collapseTarget.on('shown.bs.collapse', function() {
+                toggleBtn.html('<i class="fa-solid fa-xmark me-1"></i> Batalkan');
             });
 
-            collapseTarget.addEventListener('hidden.bs.collapse', () => {
-                toggleBtn.innerHTML = '<i class="fa-solid fa-download me-1"></i> Unduh Data';
+            collapseTarget.on('hidden.bs.collapse', function() {
+                toggleBtn.html('<i class="fa-solid fa-download me-1"></i> Unduh Data');
             });
-        });
 
-        //modal import data 
-        document.getElementById('importModalpetir').addEventListener('hidden.bs.modal', function() {
-            this.querySelector('form').reset();
+            $('#importModalPetir').on('hidden.bs.modal', function() {
+                $(this).find('form')[0].reset();
+            });
         });
     </script>
 @endpush

@@ -23,9 +23,12 @@
                     <h2 class="section-title">Parameter Gempabumi Kalimantan dan Sekitarnya</h2>
                     <div>
                         <!-- Tombol Collapse -->
-                        <button id="toggleDownloadBtn" class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseEditForm" aria-expanded="false" aria-controls="collapseEditForm">
+                        <button id="toggleDownloadBtn" class="btn btn-primary mb-3" type="button" data-toggle="collapse"
+                            data-target="#collapseEditForm" aria-expanded="false" aria-controls="collapseEditForm">
                             <i class="fa-solid fa-download me-1"></i> Unduh Data
+                        </button>
+                        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#importModal">
+                            <i class="fa-solid fa-upload me-1"></i> Import Data
                         </button>
                     </div>
                 </div>
@@ -115,13 +118,13 @@
                                     </form>
 
                                     <!-- Jarak pemisah (ml-sm-4) untuk menghindari salah klik tombol Hapus Data -->
-                                    <button id="hapusData" class="btn btn-danger d-none ml-sm-4 ml-0 mb-1" disabled><i class="fa-solid fa-trash mr-1"></i> Hapus Data</button>
+                                    <button id="hapusData" class="btn btn-danger d-none ml-sm-4 ml-0 mb-1" disabled data-toggle="modal" data-target="#confirmDeleteBatchModal"><i class="fa-solid fa-trash mr-1"></i> Hapus Data</button>
                                 </div>
 
                                 <!-- Tengah: Filter & Pencarian -->
                                 <div class="d-flex align-items-center flex-wrap my-1 mx-md-auto">
                                     <button id="toggleFilterBtn" class="btn btn-outline-warning mr-2 mb-1" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseFilterForm"
+                                        data-toggle="collapse" data-target="#collapseFilterForm"
                                         aria-expanded="false" aria-controls="collapseFilterForm">
                                         <i class="fa-solid fa-filter me-1"></i> Filter
                                     </button>
@@ -135,6 +138,9 @@
                                         @endif
                                         @if (request('filter_provinsi'))
                                             <input type="hidden" name="filter_provinsi" value="{{ request('filter_provinsi') }}">
+                                        @endif
+                                        @if (request('filter_kab_kota'))
+                                            <input type="hidden" name="filter_kab_kota" value="{{ request('filter_kab_kota') }}">
                                         @endif
                                         @if (request('per_page'))
                                             <input type="hidden" name="per_page" value="{{ request('per_page') }}">
@@ -153,11 +159,8 @@
                                     </form>
                                 </div>
                                 
-                                <!-- Kanan: Import & Tambah Data -->
+                                <!-- Kanan: Tambah Data -->
                                 <div class="d-flex align-items-center flex-wrap my-1">
-                                    <button class="btn btn-outline-success mr-2 mb-1" data-bs-toggle="modal" data-bs-target="#importModal">
-                                        <i class="fa-solid fa-upload me-1"></i> Import Data
-                                    </button>
                                     <a href="{{ route('gempabumi.custom.create') }}" class="btn btn-primary mb-1">Tambah Data</a>
                                 </div>
                             </div>
@@ -180,12 +183,12 @@
                                                         <input type="hidden" name="sort" value="{{ request('sort') }}">
                                                     @endif
 
-                                                    <div class="col-md-3 text-left">
+                                                    <div class="col-md-2 text-left">
                                                         <label for="filter_start" class="form-label" style="font-size: 12px; font-weight: 600;">Dari Tanggal</label>
                                                         <input type="date" id="filter_start" name="filter_start"
                                                             class="form-control form-control-sm" value="{{ request('filter_start') }}">
                                                     </div>
-                                                    <div class="col-md-3 text-left">
+                                                    <div class="col-md-2 text-left">
                                                         <label for="filter_end" class="form-label" style="font-size: 12px; font-weight: 600;">Sampai Tanggal</label>
                                                         <input type="date" id="filter_end" name="filter_end"
                                                             class="form-control form-control-sm" value="{{ request('filter_end') }}">
@@ -202,12 +205,39 @@
                                                             <option value="LAINNYA" {{ request('filter_provinsi') == 'LAINNYA' ? 'selected' : '' }}>Lainnya (Luar Kalimantan)</option>
                                                         </select>
                                                     </div>
+                                                    <div class="col-md-3 text-left">
+                                                        <label for="filter_kab_kota" class="form-label" style="font-size: 12px; font-weight: 600;">Kabupaten/Kota</label>
+                                                        <select name="filter_kab_kota" id="filter_kab_kota" class="form-control form-control-sm">
+                                                            <option value="">Semua Kab/Kota</option>
+                                                            @php
+                                                                $provNames = [
+                                                                    '61' => 'Kalimantan Barat',
+                                                                    '62' => 'Kalimantan Tengah',
+                                                                    '63' => 'Kalimantan Selatan',
+                                                                    '64' => 'Kalimantan Timur',
+                                                                    '65' => 'Kalimantan Utara'
+                                                                ];
+                                                            @endphp
+                                                            @foreach ($listKabKota as $kodeProv => $kabKotas)
+                                                                <optgroup label="{{ $provNames[$kodeProv] ?? 'Lainnya' }}">
+                                                                    @foreach ($kabKotas as $item)
+                                                                        <option value="{{ $item->kode_kk }}" 
+                                                                            data-province="{{ $item->kode_prov }}" 
+                                                                            data-province-name="{{ $provNames[$kodeProv] ?? 'Lainnya' }}"
+                                                                            {{ request('filter_kab_kota') == $item->kode_kk ? 'selected' : '' }}>
+                                                                            {{ $item->nama_kab_kota }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </optgroup>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
 
-                                                    <div class="col-md-3 d-flex align-items-end justify-content-between mt-2 mt-md-0">
+                                                    <div class="col-md-2 d-flex align-items-end justify-content-between mt-2 mt-md-0">
                                                         <button type="submit" class="btn btn-sm btn-warning w-100 mr-1">
                                                             <i class="fa-solid fa-filter me-1"></i> Filter
                                                         </button>
-                                                        @if (request('filter_start') || request('filter_end') || request('filter_provinsi'))
+                                                        @if (request('filter_start') || request('filter_end') || request('filter_provinsi') || request('filter_kab_kota'))
                                                             <a href="{{ route('gempabumi.index', ['search' => request('search'), 'per_page' => request('per_page'), 'sort' => request('sort')]) }}"
                                                                 class="btn btn-sm btn-secondary w-100 ml-1">
                                                                 <i class="fa-solid fa-xmark me-1"></i> Reset
@@ -227,7 +257,7 @@
                                         <!-- Dropdown Urutkan -->
                                         <div class="dropdown mr-3">
                                             <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                                id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                id="sortDropdown" data-toggle="dropdown" aria-expanded="false">
                                                 <i class="fas fa-sort"></i> Urutkan
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="sortDropdown">
@@ -288,6 +318,9 @@
                                             @if (request('filter_provinsi'))
                                                 <input type="hidden" name="filter_provinsi" value="{{ request('filter_provinsi') }}">
                                             @endif
+                                            @if (request('filter_kab_kota'))
+                                                <input type="hidden" name="filter_kab_kota" value="{{ request('filter_kab_kota') }}">
+                                            @endif
                                             @if (request('search'))
                                                 <input type="hidden" name="search" value="{{ request('search') }}">
                                             @endif
@@ -347,7 +380,7 @@
                                                     <div class="dropdown text-end">
                                                         <button class="btn btn-light border shadow-sm" type="button"
                                                             id="dropdownMenu{{ $gempa->id }}"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            data-toggle="dropdown" aria-expanded="false">
                                                             <i class="fa-solid fa-ellipsis-vertical"></i>
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-end shadow-sm animate__animated animate__fadeIn"
@@ -417,6 +450,39 @@
     </div>
     @include('components.gempa.modal-import')
 
+    <!-- Modal Konfirmasi Hapus Batch -->
+    <div class="modal fade" id="confirmDeleteBatchModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteBatchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="confirmDeleteBatchModalLabel">
+                        <i class="fa-solid fa-triangle-exclamation me-2"></i>Konfirmasi Hapus Data
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin menghapus data gempa yang dipilih? Tindakan ini akan menghapus data secara permanen.</p>
+                    <div class="form-group mb-0">
+                        <label for="deleteConfirmationInput" class="form-label" style="font-weight: 600;">
+                            Ketik kalimat di bawah untuk melanjutkan:
+                        </label>
+                        <div class="alert alert-warning py-2 px-3 mb-2" style="font-size: 13px; font-weight: 600; border-left: 4px solid #ffa426;">
+                            Saya yakin menghapus data gempa yang dipilih
+                        </div>
+                        <input type="text" id="deleteConfirmationInput" class="form-control" placeholder="Ketik kalimat konfirmasi di sini" autocomplete="off">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="button" id="submitDeleteBatch" class="btn btn-danger" disabled>
+                        <i class="fa-solid fa-trash me-1"></i>Hapus Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
@@ -494,36 +560,66 @@
         });
 
         // Tombol Filter Collapse
-        document.addEventListener("DOMContentLoaded", function() {
-            const filterToggleBtn = document.getElementById('toggleFilterBtn');
-            const collapseFilter = document.getElementById('collapseFilterForm');
+        $(document).ready(function() {
+            const filterToggleBtn = $('#toggleFilterBtn');
+            const collapseFilter = $('#collapseFilterForm');
 
-            collapseFilter.addEventListener('shown.bs.collapse', () => {
-                filterToggleBtn.innerHTML = '<i class="fa-solid fa-xmark me-1"></i> Batalkan';
-                filterToggleBtn.classList.remove('btn-warning');
-                filterToggleBtn.classList.add('btn-secondary');
+            collapseFilter.on('shown.bs.collapse', function() {
+                filterToggleBtn.html('<i class="fa-solid fa-xmark me-1"></i> Batalkan');
+                filterToggleBtn.removeClass('btn-warning').addClass('btn-secondary');
             });
 
-            collapseFilter.addEventListener('hidden.bs.collapse', () => {
-                filterToggleBtn.innerHTML = '<i class="fa-solid fa-filter me-1"></i> Filter';
-                filterToggleBtn.classList.remove('btn-secondary');
-                filterToggleBtn.classList.add('btn-warning');
+            collapseFilter.on('hidden.bs.collapse', function() {
+                filterToggleBtn.html('<i class="fa-solid fa-filter me-1"></i> Filter');
+                filterToggleBtn.removeClass('btn-secondary').addClass('btn-warning');
             });
         });
 
 
         // untuk hapus data
 
-        document.getElementById("hapusData").addEventListener("click", function() {
+        // Menampilkan modal konfirmasi hapus batch
+        document.getElementById("hapusData").addEventListener("click", function(e) {
             const selectedIds = Array.from(document.querySelectorAll(".select-row:checked"))
                 .map(cb => cb.value);
 
             if (selectedIds.length === 0) {
+                e.preventDefault();
                 alert("Pilih setidaknya satu data untuk dihapus!");
                 return;
             }
 
-            if (!confirm("Yakin ingin menghapus data terpilih?")) return;
+            // Reset input konfirmasi dan disable tombol submit
+            const confirmationInput = document.getElementById("deleteConfirmationInput");
+            confirmationInput.value = "";
+            document.getElementById("submitDeleteBatch").disabled = true;
+        });
+
+        // Validasi input kalimat konfirmasi hapus batch
+        document.getElementById("deleteConfirmationInput").addEventListener("input", function() {
+            const text = this.value;
+            const expectedText = "Saya yakin menghapus data gempa yang dipilih";
+            const submitBtn = document.getElementById("submitDeleteBatch");
+            if (text === expectedText) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        });
+
+        // Submit proses hapus batch
+        document.getElementById("submitDeleteBatch").addEventListener("click", function() {
+            const selectedIds = Array.from(document.querySelectorAll(".select-row:checked"))
+                .map(cb => cb.value);
+            
+            const confirmationInput = document.getElementById("deleteConfirmationInput").value;
+            const expectedText = "Saya yakin menghapus data gempa yang dipilih";
+            if (confirmationInput !== expectedText) {
+                alert("Kalimat konfirmasi tidak sesuai!");
+                return;
+            }
+
+            this.disabled = true;
 
             fetch("{{ route('gempabumi.destroyBatch') }}", {
                     method: "POST",
@@ -533,21 +629,27 @@
                     },
                     body: JSON.stringify({
                         id: selectedIds,
+                        confirmation: confirmationInput,
                         _method: "DELETE"
                     })
                 })
                 .then(response => response.json())
                 .then(data => {
+                    // Tutup modal secara aman (menggunakan jQuery Bootstrap 4)
+                    $('#confirmDeleteBatchModal').modal('hide');
+
                     if (data.success) {
                         alert(data.message);
-                        location.reload(); // atau hapus baris secara dinamis dari DOM
+                        location.reload();
                     } else {
-                        alert("Gagal menghapus data.");
+                        alert(data.message || "Gagal menghapus data.");
+                        this.disabled = false;
                     }
                 })
                 .catch(error => {
                     console.error(error);
                     alert("Terjadi kesalahan saat menghapus data.");
+                    this.disabled = false;
                 });
         });
 
@@ -569,23 +671,90 @@
             document.getElementById("infografisForm").submit();
         });
 
-        // {{-- untuk animasi button download  --}}
-        document.addEventListener("DOMContentLoaded", function() {
-            const toggleBtn = document.getElementById('toggleDownloadBtn');
-            const collapseTarget = document.getElementById('collapseEditForm');
+        // {{-- untuk animasi button download & modal import --}}
+        $(document).ready(function() {
+            const toggleBtn = $('#toggleDownloadBtn');
+            const collapseTarget = $('#collapseEditForm');
 
-            collapseTarget.addEventListener('shown.bs.collapse', () => {
-                toggleBtn.innerHTML = '<i class="fa-solid fa-xmark me-1"></i> Batalkan';
+            collapseTarget.on('shown.bs.collapse', function() {
+                toggleBtn.html('<i class="fa-solid fa-xmark me-1"></i> Batalkan');
             });
 
-            collapseTarget.addEventListener('hidden.bs.collapse', () => {
-                toggleBtn.innerHTML = '<i class="fa-solid fa-download me-1"></i> Unduh Data';
+            collapseTarget.on('hidden.bs.collapse', function() {
+                toggleBtn.html('<i class="fa-solid fa-download me-1"></i> Unduh Data');
+            });
+
+            $('#importModal').on('hidden.bs.modal', function() {
+                $(this).find('form')[0].reset();
             });
         });
 
-        //modal import data 
-        document.getElementById('importModal').addEventListener('hidden.bs.modal', function() {
-            this.querySelector('form').reset();
-        });
+        // Filter Berjenjang (Cascading Dropdown) Provinsi -> Kabupaten/Kota
+        (function() {
+            const provSelect = document.getElementById('filter_provinsi');
+            const citySelect = document.getElementById('filter_kab_kota');
+            if (!provSelect || !citySelect) return;
+
+            // Simpan daftar opsi asli
+            const originalOptions = Array.from(citySelect.options);
+
+            const provMap = {
+                'KALBAR': '61',
+                'KALTENG': '62',
+                'KALSEL': '63',
+                'KALTIM': '64',
+                'KALTARA': '65'
+            };
+
+            function updateCities() {
+                const selectedProv = provSelect.value;
+                const targetCode = provMap[selectedProv] || '';
+                const currentSelectedVal = citySelect.value;
+
+                // Kosongkan dropdown kota, sisakan opsi pertama ("Semua Kab/Kota")
+                citySelect.innerHTML = '';
+                citySelect.appendChild(originalOptions[0]);
+
+                if (selectedProv === 'LAINNYA') {
+                    // Wilayah luar Kalimantan tidak memiliki opsi kota/kabupaten
+                    citySelect.value = '';
+                    return;
+                }
+
+                if (!targetCode) {
+                    // Jika pilih "Semua Provinsi", tampilkan seluruh kota dikelompokkan dengan optgroup
+                    const optgroups = {};
+                    originalOptions.forEach(opt => {
+                        if (!opt.value) return; // lewati opsi kosong
+                        const provCode = opt.getAttribute('data-province');
+                        const provName = opt.getAttribute('data-province-name') || 'Lainnya';
+                        if (!optgroups[provCode]) {
+                            optgroups[provCode] = document.createElement('optgroup');
+                            optgroups[provCode].label = provName;
+                        }
+                        optgroups[provCode].appendChild(opt.cloneNode(true));
+                    });
+                    Object.values(optgroups).forEach(group => citySelect.appendChild(group));
+                } else {
+                    // Tampilkan hanya kota yang sesuai dengan provinsi terpilih
+                    originalOptions.forEach(opt => {
+                        if (opt.getAttribute('data-province') === targetCode) {
+                            citySelect.appendChild(opt.cloneNode(true));
+                        }
+                    });
+                }
+
+                // Pertahankan pilihan kota sebelumnya jika masih valid di daftar baru
+                if (Array.from(citySelect.options).some(opt => opt.value === currentSelectedVal)) {
+                    citySelect.value = currentSelectedVal;
+                } else {
+                    citySelect.value = '';
+                }
+            }
+
+            provSelect.addEventListener('change', updateCities);
+            // Jalankan sekali saat load halaman untuk inisialisasi state awal (old input)
+            updateCities();
+        })();
     </script>
 @endpush
