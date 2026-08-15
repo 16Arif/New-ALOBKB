@@ -56,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('export.spatie_peralatan');
     Route::get('/export/spatie_gempa', [ExportController::class, 'spatie_gempa'])->name('export.spatie_gempa');
     Route::get('/export/spatie_parametergempa', [ExportController::class, 'spatie_parametergempa'])->name('export.spatie_parametergempa');
+    Route::get('/export/spatie_parametergempa_filtered', [ExportController::class, 'spatie_parametergempa_filtered'])->name('export.spatie_parametergempa_filtered');
 
     // import data 
     Route::post('import/spatie_petir', [ImportController::class, 'spatie_petir'])->name('import.spatie_petir');

@@ -36,6 +36,64 @@
                     <div class="col-md-4">
                         <!-- Konten Collapse -->
                         <div class="collapse" id="collapseEditForm">
+                            {{-- Download Sesuai Filter Aktif --}}
+                            <div class="card bg-light shadow rounded p-3 mb-2">
+                                <p class="text-center font-weight-bold mb-2"><i class="fa-solid fa-filter me-1"></i> Unduh Sesuai Filter Aktif</p>
+                                @php
+                                    $filterParams = [];
+                                    if (request('filter_start')) $filterParams['filter_start'] = request('filter_start');
+                                    if (request('filter_end')) $filterParams['filter_end'] = request('filter_end');
+                                    if (request('filter_provinsi')) $filterParams['filter_provinsi'] = request('filter_provinsi');
+                                    if (request('filter_kab_kota')) $filterParams['filter_kab_kota'] = request('filter_kab_kota');
+                                    if (request('search')) $filterParams['search'] = request('search');
+                                    if (request('sort')) $filterParams['sort'] = request('sort');
+
+                                    $hasFilter = !empty($filterParams);
+
+                                    $provLabels = [
+                                        'KALBAR' => 'Kalimantan Barat',
+                                        'KALTENG' => 'Kalimantan Tengah',
+                                        'KALSEL' => 'Kalimantan Selatan',
+                                        'KALTIM' => 'Kalimantan Timur',
+                                        'KALTARA' => 'Kalimantan Utara',
+                                        'LAINNYA' => 'Luar Kalimantan',
+                                    ];
+                                @endphp
+
+                                @if ($hasFilter)
+                                    <div class="alert alert-info py-2 px-3 mb-2" style="font-size: 12px;">
+                                        <strong>Filter aktif:</strong>
+                                        <ul class="mb-0 pl-3">
+                                            @if (request('filter_start') && request('filter_end'))
+                                                <li>Tanggal: {{ request('filter_start') }} s/d {{ request('filter_end') }}</li>
+                                            @endif
+                                            @if (request('filter_provinsi'))
+                                                <li>Provinsi: {{ $provLabels[request('filter_provinsi')] ?? request('filter_provinsi') }}</li>
+                                            @endif
+                                            @if (request('filter_kab_kota'))
+                                                <li>Kab/Kota: Kode {{ request('filter_kab_kota') }}</li>
+                                            @endif
+                                            @if (request('search'))
+                                                <li>Pencarian: "{{ request('search') }}"</li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                    <a href="{{ route('export.spatie_parametergempa_filtered', $filterParams) }}"
+                                        class="btn btn-success w-100">
+                                        <i class="fa-solid fa-download me-1"></i> Unduh Data Sesuai Filter
+                                    </a>
+                                @else
+                                    <div class="alert alert-secondary py-2 px-3 mb-2" style="font-size: 12px;">
+                                        <i class="fa-solid fa-circle-info me-1"></i> Tidak ada filter aktif. Aktifkan filter terlebih dahulu, atau gunakan opsi unduh di bawah.
+                                    </div>
+                                    <a href="{{ route('export.spatie_parametergempa_filtered') }}"
+                                        class="btn btn-outline-success w-100">
+                                        <i class="fa-solid fa-download me-1"></i> Unduh Semua Data
+                                    </a>
+                                @endif
+                            </div>
+
+                            {{-- Download Semua Data & Per Periode (Opsi Lama) --}}
                             <div class="card bg-light shadow rounded p-3">
                                 <p class="text-center">Simpan Data (Excel)</p>
                                 <!-- Download Semua Data -->

@@ -14,69 +14,20 @@ use Spatie\SimpleExcel\SimpleExcelReader;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use App\Http\Traits\GempaFilterTrait;
 
 
 class GempaController extends Controller
 {
+    use GempaFilterTrait;
 
     public function index(Request $request)
     {
 
         $perPage = $request->get('per_page', 10);
 
-        $query = GempaBumi::query()
-            ->when($request->filled('filter_start') && $request->filled('filter_end'), function ($q) use ($request) {
-                return $q->whereBetween('tanggal', [$request->filter_start, $request->filter_end]);
-            })
-            ->when($request->filled('filter_provinsi'), function ($q) use ($request) {
-                $prov = $request->filter_provinsi;
-                
-                $provMap = [
-                    'KALBAR' => '61',
-                    'KALTENG' => '62',
-                    'KALSEL' => '63',
-                    'KALTIM' => '64',
-                    'KALTARA' => '65',
-                ];
-
-                if (isset($provMap[$prov])) {
-                    $kodeProv = $provMap[$prov];
-                    return $q->whereRaw("ST_Contains(
-                        (SELECT geom FROM provinsi_borders WHERE kode_prov = ? LIMIT 1),
-                        ST_GeomFromText(CONCAT('POINT(', CAST(bujur AS DOUBLE), ' ', CAST(lintang AS DOUBLE), ')'))
-                    )", [$kodeProv]);
-                } elseif ($prov === 'LAINNYA') {
-                    return $q->whereRaw("NOT EXISTS (
-                        SELECT 1 FROM provinsi_borders 
-                        WHERE ST_Contains(
-                            provinsi_borders.geom,
-                            ST_GeomFromText(CONCAT('POINT(', CAST(gempa_bumis.bujur AS DOUBLE), ' ', CAST(gempa_bumis.lintang AS DOUBLE), ')'))
-                        )
-                    )");
-                }
-            })
-            ->when($request->filled('filter_kab_kota'), function ($q) use ($request) {
-                $kodeKk = $request->filter_kab_kota;
-                return $q->whereRaw("ST_Contains(
-                    (SELECT geom FROM kab_kota_borders WHERE kode_kk = ? LIMIT 1),
-                    ST_GeomFromText(CONCAT('POINT(', CAST(bujur AS DOUBLE), ' ', CAST(lintang AS DOUBLE), ')'))
-                )", [$kodeKk]);
-            })
-            ->when($request->filled('search'), function ($q) use ($request) {
-                return $q->where('jarak', 'like', '%' . $request->search . '%');
-            });
-
-        // 🔽 Sorting pakai switch
-        switch ($request->get('sort')) {
-            case 'tanggal_asc':
-                $query->orderBy('tanggal', 'asc')->orderBy('waktu', 'asc');
-                break;
-            case 'tanggal_desc':
-                $query->orderBy('tanggal', 'desc')->orderBy('waktu', 'desc');
-                break;
-            default:
-                $query->orderBy('id', 'desc'); // default: terbaru berdasarkan ID input
-        }
+        $query = $this->applyGempaFilters($request);
+        $this->applyGempaSorting($query, $request);
 
         if ($perPage === 'all') {
             $datagempa = $query->get();
@@ -119,25 +70,19 @@ class GempaController extends Controller
             ->addHours(1)
             ->format('H:i:s');
 
-        // Konversi lintang (mendukung koma desimal)
-        $lintangRaw = str_replace(',', '.', $data['lintang']);
-        if (preg_match('/([\d.-]+)\s*(LU|LS)/i', $lintangRaw, $match)) {
-            $nilaiLintang = (float)$match[1];
-            $arah = strtoupper($match[2]);
-            $data['lintang'] = $arah === 'LU' ? $nilaiLintang : -$nilaiLintang;
-        } else {
-            $data['lintang'] = $lintangRaw;
+        // Konversi dan bersihkan lintang & bujur
+        $lintang = $this->parseCoordinate($data['lintang'], false);
+        $bujur = $this->parseCoordinate($data['bujur'], true);
+
+        // Koreksi otomatis jika data lintang & bujur tertukar
+        if (abs($lintang) > abs($bujur)) {
+            $temp = $lintang;
+            $lintang = $bujur;
+            $bujur = $temp;
         }
 
-        // Konversi bujur (mendukung koma desimal)
-        $bujurRaw = str_replace(',', '.', $data['bujur']);
-        if (preg_match('/([\d.-]+)\s*(BT|BB)/i', $bujurRaw, $match)) {
-            $nilaiBujur = (float)$match[1];
-            $arah = strtoupper($match[2]);
-            $data['bujur'] = $arah === 'BT' ? $nilaiBujur : -$nilaiBujur;
-        } else {
-            $data['bujur'] = $bujurRaw;
-        }
+        $data['lintang'] = $lintang;
+        $data['bujur'] = $bujur;
 
         GempaBumi::create($data);
         return redirect()->route('gempabumi.index')->with('success', 'Data gempa berhasil disimpan!');
@@ -168,25 +113,19 @@ class GempaController extends Controller
             ->addHours(1)
             ->format('H:i:s');
 
-        // Konversi lintang (mendukung koma desimal) saat update
-        $lintangRaw = str_replace(',', '.', $data['lintang']);
-        if (preg_match('/([\d.-]+)\s*(LU|LS)/i', $lintangRaw, $match)) {
-            $nilaiLintang = (float)$match[1];
-            $arah = strtoupper($match[2]);
-            $data['lintang'] = $arah === 'LU' ? $nilaiLintang : -$nilaiLintang;
-        } else {
-            $data['lintang'] = $lintangRaw;
+        // Konversi dan bersihkan lintang & bujur saat update
+        $lintang = $this->parseCoordinate($data['lintang'], false);
+        $bujur = $this->parseCoordinate($data['bujur'], true);
+
+        // Koreksi otomatis jika data lintang & bujur tertukar
+        if (abs($lintang) > abs($bujur)) {
+            $temp = $lintang;
+            $lintang = $bujur;
+            $bujur = $temp;
         }
 
-        // Konversi bujur (mendukung koma desimal) saat update
-        $bujurRaw = str_replace(',', '.', $data['bujur']);
-        if (preg_match('/([\d.-]+)\s*(BT|BB)/i', $bujurRaw, $match)) {
-            $nilaiBujur = (float)$match[1];
-            $arah = strtoupper($match[2]);
-            $data['bujur'] = $arah === 'BT' ? $nilaiBujur : -$nilaiBujur;
-        } else {
-            $data['bujur'] = $bujurRaw;
-        }
+        $data['lintang'] = $lintang;
+        $data['bujur'] = $bujur;
 
         $data['keterangan'] = Purifier::clean($request->input('keterangan'));
         $data['dirasakan'] = $request->input('dirasakan');
@@ -300,7 +239,14 @@ class GempaController extends Controller
                     // Mapping nama kolom file -> field DB
                     $data = [];
                     foreach ($expectedHeaders as $headerName => $dbField) {
-                        $val = $row[$headerName] ?? null;
+                        // Cari key di $row yang jika di-trim dan di-lowercase cocok dengan $headerName
+                        $val = null;
+                        foreach ($row as $key => $value) {
+                            if (strtolower(trim($key)) === $headerName) {
+                                $val = $value;
+                                break;
+                            }
+                        }
 
                         // Batasi panjang karakter untuk kolom bertipe string agar tidak melebihi kapasitas database
                         if (is_string($val)) {
@@ -313,6 +259,20 @@ class GempaController extends Controller
 
                         $data[$dbField] = $val;
                     }
+
+                    // Bersihkan dan koreksi koordinat dari Excel
+                    $lintang = $this->parseCoordinate($data['lintang'], false);
+                    $bujur = $this->parseCoordinate($data['bujur'], true);
+
+                    // Koreksi otomatis jika kolom tertukar
+                    if (abs($lintang) > abs($bujur)) {
+                        $temp = $lintang;
+                        $lintang = $bujur;
+                        $bujur = $temp;
+                    }
+
+                    $data['lintang'] = $lintang;
+                    $data['bujur'] = $bujur;
 
                     // Cek duplikat
                     $exists = GempaBumi::where('tanggal', $data['tanggal'])
@@ -335,5 +295,64 @@ class GempaController extends Controller
             Log::error('Import Excel error: ' . $e->getMessage());
             return back()->with('error', 'Terjadi kesalahan saat membaca file: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Membersihkan dan memformat koordinat menjadi float desimal standar.
+     * Mendukung auto-koreksi ribuan/ratusan ribuan akibat ribuan separator Excel terhapus.
+     */
+    private function parseCoordinate($val, $isLongitude = false)
+    {
+        if ($val === null || $val === '') {
+            return null;
+        }
+
+        $str = trim((string)$val);
+
+        // Deteksi arah mata angin untuk menentukan tanda negatif (-)
+        $sign = 1;
+        if (preg_match('/(LS|S|BB|W)/i', $str)) {
+            $sign = -1;
+        }
+
+        // Hapus karakter non-numerik kecuali angka, titik, koma, dan minus
+        $clean = preg_replace('/[^\d.,-]/', '', $str);
+
+        if (str_starts_with($clean, '-')) {
+            $sign = -1;
+            $clean = ltrim($clean, '-');
+        }
+
+        // Ubah koma desimal menjadi titik desimal
+        $clean = str_replace(',', '.', $clean);
+
+        // Jika terdapat lebih dari satu titik desimal (pemisah ribuan ganda)
+        $dotCount = substr_count($clean, '.');
+        if ($dotCount > 1) {
+            $clean = str_replace('.', '', $clean);
+        }
+
+        $num = (float)$clean;
+
+        // Koreksi pergeseran desimal jika nilai merupakan integer besar (akibat thousands separator)
+        if ($isLongitude) {
+            if (abs($num) > 180.0) {
+                $temp = abs($num);
+                while ($temp > 180.0) {
+                    $temp /= 10;
+                }
+                $num = $temp;
+            }
+        } else {
+            if (abs($num) >= 10.0) {
+                $temp = abs($num);
+                while ($temp >= 10.0) {
+                    $temp /= 10;
+                }
+                $num = $temp;
+            }
+        }
+
+        return round($num * $sign, 5);
     }
 }
