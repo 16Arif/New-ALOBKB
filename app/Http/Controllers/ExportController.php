@@ -10,9 +10,11 @@ use App\Models\LogbookPeralatan;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Spatie\SimpleExcel\SimpleExcelWriter;
+use App\Http\Traits\GempaFilterTrait;
 
 class ExportController extends Controller
 {
+    use GempaFilterTrait;
 
     public function spatie_petir(Request $request)
 
@@ -230,6 +232,71 @@ class ExportController extends Controller
         // Langsung kirim download response
         SimpleExcelWriter::streamDownload("Data_Gempa_{$start->format('Ymd')}_{$end->format('Ymd')}.csv")
             // ->noHeaderRow()
+            ->addRows($data);
+    }
+
+    /**
+     * Export data parameter gempa bumi sesuai filter aktif (tanggal, provinsi, kab/kota, search).
+     * Menggunakan GempaFilterTrait yang sama dengan GempaController::index().
+     */
+    public function spatie_parametergempa_filtered(Request $request)
+    {
+        $query = $this->applyGempaFilters($request);
+        $this->applyGempaSorting($query, $request);
+
+        // Bangun nama file dinamis berdasarkan filter aktif
+        $parts = ['Data_Gempa'];
+        if ($request->filled('filter_provinsi')) {
+            $parts[] = $request->filter_provinsi;
+        }
+        if ($request->filled('filter_kab_kota')) {
+            $parts[] = 'KK' . $request->filter_kab_kota;
+        }
+        if ($request->filled('filter_start') && $request->filled('filter_end')) {
+            $parts[] = Carbon::parse($request->filter_start)->format('Ymd');
+            $parts[] = Carbon::parse($request->filter_end)->format('Ymd');
+        }
+        if ($request->filled('search')) {
+            $parts[] = 'search_' . substr(preg_replace('/[^a-zA-Z0-9]/', '', $request->search), 0, 20);
+        }
+        $filename = implode('_', $parts) . '.xlsx';
+
+        // Header kolom
+        $header = [
+            'tanggal',
+            'waktu',
+            'waktu (utc)',
+            'waktu (wita)',
+            'magnitudo',
+            'lintang',
+            'bujur',
+            'jarak',
+            'kedalaman',
+            'dirasakan',
+            'keterangan',
+        ];
+
+        // Lazy load untuk efisiensi memori
+        $data = $query->lazyById(1000, 'id')
+            ->map(function ($item) {
+                return [
+                    'tanggal' => Carbon::parse($item->tanggal)->format('Y-m-d'),
+                    'waktu' => $item->waktu,
+                    'waktu_utc' => $item->waktu_utc,
+                    'waktu_wita' => $item->waktu_wita,
+                    'magnitudo' => $item->magnitudo,
+                    'lintang' => $item->lintang,
+                    'bujur' => $item->bujur,
+                    'jarak' => $item->jarak,
+                    'kedalaman' => $item->kedalaman,
+                    'dirasakan' => $item->dirasakan,
+                    'keterangan' => strip_tags($item->keterangan ?? ''),
+                ];
+            });
+
+        // Langsung kirim download response
+        SimpleExcelWriter::streamDownload($filename)
+            ->addHeader($header)
             ->addRows($data);
     }
 }
