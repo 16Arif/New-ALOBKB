@@ -1,25 +1,27 @@
 <?php
 
-use PHPUnit\TextUI\Help;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PdfController;
-use App\Http\Controllers\HelpController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\GempaController;
-use App\Http\Controllers\ExportController;
+use App\Http\Controllers\AccelerographController;
+use App\Http\Controllers\AloptamaController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PetagempaController;
-use App\Http\Controllers\UserprofileController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\GempaController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\ImageprofileController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\LightningDetectorController;
 use App\Http\Controllers\LogbookgempaController;
-use App\Http\Controllers\LogbookpetirController;
 use App\Http\Controllers\LogbookperalatanController;
+use App\Http\Controllers\LogbookpetirController;
+use App\Http\Controllers\MagnetPrekursorController;
 use App\Http\Controllers\NarasigempaController;
-use App\Http\Controllers\AloptamaController;
+use App\Http\Controllers\PdfController;
+use App\Http\Controllers\SeismographController;
 use App\Http\Controllers\Settings\PasswordController;
-use OpenSpout\Common\Entity\Row;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserprofileController;
+use App\Http\Controllers\WrsNgController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/gempabumi-batch', [GempaController::class, 'destroyBatch'])->name('gempabumi.destroyBatch');
     Route::post('/gempabumi/infografiss', [GempaController::class, 'infografiss'])->name('gempabumi.infografiss');
     Route::resource('download', PdfController::class);
-    // export data 
+    // export data
     Route::get('export/spatie_petir', [ExportController::class, 'spatie_petir'])->name('export.spatie_petir');
     Route::get('export/spatie_peralatan', [ExportController::class, 'spatie_peralatan'])
         ->name('export.spatie_peralatan');
@@ -59,11 +61,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/export/spatie_parametergempa', [ExportController::class, 'spatie_parametergempa'])->name('export.spatie_parametergempa');
     Route::get('/export/spatie_parametergempa_filtered', [ExportController::class, 'spatie_parametergempa_filtered'])->name('export.spatie_parametergempa_filtered');
 
-    // import data 
+    // import data
     Route::post('import/spatie_petir', [ImportController::class, 'spatie_petir'])->name('import.spatie_petir');
     Route::post('import/spatie_gempa', [ImportController::class, 'spatie_gempa'])->name('import.spatie_gempa');
     Route::post('import/spatie_peralatan', [ImportController::class, 'spatie_peralatan'])->name('import.spatie_peralatan');
-
 
     Route::resource('profile', UserprofileController::class)->except('index', 'show', 'create', 'store', 'destroy');
     Route::resource('imageprofile', ImageprofileController::class);
@@ -73,6 +74,11 @@ Route::middleware(['auth'])->group(function () {
     // Aloptama
     Route::get('aloptama', [AloptamaController::class, 'index'])->name('aloptama.index');
     Route::get('aloptama/peta-sebaran', [AloptamaController::class, 'peta'])->name('aloptama.peta');
+    Route::resource('seismograph', SeismographController::class);
+    Route::resource('accelerograph', AccelerographController::class);
+    Route::resource('lightning-detector', LightningDetectorController::class);
+    Route::resource('wrs-ng', WrsNgController::class);
+    Route::resource('magnet-prekursor', MagnetPrekursorController::class);
     // Route::get('settings/update_password', PasswordController::class)->name('user-password.update');
 });
 
