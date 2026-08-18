@@ -47,6 +47,15 @@
                 <a class="nav-link"><i class="fas fa-solid fa-list-ol"></i><span>
                         Peta Kegempaan</span></a>
             </li>
+            <li class="menu-header">Aloptama</li>
+            <li class="{{ Request::is('aloptama') || Request::is('aloptama/data*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('aloptama.index') }}"><i
+                        class="fas fa-solid fa-satellite-dish"></i><span>Data Aloptama</span></a>
+            </li>
+            <li class="{{ Request::is('aloptama/peta*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('aloptama.peta') }}"><i
+                        class="fas fa-solid fa-map-location-dot"></i><span>Peta Sebaran Aloptama</span></a>
+            </li>
         </ul>
 
         <ul class="sidebar-menu mt-4">

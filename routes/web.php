@@ -17,6 +17,7 @@ use App\Http\Controllers\LogbookgempaController;
 use App\Http\Controllers\LogbookpetirController;
 use App\Http\Controllers\LogbookperalatanController;
 use App\Http\Controllers\NarasigempaController;
+use App\Http\Controllers\AloptamaController;
 use App\Http\Controllers\Settings\PasswordController;
 use OpenSpout\Common\Entity\Row;
 
@@ -68,6 +69,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('imageprofile', ImageprofileController::class);
     Route::get('about', AboutController::class)->name('about');
     Route::get('help', HelpController::class)->name('help');
+
+    // Aloptama
+    Route::get('aloptama', [AloptamaController::class, 'index'])->name('aloptama.index');
+    Route::get('aloptama/peta-sebaran', [AloptamaController::class, 'peta'])->name('aloptama.peta');
     // Route::get('settings/update_password', PasswordController::class)->name('user-password.update');
 });
 
