@@ -241,45 +241,45 @@
                                 <label class="filter-badge-toggle" for="filterSeismo">
                                     <input type="checkbox" id="filterSeismo" class="layer-filter-checkbox" data-layer="seismo" checked>
                                     <svg width="14" height="12" viewBox="0 0 22 20" class="mr-1">
-                                        <polygon points="11,1 21,19 1,19" fill="#ff7800" stroke="#000" stroke-width="2"/>
+                                        <polygon points="11,1 21,19 1,19" fill="#ff7800" stroke="#00" stroke-width="2"/>
                                     </svg>
-                                    Seismograph ({{ count($seismographs) }})
+                                    <span id="badgeCountSeismo">Seismograph ({{ count($seismographs) }})</span>
                                 </label>
 
                                 <!-- Accelerograph -->
                                 <label class="filter-badge-toggle" for="filterAcc">
                                     <input type="checkbox" id="filterAcc" class="layer-filter-checkbox" data-layer="acc" checked>
                                     <svg width="14" height="12" viewBox="0 0 22 20" class="mr-1">
-                                        <polygon points="11,1 21,19 1,19" fill="#00e676" stroke="#000" stroke-width="2"/>
+                                        <polygon points="11,1 21,19 1,19" fill="#00e676" stroke="#00" stroke-width="2"/>
                                     </svg>
-                                    Accelerograph ({{ count($accelerographs) }})
+                                    <span id="badgeCountAcc">Accelerograph ({{ count($accelerographs) }})</span>
                                 </label>
 
                                 <!-- LD -->
                                 <label class="filter-badge-toggle" for="filterLd">
                                     <input type="checkbox" id="filterLd" class="layer-filter-checkbox" data-layer="ld" checked>
                                     <svg width="14" height="12" viewBox="0 0 22 20" class="mr-1">
-                                        <polygon points="11,1 21,19 1,19" fill="#00b0ff" stroke="#000" stroke-width="2"/>
+                                        <polygon points="11,1 21,19 1,19" fill="#00b0ff" stroke="#00" stroke-width="2"/>
                                     </svg>
-                                    Lightning Detector ({{ count($lightningDetectors) }})
+                                    <span id="badgeCountLd">Lightning Detector ({{ count($lightningDetectors) }})</span>
                                 </label>
 
                                 <!-- WRS NG -->
                                 <label class="filter-badge-toggle" for="filterWrs">
                                     <input type="checkbox" id="filterWrs" class="layer-filter-checkbox" data-layer="wrs" checked>
                                     <svg width="14" height="12" viewBox="0 0 22 20" class="mr-1">
-                                        <polygon points="11,1 21,19 1,19" fill="#ffea00" stroke="#000" stroke-width="2"/>
+                                        <polygon points="11,1 21,19 1,19" fill="#ffea00" stroke="#00" stroke-width="2"/>
                                     </svg>
-                                    WRS NG ({{ count($wrsNgs) }})
+                                    <span id="badgeCountWrs">WRS NG ({{ count($wrsNgs) }})</span>
                                 </label>
 
                                 <!-- Magnet Prekursor -->
                                 <label class="filter-badge-toggle" for="filterMagnet">
                                     <input type="checkbox" id="filterMagnet" class="layer-filter-checkbox" data-layer="magnet" checked>
                                     <svg width="14" height="12" viewBox="0 0 22 20" class="mr-1">
-                                        <polygon points="11,1 21,19 1,19" fill="#ff1744" stroke="#000" stroke-width="2"/>
+                                        <polygon points="11,1 21,19 1,19" fill="#ff1744" stroke="#00" stroke-width="2"/>
                                     </svg>
-                                    Magnet Prekursor ({{ count($magnetPrekursors) }})
+                                    <span id="badgeCountMagnet">Magnet Prekursor ({{ count($magnetPrekursors) }})</span>
                                 </label>
                             </div>
                         </div>
@@ -377,7 +377,7 @@
                                 <div class="gis-section-box">
                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                         <span class="font-weight-bold text-dark text-uppercase" style="font-size: 11.5px;">
-                                            KETERANGAN / LEGENDA :
+                                             KETERANGAN / LEGENDA :
                                         </span>
                                     </div>
 
@@ -391,7 +391,7 @@
                                                     </svg>
                                                 </td>
                                                 <td class="legend-text-cell">Seismograph</td>
-                                                <td class="legend-count-cell">{{ count($seismographs) }}</td>
+                                                <td class="legend-count-cell" id="legendCountSeismo">{{ count($seismographs) }}</td>
                                             </tr>
 
                                             <!-- 2. Accelerograph -->
@@ -402,7 +402,7 @@
                                                     </svg>
                                                 </td>
                                                 <td class="legend-text-cell">Accelerograph</td>
-                                                <td class="legend-count-cell">{{ count($accelerographs) }}</td>
+                                                <td class="legend-count-cell" id="legendCountAcc">{{ count($accelerographs) }}</td>
                                             </tr>
 
                                             <!-- 3. Lightning Detector (LD) -->
@@ -413,7 +413,7 @@
                                                     </svg>
                                                 </td>
                                                 <td class="legend-text-cell">Lightning Detector</td>
-                                                <td class="legend-count-cell">{{ count($lightningDetectors) }}</td>
+                                                <td class="legend-count-cell" id="legendCountLd">{{ count($lightningDetectors) }}</td>
                                             </tr>
 
                                             <!-- 4. WRS-NG -->
@@ -424,7 +424,7 @@
                                                     </svg>
                                                 </td>
                                                 <td class="legend-text-cell">WRS NG</td>
-                                                <td class="legend-count-cell">{{ count($wrsNgs) }}</td>
+                                                <td class="legend-count-cell" id="legendCountWrs">{{ count($wrsNgs) }}</td>
                                             </tr>
 
                                             <!-- 5. Magnet Prekursor -->
@@ -435,7 +435,7 @@
                                                     </svg>
                                                 </td>
                                                 <td class="legend-text-cell">Magnet Prekursor</td>
-                                                <td class="legend-count-cell">{{ count($magnetPrekursors) }}</td>
+                                                <td class="legend-count-cell" id="legendCountMagnet">{{ count($magnetPrekursors) }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -457,24 +457,21 @@
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
     <script>
-        // Data dari Controller
+        // Raw Data dari Controller
         var dataSeismographs = @json($seismographs);
         var dataAccelerographs = @json($accelerographs);
         var dataLightningDetectors = @json($lightningDetectors);
         var dataWrsNgs = @json($wrsNgs);
         var dataMagnetPrekursors = @json($magnetPrekursors);
 
-        // Layer Groups
+        // Layer Groups untuk masing-masing jenis aloptama
         var layerGroupSeismo = L.layerGroup();
         var layerGroupAcc = L.layerGroup();
         var layerGroupLd = L.layerGroup();
         var layerGroupWrs = L.layerGroup();
         var layerGroupMagnet = L.layerGroup();
 
-        // Bounds collector
-        var allLatLngs = [];
-
-        // 1. Helper SVG Triangle Icons (Semua Segitiga dengan Warna Berbeda)
+        // 1. Helper SVG Triangle Icons
         function createTriangleIcon(color, stroke = '#000000') {
             var svgHtml = `
                 <svg width="22" height="20" viewBox="0 0 22 20" style="filter: drop-shadow(0 2px 3px rgba(0,0,0,0.35));">
@@ -496,24 +493,89 @@
         var iconWrs = createTriangleIcon('#ffea00');    // 🟡 Kuning
         var iconMagnet = createTriangleIcon('#ff1744'); // 🔴 Merah
 
-        // 2. Initialize Leaflet Map
+        // Custom Leaflet Scale Rounding untuk mendukung skala 75 km dan 150 km
+        L.Control.Scale.prototype._getRoundNum = function (num) {
+            var pow10 = Math.pow(10, (Math.floor(num) + '').length - 1),
+                d = num / pow10;
+
+            d = d >= 10 ? 10 :
+                d >= 7.5 ? 7.5 :
+                d >= 5 ? 5 :
+                d >= 3 ? 3 :
+                d >= 2 ? 2 :
+                d >= 1.5 ? 1.5 : 1;
+
+            return pow10 * d;
+        };
+
+        // 2. Initialize Leaflet Map dengan Zoom Step yang Lebih Halus
         var map = L.map('mapAloptama', {
             center: [-0.5, 114.5],
             zoom: 6,
+            zoomDelta: 0.5,
+            zoomSnap: 0.25,
+            wheelPxPerZoomLevel: 120,
             zoomControl: true,
             attributionControl: true
         });
 
-        // Add Base Tile Layer (CartoDB Positron / OpenStreetMap with CORS support)
-        var osmTile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        // --- 2.1 Definisi Pilihan Basemap ---
+        // 1. Esri National Geographic (Topografi kontras hijau-zaitun, batas tegas)
+        var baseNatGeo = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 16,
+            crossOrigin: true,
+            attribution: 'Tiles &copy; Esri &mdash; National Geographic, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC'
+        });
+
+        // 2. Esri World Imagery (Citra Satelit Foto Udara Resolusi Tinggi)
+        var baseSatellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             maxZoom: 18,
             crossOrigin: true,
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+
+        // 3. Esri World Topo Map (Topografi & Garis Kontur Klasik)
+        var baseTopo = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 18,
+            crossOrigin: true,
+            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong)'
+        });
+
+        // 4. OpenStreetMap Standar (Peta Wilayah Sangat Jelas & Detail Lengkap)
+        var baseOsm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            crossOrigin: true,
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+
+        // 5. OpenTopoMap (Topografi Kontur Lengkap)
+        var baseOpenTopo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 17,
+            crossOrigin: true,
+            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+        });
+
+        // Pasang Default Basemap (OpenTopoMap)
+        baseOpenTopo.addTo(map);
+
+        // Pasang Kontrol Pemilih Basemap di Pojok Kanan Atas
+        var baseMaps = {
+            "⛰️ OpenTopoMap (Default)": baseOpenTopo,
+            "🗺️ OpenStreetMap Standar": baseOsm,
+            "🌍 Topografi NatGeo": baseNatGeo,
+            "🛰️ Citra Satelit": baseSatellite,
+            "🏔️ Topografi Esri": baseTopo
+        };
+
+        L.control.layers(baseMaps, null, {
+            position: 'topright',
+            collapsed: true
         }).addTo(map);
 
-        // Add Scale Control
+        // Add Scale Control dengan dukungan skala 75km & 150km
         L.control.scale({
             position: 'bottomleft',
+            maxWidth: 125,
             metric: true,
             imperial: false
         }).addTo(map);
@@ -525,13 +587,84 @@
             document.getElementById('coordText').innerText = `Lat: ${lat}° , Long: ${lng}°`;
         });
 
-        // 3. Populate Markers (Hanya Segitiga Bersih, Tooltip saat Hover, Popup saat Klik)
-        // 3.1 Seismograph Markers
+        // Add all layer groups to map
+        layerGroupSeismo.addTo(map);
+        layerGroupAcc.addTo(map);
+        layerGroupLd.addTo(map);
+        layerGroupWrs.addTo(map);
+        layerGroupMagnet.addTo(map);
+
+        // 3. Helper Klasifikasi Wilayah (Geografis + Teks Lokasi Presisi)
+        function detectRegion(item) {
+            var lat = parseFloat(item.latitude);
+            var lng = parseFloat(item.longitude);
+            var text = ((item.lokasi || '') + ' ' + (item.nama_site || '') + ' ' + (item.nama || '')).toLowerCase();
+
+            // 1. Prioritas Kata Kunci Spesifik Wilayah
+            // 1.1 Kaltim & IKN
+            if (text.includes('kaltim') || text.includes('kalimantan timur') || text.includes('balikpapan') || text.includes('stageof balikpapan') || text.includes('samarinda') || text.includes('berau') || text.includes('tanjung redeb') || text.includes('tanjung redep') || text.includes('redep') || text.includes('redeb') || text.includes('kalimarau') || text.includes('talisayan') || text.includes('biduk') || text.includes('derawan') || text.includes('maratua') || text.includes('sangkulirang') || text.includes('wahau') || text.includes('kutai') || text.includes('kukar') || text.includes('kubar') || text.includes('kutim') || text.includes('bontang') || text.includes('paser') || text.includes('penajam') || text.includes('ppu') || text.includes('ikn') || text.includes('mahakam') || text.includes('sanga-sanga') || text.includes('sangasanga') || text.includes('sangatta') || text.includes('tenggarong') || text.includes('tanah grogot') || text.includes('muara jawa') || text.includes('sepaku') || text.includes('samboja') || text.includes('trd')) {
+                return 'kaltim';
+            }
+
+            // 1.2 Kaltara
+            if (text.includes('kaltara') || text.includes('kalimantan utara') || text.includes('tarakan') || text.includes('bulungan') || text.includes('nunukan') || text.includes('malinau') || text.includes('tana tidung') || text.includes('tideng pale') || text.includes('sebatik') || text.includes('tanjung selor') || text.includes('tanjung palas') || text.includes('juwata') || text.includes('trk')) {
+                return 'kaltara';
+            }
+
+            // 1.3 Kalbar
+            if (text.includes('kalbar') || text.includes('kalimantan barat') || text.includes('pontianak') || text.includes('singkawang') || text.includes('sambas') || text.includes('mempawah') || text.includes('sanggau') || text.includes('ketapang') || text.includes('sintang') || text.includes('kapuas hulu') || text.includes('bengkayang') || text.includes('landak') || text.includes('sekadau') || text.includes('melawi') || text.includes('kayong') || text.includes('kubu raya') || text.includes('kuburaya') || text.includes('putussibau') || text.includes('pangsuma')) {
+                return 'kalbar';
+            }
+
+            // 1.4 Kalsel
+            if (text.includes('kalsel') || text.includes('kalimantan selatan') || text.includes('banjarmasin') || text.includes('banjarbaru') || text.includes('martapura') || text.includes('tanah laut') || text.includes('pelaihari') || text.includes('kotabaru') || text.includes('tanah bumbu') || text.includes('batulicin') || text.includes('barito kuala') || text.includes('marabahan') || text.includes('tapin') || text.includes('rantau') || text.includes('hulu sungai') || text.includes('kandangan') || text.includes('barabai') || text.includes('amuntai') || text.includes('tabalong') || text.includes('tanjung tabalong') || text.includes('kota tanjung') || text.includes('balangan') || text.includes('paringin') || text.includes('syamsudin noor') || text.includes('bjm')) {
+                return 'kalsel';
+            }
+
+            // 1.5 Kalteng
+            if (text.includes('kalteng') || text.includes('kalimantan tengah') || text.includes('palangka raya') || text.includes('palangkaraya') || text.includes('kotawaringin') || text.includes('pangkalan bun') || text.includes('sampit') || text.includes('kuala kapuas') || text.includes('barito selatan') || text.includes('buntok') || text.includes('barito utara') || text.includes('muara teweh') || text.includes('sukamara') || text.includes('lamandau') || text.includes('nanga bulik') || text.includes('seruyan') || text.includes('kuala pembuang') || text.includes('katingan') || text.includes('kasongan') || text.includes('pulang pisau') || text.includes('gunung mas') || text.includes('kuala kurun') || text.includes('barito timur') || text.includes('tamiang layang') || text.includes('murung raya') || text.includes('puruk cahu') || text.includes('iskandar') || text.includes('pky')) {
+                return 'kalteng';
+            }
+
+            // 2. Evaluasi Geografis Ketat (Bounding Coordinate Box)
+            if (!isNaN(lat) && !isNaN(lng)) {
+                // Kaltara: Bagian paling utara (lat >= 2.5 atau lat >= 1.5 jika lng > 116)
+                if (lat >= 2.5 || (lat >= 2.2 && lng >= 115.5 && lng <= 118.5)) {
+                    return 'kaltara';
+                }
+                // Kalbar: Bagian barat (lng <= 114.2)
+                if (lng <= 114.2 && lat >= -3.1 && lat <= 2.2) {
+                    return 'kalbar';
+                }
+                // Kalsel: Pojok tenggara (lat <= -1.1 dan lng >= 114.3)
+                if (lat <= -1.1 && lng >= 114.3 && lng <= 116.8) {
+                    return 'kalsel';
+                }
+                // Kalteng: Bagian tengah-barat
+                if (lng >= 111.0 && lng <= 115.6 && lat >= -3.6 && lat <= 0.8) {
+                    return 'kalteng';
+                }
+                // Kaltim: Bagian timur
+                if (lng >= 115.3 && lng <= 119.5 && lat >= -2.5 && lat <= 2.5) {
+                    return 'kaltim';
+                }
+            }
+
+            // Default
+            return 'kaltim';
+        }
+
+        // 4. Struktur Master Data Marker
+        var allMarkersList = [];
+        var allLatLngs = [];
+
+        // 4.1 Registrasi Seismograph Markers
         dataSeismographs.forEach(function(item) {
             var lat = parseFloat(item.latitude);
             var lng = parseFloat(item.longitude);
             if (!isNaN(lat) && !isNaN(lng)) {
                 allLatLngs.push([lat, lng]);
+                var region = detectRegion(item);
                 var popupContent = `
                     <div class="popup-header bg-warning text-dark">
                         <i class="fas fa-satellite-dish mr-1"></i> SEISMOGRAPH
@@ -560,16 +693,25 @@
                 var marker = L.marker([lat, lng], { icon: iconSeismo })
                     .bindTooltip(`<b>Seismograph:</b> ${item.nama_site} (${item.lokasi})`, { direction: 'top' })
                     .bindPopup(popupContent);
-                layerGroupSeismo.addLayer(marker);
+
+                allMarkersList.push({
+                    type: 'seismo',
+                    region: region,
+                    marker: marker,
+                    lat: lat,
+                    lng: lng,
+                    data: item
+                });
             }
         });
 
-        // 3.2 Accelerograph Markers
+        // 4.2 Registrasi Accelerograph Markers
         dataAccelerographs.forEach(function(item) {
             var lat = parseFloat(item.latitude);
             var lng = parseFloat(item.longitude);
             if (!isNaN(lat) && !isNaN(lng)) {
                 allLatLngs.push([lat, lng]);
+                var region = detectRegion(item);
                 var popupContent = `
                     <div class="popup-header bg-success text-white">
                         <i class="fas fa-wave-square mr-1"></i> ACCELEROGRAPH NON COLOCATED
@@ -598,16 +740,25 @@
                 var marker = L.marker([lat, lng], { icon: iconAcc })
                     .bindTooltip(`<b>Accelerograph:</b> ${item.nama} (${item.lokasi})`, { direction: 'top' })
                     .bindPopup(popupContent);
-                layerGroupAcc.addLayer(marker);
+
+                allMarkersList.push({
+                    type: 'acc',
+                    region: region,
+                    marker: marker,
+                    lat: lat,
+                    lng: lng,
+                    data: item
+                });
             }
         });
 
-        // 3.3 Lightning Detector Markers
+        // 4.3 Registrasi Lightning Detector Markers
         dataLightningDetectors.forEach(function(item) {
             var lat = parseFloat(item.latitude);
             var lng = parseFloat(item.longitude);
             if (!isNaN(lat) && !isNaN(lng)) {
                 allLatLngs.push([lat, lng]);
+                var region = detectRegion(item);
                 var popupContent = `
                     <div class="popup-header text-white" style="background: #0288d1;">
                         <i class="fas fa-bolt-lightning mr-1"></i> LIGHTNING DETECTOR (LD)
@@ -632,16 +783,25 @@
                 var marker = L.marker([lat, lng], { icon: iconLd })
                     .bindTooltip(`<b>Lightning Detector:</b> ${item.nama_site} (${item.lokasi})`, { direction: 'top' })
                     .bindPopup(popupContent);
-                layerGroupLd.addLayer(marker);
+
+                allMarkersList.push({
+                    type: 'ld',
+                    region: region,
+                    marker: marker,
+                    lat: lat,
+                    lng: lng,
+                    data: item
+                });
             }
         });
 
-        // 3.4 WRS-NG Markers
+        // 4.4 Registrasi WRS-NG Markers
         dataWrsNgs.forEach(function(item) {
             var lat = parseFloat(item.latitude);
             var lng = parseFloat(item.longitude);
             if (!isNaN(lat) && !isNaN(lng)) {
                 allLatLngs.push([lat, lng]);
+                var region = detectRegion(item);
                 var popupContent = `
                     <div class="popup-header bg-warning text-dark">
                         <i class="fas fa-tower-broadcast mr-1"></i> WARNING RECEIVER SYSTEM (WRS NG)
@@ -662,16 +822,25 @@
                 var marker = L.marker([lat, lng], { icon: iconWrs })
                     .bindTooltip(`<b>WRS NG:</b> ${item.nama_site}`, { direction: 'top' })
                     .bindPopup(popupContent);
-                layerGroupWrs.addLayer(marker);
+
+                allMarkersList.push({
+                    type: 'wrs',
+                    region: region,
+                    marker: marker,
+                    lat: lat,
+                    lng: lng,
+                    data: item
+                });
             }
         });
 
-        // 3.5 Magnet Prekursor Markers
+        // 4.5 Registrasi Magnet Prekursor Markers
         dataMagnetPrekursors.forEach(function(item) {
             var lat = parseFloat(item.latitude);
             var lng = parseFloat(item.longitude);
             if (!isNaN(lat) && !isNaN(lng)) {
                 allLatLngs.push([lat, lng]);
+                var region = detectRegion(item);
                 var popupContent = `
                     <div class="popup-header bg-danger text-white">
                         <i class="fas fa-compass mr-1"></i> MAGNET PREKURSOR
@@ -700,103 +869,161 @@
                 var marker = L.marker([lat, lng], { icon: iconMagnet })
                     .bindTooltip(`<b>Magnet Prekursor:</b> ${item.nama_site} (${item.lokasi})`, { direction: 'top' })
                     .bindPopup(popupContent);
-                layerGroupMagnet.addLayer(marker);
+
+                allMarkersList.push({
+                    type: 'magnet',
+                    region: region,
+                    marker: marker,
+                    lat: lat,
+                    lng: lng,
+                    data: item
+                });
             }
         });
 
-        // Add all layer groups to map by default
-        layerGroupSeismo.addTo(map);
-        layerGroupAcc.addTo(map);
-        layerGroupLd.addTo(map);
-        layerGroupWrs.addTo(map);
-        layerGroupMagnet.addTo(map);
-
-        // Auto fit all points
-        if (allLatLngs.length > 0) {
-            map.fitBounds(L.latLngBounds(allLatLngs), { padding: [40, 40] });
-        }
-
-        // 4. Interactive Layer Checkboxes Toggle (From Top Bar & Synchronize Right Legend)
-        $('.layer-filter-checkbox').on('change', function() {
-            var layerName = $(this).data('layer');
-            var isChecked = $(this).is(':checked');
-
-            if (layerName === 'seismo') {
-                if (isChecked) {
-                    map.addLayer(layerGroupSeismo);
-                    $('#legendRowSeismo').show();
-                } else {
-                    map.removeLayer(layerGroupSeismo);
-                    $('#legendRowSeismo').hide();
-                }
-            } else if (layerName === 'acc') {
-                if (isChecked) {
-                    map.addLayer(layerGroupAcc);
-                    $('#legendRowAcc').show();
-                } else {
-                    map.removeLayer(layerGroupAcc);
-                    $('#legendRowAcc').hide();
-                }
-            } else if (layerName === 'ld') {
-                if (isChecked) {
-                    map.addLayer(layerGroupLd);
-                    $('#legendRowLd').show();
-                } else {
-                    map.removeLayer(layerGroupLd);
-                    $('#legendRowLd').hide();
-                }
-            } else if (layerName === 'wrs') {
-                if (isChecked) {
-                    map.addLayer(layerGroupWrs);
-                    $('#legendRowWrs').show();
-                } else {
-                    map.removeLayer(layerGroupWrs);
-                    $('#legendRowWrs').hide();
-                }
-            } else if (layerName === 'magnet') {
-                if (isChecked) {
-                    map.addLayer(layerGroupMagnet);
-                    $('#legendRowMagnet').show();
-                } else {
-                    map.removeLayer(layerGroupMagnet);
-                    $('#legendRowMagnet').hide();
-                }
-            }
-        });
-
-        // 5. Region Filters
+        // 5. Region Bounds Mapping
         var currentRegionCode = 'all';
         var regionBounds = {
             'all': [[-4.5, 108.5], [4.5, 119.5]],
             'kalbar': [[-3.1, 108.5], [2.1, 114.2]],
-            'kaltim': [[-2.5, 115.5], [2.6, 119.3]],
+            'kaltim': [[-2.5, 115.3], [2.6, 119.5]],
             'kaltara': [[1.0, 115.2], [4.5, 118.0]],
             'kalsel': [[-4.2, 114.2], [-1.2, 116.6]],
             'kalteng': [[-3.6, 111.0], [0.8, 116.0]]
         };
 
+        // 6. Master Filter Engine (Menggabungkan Wilayah & Checkbox Jenis Alat Aktif)
+        function applyMapFilters() {
+            var targetRegion = currentRegionCode;
+            var showSeismo = $('#filterSeismo').is(':checked');
+            var showAcc = $('#filterAcc').is(':checked');
+            var showLd = $('#filterLd').is(':checked');
+            var showWrs = $('#filterWrs').is(':checked');
+            var showMagnet = $('#filterMagnet').is(':checked');
+
+            // Kosongkan layer grup peta
+            layerGroupSeismo.clearLayers();
+            layerGroupAcc.clearLayers();
+            layerGroupLd.clearLayers();
+            layerGroupWrs.clearLayers();
+            layerGroupMagnet.clearLayers();
+
+            var countSeismo = 0;
+            var countAcc = 0;
+            var countLd = 0;
+            var countWrs = 0;
+            var countMagnet = 0;
+            var activeFilteredLatLngs = [];
+
+            // Evaluasi setiap marker
+            allMarkersList.forEach(function(item) {
+                var matchesRegion = (targetRegion === 'all' || item.region === targetRegion);
+
+                if (matchesRegion) {
+                    // Hitung total peralatan di region tersebut
+                    if (item.type === 'seismo') {
+                        countSeismo++;
+                        if (showSeismo) {
+                            layerGroupSeismo.addLayer(item.marker);
+                            activeFilteredLatLngs.push([item.lat, item.lng]);
+                        }
+                    } else if (item.type === 'acc') {
+                        countAcc++;
+                        if (showAcc) {
+                            layerGroupAcc.addLayer(item.marker);
+                            activeFilteredLatLngs.push([item.lat, item.lng]);
+                        }
+                    } else if (item.type === 'ld') {
+                        countLd++;
+                        if (showLd) {
+                            layerGroupLd.addLayer(item.marker);
+                            activeFilteredLatLngs.push([item.lat, item.lng]);
+                        }
+                    } else if (item.type === 'wrs') {
+                        countWrs++;
+                        if (showWrs) {
+                            layerGroupWrs.addLayer(item.marker);
+                            activeFilteredLatLngs.push([item.lat, item.lng]);
+                        }
+                    } else if (item.type === 'magnet') {
+                        countMagnet++;
+                        if (showMagnet) {
+                            layerGroupMagnet.addLayer(item.marker);
+                            activeFilteredLatLngs.push([item.lat, item.lng]);
+                        }
+                    }
+                }
+            });
+
+            // Update Counter di Badge Top Filter
+            $('#badgeCountSeismo').text(`Seismograph (${countSeismo})`);
+            $('#badgeCountAcc').text(`Accelerograph (${countAcc})`);
+            $('#badgeCountLd').text(`Lightning Detector (${countLd})`);
+            $('#badgeCountWrs').text(`WRS NG (${countWrs})`);
+            $('#badgeCountMagnet').text(`Magnet Prekursor (${countMagnet})`);
+
+            // Update Counter di Tabel Legenda GIS Sidebar
+            $('#legendCountSeismo').text(countSeismo);
+            $('#legendCountAcc').text(countAcc);
+            $('#legendCountLd').text(countLd);
+            $('#legendCountWrs').text(countWrs);
+            $('#legendCountMagnet').text(countMagnet);
+
+            // Tampilkan / Sembunyikan baris legenda berdasarkan checkbox yang aktif
+            if (showSeismo) $('#legendRowSeismo').show(); else $('#legendRowSeismo').hide();
+            if (showAcc) $('#legendRowAcc').show(); else $('#legendRowAcc').hide();
+            if (showLd) $('#legendRowLd').show(); else $('#legendRowLd').hide();
+            if (showWrs) $('#legendRowWrs').show(); else $('#legendRowWrs').hide();
+            if (showMagnet) $('#legendRowMagnet').show(); else $('#legendRowMagnet').hide();
+
+            return activeFilteredLatLngs;
+        }
+
+        // Jalankan inisialisasi filter pertama kali
+        applyMapFilters();
+        if (allLatLngs.length > 0) {
+            map.fitBounds(L.latLngBounds(allLatLngs), { padding: [40, 40] });
+        }
+
+        // 7. Interactive Event Listeners
+        // 7.1 Filter Wilayah Click Handler
         function filterRegion(regionKey, btnElement, regionTitleText) {
             currentRegionCode = regionKey;
             $('.btn-region').removeClass('active');
             $(btnElement).addClass('active');
             $('#regionTitle').text(regionTitleText);
 
+            var activePoints = applyMapFilters();
+
             if (regionBounds[regionKey]) {
                 map.flyToBounds(regionBounds[regionKey], {
                     padding: [30, 30],
                     duration: 1.2
                 });
+            } else if (activePoints.length > 0) {
+                map.flyToBounds(L.latLngBounds(activePoints), {
+                    padding: [40, 40],
+                    duration: 1.2
+                });
             }
         }
 
+        // 7.2 Checkbox Tampilan Alat Handler
+        $('.layer-filter-checkbox').on('change', function() {
+            applyMapFilters();
+        });
+
+        // 7.3 Reset Map View Handler
         function resetMapView() {
             currentRegionCode = 'all';
             $('.btn-region').removeClass('active');
             $('.btn-region').first().addClass('active');
             $('#regionTitle').text('Wilayah Kalimantan & Sekitarnya');
 
-            // re-enable all layer checkboxes and show all legend rows
-            $('.layer-filter-checkbox').prop('checked', true).trigger('change');
+            // Centang ulang semua checkbox
+            $('.layer-filter-checkbox').prop('checked', true);
+
+            applyMapFilters();
 
             if (allLatLngs.length > 0) {
                 map.flyToBounds(L.latLngBounds(allLatLngs), { padding: [40, 40], duration: 1.0 });
@@ -805,7 +1032,7 @@
             }
         }
 
-        // 6. Download Map as PNG Image using html2canvas
+        // 8. Download Map as PNG Image using html2canvas
         function downloadMapImage() {
             var btn = $('#btnDownloadMap');
             var originalHtml = btn.html();
@@ -813,17 +1040,15 @@
 
             var mapContainer = document.getElementById('gisMapContainer');
 
-            // Set temporary styles for high-fidelity export
             var opt = {
                 useCORS: true,
                 allowTaint: true,
-                scale: 2, // 2x resolution for crisp graphics
+                scale: 2,
                 logging: false,
                 backgroundColor: '#ffffff'
             };
 
             html2canvas(mapContainer, opt).then(function(canvas) {
-                // Generate Timestamp YYYYMMDD_HHMMSS
                 var now = new Date();
                 var pad = function(n) { return n < 10 ? '0' + n : n; };
                 var timestamp = now.getFullYear() +
@@ -836,7 +1061,6 @@
                 var regionName = currentRegionCode.toUpperCase();
                 var filename = 'Peta_Sebaran_Aloptama_BMKG_' + regionName + '_' + timestamp + '.png';
 
-                // Trigger browser download
                 var link = document.createElement('a');
                 link.download = filename;
                 link.href = canvas.toDataURL('image/png');
@@ -844,7 +1068,6 @@
                 link.click();
                 document.body.removeChild(link);
 
-                // Restore button
                 btn.prop('disabled', false).html(originalHtml);
             }).catch(function(error) {
                 console.error('Download map error:', error);
